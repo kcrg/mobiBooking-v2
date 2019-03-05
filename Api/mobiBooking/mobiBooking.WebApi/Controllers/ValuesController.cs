@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using mobiBooking.Data;
 using mobiBooking.Data.Model;
+using mobiBooking.Repository.Base;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,17 +11,22 @@ namespace mobiBooking.WebApi.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private IRepositoryWrapper _repoWrapper;
+
+        public ValuesController(IRepositoryWrapper repoWrapper)
+        {
+            _repoWrapper = repoWrapper;
+        }
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<Room>> Get()
         {
 
-            using (MobiBookingDBContext db = new MobiBookingDBContext())
-            {
-                return db.Rooms.ToList();
 
+            return Ok(_repoWrapper.Room.FindAll());     // db.Rooms.ToList();
                // return new string[] { "value1", "value2" };
-            }
+            
         }
 
         // GET api/values/5
