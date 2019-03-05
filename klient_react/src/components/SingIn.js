@@ -17,7 +17,7 @@ export default class SingIn extends Component {
 
     handleSubmit = (e) =>{
         e.preventDefault();
-        console.log(this.state);
+        this.props.addPass(this.state)
     }
   render() {
     return (

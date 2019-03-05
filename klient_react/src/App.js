@@ -8,11 +8,20 @@ class App extends Component {
     password: ''
   }
 
+  addPass = (pasy) =>{
+    let email = pasy.email;
+    let password = pasy.password
+   this.setState({
+     email: email,
+     password: password
+   })
+  }
+
   render() {
     return (
       <BrowserRouter>
         <div className="App">
-          <SignIn />
+          <SignIn addPass={this.addPass} />
         </div>
       </BrowserRouter>
     );
