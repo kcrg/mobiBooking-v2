@@ -1,0 +1,31 @@
+nav{
+    width: calc(15% - 2px);
+    height: 100%;
+    border-right: 2px solid #ddd;
+    float: left;
+}
+
+img{
+    width: 50%;
+    display: inline-block;
+}
+
+nav h1{
+    display: inline-block;
+    width: 40%;
+    font-size: 15px;
+    position: relative;
+    top: -3%;
+}
+nav ul{
+    font-size: 20px;
+    list-style-type: none;
+}
+
+.outside:before {content: "•"; color: #00b7ce;
+    display: inline-block; width: 1em;
+    margin-left: -1em}
+
+nav ul li{
+    margin-top: 10%;
+}

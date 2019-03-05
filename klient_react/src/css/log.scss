@@ -1,0 +1,45 @@
+#log{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 80%;
+    height: 80%;
+    background: #fff;
+    margin-top: 5%;
+    border-radius: 5px;
+}
+
+img{
+    width: 35%;
+}
+
+body{
+    background: #8d1be5;
+}
+
+label{
+    display: block;
+    font-family: Calibri;
+    font-size: 40px;
+}
+
+input{
+    display: inline-block;
+    width: 40%;
+    font-size: 30px;
+    border-radius: 5px;
+}
+
+#mail{
+    margin-top: -8%;
+}
+
+input[type="submit"]{
+    margin-top: 5%;
+    background: #00b7ce;
+    padding: 5px;
+    color: #fff;
+    width: 25%;
+}
+
+
