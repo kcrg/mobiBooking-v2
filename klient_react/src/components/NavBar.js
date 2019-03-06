@@ -3,11 +3,18 @@ import logo from '../img/mobitouch.png';
 import '../css/NavBar.scss'
 
 export default class NavBar extends Component {
+
+  componentDidMount(){
+    document.body.style.backgroundColor = "#fff";
+  }
+
   render() {
     return (
       <nav>
           <img src={logo} alt="logo"></img>
-          <h1>MobiReservation <br/> System</h1>
+          <div id="logo-t">
+            <h1>MobiReservation <br/> System</h1>
+          </div>
 
           <ul>
               <li className="outside">Dashboard</li>
