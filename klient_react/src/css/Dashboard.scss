@@ -33,6 +33,7 @@
     text-align: center;
     font-size: 26px;
     margin: 0;
+    padding-top: 15%;
 }
 
 .meetings button{
@@ -42,11 +43,29 @@
     background: #fff;
     cursor: pointer;
     text-align: center;
-    font-size: 24px;
+    font-size: 48px;
     width: 100%;
     height: 100%;
     background: #00b7ce;
     border-radius: 5px;
+    color: #fff;
+    font-family: Calibri;
+}
+
+.meetings button:after{
+    content: "";
+    clear: both;
+}
+
+.rooms{
+    color: #222;
+    background: #fff;
+    border-radius: 5px;
+    float: left;
+    height: 35%;
+    width: 25%;
+    margin-top: 5%;
+    margin-left: 5%;
 }
 
 .data{
@@ -65,10 +84,37 @@
 .data span{
     font-weight: bold;
     display: inline-block;
-    color:  #8d1be5;
+    color:  #00b7ce;
     padding-top: 10%;
 }
 
 h3{
     padding-left: 5%;
+}
+
+.numbers{
+    display: inline-block;
+    width: 45%;
+    height: 40%;
+    margin-left: 5%;
+}
+
+.numbers p{
+    font-size: 22px;
+    padding-top: 10%;
+    margin: 0;
+}
+
+.numbers span{
+    font-weight: bold;
+    display: inline-block;
+    color:  #00b7ce;
+    padding-top: 10%;
+    font-size: 48px;
+    padding-left: 20%;
+}
+
+.data-s{
+    font-size: 20px;
+    padding-left: 43%;
 }

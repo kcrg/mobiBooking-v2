@@ -10,12 +10,17 @@ class App extends Component {
 
   state = {
     email: '',
-    password: ''
+    password: '',
+    res: null
   }
+
 
   sendRequest = () =>{
     axios.post('http://192.168.10.240:51290/api/Users/authenticate', this.state)
   .then(res => {
+    this.setState({
+      res: res
+    })
     return res;
   });
   }
