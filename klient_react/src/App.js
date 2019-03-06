@@ -4,41 +4,17 @@ import SignIn from './components/SingIn';
 import NavBar from './components/NavBar';
 import Logout from './components/Logout';
 import Dashboard from './components/Dashboard';
-import axios from 'axios';
-
 class App extends Component {
 
   state = {
-    dane: {
-    },
     res: null
-  }
-
-
-  sendRequest = () =>{
-    axios.post('http://192.168.10.240:51290/api/Users/authenticate', this.state.dane)
-  .then(res => {
-    console.log(res);
-    this.setState({
-      res: res.data
-    })
-    return res;
-  }).catch(res =>{
-  });
-  }
-
-  addPass = (pasy) =>{
-    let dane = pasy
-    this.setState({
-      dane: dane
-    }, (this.sendRequest))
   }
   
   render() {
     return (
       <BrowserRouter>
         <div className="App">
-          <Route exact path="/" render={(props) =><SignIn {...props} addPass={this.addPass}/>}/>
+          <Route exact path="/" component={SignIn}/>
           <Route path="/home" component={NavBar}/>
           <Route path="/home" component={Logout}/>
           <Route path="/home" component={Dashboard}/>
