@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using mobiBooking.Data;
 using mobiBooking.Data.Model;
 using mobiBooking.Repository.Base;
@@ -7,6 +9,8 @@ using System.Linq;
 
 namespace mobiBooking.WebApi.Controllers
 {
+    [EnableCors("allowAll")]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
@@ -24,8 +28,7 @@ namespace mobiBooking.WebApi.Controllers
         {
 
 
-            return Ok(_repoWrapper.Room.FindAll());     // db.Rooms.ToList();
-               // return new string[] { "value1", "value2" };
+            return Ok(_repoWrapper.Room.FindAll());   
             
         }
 
@@ -33,13 +36,15 @@ namespace mobiBooking.WebApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
-            return "value";
+            return Ok(_repoWrapper.Room.Find(id)); 
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody]Room roomParam)
         {
+            _repoWrapper.Room.Create(roomParam);
+            _repoWrapper.Room.Save();
         }
 
         // PUT api/values/5

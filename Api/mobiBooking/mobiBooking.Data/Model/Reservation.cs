@@ -12,12 +12,6 @@ namespace mobiBooking.Data.Model
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
         public string  Title { get; set; }
-        public ReservationStatus Status { get; set; }
-    }
-
-    public enum ReservationStatus
-    {
-        Accepted, 
-        ToAccept
+        public int Status { get; set; }
     }
 }

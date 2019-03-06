@@ -19,6 +19,11 @@ namespace mobiBooking.Repository.Base
             return DBContext.Set<T>();
         }
 
+        public T Find(int id)
+        {
+            return DBContext.Set<T>().Find(id);
+        }
+
         public void Create(T entity)
         {
             DBContext.Set<T>().Add(entity);
