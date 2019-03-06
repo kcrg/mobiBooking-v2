@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import '../css/SignIn.scss';
 import logo from '../img/mobitouch.png';
+import { Link } from 'react-router-dom';
 
 export default class SingIn extends Component {
 
     state = {
-        email: '',
-        password: ''
+        Email: '',
+        Password: ''
     }
 
     componentDidMount(){
@@ -34,7 +35,7 @@ export default class SingIn extends Component {
               <label htmlFor="password" id="pass">Hasło:</label>
               <input type="password" id="password" onChange={this.handleChange}></input><br/>
 
-              <input type="submit" value="Zaloguj się"></input>
+              <Link to="/home"><input type="submit" value="Zaloguj się"></input></Link>
           </form>
         </div>
     )

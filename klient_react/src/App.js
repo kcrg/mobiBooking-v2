@@ -9,31 +9,30 @@ import axios from 'axios';
 class App extends Component {
 
   state = {
-    email: '',
-    password: '',
+    dane: {
+    },
     res: null
   }
 
 
   sendRequest = () =>{
-    axios.post('http://192.168.10.240:51290/api/Users/authenticate', this.state)
+    axios.post('http://192.168.10.240:51290/api/Users/authenticate', this.state.dane)
   .then(res => {
+    console.log(res);
     this.setState({
-      res: res
+      res: res.data
     })
     return res;
+  }).catch(res =>{
   });
   }
 
   addPass = (pasy) =>{
-    let email = pasy.email;
-    let password = pasy.password
+    let dane = pasy
     this.setState({
-      email: email,
-      password: password
+      dane: dane
     }, (this.sendRequest))
   }
-
   
   render() {
     return (

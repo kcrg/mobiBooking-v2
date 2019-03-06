@@ -5,8 +5,14 @@ nav{
     float: left;
 }
 
+#logo-t{
+    display: inline-block;
+    width: 45%;
+    position: relative;
+    top: -2%;
+}
 img{
-    width: 50%;
+    width: 45%;
     display: inline-block;
 }
 
@@ -15,7 +21,7 @@ nav h1{
     width: 40%;
     font-size: 15px;
     position: relative;
-    top: -4%;
+    top: 50%;
 }
 nav ul{
     font-size: 20px;
