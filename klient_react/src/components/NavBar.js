@@ -3,6 +3,11 @@ import logo from '../img/mobitouch.png';
 import '../css/NavBar.scss'
 
 export default class NavBar extends Component {
+
+  componentDidMount(){
+    document.body.style.backgroundColor = "#fff";
+  }
+
   render() {
     return (
       <nav>

@@ -1,21 +1,74 @@
-#options{
-    float: left;
+#content{
     width: 85%;
-    height: 10%;
-    background: #00b7ce;
+    height: 90%;
+    background: #8d1be5;
+    float: left;
+    border-top-left-radius: 5px;
 }
 
-button {
+
+.messeges{
+    color: #222;
+    background: #fff;
+    border-radius: 5px;
+    float: left;
+    height: 35%;
+    width: 25%;
+    margin-top: 5%;
+    margin-left: 5%;
+}
+
+.meetings{
+    color: #222;
+    background: #fff;
+    border-radius: 5px;
+    float: left;
+    height: 35%;
+    width: 25%;
+    margin-top: 5%;
+    margin-left: 5%;
+}
+
+.meetings p{
+    text-align: center;
+    font-size: 26px;
+    margin: 0;
+}
+
+.meetings button{
     border: none;
     margin: 0;
     text-decoration: none;
-    background: #00b7ce;
-    color: #222;
+    background: #fff;
     cursor: pointer;
     text-align: center;
-    float: right;
     font-size: 24px;
-    position: relative;
-    top: 35%;
-    right: 2%;
+    width: 100%;
+    height: 100%;
+    background: #00b7ce;
+    border-radius: 5px;
+}
+
+.data{
+    display: inline-block;
+    width: 45%;
+    height: 40%;
+    margin-left: 5%;
+}
+
+.data p{
+    font-size: 20px;
+    padding-top: 10%;
+    margin: 0;
+}
+
+.data span{
+    font-weight: bold;
+    display: inline-block;
+    color:  #8d1be5;
+    padding-top: 10%;
+}
+
+h3{
+    padding-left: 5%;
 }
