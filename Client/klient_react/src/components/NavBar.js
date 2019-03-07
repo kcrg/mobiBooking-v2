@@ -13,7 +13,6 @@ export default class NavBar extends Component {
       <nav>
           <img src={logo} alt="logo"></img>
           <h1>MobiReservation <br/> System</h1>
-
           <ul>
               <li className="outside">Dashboard</li>
               <li className="outside">Rezerwacja Sali
