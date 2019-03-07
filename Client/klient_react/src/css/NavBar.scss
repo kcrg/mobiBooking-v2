@@ -5,26 +5,22 @@ nav{
     float: left;
 }
 
-#logo-t{
-    display: inline-block;
-    width: 45%;
-    position: relative;
-    top: -2%;
-}
+
 img{
-    width: 45%;
+    width: 50%;
     display: inline-block;
 }
 
 nav h1{
     display: inline-block;
     width: 40%;
-    font-size: 15px;
+    font-size: 0.9vw;
+    margin-top: 0;
     position: relative;
-    top: 50%;
+    top: -2%;
 }
 nav ul{
-    font-size: 20px;
+    font-size: 3vh;
     list-style-type: none;
 }
 

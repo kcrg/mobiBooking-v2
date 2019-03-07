@@ -12,9 +12,7 @@ export default class NavBar extends Component {
     return (
       <nav>
           <img src={logo} alt="logo"></img>
-          <div id="logo-t">
-            <h1>MobiReservation <br/> System</h1>
-          </div>
+          <h1>MobiReservation <br/> System</h1>
 
           <ul>
               <li className="outside">Dashboard</li>
