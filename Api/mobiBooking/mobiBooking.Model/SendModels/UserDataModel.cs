@@ -8,8 +8,8 @@ namespace mobiBooking.Model.SendModels
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
-        public int UserType { get; set; }
-        public int UserStatus { get; set; }
+        public int UserTypeId { get; set; }
+        public int UserStatusId { get; set; }
         public string Token { get; set; }
     }
 }

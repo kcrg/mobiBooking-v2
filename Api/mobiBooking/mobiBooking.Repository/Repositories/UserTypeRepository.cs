@@ -1,6 +1,5 @@
 ﻿using mobiBooking.Data;
-using mobiBooking.Data.Model;
-using mobiBooking.Data.Model.Rooms;
+using mobiBooking.Data.Model.Users;
 using mobiBooking.Repository.Base;
 using mobiBooking.Repository.Interfaces;
 using System;
@@ -9,9 +8,9 @@ using System.Text;
 
 namespace mobiBooking.Repository.Repositories
 {
-    public class RoomRepository : RepositoryBase<Room>, IRoomRepository
+    public class UserTypeRepository : RepositoryBase<UserType>, IUserTypeRepository
     {
-        public RoomRepository(MobiBookingDBContext DBContext) : base(DBContext)
+        public UserTypeRepository(MobiBookingDBContext DBContext) : base(DBContext)
         {
         }
     }

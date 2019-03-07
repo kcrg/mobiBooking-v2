@@ -1,72 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using mobiBooking.Model.Models;
+using mobiBooking.Model.RecivedModels;
 using mobiBooking.Model.SendModels;
 using mobiBooking.Service.Interfaces;
+using mobiBooking.WebApi.Base;
 
 namespace mobiBooking.WebApi.Controllers
 {
-    [Authorize]
+
     [Route("api/[controller]")]
-    [ApiController]
-    public class UsersController : ControllerBase
+    public class UsersController : ApiControllerBase
     {
         private IUsersService _usersService;
-        public UsersController(IUsersService usersService)
+        public UsersController(IUsersService usersService, IAuthenticateService authenticateService) : base(authenticateService)
         {
             _usersService = usersService;
         }
 
-        [AllowAnonymous]
-        [HttpPost("authenticate")]
-        public ActionResult<UserDataModel> Authenticate([FromBody]AuthenticateUserModel userParam)
-        {
-            var user = _usersService.Authenticate(userParam.Email, userParam.Password);
-
-            if (user == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
-
-            return Ok(user);
-        }
-
-
         // GET: api/Users
-        [AllowAnonymous]
         [HttpGet]
-        public IEnumerable<UserDataModel> Get()
+        public ActionResult<IEnumerable<UserDataModel>> Get()
         {
-            return _usersService.GetAll();
+            return Ok(_usersService.GetAll());
         }
 
         // GET: api/Users/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public ActionResult<UserDataModel> Get(int id)
         {
-            return "value";
+            return Ok(_usersService.Get(id));
         }
 
         // POST: api/Users
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult Post([FromBody] CreateUserModel value)
         {
+            if (!HasPermission(ADD_USERS, out ActionResult result))
+                return result;
+
+            _usersService.Create(value);
+            return Ok();
         }
 
         // PUT: api/Users/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult Put(int id, [FromBody] CreateUserModel value)
         {
+            _usersService.Update(id, value);
+            return Ok();
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int id)
         {
+            _usersService.Delete(id);
+            return Ok();
         }
     }
 }

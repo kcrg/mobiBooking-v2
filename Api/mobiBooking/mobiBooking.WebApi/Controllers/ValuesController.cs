@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using mobiBooking.Data;
 using mobiBooking.Data.Model;
+using mobiBooking.Data.Model.Rooms;
 using mobiBooking.Repository.Base;
 using System.Collections.Generic;
 using System.Linq;

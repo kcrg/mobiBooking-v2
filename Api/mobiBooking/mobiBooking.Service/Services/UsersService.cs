@@ -1,67 +1,47 @@
-﻿using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using mobiBooking.Model.Models;
+﻿using mobiBooking.Data.Model.Users;
+using mobiBooking.Model.RecivedModels;
 using mobiBooking.Model.SendModels;
 using mobiBooking.Repository.Base;
 using mobiBooking.Service.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Security.Claims;
-using System.Text;
 
 namespace mobiBooking.Service.Services
 {
     public class UsersService : IUsersService
     {
-        private readonly AppSettings _appSettings;
         private readonly IRepositoryWrapper _repositoryWrapper;
 
-        public UsersService(IOptions<AppSettings> appSettings, IRepositoryWrapper repositoryWrapper)
+        public UsersService(IRepositoryWrapper repositoryWrapper)
         {
-            _appSettings = appSettings.Value;
             _repositoryWrapper = repositoryWrapper;
         }
 
-        public UserDataModel Authenticate(string email, string password)
+        public void Create(CreateUserModel value)
         {
-            var user = _repositoryWrapper.User.FindByEmailAndPassword(email, password);
-
-            // return null if user not found
-            if (user == null)
-                return null;
-
-            // authentication successful so generate jwt token
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
+            _repositoryWrapper.User.Create(new User
             {
-                Subject = new ClaimsIdentity(new Claim[] 
-                {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            user.Token = tokenHandler.WriteToken(token);
+                Email = value.Email,
+                Name = value.Name,
+                Password = value.Password,
+                Surname = value.Surname,
+                UserName = value.UserName,
+                UserStatusId = value.UserStatusId,
+                UserTypeId = value.UserTypeId
+            });
 
-            UserDataModel userDataModel = new UserDataModel
-            {
-                Email = user.Email,
-                Name = user.Name,
-                Surname = user.Surname,
-                Token = user.Token,
-                UserName = user.UserName,
-                UserStatus = user.UserStatus, 
-                UserType = user.UserType
-            };
-
-            _repositoryWrapper.User.Update(user);
             _repositoryWrapper.User.Save();
+        }
 
-            return userDataModel;
+        public void Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public UserDataModel Get(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public IEnumerable<UserDataModel> GetAll()
@@ -72,15 +52,20 @@ namespace mobiBooking.Service.Services
                 users.Add(new UserDataModel
                 {
                     Email = user.Email,
-                    Name = user.Name, 
+                    Name = user.Name,
                     Surname = user.Surname,
                     Token = user.Token,
-                    UserStatus = user.UserStatus,
+                    UserStatusId = user.UserStatusId,
                     UserName = user.UserName,
-                    UserType = user.UserType
+                    UserTypeId = user.UserTypeId
                 });
             });
             return users;
+        }
+
+        public void Update(int id, CreateUserModel value)
+        {
+            throw new NotImplementedException();
         }
     }
 }

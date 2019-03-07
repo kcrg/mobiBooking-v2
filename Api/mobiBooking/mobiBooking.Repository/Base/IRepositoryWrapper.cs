@@ -11,5 +11,9 @@ namespace mobiBooking.Repository.Base
         IRoomRepository Room { get; }
         IUserRepository User { get; }
         IUsersToReservationsRepository UsersToReservations { get; }
+        IReservationStatusRepository ReservationStatus { get; }
+        IRoleRepository Role { get; }
+        IUserStatusRepository UserStatus { get; }
+        IUserTypeRepository UserType { get; }
     }
 }

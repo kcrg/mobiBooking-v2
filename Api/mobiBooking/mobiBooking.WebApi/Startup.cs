@@ -78,6 +78,7 @@ namespace mobiBooking.WebApi
             services.AddDbContext<MobiBookingDBContext>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<IAuthenticateService, AuthenticateService>();
 
             services.AddSwaggerGen(c =>
             {
@@ -109,12 +110,6 @@ namespace mobiBooking.WebApi
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
-
-            // global cors policy
-            app.UseCors(x => x
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
 
             app.UseAuthentication();
 

@@ -1,5 +1,6 @@
 ﻿using mobiBooking.Data;
 using mobiBooking.Data.Model;
+using mobiBooking.Data.Model.Reservation;
 using mobiBooking.Repository.Base;
 using mobiBooking.Repository.Interfaces;
 using System;

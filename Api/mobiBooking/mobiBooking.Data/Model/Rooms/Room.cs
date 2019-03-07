@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace mobiBooking.Data.Model
+namespace mobiBooking.Data.Model.Rooms
 { 
     public class Room
     {
