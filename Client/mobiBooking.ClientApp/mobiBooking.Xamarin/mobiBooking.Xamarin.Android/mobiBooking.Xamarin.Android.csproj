@@ -63,6 +63,12 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MvvmCross">
+      <Version>6.2.3</Version>
+    </PackageReference>
+    <PackageReference Include="MvvmCross.Forms">
+      <Version>6.2.3</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="3.6.0.220655" />
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.1" />
@@ -77,6 +83,7 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Setup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -109,6 +116,10 @@
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\mobiBooking.Core\mobiBooking.Core.csproj">
+      <Project>{3b45ed3d-c227-4ac3-948e-a3fa2bbb37ea}</Project>
+      <Name>mobiBooking.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\mobiBooking.Xamarin\mobiBooking.XamarinForms.csproj">
       <Project>{6A9BB312-4960-4AFD-89CD-2072062D7C64}</Project>
       <Name>mobiBooking.XamarinForms</Name>

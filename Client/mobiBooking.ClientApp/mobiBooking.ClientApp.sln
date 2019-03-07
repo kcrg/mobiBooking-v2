@@ -4,14 +4,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.28705.295
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mobiBooking.Xamarin.Android", "mobiBooking.Xamarin\mobiBooking.Xamarin.Android\mobiBooking.Xamarin.Android.csproj", "{9B3DA40B-C6AB-4DAD-95DA-26C365BCA9AB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3B45ED3D-C227-4AC3-948E-A3FA2BBB37EA} = {3B45ED3D-C227-4AC3-948E-A3FA2BBB37EA}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mobiBooking.Xamarin.iOS", "mobiBooking.Xamarin\mobiBooking.Xamarin.iOS\mobiBooking.Xamarin.iOS.csproj", "{F7F7087E-1088-43C3-9676-5C86BC26E353}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3B45ED3D-C227-4AC3-948E-A3FA2BBB37EA} = {3B45ED3D-C227-4AC3-948E-A3FA2BBB37EA}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mobiBooking.XamarinForms", "mobiBooking.Xamarin\mobiBooking.Xamarin\mobiBooking.XamarinForms.csproj", "{6A9BB312-4960-4AFD-89CD-2072062D7C64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mobiBooking.Core", "mobiBooking.Core\mobiBooking.Core.csproj", "{3B45ED3D-C227-4AC3-948E-A3FA2BBB37EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mobiBooking.Core", "mobiBooking.Core\mobiBooking.Core.csproj", "{3B45ED3D-C227-4AC3-948E-A3FA2BBB37EA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mobiBooking.UWP", "mobiBooking.UWP\mobiBooking.UWP.csproj", "{8C08AAD2-DDF6-4C38-ABC2-DDAEA3EF667E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3B45ED3D-C227-4AC3-948E-A3FA2BBB37EA} = {3B45ED3D-C227-4AC3-948E-A3FA2BBB37EA}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

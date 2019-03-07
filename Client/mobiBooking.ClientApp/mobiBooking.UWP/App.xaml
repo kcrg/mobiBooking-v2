@@ -1,7 +1,9 @@
-﻿<Application
-    x:Class="mobiBooking.UWP.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:mobiBooking.UWP">
+﻿<m:UWPApplication xmlns:m="using:mobiBooking.UWP"
+                  x:Class="mobiBooking.UWP.App"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-</Application>
+    <m:UWPApplication.Resources>
+        <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls"/>
+    </m:UWPApplication.Resources>
+</m:UWPApplication>
