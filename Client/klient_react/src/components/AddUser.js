@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import '../css/AddUser.scss';
 
 export default class AddUser extends Component {
@@ -15,9 +16,21 @@ export default class AddUser extends Component {
         r_pass: null
     }
 
+    sendData = () =>{
+      const { cookies } = this.props
+      axios.post('http://192.168.10.240:51290/api/Users', this.state.userData, {
+        headers: { Authorization: "Bearer " + cookies.get('token')}
+      })
+      .then(res => {
+        return res;
+      }).catch(err =>{
+        console.log(err);
+      });
+    }
+
     handleSubmit = (e) =>{
         e.preventDefault();
-        console.log(this.state);
+        this.sendData();
     }
 
    

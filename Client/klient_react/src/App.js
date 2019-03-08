@@ -16,12 +16,13 @@ class App extends Component {
         <div className="App">
           <Route exact path="/" render={() => <SignIn cookies={this.props.cookies}/>}/>
           <Route path="/home" component={NavBar}/>
-          <Route path="/home" component={Logout}/>
-          <Route  path="/home" component={Dashboard}/>
+          <Route path="/home" render={() => <Logout cookies={this.props.cookies}/>}/>
+          <Route  path="/home" render={() => <Dashboard cookies={this.props.cookies}/>}/>
          
           <Route path="/addUser" component={NavBar}/>
-          <Route path="/addUser" component={Logout}/>
-          <Route path="/addUser" component={AddUser}/>
+          <Route path="/addUser" render={() => <Logout cookies={this.props.cookies}/>}/>
+          <Route path="/addUser" render={() => <AddUser cookies={this.props.cookies}/>}/>
+
         </div>
       </BrowserRouter>
     );

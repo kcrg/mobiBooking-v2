@@ -14,6 +14,16 @@ class SingIn extends Component {
         res: []
     }
 
+    componentDidMount(){
+      const { cookies } = this.props;
+      if(cookies.get('token') !== undefined){
+        this.props.history.push('/home');
+        console.log("Token istnieje")
+      }
+
+      document.body.style.backgroundColor = "#8d1be5";
+    }
+
     sendRequest = () =>{
       axios.post('http://192.168.10.240:51290/api/Authenticate', this.state.formData)
     .then(res => {
@@ -27,9 +37,6 @@ class SingIn extends Component {
     });
     }
 
-    componentDidMount(){
-      document.body.style.backgroundColor = "#8d1be5";
-    }
 
     handleChange = (name, value) =>{
         this.setState(prevState => ({
@@ -44,7 +51,6 @@ class SingIn extends Component {
     handleSubmit = (e) =>{
         e.preventDefault();
         this.sendRequest();
-        console.log(this.props);
     }
   render() {
 
