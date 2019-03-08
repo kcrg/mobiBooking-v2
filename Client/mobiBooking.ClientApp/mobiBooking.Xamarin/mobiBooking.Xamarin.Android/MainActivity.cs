@@ -1,8 +1,9 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using MvvmCross.Forms.Platforms.Android.Views;
 using mobiBooking.Core;
+using mobiBooking.XamarinForms;
+using MvvmCross.Forms.Platforms.Android.Views;
 
 namespace mobiBooking.Xamarin.Droid
 {
