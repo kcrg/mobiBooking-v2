@@ -21,11 +21,15 @@ namespace mobiBooking.WebApi.Base
         }
 
         //Permissions
-        protected static readonly string ADD_USERS = "ADD_USERS";
+        protected static readonly string ADD_USER = "ADD_USER";
+        protected static readonly string GET_USER = "GET_USER";
+        protected static readonly string GET_USERS = "GET_USERS";
+        protected static readonly string UPDATE_USER = "UPDATE_USER";
+        protected static readonly string DELETE_USER = "DELETE_USER";
 
         protected bool HasPermission(string permission, out ActionResult actionResult)
         {
-            actionResult = BadRequest(new { message = "Permission needed: " + permission });
+            actionResult = BadRequest(new { message = "Permission needed: " + permission + " or you are logout." });
 
             return _authenticateService.HasPermission(int.Parse(User.Identity.Name), permission);
         }

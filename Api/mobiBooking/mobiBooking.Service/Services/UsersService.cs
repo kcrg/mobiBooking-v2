@@ -3,7 +3,6 @@ using mobiBooking.Model.RecivedModels;
 using mobiBooking.Model.SendModels;
 using mobiBooking.Repository.Base;
 using mobiBooking.Service.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -36,12 +35,8 @@ namespace mobiBooking.Service.Services
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public UserDataModel Get(int id)
-        {
-            throw new NotImplementedException();
+            _repositoryWrapper.User.Delete(_repositoryWrapper.User.Find(id));
+            _repositoryWrapper.User.Save();
         }
 
         public IEnumerable<UserDataModel> GetAll()
@@ -65,7 +60,18 @@ namespace mobiBooking.Service.Services
 
         public void Update(int id, CreateUserModel value)
         {
-            throw new NotImplementedException();
+            var user = _repositoryWrapper.User.Find(id);
+
+            user.Name = value.Name;
+            user.Password = value.Password;
+            user.Surname = value.Surname;
+            user.UserName = value.UserName;
+            user.UserTypeId = value.UserTypeId;
+            user.UserStatusId = value.UserStatusId;
+            user.Email = value.Email;
+
+            _repositoryWrapper.User.Update(user);
+            _repositoryWrapper.User.Save();
         }
     }
 }
