@@ -1,10 +1,13 @@
-﻿using mobiBooking.Data.Model.Users;
+﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using mobiBooking.Data.Model.Users;
 using mobiBooking.Model.RecivedModels;
 using mobiBooking.Model.SendModels;
 using mobiBooking.Repository.Base;
 using mobiBooking.Service.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace mobiBooking.Service.Services
 {
@@ -19,6 +22,22 @@ namespace mobiBooking.Service.Services
 
         public void Create(CreateUserModel value)
         {
+
+            // generate a 128-bit salt using a secure PRNG
+            //byte[] salt = new byte[128 / 8];
+            //using (var rng = RandomNumberGenerator.Create())
+            //{
+            //    rng.GetBytes(salt);
+            //}
+
+            //// derive a 256-bit subkey (use HMACSHA1 with 10,000 iterations)
+            //string hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+            //    password: value.Password,
+            //    salt: salt,
+            //    prf: KeyDerivationPrf.HMACSHA1,
+            //    iterationCount: 10000,
+            //    numBytesRequested: 256 / 8));
+
             _repositoryWrapper.User.Create(new User
             {
                 Email = value.Email,
@@ -26,8 +45,7 @@ namespace mobiBooking.Service.Services
                 Password = value.Password,
                 Surname = value.Surname,
                 UserName = value.UserName,
-                UserStatusId = value.UserStatusId,
-                UserTypeId = value.UserTypeId
+                Role = value.UserType
             });
 
             _repositoryWrapper.User.Save();
@@ -50,9 +68,7 @@ namespace mobiBooking.Service.Services
                     Name = user.Name,
                     Surname = user.Surname,
                     Token = user.Token,
-                    UserStatusId = user.UserStatusId,
-                    UserName = user.UserName,
-                    UserTypeId = user.UserTypeId
+                    UserName = user.UserName
                 });
             });
             return users;
@@ -66,8 +82,6 @@ namespace mobiBooking.Service.Services
             user.Password = value.Password;
             user.Surname = value.Surname;
             user.UserName = value.UserName;
-            user.UserTypeId = value.UserTypeId;
-            user.UserStatusId = value.UserStatusId;
             user.Email = value.Email;
 
             _repositoryWrapper.User.Update(user);

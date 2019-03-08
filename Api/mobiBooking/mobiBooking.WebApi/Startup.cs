@@ -32,11 +32,14 @@ namespace mobiBooking.WebApi
 
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowAnyOrigin",
-                    builder => builder
-                    .AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader());
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowAnyOrigin()
+                        .AllowCredentials();
+                    });
             });
 
             IConfigurationSection appSettingsSection = Configuration.GetSection("AppSettings");
@@ -90,7 +93,7 @@ namespace mobiBooking.WebApi
                 .AllowAnyOrigin()
                 .AllowCredentials();
             });
-
+            app.UseHttpsRedirection();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

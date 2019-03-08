@@ -36,9 +36,9 @@ namespace mobiBooking.Service.Services
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
+                Subject = new ClaimsIdentity(new Claim[] {
+                    new Claim(ClaimTypes.Name, user.Id.ToString()),
+                    new Claim("role", user.Role)
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -53,8 +53,7 @@ namespace mobiBooking.Service.Services
                 Surname = user.Surname,
                 Token = user.Token,
                 UserName = user.UserName,
-                UserStatusId = user.UserStatusId,
-                UserTypeId = user.UserTypeId
+
             };
 
             _repositoryWrapper.User.Update(user);
@@ -63,12 +62,13 @@ namespace mobiBooking.Service.Services
             return userDataModel;
         }
 
-        public bool HasPermission(int id, string permission)
+        public bool IsLogin(int id)
         {
-           return _repositoryWrapper.User.CheckPermission(id, permission) && _repositoryWrapper.User.Find(id).Token != null;
+            string token = _repositoryWrapper.User.Find(id).Token;
+            return token != null;
         }
 
-        public void LogOut(int id)
+        public void Logout(int id)
         {
             User user = _repositoryWrapper.User.Find(id);
             user.Token = null;

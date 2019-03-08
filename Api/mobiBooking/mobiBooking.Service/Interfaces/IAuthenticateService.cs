@@ -8,7 +8,7 @@ namespace mobiBooking.Service.Interfaces
     public interface IAuthenticateService
     {
         UserDataModel Authenticate(string email, string password);
-        void LogOut(int id);
-        bool HasPermission(int id, string permission);
+        void Logout(int id);
+        bool IsLogin(int id);
     }
 }

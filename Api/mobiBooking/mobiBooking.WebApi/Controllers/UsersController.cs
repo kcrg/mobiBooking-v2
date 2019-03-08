@@ -19,20 +19,22 @@ namespace mobiBooking.WebApi.Controllers
         }
 
         // GET: api/Users
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         public ActionResult<IEnumerable<UserDataModel>> GetAll()
         {
-            if (!HasPermission(GET_USERS, out ActionResult result))
+            if (!IsLogin(out ActionResult result))
                 return result;
 
             return Ok(_usersService.GetAll());
         }
 
         // POST: api/Users
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public ActionResult Post([FromBody] CreateUserModel value)
         {
-            if (!HasPermission(ADD_USER, out ActionResult result))
+            if (!IsLogin(out ActionResult result))
                 return result;
 
             _usersService.Create(value);
@@ -40,10 +42,11 @@ namespace mobiBooking.WebApi.Controllers
         }
 
         // PUT: api/Users/5
+        [Authorize(Roles = "Administrator")]
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] CreateUserModel value)
         {
-            if (!HasPermission(UPDATE_USER, out ActionResult result))
+            if (!IsLogin(out ActionResult result))
                 return result;
 
             _usersService.Update(id, value);
@@ -51,10 +54,11 @@ namespace mobiBooking.WebApi.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            if (!HasPermission(DELETE_USER, out ActionResult result))
+            if (!IsLogin(out ActionResult result))
                 return result;
 
             _usersService.Delete(id);

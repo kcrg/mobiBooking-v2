@@ -17,9 +17,6 @@ namespace mobiBooking.Repository.Base
         private IRoomRepository _room;
         private IUsersToReservationsRepository _usersToReservations;
         private IReservationStatusRepository _reservationStatus;
-        private IUserTypeRepository _userType;
-        private IUserStatusRepository _userStatus;
-        private IRoleRepository _role;
 
         public RepositoryWrapper(MobiBookingDBContext DBContext)
         {
@@ -82,41 +79,6 @@ namespace mobiBooking.Repository.Base
                     _reservationStatus = new ReservationStatusRepository(_DBContext);
                 }
                 return _reservationStatus;
-            }
-        }
-
-        public IRoleRepository Role
-        {
-            get
-            {
-                if (_role == null)
-                {
-                    _role = new RoleRepository(_DBContext);
-                }
-                return _role;
-            }
-        }
-
-        public IUserStatusRepository UserStatus
-        {
-            get
-            {
-                if (_userStatus == null)
-                {
-                    _userStatus = new UserStatusRepository(_DBContext);
-                }
-                return _userStatus;
-            }
-        }
-
-        public IUserTypeRepository UserType{
-            get
-            {
-                if (_userType == null)
-                {
-                    _userType = new UserTypeRepository(_DBContext);
-                }
-                return _userType;
             }
         }
     }
