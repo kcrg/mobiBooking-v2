@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
 import '../css/Dashboard.scss';
+import { withRouter } from 'react-router-dom';
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
+
+    componentDidMount(){
+        const { cookies } = this.props;
+        if(cookies.get('token') === undefined){
+          this.props.history.push('/');
+          console.log("Token nie istnieje")
+        }
+      }
+
   render() {
     return (
-      <div id="content">
+      <div className="content">
         <div className="messeges">
             <h3>Moje spotkania:</h3>
             <div className="data">
@@ -31,7 +41,7 @@ export default class Dashboard extends Component {
 
         <div className="meetings">
             <button>
-                Zarezerwuj salę
+              Zarezerwuj salę
             </button>
         </div>
 
@@ -76,3 +86,4 @@ export default class Dashboard extends Component {
     )
   }
 }
+export default withRouter(Dashboard);

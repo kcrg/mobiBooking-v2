@@ -1,14 +1,12 @@
-﻿using Xamarin.Forms;
+﻿using MvvmCross.Forms.Core;
 
-namespace mobiBooking.Xamarin
+namespace mobiBooking.XamarinForms
 {
-    public partial class App : Application
+    public partial class App : MvxFormsApplication
     {
         public App()
         {
             InitializeComponent();
-
-            MainPage = new MainPage();
         }
 
         protected override void OnStart()
