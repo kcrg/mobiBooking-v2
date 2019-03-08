@@ -1,5 +1,4 @@
-﻿using mobiBooking.Core.ViewModels;
-using MvvmCross.Platforms.Uap.Views;
+﻿using MvvmCross.Platforms.Uap.Views;
 
 namespace mobiBooking.UWP.Views
 {

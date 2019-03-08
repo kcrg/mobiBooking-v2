@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Foundation;
+﻿using Foundation;
+using mobiBooking.XamarinForms;
 using UIKit;
 
 namespace mobiBooking.Xamarin.iOS
