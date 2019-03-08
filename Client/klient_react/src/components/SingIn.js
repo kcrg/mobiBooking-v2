@@ -11,7 +11,7 @@ export default class SingIn extends Component {
     }
 
     sendRequest = () =>{
-      axios.post('http://192.168.10.240:51290/api/Users/authenticate', this.state)
+      axios.post('http://192.168.43.134:51290/api/Authenticate/authenticate', this.state)
     .then(res => {
       console.log(res);
       this.setState({

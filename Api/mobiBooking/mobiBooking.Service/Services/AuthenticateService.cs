@@ -65,12 +65,15 @@ namespace mobiBooking.Service.Services
 
         public bool HasPermission(int id, string permission)
         {
-           return _repositoryWrapper.User.CheckPermission(id, permission);
+           return _repositoryWrapper.User.CheckPermission(id, permission) && _repositoryWrapper.User.Find(id).Token != null;
         }
 
         public void LogOut(int id)
         {
-            throw new NotImplementedException();
+            User user = _repositoryWrapper.User.Find(id);
+            user.Token = null;
+            _repositoryWrapper.User.Update(user);
+            _repositoryWrapper.User.Save();
         }
     }
 }

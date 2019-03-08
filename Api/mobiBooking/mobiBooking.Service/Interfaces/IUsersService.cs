@@ -11,7 +11,6 @@ namespace mobiBooking.Service.Interfaces
     public interface IUsersService
     {
         IEnumerable<UserDataModel> GetAll();
-        UserDataModel Get(int id);
         void Create(CreateUserModel value);
         void Update(int id, CreateUserModel value);
         void Delete(int id);

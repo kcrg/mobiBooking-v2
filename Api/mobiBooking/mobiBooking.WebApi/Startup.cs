@@ -1,26 +1,19 @@
-﻿using Swashbuckle.AspNetCore.Swagger;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using mobiBooking.Data;
 using mobiBooking.Repository.Base;
+using mobiBooking.Service;
 using mobiBooking.Service.Interfaces;
 using mobiBooking.Service.Services;
-using mobiBooking.Service;
-using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.IO;
-using Microsoft.Extensions.Hosting.Internal;
+using Swashbuckle.AspNetCore.Swagger;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Mvc.Cors.Internal;
+using System.Text;
 
 namespace mobiBooking.WebApi
 {
@@ -46,17 +39,12 @@ namespace mobiBooking.WebApi
                     .AllowAnyHeader());
             });
 
-            services.Configure<MvcOptions>(options => {
-                options.Filters.Add(new CorsAuthorizationFilterFactory("AllowAnyOrigin"));
-            });
-
-
-            var appSettingsSection = Configuration.GetSection("AppSettings");
+            IConfigurationSection appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
 
             // configure jwt authentication
-            var appSettings = appSettingsSection.Get<AppSettings>();
-            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            AppSettings appSettings = appSettingsSection.Get<AppSettings>();
+            byte[] key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -88,8 +76,6 @@ namespace mobiBooking.WebApi
                 { "Bearer", Enumerable.Empty<string>() },
             });
             });
-
-            services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

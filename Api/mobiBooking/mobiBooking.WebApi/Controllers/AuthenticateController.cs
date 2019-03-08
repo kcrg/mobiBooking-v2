@@ -18,7 +18,7 @@ namespace mobiBooking.WebApi.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("authenticate")]
+        [HttpPost]
         public ActionResult<UserDataModel> Authenticate([FromBody]AuthenticateUserModel userParam)
         {
             var user = _authenticateService.Authenticate(userParam.Email, userParam.Password);
@@ -29,10 +29,11 @@ namespace mobiBooking.WebApi.Controllers
             return Ok(user);
         }
 
-        [HttpPost("LogOut/{id}")]
-        public ActionResult<UserDataModel> LogOut(int id)
+        [HttpPost("LogOut")]
+        public ActionResult<UserDataModel> LogOut()
         {
-            _authenticateService.LogOut(id);
+            
+            _authenticateService.LogOut(int.Parse(User.Identity.Name));
 
             return Ok();
         }
