@@ -31,7 +31,7 @@ export default class Dashboard extends Component {
 
         <div className="meetings">
             <button>
-                Zarezerwuj salę
+              Zarezerwuj salę
             </button>
         </div>
 

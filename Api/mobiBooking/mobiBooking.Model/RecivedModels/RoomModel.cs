@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace mobiBooking.Data.Model
+namespace mobiBooking.Model.Models
 {
-    public class User
+    public class RoomModel
     {
     }
 }
