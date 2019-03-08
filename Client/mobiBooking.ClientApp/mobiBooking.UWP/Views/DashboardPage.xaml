@@ -1,0 +1,188 @@
+﻿<Page
+    x:Class="mobiBooking.UWP.Views.DashboardPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:mobiBooking.UWP.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mtuuc="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d">
+
+    <Page.Content>
+        <ScrollViewer>
+            <StackPanel>
+                <GridView SelectionMode="None" HorizontalAlignment="Center">
+                    <Grid Height="170" 
+                          Width="300" 
+                          Padding="12"
+                          Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Moje spotkania" 
+                                   FontSize="20" 
+                                   FontWeight="Bold"
+                                   Grid.ColumnSpan="2" 
+                                   Grid.Row="0"/>
+
+                        <StackPanel Grid.Column="0" Grid.Row="1">
+                            <TextBlock Text="ten tydzień"/>
+                            <TextBlock Text="0.00h" 
+                                       FontSize="20" 
+                                       FontWeight="Bold"
+                                       Foreground="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"/>
+
+                            <TextBlock Text="poprzedni tydzień"/>
+                            <TextBlock Text="0.00h" 
+                                       FontSize="20" 
+                                       FontWeight="Bold"
+                                       Foreground="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Grid.Row="1">
+                            <TextBlock Text="ten miesiąc"/>
+                            <TextBlock Text="0.00h" 
+                                       FontSize="20" 
+                                       FontWeight="Bold"
+                                       Foreground="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"/>
+
+                            <TextBlock Text="poprzedni miesiąc"/>
+                            <TextBlock Text="0.00h" 
+                                       FontSize="20" 
+                                       FontWeight="Bold"
+                                       Foreground="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Height="170"           
+                          Width="300" 
+                          Padding="12"
+                          Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Spotkania na dziś" FontSize="20" FontWeight="Bold"/>
+                        <TextBlock Text="W dniu dzisiejszym nie masz spotkań" Grid.Row="1"/>
+                    </Grid>
+
+                    <Button Content="Zarezerwuj salę" 
+                            FontSize="22"
+                            FontWeight="Bold"
+                            Height="170"           
+                            Width="300"
+                            Style="{StaticResource ButtonRevealStyle}"
+                            Background="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"/>
+
+                    <Grid Height="170" 
+                          Width="300" 
+                          Padding="12"
+                          Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Sale" 
+                                   FontSize="20" 
+                                   FontWeight="Bold"
+                                   Grid.ColumnSpan="2" 
+                                   Grid.Row="0"/>
+
+                        <StackPanel Grid.Column="0" Grid.Row="1">
+                            <TextBlock Text="Aktualnie wolne"/>
+                            <TextBlock Text="3" 
+                                       FontSize="20" 
+                                       FontWeight="Bold"
+                                       Foreground="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"/>
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Grid.Row="1">
+                            <TextBlock Text="Aktualnie zajęte"/>
+                            <TextBlock Text="0" 
+                                       FontSize="20" 
+                                       FontWeight="Bold"
+                                       Foreground="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Height="170"           
+                          Width="300" 
+                          Padding="12"
+                          Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Ostatnio rezerwowałeś/aś" FontSize="20" FontWeight="Bold"/>
+                        <TextBlock Text="Jeszcze nie rezerwowałeś/aś" Grid.Row="1"/>
+                    </Grid>
+
+                    <Grid Height="170" 
+                          Width="300" 
+                          Padding="12"
+                          Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Statystyki rezerwacji" 
+                                   FontSize="20" 
+                                   FontWeight="Bold"
+                                   Grid.ColumnSpan="2" 
+                                   Grid.Row="0"/>
+
+                        <StackPanel Grid.Column="0" Grid.Row="1">
+                            <TextBlock Text="ten tydzień"/>
+                            <TextBlock Text="0" 
+                                       FontSize="20" 
+                                       FontWeight="Bold"
+                                       Foreground="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"/>
+
+                            <TextBlock Text="poprzedni tydzień"/>
+                            <TextBlock Text="0" 
+                                       FontSize="20" 
+                                       FontWeight="Bold"
+                                       Foreground="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Grid.Row="1">
+                            <TextBlock Text="ten miesiąc"/>
+                            <TextBlock Text="0" 
+                                       FontSize="20" 
+                                       FontWeight="Bold"
+                                       Foreground="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"/>
+
+                            <TextBlock Text="poprzedni miesiąc"/>
+                            <TextBlock Text="0" 
+                                       FontSize="20" 
+                                       FontWeight="Bold"
+                                       Foreground="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"/>
+                        </StackPanel>
+                    </Grid>
+                </GridView>
+            </StackPanel>
+        </ScrollViewer>
+    </Page.Content>
+</Page>
