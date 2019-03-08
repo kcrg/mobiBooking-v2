@@ -1,0 +1,46 @@
+.form{
+    width: 80%;
+    height: 85%;
+    margin-top: 5%;
+    text-align: center;
+    margin-left: 3%;
+}
+
+.form input{
+    display: inline-block;
+    width: 30%;
+    font-size: 1.5vw;
+    margin-top: 3%;
+}
+
+.form label{
+    display: inline-block;
+    font-size: 1.5vw;
+    color: #fff;
+    width: 40%;
+    text-align: right;
+    margin-right: 5%;
+}
+
+.form select{
+    width: 20%;
+    margin-top: 3%;
+    margin-right: 10%;
+    font-size: 0.9vw;
+}
+
+.form h2{
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    color: #fff;
+}
+
+.form input[type="submit"]{
+    width: 20%;
+    display: block;
+    position: relative;
+    left: 90%;
+    opacity: 0.8;
+}
+
