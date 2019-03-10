@@ -6,16 +6,16 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource SystemControlChromeMediumLowAcrylicWindowMediumBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
         <StackPanel VerticalAlignment="Center"
                     HorizontalAlignment="Center"
                     Spacing="20"
                     Padding="50"
-                    Background="{ThemeResource SystemControlChromeMediumLowAcrylicElementMediumBrush}">
+                    Background="{ThemeResource SystemControlChromeMediumAcrylicWindowMediumBrush}">
 
-            <TextBlock Text="Zaloguj się" TextAlignment="Center"/>
+            <TextBlock Text="Zaloguj się" TextAlignment="Center" FontSize="24" FontWeight="Bold"/>
             
             <TextBox x:Name="email" Text="k.k@g.pl" PlaceholderText="e-mail" Width="200"/>
             <TextBox x:Name="password" Text="123" PlaceholderText="hasło" Width="200" InputScope="Password"/>

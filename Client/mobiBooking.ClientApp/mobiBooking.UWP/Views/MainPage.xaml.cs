@@ -1,11 +1,9 @@
 ﻿using mobiBooking.UWP.Views;
 using Newtonsoft.Json;
 using RestSharp;
-using Windows.ApplicationModel.Core;
-using Windows.UI;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 namespace mobiBooking.UWP
@@ -16,23 +14,14 @@ namespace mobiBooking.UWP
         {
             InitializeComponent();
 
-            CoreApplicationViewTitleBar CoreTitleBar = CoreApplication.GetCurrentView().TitleBar;
-            CoreTitleBar.ExtendViewIntoTitleBar = true;
-
-            Window.Current.SetTitleBar(DragArea);
-
-            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
-            titleBar.ButtonBackgroundColor = Colors.Transparent;
-            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-
-            ContentFrame.Navigate(typeof(DashboardPage));
+            NavView.SelectedItem = NavView.MenuItems[0];
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            var parameters = (ResponseClass)e.Parameter;
+            ResponseClass parameters = (ResponseClass)e.Parameter;
         }
 
         private void LogOut_Click(object sejnder, RoutedEventArgs e)
@@ -53,6 +42,49 @@ namespace mobiBooking.UWP
             string content = response.Content; // raw content as string
 
             Frame.Navigate(typeof(LoginPage));
+        }
+
+        private void NavView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
+        {
+            if (args.SelectedItemContainer != null)
+            {
+                switch (args.SelectedItemContainer.Tag)
+                {
+                    case "dashboard":
+                        {
+                            PageTitle.Text = "Dashboard";
+                            ContentFrame.Navigate(typeof(DashboardPage), null, new DrillInNavigationTransitionInfo());
+                        }
+                        break;
+
+                    case "bookroom":
+                        {
+                            PageTitle.Text = "Zarezerwuj salę";
+                            ContentFrame.Navigate(typeof(BookPage), null, new DrillInNavigationTransitionInfo());
+                        }
+                        break;
+                    case "list":
+                        {
+                            ContentFrame.Navigate(typeof(ListPage), null, new DrillInNavigationTransitionInfo());
+                        }
+                        break;
+                    case "addroom":
+                        {
+                            ContentFrame.Navigate(typeof(AddRoomPage), null, new DrillInNavigationTransitionInfo());
+                        }
+                        break;
+
+                    case "users":
+                        {
+                            ContentFrame.Navigate(typeof(UsersPage), null, new DrillInNavigationTransitionInfo());
+                        }
+                        break;
+                }
+                if (args.IsSettingsSelected)
+                {
+                    ContentFrame.Navigate(typeof(SettingsPage), null, new DrillInNavigationTransitionInfo());
+                }
+            }
         }
     }
 }
