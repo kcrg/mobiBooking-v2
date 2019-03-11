@@ -12,8 +12,7 @@ class App extends Component {
 
   
   render() {
-
-    const ipServer = 'http://192.168.43.134:51290';
+    const ipServer = 'http://192.168.10.240:51290';
     return (
       <BrowserRouter>
         <div className="App">

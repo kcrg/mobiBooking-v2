@@ -14,7 +14,8 @@ class AddUser extends Component {
             email: null,
             userType: 'Administrator'
         },
-        r_pass: null
+        r_pass: null,
+        error: 'default'
     }
 
     componentDidMount(){
@@ -32,15 +33,25 @@ class AddUser extends Component {
         headers: { Authorization: "Bearer " + cookies.get('token')}
       })
       .then(res => {
+        this.toggleError(false)
         return res;
       }).catch(err =>{
-        console.log(err);
+        this.toggleError(true)
       });
     }
 
     handleSubmit = (e) =>{
         e.preventDefault();
         this.sendData();
+    }
+
+    toggleError = (error) =>{
+      if( error === true ){
+     this.setState({error: 'errors'})
+      }
+      else{
+        document.getElementById("wiad").innerHTML = 'Dodano użytkownika'
+      };
     }
 
    
@@ -94,6 +105,7 @@ class AddUser extends Component {
                 </select> 
 
                 <input type="submit" value="Zapisz"></input>
+                <span className={this.state.error} id="wiad">Istnieje użytkownik o podanym adresie e-mail lub nazwie użytkownika</span>
             </form>
         </div>
       </div>
