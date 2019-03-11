@@ -9,15 +9,17 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-
+<!--   TODO: Nawigacja tylko z mainpage, dodawać/ukrywać przyciski do nawigacji na różnych stronach
+             LogOut w footerze
+             Style
+             opcjonalny splash-->
     <Page.Content>
         <Grid>
             <Grid x:Name="DragArea" 
                   Canvas.ZIndex="5" 
                   Height="34" 
                   VerticalAlignment="Top" 
-                  HorizontalAlignment="Stretch" 
-                  Background="{x:Bind NavView.Background}">
+                  HorizontalAlignment="Stretch">
 
                 <TextBlock Text="mobiBooking" 
                            VerticalAlignment="Center" 
@@ -60,7 +62,7 @@
                     <muxc:NavigationViewItemSeparator/>
                     <muxc:NavigationViewItemHeader x:Name="NavHeader" Visibility="Visible" Content="Rezerwacja sali"/>
 
-                    <muxc:NavigationViewItem Tag="bookroom" Icon="Permissions" Content="Zarezerwuj sale"/>
+                    <muxc:NavigationViewItem Tag="bookroom" Icon="Permissions" Content="Zarezerwuj salę"/>
                     <muxc:NavigationViewItem Tag="list" Icon="List" Content="Lista sal/rezerwacje"/>
                     <muxc:NavigationViewItem Tag="addroom" Icon="Add" Content="Dodaj sale"/>
 
