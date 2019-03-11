@@ -1,4 +1,5 @@
-﻿using mobiBooking.UWP.ViewModels;
+﻿using Microsoft.Toolkit.Uwp.UI.Extensions;
+using mobiBooking.UWP.ViewModels;
 using mobiBooking.UWP.Views.CustomDialogs;
 using Newtonsoft.Json;
 using RestSharp;
@@ -12,39 +13,47 @@ namespace mobiBooking.UWP.Views
         public AddUsersPage()
         {
             InitializeComponent();
+            usertype.SelectedIndex = 1;
         }
 
         private async void Add_Click(object senjder, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            AddUserViewModel userObj = new AddUserViewModel
+            if (!string.IsNullOrEmpty(username.Text) && !string.IsNullOrEmpty(password.Password) && !string.IsNullOrEmpty(passwordconfirm.Password) && password.Password == passwordconfirm.Password && TextBoxRegex.GetIsValid(email))
             {
-                UserName = username.Text,
-                Password = password.Text,
-                Name = name.Text,
-                Surname = surname.Text,
-                Email = email.Text,
-                UserType = usertype.SelectedItem.ToString(),
-                //Token = 
-            };
-            string json = JsonConvert.SerializeObject(userObj);
-            Console.WriteLine(json);
+                AddUserViewModel userObj = new AddUserViewModel
+                {
+                    UserName = username.Text,
+                    Password = password.Password,
+                    Name = name.Text,
+                    Surname = surname.Text,
+                    Email = email.Text,
+                    UserType = usertype.SelectedItem.ToString(),
+                    //Token = 
+                };
+                string json = JsonConvert.SerializeObject(userObj);
+                Console.WriteLine(json);
 
 
-            RestClient client = new RestClient("http://192.168.10.240:51290/api");
-            client.RemoteCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
+                RestClient client = new RestClient("http://192.168.10.240:51290/api");
+                client.RemoteCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
 
-            RestRequest request = new RestRequest("Users", Method.POST);
-            request.AddParameter("application/json", json, ParameterType.RequestBody);
+                RestRequest request = new RestRequest("Users", Method.POST);
+                request.AddParameter("application/json", json, ParameterType.RequestBody);
 
-            // execute the request
-            IRestResponse response = client.Execute(request);
+                // execute the request
+                IRestResponse response = client.Execute(request);
 
-            LoginViewModel responseObj = new LoginViewModel();
-            responseObj = JsonConvert.DeserializeObject<LoginViewModel>(response.Content);
+                LoginViewModel responseObj = new LoginViewModel();
+                responseObj = JsonConvert.DeserializeObject<LoginViewModel>(response.Content);
 
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
 
+                }
+                else
+                {
+                    ContentDialogResult error = await new ErrorDialog().ShowAsync();
+                }
             }
             else
             {

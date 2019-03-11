@@ -5,13 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F7F7087E-1088-43C3-9676-5C86BC26E353}</ProjectGuid>
+    <ProjectGuid>{2F2F8792-17F7-46DF-BE68-C8197FB344C4}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{6143fdea-f3c2-4a09-aafa-6e230626515e}</TemplateGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>mobiBooking.Xamarin.iOS</RootNamespace>
+    <RootNamespace>mobiBooking.Forms.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>mobiBooking.Xamarin.iOS</AssemblyName>
+    <AssemblyName>mobiBooking.Forms.iOS</AssemblyName>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
   </PropertyGroup>
@@ -124,20 +124,14 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MvvmCross">
-      <Version>6.2.3</Version>
-    </PackageReference>
-    <PackageReference Include="MvvmCross.Forms">
-      <Version>6.2.3</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="3.6.0.220655" />
+    <PackageReference Include="Xamarin.Forms" Version="3.6.0.135200-pre1" />
     <PackageReference Include="Xamarin.Essentials" Version="1.0.1" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\mobiBooking.Xamarin\mobiBooking.XamarinForms.csproj">
-      <Project>{6A9BB312-4960-4AFD-89CD-2072062D7C64}</Project>
-      <Name>mobiBooking.XamarinForms</Name>
+    <ProjectReference Include="..\mobiBooking.Forms\mobiBooking.Forms.csproj">
+      <Project>{DD6E7E96-CF5D-4DE0-A264-4F4FE90B02DE}</Project>
+      <Name>mobiBooking.Forms</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

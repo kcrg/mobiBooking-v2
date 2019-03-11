@@ -1,11 +1,13 @@
 ﻿using mobiBooking.UWP.ViewModels;
 using mobiBooking.UWP.Views;
+using mobiBooking.UWP.Views.CustomDialogs;
 using Newtonsoft.Json;
 using RestSharp;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using System;
 
 namespace mobiBooking.UWP
 {
@@ -22,14 +24,13 @@ namespace mobiBooking.UWP
         {
             base.OnNavigatedTo(e);
 
-            LoginViewModel parameters = (LoginViewModel)e.Parameter;
+            //LoginViewModel parameters = (LoginViewModel)e.Parameter;
         }
 
-        private void LogOut_Click(object sejnder, RoutedEventArgs e)
+        private async void LogOut_Click(object sejnder, RoutedEventArgs e)
         {
             LoginViewModel objResponse = new LoginViewModel();
             string json = JsonConvert.SerializeObject(objResponse.Token);
-
 
             RestClient client = new RestClient("http://192.168.10.240:51290/api");
             // client.Authenticator = new HttpBasicAuthenticator(username, password);
@@ -42,7 +43,14 @@ namespace mobiBooking.UWP
             IRestResponse response = client.Execute(request);
             string content = response.Content; // raw content as string
 
-            Frame.Navigate(typeof(LoginPage));
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                Frame.Navigate(typeof(LoginPage), null, new DrillInNavigationTransitionInfo());
+            }
+            else
+            {
+                ContentDialogResult error = await new ErrorDialog().ShowAsync();
+            }
         }
 
         private void NavView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)

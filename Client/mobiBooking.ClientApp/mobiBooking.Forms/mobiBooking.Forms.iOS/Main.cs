@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace mobiBooking.Xamarin.iOS
+namespace mobiBooking.Forms.iOS
 {
     public class Application
     {

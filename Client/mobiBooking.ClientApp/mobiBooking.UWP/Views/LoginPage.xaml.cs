@@ -1,4 +1,5 @@
-﻿using mobiBooking.UWP.ViewModels;
+﻿using Microsoft.Toolkit.Uwp.UI.Extensions;
+using mobiBooking.UWP.ViewModels;
 using mobiBooking.UWP.Views.CustomDialogs;
 using Newtonsoft.Json;
 using RestSharp;
@@ -27,32 +28,39 @@ namespace mobiBooking.UWP.Views
 
         private async void SignIn_Button(object sejnder, RoutedEventArgs e)
         {
-            SignInModel loginObj = new SignInModel
+            if (!string.IsNullOrEmpty(password.Password) && TextBoxRegex.GetIsValid(email))
             {
-                Email = email.Text,
-                Password = password.Text,
-            };
-            string json = JsonConvert.SerializeObject(loginObj);
-            Console.WriteLine(json);
+                //SignInModel loginObj = new SignInModel
+                //{
+                //    Email = email.Text,
+                //    Password = password.Password,
+                //};
+                //string json = JsonConvert.SerializeObject(loginObj);
+                //Console.WriteLine(json);
 
 
-            RestClient client = new RestClient("http://192.168.10.240:51290/api");
-            // client.Authenticator = new HttpBasicAuthenticator(username, password);
-            client.RemoteCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
+                //RestClient client = new RestClient("http://192.168.10.240:51290/api");
+                //// client.Authenticator = new HttpBasicAuthenticator(username, password);
+                //client.RemoteCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
 
-            RestRequest request = new RestRequest("Authenticate", Method.POST);
-            request.AddParameter("application/json", json, ParameterType.RequestBody);
+                //RestRequest request = new RestRequest("Authenticate", Method.POST);
+                //request.AddParameter("application/json", json, ParameterType.RequestBody);
 
-            // execute the request
-            IRestResponse response = client.Execute(request);
-            string content = response.Content; // raw content as string
+                //// execute the request
+                //IRestResponse response = client.Execute(request);
+                //string content = response.Content; // raw content as string
 
-            LoginViewModel responseObj = new LoginViewModel();
-            responseObj = JsonConvert.DeserializeObject<LoginViewModel>(response.Content);
+                //LoginViewModel responseObj = new LoginViewModel();
+                //responseObj = JsonConvert.DeserializeObject<LoginViewModel>(response.Content);
 
-            if (responseObj.Token != null && response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                Frame.Navigate(typeof(MainPage), responseObj.Token, new DrillInNavigationTransitionInfo());
+                //if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                //{
+                    Frame.Navigate(typeof(MainPage), null, new DrillInNavigationTransitionInfo());
+                //}
+                //else
+                //{
+                //    ContentDialogResult error = await new ErrorDialog().ShowAsync();
+                //}
             }
             else
             {

@@ -1,6 +1,9 @@
 ﻿using MvvmCross.Forms.Core;
+using System;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
-namespace mobiBooking.XamarinForms
+namespace mobiBooking.Forms
 {
     public partial class App : MvxFormsApplication
     {
