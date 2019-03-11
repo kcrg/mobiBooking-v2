@@ -26,10 +26,17 @@ namespace mobiBooking.Service.Services
         public bool Create(CreateUserModel value)
         {
 
-            if (_repositoryWrapper.User.UserExist(value.Email, value.UserName))
-            {
+            if (string.IsNullOrEmpty(value.Email)
+                || string.IsNullOrEmpty(value.Name)
+                || string.IsNullOrEmpty(value.Password)
+                || string.IsNullOrEmpty(value.Surname)
+                || string.IsNullOrEmpty(value.UserName)
+                || string.IsNullOrEmpty(value.UserType))
                 return false;
-            }
+
+            if (_repositoryWrapper.User.UserExist(value.Email, value.UserName))
+                return false;
+            
 
             byte[] salt = new byte[128 / 8];
             using (var rng = RandomNumberGenerator.Create())

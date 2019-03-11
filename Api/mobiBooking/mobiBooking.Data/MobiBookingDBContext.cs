@@ -13,9 +13,7 @@ namespace mobiBooking.Data
         public DbSet<UsersToReservations> UsersToReservations { get; set; }
         public DbSet<ReservationStatus> ReservationStatus { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server=localhost;Database=mobiBooking;Trusted_Connection=True;");
-        }
+        public MobiBookingDBContext(DbContextOptions<MobiBookingDBContext> options) : base(options) { }
+
     }
 }

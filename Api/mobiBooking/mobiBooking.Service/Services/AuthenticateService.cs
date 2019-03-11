@@ -26,6 +26,9 @@ namespace mobiBooking.Service.Services
 
         public UserDataModel Authenticate(string email, string password)
         {
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+                return null;
+
             User user = _repositoryWrapper.User.FindByEmail(email);
 
             if (user == null && user.Password != HashPassword(password, Encoding.ASCII.GetBytes(user.Salt)))
