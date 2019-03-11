@@ -1,5 +1,4 @@
 ﻿using mobiBooking.Data.Model;
-using mobiBooking.Data.Model.Users;
 using mobiBooking.Repository.Base;
 
 namespace mobiBooking.Repository.Interfaces

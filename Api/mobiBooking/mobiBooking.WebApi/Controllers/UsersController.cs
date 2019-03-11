@@ -30,6 +30,7 @@ namespace mobiBooking.WebApi.Controllers
         }
 
         // POST: api/Users
+        // [AllowAnonymous]
         [Authorize(Roles = "Administrator")]
         [HttpPost]
         public ActionResult Post([FromBody] CreateUserModel value)
@@ -40,7 +41,7 @@ namespace mobiBooking.WebApi.Controllers
             if (_usersService.Create(value))
                 return Ok();
             else
-                return BadRequest(new { message = "User with this email or Username already exist." });
+                return BadRequest(new { message = "Bad data or user with this email or username already exists." });
 
         }
 

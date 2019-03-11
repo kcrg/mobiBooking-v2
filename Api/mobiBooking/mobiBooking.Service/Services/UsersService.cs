@@ -1,14 +1,10 @@
-﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using mobiBooking.Data.Model.Users;
+﻿using mobiBooking.Data.Model;
 using mobiBooking.Model.RecivedModels;
 using mobiBooking.Model.SendModels;
 using mobiBooking.Repository.Base;
 using mobiBooking.Service.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace mobiBooking.Service.Services
 {
@@ -32,24 +28,28 @@ namespace mobiBooking.Service.Services
                 || string.IsNullOrEmpty(value.Surname)
                 || string.IsNullOrEmpty(value.UserName)
                 || string.IsNullOrEmpty(value.UserType))
+            {
                 return false;
+            }
+
+            if (value.UserType != "Administrator" && value.UserType != "User")
+            {
+                return false;
+            }
 
             if (_repositoryWrapper.User.UserExist(value.Email, value.UserName))
-                return false;
-            
-
-            byte[] salt = new byte[128 / 8];
-            using (var rng = RandomNumberGenerator.Create())
             {
-                rng.GetBytes(salt);
+                return false;
             }
+
+            byte[] salt = _authenticateService.GenerateSalt();
 
             _repositoryWrapper.User.Create(new User
             {
                 Email = value.Email,
                 Name = value.Name,
                 Password = _authenticateService.HashPassword(value.Password, salt),
-                Salt = Encoding.ASCII.GetString(salt),
+                Salt = salt,
                 Surname = value.Surname,
                 UserName = value.UserName,
                 Role = value.UserType
@@ -68,7 +68,7 @@ namespace mobiBooking.Service.Services
 
         public IEnumerable<UserDataModel> GetAll()
         {
-            var users = new List<UserDataModel>();
+            List<UserDataModel> users = new List<UserDataModel>();
             _repositoryWrapper.User.FindAll().ToList().ForEach(user =>
             {
                 users.Add(new UserDataModel
@@ -85,12 +85,12 @@ namespace mobiBooking.Service.Services
 
         public void Update(int id, CreateUserModel value)
         {
-            var user = _repositoryWrapper.User.Find(id);
+            User user = _repositoryWrapper.User.Find(id);
 
-            user.Password = (value.Password != null )
+            user.Password = (value.Password != null)
                 ? (_authenticateService.HashPassword(value.Password, _authenticateService.GenerateSalt()))
-                : (user.Password);          
-            user.Name = value.Name ?? user.Name;            
+                : (user.Password);
+            user.Name = value.Name ?? user.Name;
             user.Surname = value.Surname ?? user.Surname;
             user.UserName = value.UserName ?? user.UserName;
             user.Email = value.Email ?? user.Email;

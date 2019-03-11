@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using mobiBooking.Data.Model.Users;
+using mobiBooking.Data.Model;
 using mobiBooking.Model.SendModels;
 using mobiBooking.Repository.Base;
 using mobiBooking.Service.Interfaces;
@@ -27,11 +27,20 @@ namespace mobiBooking.Service.Services
         public UserDataModel Authenticate(string email, string password)
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            {
                 return null;
+            }
 
             User user = _repositoryWrapper.User.FindByEmail(email);
 
-            if (user == null && user.Password != HashPassword(password, Encoding.ASCII.GetBytes(user.Salt)))
+            if (user == null)
+            {
+                return null;
+            }
+
+            string salt = HashPassword(password, user.Salt);
+
+            if (user.Password != salt)
             {
                 return null;
             }

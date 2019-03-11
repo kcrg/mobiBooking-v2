@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using mobiBooking.Data.Model.Rooms;
+using mobiBooking.Data.Model;
 using mobiBooking.Repository.Base;
 using mobiBooking.Service.Interfaces;
 using mobiBooking.WebApi.Base;
@@ -11,7 +11,7 @@ namespace mobiBooking.WebApi.Controllers
     [Route("api/[controller]")]
     public class RoomController : ApiControllerBase
     {
-        private IRepositoryWrapper _repoWrapper;
+        private readonly IRepositoryWrapper _repoWrapper;
 
         public RoomController(IRepositoryWrapper repoWrapper, IAuthenticateService authenticateService) : base(authenticateService)
         {
@@ -22,10 +22,12 @@ namespace mobiBooking.WebApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Room>> Get()
         {
-            if(!IsLogin(out ActionResult result))
+            if (!IsLogin(out ActionResult result))
+            {
                 return result;
-            
-            return Ok(_repoWrapper.Room.FindAll());             
+            }
+
+            return Ok(_repoWrapper.Room.FindAll());
         }
 
         // GET api/values/5
@@ -33,9 +35,11 @@ namespace mobiBooking.WebApi.Controllers
         public ActionResult<string> Get(int id)
         {
             if (!IsLogin(out ActionResult result))
+            {
                 return result;
+            }
 
-            return Ok(_repoWrapper.Room.Find(id)); 
+            return Ok(_repoWrapper.Room.Find(id));
         }
 
         // POST api/values
@@ -43,7 +47,9 @@ namespace mobiBooking.WebApi.Controllers
         public ActionResult Post([FromBody]Room roomParam)
         {
             if (!IsLogin(out ActionResult result))
+            {
                 return result;
+            }
 
             _repoWrapper.Room.Create(roomParam);
             _repoWrapper.Room.Save();
@@ -56,7 +62,9 @@ namespace mobiBooking.WebApi.Controllers
         public ActionResult Put(int id, [FromBody] string value)
         {
             if (!IsLogin(out ActionResult result))
+            {
                 return result;
+            }
 
             return Ok();
         }
@@ -66,7 +74,9 @@ namespace mobiBooking.WebApi.Controllers
         public ActionResult Delete(int id)
         {
             if (!IsLogin(out ActionResult result))
+            {
                 return result;
+            }
 
             return Ok();
         }

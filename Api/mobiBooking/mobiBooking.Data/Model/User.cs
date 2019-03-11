@@ -1,8 +1,9 @@
-﻿using System;
+﻿using mobiBooking.Data.Model;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace mobiBooking.Data.Model.Users
+namespace mobiBooking.Data.Model
 {
     public class User
     {
@@ -14,6 +15,9 @@ namespace mobiBooking.Data.Model.Users
         public string Email { get; set; }
         public string Role { get; set; }
         public string Token { get; set; }
-        public string Salt { get; set; }
+        public byte[] Salt { get; set; }
+
+        public virtual ICollection<UserToReservation> Meetings { get; set; }
+        public virtual ICollection<Reservation> OwnReservations { get; set; }
     }
 }

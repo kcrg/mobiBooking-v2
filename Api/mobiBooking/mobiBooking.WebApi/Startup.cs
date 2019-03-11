@@ -34,12 +34,13 @@ namespace mobiBooking.WebApi
             services.ConfigureCors();
             services.ConfigureJwtAuthentication(Configuration);
 
-            services.AddDbContext<MobiBookingDBContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection") // MigrationsTest, DefaultConnection
-            ));
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IAuthenticateService, AuthenticateService>();
+
+            services.AddDbContext<MobiBookingDBContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection") // MigrationsTest, DefaultConnection
+            ));
 
             services.ConfigureSwagger();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
