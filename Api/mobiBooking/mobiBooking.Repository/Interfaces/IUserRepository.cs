@@ -7,5 +7,7 @@ namespace mobiBooking.Repository.Interfaces
     public interface IUserRepository : IRepositoryBase<User>
     {
         User FindByEmailAndPassword(string email, string password);
+        bool UserExist(string email, string userName);
+        User FindByEmail(string email);
     }
 }

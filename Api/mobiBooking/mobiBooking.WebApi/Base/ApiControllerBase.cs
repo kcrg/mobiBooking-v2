@@ -26,7 +26,7 @@ namespace mobiBooking.WebApi.Base
         {
             actionResult = BadRequest(new { message = "You are logout" });
 
-            return _authenticateService.IsLogin(int.Parse(User.Identity.Name));
+            return _authenticateService.IsLoggedIn(int.Parse(User.Identity.Name));
         }
     }
 }

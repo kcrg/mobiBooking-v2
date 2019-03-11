@@ -1,13 +1,14 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using mobiBooking.Data.Model.Users;
 using mobiBooking.Model.SendModels;
 using mobiBooking.Repository.Base;
 using mobiBooking.Service.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace mobiBooking.Service.Services
@@ -25,26 +26,14 @@ namespace mobiBooking.Service.Services
 
         public UserDataModel Authenticate(string email, string password)
         {
-            User user = _repositoryWrapper.User.FindByEmailAndPassword(email, password);
+            User user = _repositoryWrapper.User.FindByEmail(email);
 
-            // return null if user not found
-            if (user == null)
-                return null;
-
-            // authentication successful so generate jwt token
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
+            if (user == null && user.Password != HashPassword(password, Encoding.ASCII.GetBytes(user.Salt)))
             {
-                Subject = new ClaimsIdentity(new Claim[] {
-                    new Claim(ClaimTypes.Name, user.Id.ToString()),
-                    new Claim("role", user.Role)
-                }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            user.Token = tokenHandler.WriteToken(token);
+                return null;
+            }
+
+            user.Token = GenerateToken(user);
 
             UserDataModel userDataModel = new UserDataModel
             {
@@ -52,8 +41,7 @@ namespace mobiBooking.Service.Services
                 Name = user.Name,
                 Surname = user.Surname,
                 Token = user.Token,
-                UserName = user.UserName,
-
+                UserName = user.UserName
             };
 
             _repositoryWrapper.User.Update(user);
@@ -62,7 +50,25 @@ namespace mobiBooking.Service.Services
             return userDataModel;
         }
 
-        public bool IsLogin(int id)
+        private string GenerateToken(User user)
+        {
+            // authentication successful so generate jwt token
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            byte[] key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[] {
+                    new Claim(ClaimTypes.Name, user.Id.ToString()),
+                    new Claim("role", user.Role)
+                }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
+
+        public bool IsLoggedIn(int id)
         {
             string token = _repositoryWrapper.User.Find(id).Token;
             return token != null;
@@ -74,6 +80,26 @@ namespace mobiBooking.Service.Services
             user.Token = null;
             _repositoryWrapper.User.Update(user);
             _repositoryWrapper.User.Save();
+        }
+
+        public string HashPassword(string password, byte[] salt)
+        {
+            return Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                password: password,
+                salt: salt,
+                prf: KeyDerivationPrf.HMACSHA1,
+                iterationCount: 10000,
+                numBytesRequested: 256 / 8));
+        }
+
+        public byte[] GenerateSalt()
+        {
+            byte[] salt = new byte[128 / 8];
+            using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(salt);
+            }
+            return salt;
         }
     }
 }

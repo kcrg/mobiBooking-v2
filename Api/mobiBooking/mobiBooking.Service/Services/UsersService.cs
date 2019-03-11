@@ -8,47 +8,49 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace mobiBooking.Service.Services
 {
     public class UsersService : IUsersService
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
+        private readonly IAuthenticateService _authenticateService;
 
-        public UsersService(IRepositoryWrapper repositoryWrapper)
+        public UsersService(IRepositoryWrapper repositoryWrapper, IAuthenticateService authenticateService)
         {
             _repositoryWrapper = repositoryWrapper;
+            _authenticateService = authenticateService;
         }
 
-        public void Create(CreateUserModel value)
+        public bool Create(CreateUserModel value)
         {
 
-            // generate a 128-bit salt using a secure PRNG
-            //byte[] salt = new byte[128 / 8];
-            //using (var rng = RandomNumberGenerator.Create())
-            //{
-            //    rng.GetBytes(salt);
-            //}
+            if (_repositoryWrapper.User.UserExist(value.Email, value.UserName))
+            {
+                return false;
+            }
 
-            //// derive a 256-bit subkey (use HMACSHA1 with 10,000 iterations)
-            //string hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-            //    password: value.Password,
-            //    salt: salt,
-            //    prf: KeyDerivationPrf.HMACSHA1,
-            //    iterationCount: 10000,
-            //    numBytesRequested: 256 / 8));
+            byte[] salt = new byte[128 / 8];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(salt);
+            }
 
             _repositoryWrapper.User.Create(new User
             {
                 Email = value.Email,
                 Name = value.Name,
-                Password = value.Password,
+                Password = _authenticateService.HashPassword(value.Password, salt),
+                Salt = Encoding.ASCII.GetString(salt),
                 Surname = value.Surname,
                 UserName = value.UserName,
                 Role = value.UserType
             });
 
             _repositoryWrapper.User.Save();
+
+            return true;
         }
 
         public void Delete(int id)
@@ -78,11 +80,13 @@ namespace mobiBooking.Service.Services
         {
             var user = _repositoryWrapper.User.Find(id);
 
-            user.Name = value.Name;
-            user.Password = value.Password;
-            user.Surname = value.Surname;
-            user.UserName = value.UserName;
-            user.Email = value.Email;
+            user.Password = (value.Password != null )
+                ? (_authenticateService.HashPassword(value.Password, _authenticateService.GenerateSalt()))
+                : (user.Password);          
+            user.Name = value.Name ?? user.Name;            
+            user.Surname = value.Surname ?? user.Surname;
+            user.UserName = value.UserName ?? user.UserName;
+            user.Email = value.Email ?? user.Email;
 
             _repositoryWrapper.User.Update(user);
             _repositoryWrapper.User.Save();

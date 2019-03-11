@@ -37,8 +37,11 @@ namespace mobiBooking.WebApi.Controllers
             if (!IsLogin(out ActionResult result))
                 return result;
 
-            _usersService.Create(value);
-            return Ok();
+            if (_usersService.Create(value))
+                return Ok();
+            else
+                return BadRequest(new { message = "User with this email or Username already exist." });
+
         }
 
         // PUT: api/Users/5

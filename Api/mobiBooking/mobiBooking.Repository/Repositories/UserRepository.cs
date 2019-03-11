@@ -14,6 +14,15 @@ namespace mobiBooking.Repository.Repositories
 
         }
 
+        public User FindByEmail(string email)
+        {
+            var query = from Users in DBContext.Users
+                        where Users.Email == email
+                        select Users;
+
+            return query.FirstOrDefault();
+        }
+
         public User FindByEmailAndPassword(string email, string password)
         {
             var query = from Users in DBContext.Users
@@ -21,6 +30,15 @@ namespace mobiBooking.Repository.Repositories
                         select Users;
 
             return query.FirstOrDefault();
+        }
+
+        public bool UserExist(string email, string userName)
+        {
+            var query = from Users in DBContext.Users
+                        where Users.Email == email || Users.UserName == userName
+                        select Users;
+
+            return query.FirstOrDefault() != null;
         }
     }
 }

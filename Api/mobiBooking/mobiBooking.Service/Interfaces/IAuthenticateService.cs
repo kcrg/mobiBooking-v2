@@ -9,6 +9,8 @@ namespace mobiBooking.Service.Interfaces
     {
         UserDataModel Authenticate(string email, string password);
         void Logout(int id);
-        bool IsLogin(int id);
+        bool IsLoggedIn(int id);
+        string HashPassword(string password, byte[] salt);
+        byte[] GenerateSalt();
     }
 }
