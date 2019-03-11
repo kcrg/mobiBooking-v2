@@ -43,7 +43,7 @@
                                     Margin="12,2,24,0">
                             <CommandBar.PrimaryCommands>
                                 <AppBarButton Icon="Admin"/>
-                                <AppBarButton Icon="AddFriend"/>
+                                <AppBarButton  Icon="AddFriend" Click="AddUser_Click"/>
                                 <AppBarButton Icon="Cancel" Click="LogOut_Click"/>
                             </CommandBar.PrimaryCommands>
 

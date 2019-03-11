@@ -14,7 +14,7 @@
                     <Grid Height="170" 
                           Width="300" 
                           Padding="12"
-                          Margin="20"
+                          Margin="10"
                           Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}">
 
                         <Grid.ColumnDefinitions>

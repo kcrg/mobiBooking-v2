@@ -1,4 +1,5 @@
-﻿using mobiBooking.UWP.Views;
+﻿using mobiBooking.UWP.ViewModels;
+using mobiBooking.UWP.Views;
 using Newtonsoft.Json;
 using RestSharp;
 using Windows.UI.Xaml;
@@ -21,12 +22,12 @@ namespace mobiBooking.UWP
         {
             base.OnNavigatedTo(e);
 
-            ResponseClass parameters = (ResponseClass)e.Parameter;
+            LoginViewModel parameters = (LoginViewModel)e.Parameter;
         }
 
         private void LogOut_Click(object sejnder, RoutedEventArgs e)
         {
-            ResponseClass objResponse = new ResponseClass();
+            LoginViewModel objResponse = new LoginViewModel();
             string json = JsonConvert.SerializeObject(objResponse.Token);
 
 
@@ -65,26 +66,36 @@ namespace mobiBooking.UWP
                         break;
                     case "list":
                         {
+                            PageTitle.Text = "Lista sal/rezerwacje";
                             ContentFrame.Navigate(typeof(ListPage), null, new DrillInNavigationTransitionInfo());
                         }
                         break;
                     case "addroom":
                         {
+                            PageTitle.Text = "Dodaj salę";
                             ContentFrame.Navigate(typeof(AddRoomPage), null, new DrillInNavigationTransitionInfo());
                         }
                         break;
 
                     case "users":
                         {
+                            PageTitle.Text = "Użytkownicy";
                             ContentFrame.Navigate(typeof(UsersPage), null, new DrillInNavigationTransitionInfo());
                         }
                         break;
                 }
                 if (args.IsSettingsSelected)
                 {
+                    PageTitle.Text = "Ustawienia";
                     ContentFrame.Navigate(typeof(SettingsPage), null, new DrillInNavigationTransitionInfo());
                 }
             }
+        }
+
+        private void AddUser_Click(object sender, RoutedEventArgs e)
+        {
+            PageTitle.Text = "Dodaj użytkownika";
+            ContentFrame.Navigate(typeof(AddUsersPage), null, new DrillInNavigationTransitionInfo());
         }
     }
 }

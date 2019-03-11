@@ -119,12 +119,20 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ResponseClass.cs" />
+    <Compile Include="ViewModels\AddUserViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\SignInModel.cs" />
     <Compile Include="Views\AddRoomPage.xaml.cs">
       <DependentUpon>AddRoomPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AddUsersPage.xaml.cs">
+      <DependentUpon>AddUsersPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BookPage.xaml.cs">
       <DependentUpon>BookPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomDialogs\ErrorDialog.xaml.cs">
+      <DependentUpon>ErrorDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
@@ -170,7 +178,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AddUsersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\BookPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomDialogs\ErrorDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

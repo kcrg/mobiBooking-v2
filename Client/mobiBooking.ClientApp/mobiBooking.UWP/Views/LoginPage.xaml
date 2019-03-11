@@ -9,15 +9,24 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <TextBlock Text="MOBITOUCH" 
+                   FontSize="96" 
+                   FontWeight="ExtraBold"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                   Margin="0,100,0,0"
+                   FontFamily="Arial Black"
+                   Foreground="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}"/>
+        
         <StackPanel VerticalAlignment="Center"
                     HorizontalAlignment="Center"
                     Spacing="20"
                     Padding="50"
-                    Background="{ThemeResource SystemControlChromeMediumAcrylicWindowMediumBrush}">
+                    Background="{ThemeResource SystemControlAccentAcrylicWindowAccentMediumHighBrush}">
 
             <TextBlock Text="Zaloguj się" TextAlignment="Center" FontSize="24" FontWeight="Bold"/>
             
-            <TextBox x:Name="email" Text="k.k@g.pl" PlaceholderText="e-mail" Width="200"/>
+            <TextBox x:Name="email" Text="m.w@g.pl" PlaceholderText="e-mail" Width="200"/>
             <TextBox x:Name="password" Text="123" PlaceholderText="hasło" Width="200" InputScope="Password"/>
             
             <Button Content="Zaloguj" HorizontalAlignment="Right" Click="SignIn_Button"/>
