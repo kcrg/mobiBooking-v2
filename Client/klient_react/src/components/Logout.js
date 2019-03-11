@@ -9,7 +9,8 @@ class Logout extends Component {
 
   handleClick = () =>{
     const { cookies } = this.props;
-    axios.post('http://192.168.10.240:51290/api/Authenticate/Logout',"",{
+    const { ip } = this.props;
+    axios.post(ip + '/api/Authenticate/Logout',"",{
         headers: { Authorization: "Bearer " + cookies.get('token')}
     }).then(res =>{
       cookies.remove('token');

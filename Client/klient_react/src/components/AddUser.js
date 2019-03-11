@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import '../css/AddUser.scss';
+import { withRouter } from 'react-router-dom';
 
-export default class AddUser extends Component {
+class AddUser extends Component {
 
     state = {
         userData:{
@@ -16,9 +17,18 @@ export default class AddUser extends Component {
         r_pass: null
     }
 
+    componentDidMount(){
+      const { cookies } = this.props;
+      if(cookies.get('token') === undefined){
+        this.props.history.push('/');
+        console.log("Token istnieje")
+      }
+    }
+
     sendData = () =>{
-      const { cookies } = this.props
-      axios.post('http://192.168.10.240:51290/api/Users', this.state.userData, {
+      const { cookies } = this.props;
+      const { ip } = this.props;
+      axios.post(ip + '/api/Users', this.state.userData, {
         headers: { Authorization: "Bearer " + cookies.get('token')}
       })
       .then(res => {
@@ -90,3 +100,5 @@ export default class AddUser extends Component {
     )
   }
 }
+
+export default withRouter(AddUser);

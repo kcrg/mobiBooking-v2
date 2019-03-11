@@ -25,7 +25,8 @@ class SingIn extends Component {
     }
 
     sendRequest = () =>{
-      axios.post('http://192.168.10.240:51290/api/Authenticate', this.state.formData)
+      const { ip } = this.props
+      axios.post(ip + '/api/Authenticate', this.state.formData)
     .then(res => {
       const { cookies } = this.props;
       cookies.set('token', res.data.token, {path: '/'});
