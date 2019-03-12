@@ -69,11 +69,8 @@ class AddRoom extends Component {
     }
 
     sendData = () =>{
-        const { cookies } = this.props;
         const { ip } = this.props;
-        axios.post(ip + '/api/Room', this.state.roomData, {
-          headers: { Authorization: "Bearer " + cookies.get('token')}
-        })
+        axios.post(ip + '/api/Room', this.state.roomData)
         .then(res => {
            this.toggleError(false)
           return res;
@@ -86,7 +83,6 @@ class AddRoom extends Component {
         const { cookies } = this.props;
         if(cookies.get('token') === undefined){
           this.props.history.push('/');
-          console.log("Token nie istnieje")
         }
       }
   

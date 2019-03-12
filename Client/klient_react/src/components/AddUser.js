@@ -6,17 +6,18 @@ import { withRouter } from 'react-router-dom';
 class AddUser extends Component {
 
     state = {
-        userData:{
-            userName: null,
-            password: null,
-            name: null,
-            surname: null,
-            email: null,
-            userType: 'Administrator'
+      userData:{
+        userName: null,
+        password: null,
+        name: null,
+        surname: null,
+        email: null,
+        userType: 'Administrator'
         },
-        r_pass: null,
-        error: 'default',
-        succes: 'default'
+
+      r_pass: null,
+      error: 'default',
+      succes: 'default'
     }
 
     componentDidMount(){
@@ -28,11 +29,8 @@ class AddUser extends Component {
     }
 
     sendData = () =>{
-      const { cookies } = this.props;
       const { ip } = this.props;
-      axios.post(ip + '/api/Users', this.state.userData, {
-        headers: { Authorization: "Bearer " + cookies.get('token')}
-      })
+      axios.post(ip + '/api/Users', this.state.userData)
       .then(res => {
         this.toggleError(false)
         console.log(res);
@@ -43,15 +41,15 @@ class AddUser extends Component {
     }
 
     handleSubmit = (e) =>{
-        e.preventDefault();
-        this.sendData();
+      e.preventDefault();
+      this.sendData();
     }
 
     toggleError = (error) =>{
       if( error === true ){
-     this.setState({
-       error: 'errors',
-       succes: 'default'
+        this.setState({
+          error: 'errors',
+          succes: 'default'
       })
       }
       else{
@@ -85,8 +83,7 @@ class AddUser extends Component {
     return (
       <div className="content">
         <div className="form">
-            <h2>Dodaj użytkownika:</h2>
-
+          <h2>Dodaj użytkownika:</h2>
             <form onSubmit={this.handleSubmit}>
                 <label htmlFor="user_name">Nazwa użytkownika:</label>
                 <input type="text" id="user_name" onChange={e => this.handleChange('userName', e.target.value)} required></input><br/>  

@@ -11,16 +11,19 @@ export default class NavBar extends Component {
   }
 
   componentDidMount(){
-    const { cookies } = this.props
-    let t = JWT(cookies.get('token'));
-    console.log(t);
+    const { cookies } = this.props;
+    if(cookies.get('token') !== undefined){
+    var token = cookies.get('token');
+    let t = JWT(token);
     if(t.role === "Administrator"){
         this.setState({
             visible: null
         })
     }
     document.body.style.backgroundColor = "#fff";
-  }
+  }}
+
+
 
   render() {
     return (
@@ -31,7 +34,7 @@ export default class NavBar extends Component {
               <Link to="/home" style={{textDecoration: 'none', color:'#222'}}><li className="outside">Dashboard</li></Link>
               <li className="outside">Rezerwacja Sali
                   <ul>
-                    <li className="inside">Zarezerwuj sale</li>
+                    <Link to="/roomReserv" style={{textDecoration: 'none', color:'#222'}}><li className="inside">Zarezerwuj sale</li></Link>
                     <li className="inside">Lista sal/rezerwacje</li>
                    <Link to="/addRoom" style={{textDecoration: 'none', color:'#222'}}><li className={this.state.visible}>Dodaj sale</li></Link>
                   </ul>
