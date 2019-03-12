@@ -2,6 +2,7 @@
 using mobiBooking.Data.Model;
 using mobiBooking.Repository.Base;
 using mobiBooking.Repository.Interfaces;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace mobiBooking.Repository.Repositories
@@ -29,6 +30,15 @@ namespace mobiBooking.Repository.Repositories
                                      select Users;
 
             return query.FirstOrDefault();
+        }
+
+        public IEnumerable<User> FindRange(IEnumerable<int> Ids)
+        {
+            IQueryable<User> query = from Users in DBContext.Users
+                                     where Ids.Contains(Users.Id)
+                                     select Users;
+
+            return query.AsEnumerable();
         }
 
         public bool UserExist(string email, string userName)

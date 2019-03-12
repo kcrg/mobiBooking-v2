@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using mobiBooking.Data.Model;
-using mobiBooking.Repository.Base;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using mobiBooking.Model.Models;
 using mobiBooking.Service.Interfaces;
 using mobiBooking.WebApi.Base;
 using System.Collections.Generic;
@@ -11,74 +11,99 @@ namespace mobiBooking.WebApi.Controllers
     [Route("api/[controller]")]
     public class RoomController : ApiControllerBase
     {
-        private readonly IRepositoryWrapper _repoWrapper;
+        private readonly IRoomService _roomService;
 
-        public RoomController(IRepositoryWrapper repoWrapper, IAuthenticateService authenticateService) : base(authenticateService)
+        public RoomController(IRoomService roomService, IAuthenticateService authenticateService) : base(authenticateService)
         {
-            _repoWrapper = repoWrapper;
+            _roomService = roomService;
         }
 
         // GET api/values
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
-        public ActionResult<IEnumerable<Room>> Get()
+        public ActionResult<IEnumerable<RoomModel>> Get()
         {
-            if (!IsLogin(out ActionResult result))
+            if (!IsLoggedIn(out ActionResult result))
             {
                 return result;
             }
 
-            return Ok(_repoWrapper.Room.FindAll());
+            return Ok(_roomService.GetAll());
         }
 
         // GET api/values/5
+        [Authorize(Roles = "Administrator")]
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public ActionResult<RoomModel> Get(int id)
         {
-            if (!IsLogin(out ActionResult result))
+            if (!IsLoggedIn(out ActionResult result))
             {
                 return result;
             }
 
-            return Ok(_repoWrapper.Room.Find(id));
+            RoomModel roomModel = _roomService.Get(id);
+
+            if (roomModel == null)
+            {
+                return BadRequest(new { message = "Room with this id is not exsist." });
+            }
+
+            return Ok(roomModel);
         }
 
         // POST api/values
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
-        public ActionResult Post([FromBody]Room roomParam)
+        public ActionResult Post([FromBody]RoomModel roomParam)
         {
-            if (!IsLogin(out ActionResult result))
+            if (!IsLoggedIn(out ActionResult result))
             {
                 return result;
             }
 
-            _repoWrapper.Room.Create(roomParam);
-            _repoWrapper.Room.Save();
-
-            return Ok();
+            if (_roomService.Create(roomParam))
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(new { message = "Value can not be null" });
+            }
         }
 
         // PUT api/values/5
+        [Authorize(Roles = "Administrator")]
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] string value)
+        public ActionResult Put(int id, [FromBody] RoomModel value)
         {
-            if (!IsLogin(out ActionResult result))
+            if (!IsLoggedIn(out ActionResult result))
             {
                 return result;
             }
+
+            _roomService.Update(id, value);
 
             return Ok();
         }
 
         // DELETE api/values/5
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            if (!IsLogin(out ActionResult result))
+            if (!IsLoggedIn(out ActionResult result))
             {
                 return result;
             }
 
-            return Ok();
+            if (_roomService.Delete(id))
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(new { message = "Room with this id is not exsist." });
+            }
         }
     }
 }

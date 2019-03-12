@@ -22,7 +22,7 @@ namespace mobiBooking.WebApi.Base
             _authenticateService = authenticateService;
         }
 
-        protected bool IsLogin(out ActionResult actionResult)
+        protected bool IsLoggedIn(out ActionResult actionResult)
         {
             actionResult = BadRequest(new { message = "You are logout" });
 

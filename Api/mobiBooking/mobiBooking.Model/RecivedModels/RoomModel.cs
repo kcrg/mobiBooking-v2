@@ -6,5 +6,10 @@ namespace mobiBooking.Model.Models
 {
     public class RoomModel
     {
+        public string RoomName { get; set; }
+        public string Location { get; set; }
+        public bool? Activity { get; set; }
+        public string Availability { get; set; }
+        public int? NumberOfPeople { get; set; }
     }
 }

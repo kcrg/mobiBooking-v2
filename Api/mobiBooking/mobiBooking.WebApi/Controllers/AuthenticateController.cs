@@ -21,7 +21,7 @@ namespace mobiBooking.WebApi.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult<UserDataModel> Login([FromBody]AuthenticateUserModel userParam)
+        public ActionResult<TokenModel> Login([FromBody]AuthenticateUserModel userParam)
         {
             var user = _authenticateService.Authenticate(userParam.Email, userParam.Password);
 
