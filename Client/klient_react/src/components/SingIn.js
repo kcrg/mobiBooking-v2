@@ -11,7 +11,6 @@ class SingIn extends Component {
         Email: null,
         Password: null
       },
-        res: [],
         error: 'default'
     }
 

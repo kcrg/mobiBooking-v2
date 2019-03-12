@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../img/mobitouch.png';
-import '../css/NavBar.scss'
+import '../css/NavBar.scss';
+import * as JWT from 'jwt-decode';
 
 export default class NavBar extends Component {
 
+  state = {
+    visible: 'none'
+  }
+
   componentDidMount(){
+    const { cookies } = this.props
+    let t = JWT(cookies.get('token'));
+    console.log(t);
+    if(t.role === "Administrator"){
+        this.setState({
+            visible: null
+        })
+    }
     document.body.style.backgroundColor = "#fff";
   }
 
@@ -15,12 +28,12 @@ export default class NavBar extends Component {
           <img src={logo} alt="logo"></img>
           <h1>MobiReservation <br/> System</h1>
           <ul>
-              <Link to="home" style={{textDecoration: 'none', color:'#222'}}><li className="outside">Dashboard</li></Link>
+              <Link to="/home" style={{textDecoration: 'none', color:'#222'}}><li className="outside">Dashboard</li></Link>
               <li className="outside">Rezerwacja Sali
                   <ul>
                     <li className="inside">Zarezerwuj sale</li>
                     <li className="inside">Lista sal/rezerwacje</li>
-                    <li className="inside">Dodaj sale</li>
+                   <Link to="/addRoom" style={{textDecoration: 'none', color:'#222'}}><li className={this.state.visible}>Dodaj sale</li></Link>
                   </ul>
               </li>
 

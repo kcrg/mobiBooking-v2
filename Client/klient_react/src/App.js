@@ -6,6 +6,8 @@ import SignIn from './components/SingIn';
 import NavBar from './components/NavBar';
 import Logout from './components/Logout';
 import AddUser from './components/AddUser';
+import AddRoom from './components/addRoom';
+import RoomReserv from './components/roomReserv';
 
 class App extends Component {
 
@@ -17,13 +19,22 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">
           <Route exact path="/" render={() => <SignIn cookies={this.props.cookies} ip={ipServer}/>}/>
-          <Route path="/home" component={NavBar}/>
+
+          <Route path="/home" render={() => <NavBar cookies={this.props.cookies}/>}/>
           <Route path="/home" render={() => <Logout cookies={this.props.cookies} ip={ipServer}/>}/>
           <Route  path="/home" render={() => <Dashboard cookies={this.props.cookies} ip={ipServer}/>}/>
          
-          <Route path="/addUser" component={NavBar}/>
+          <Route path="/addUser" render={() => <NavBar cookies={this.props.cookies}/>}/>
           <Route path="/addUser" render={() => <Logout cookies={this.props.cookies} ip={ipServer}/>}/>
           <Route path="/addUser" render={() => <AddUser cookies={this.props.cookies} ip={ipServer}/>}/>
+
+          <Route path="/addRoom" render={() => <NavBar cookies={this.props.cookies}/>}/>
+          <Route path="/addRoom" render={() => <Logout cookies={this.props.cookies} ip={ipServer}/>}/>
+          <Route path="/addRoom" render={() => <AddRoom cookies={this.props.cookies} ip={ipServer}/>}/>
+
+          <Route path="/roomReserv" render={() => <NavBar cookies={this.props.cookies}/>}/>
+          <Route path="/roomReserv" render={() => <Logout cookies={this.props.cookies} ip={ipServer}/>}/>
+          <Route path="/roomReserv" render={() => <RoomReserv cookies={this.props.cookies} ip={ipServer}/>}/>
 
         </div>
       </BrowserRouter>
