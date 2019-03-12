@@ -37,7 +37,7 @@
                     <muxc:NavigationViewItemSeparator/>
 
                     <muxc:NavigationViewItem Tag="users" Icon="People" Content="Użytkownicy"/>
-                    <muxc:NavigationViewItem x:Name="adduser" Tag="addusers" Icon="AddFriend" Content="Dodaj użytkownika" Tapped="AddUser_Click"/>
+                    <muxc:NavigationViewItem x:Name="adduser" Tag="addusers" Icon="AddFriend" Content="Dodaj użytkownika"/>
                 </muxc:NavigationView.MenuItems>
 
                 <muxc:NavigationView.PaneFooter>

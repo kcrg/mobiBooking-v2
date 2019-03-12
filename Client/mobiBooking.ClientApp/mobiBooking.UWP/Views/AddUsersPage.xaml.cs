@@ -22,7 +22,7 @@ namespace mobiBooking.UWP.Views
         {
             if (!string.IsNullOrEmpty(username.Text) && !string.IsNullOrEmpty(password.Password) && !string.IsNullOrEmpty(passwordconfirm.Password) && password.Password == passwordconfirm.Password && TextBoxRegex.GetIsValid(email))
             {
-                LoginModel result = await helper.ReadFileAsync<LoginModel>("response");
+                LoginModel SavedResponseObj = await helper.ReadFileAsync<LoginModel>("response");
 
                 AddUserModel userObj = new AddUserModel
                 {
@@ -32,7 +32,7 @@ namespace mobiBooking.UWP.Views
                     Surname = surname.Text,
                     Email = email.Text,
                     UserType = usertype.SelectedItem.ToString(),
-                    Token = result.Token
+                    Token = SavedResponseObj.Token
                 };
                 string json = JsonConvert.SerializeObject(userObj);
 
@@ -42,7 +42,7 @@ namespace mobiBooking.UWP.Views
 
                 RestRequest request = new RestRequest("Users", Method.POST);
                 request.AddParameter("application/json", json, ParameterType.RequestBody);
-                request.AddParameter("Authorization", "Bearer " + result.Token, ParameterType.HttpHeader);
+                request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
 
                 // execute the request
                 IRestResponse response = client.Execute(request);

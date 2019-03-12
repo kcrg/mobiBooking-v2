@@ -23,7 +23,7 @@ namespace mobiBooking.UWP.Views
         {
             if (!string.IsNullOrEmpty(roomname.Text) && !string.IsNullOrEmpty(localization.Text) && TextBoxRegex.GetIsValid(numberofpeople))
             {
-                LoginModel result = await helper.ReadFileAsync<LoginModel>("response");
+                LoginModel SavedResponseObj = await helper.ReadFileAsync<LoginModel>("response");
 
                 AddRoomModel roomObj = new AddRoomModel
                 {
@@ -32,7 +32,7 @@ namespace mobiBooking.UWP.Views
                     Activity = activity.IsChecked ?? false,
                     Availability = availability.SelectedItem.ToString(),
                     NumberOfPeople = Convert.ToInt32(numberofpeople.Text),
-                    Token = result.Token
+                    Token = SavedResponseObj.Token
                 };
                 string json = JsonConvert.SerializeObject(roomObj);
 
@@ -42,7 +42,7 @@ namespace mobiBooking.UWP.Views
 
                 RestRequest request = new RestRequest("Room", Method.POST);
                 request.AddParameter("application/json", json, ParameterType.RequestBody);
-                request.AddParameter("Authorization", "Bearer " + result.Token, ParameterType.HttpHeader);
+                request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
 
                 // execute the request
                 IRestResponse response = client.Execute(request);

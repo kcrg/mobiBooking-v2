@@ -56,9 +56,9 @@ namespace mobiBooking.UWP
                     LocalObjectStorageHelper helper = new LocalObjectStorageHelper();
                     if (await helper.FileExistsAsync("response"))
                     {
-                        LoginModel result = await helper.ReadFileAsync<LoginModel>("response");
+                        LoginModel SavedResponseObj = await helper.ReadFileAsync<LoginModel>("response");
 
-                        if (result.Token != null)
+                        if (SavedResponseObj.Token != null)
                         {
                             rootFrame.Navigate(typeof(MainPage), e.Arguments);
                         }

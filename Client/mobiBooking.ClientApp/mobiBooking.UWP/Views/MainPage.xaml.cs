@@ -25,11 +25,11 @@ namespace mobiBooking.UWP
 
         private async void CheckUserType()
         {
-            LoginModel result = await helper.ReadFileAsync<LoginModel>("response");
+            LoginModel SavedResponseObj = await helper.ReadFileAsync<LoginModel>("response");
 
-            UserText.Content = result.Name + " - " + result.UserType;
+            UserText.Content = SavedResponseObj.Name + " - " + SavedResponseObj.UserType;
 
-            if (result.UserType == "User")
+            if (SavedResponseObj.UserType == "User")
             {
                 adduser.Visibility = Visibility.Collapsed;
                 addroom.Visibility = Visibility.Collapsed;
@@ -38,23 +38,23 @@ namespace mobiBooking.UWP
 
         private async void LogOut_Click(object sejnder, RoutedEventArgs e)
         {
-            LoginModel result = await helper.ReadFileAsync<LoginModel>("response");
+            LoginModel SavedResponseObj = await helper.ReadFileAsync<LoginModel>("response");
 
-            string json = JsonConvert.SerializeObject(result.Token);
+            string json = JsonConvert.SerializeObject(SavedResponseObj.Token);
 
             ConnectionModel IP = new ConnectionModel();
             RestClient client = new RestClient(IP.Adress);
             client.RemoteCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
 
             RestRequest request = new RestRequest("Authenticate/Logout", Method.POST);
-            request.AddParameter("Authorization", "Bearer " + result.Token, ParameterType.HttpHeader);
+            request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
 
             // execute the request
             IRestResponse response = client.Execute(request);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                LoginModel responseObj = new LoginModel
+                LoginModel EmptyLoginResponseObj = new LoginModel
                 {
                     UserName = null,
                     Name = null,
@@ -63,7 +63,7 @@ namespace mobiBooking.UWP
                     UserType = null,
                     Token = null
                 };
-                await helper.SaveFileAsync("response", responseObj);
+                await helper.SaveFileAsync("response", EmptyLoginResponseObj);
 
                 Frame.Navigate(typeof(LoginPage), null, new DrillInNavigationTransitionInfo());
             }
@@ -71,7 +71,7 @@ namespace mobiBooking.UWP
             {
                 await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem.", CustomDialog.Type.Error).ShowAsync();
 
-                LoginModel responseObj = new LoginModel
+                LoginModel EmptyLoginResponseObj = new LoginModel
                 {
                     UserName = null,
                     Name = null,
@@ -80,7 +80,7 @@ namespace mobiBooking.UWP
                     UserType = null,
                     Token = null
                 };
-                await helper.SaveFileAsync("response", responseObj);
+                await helper.SaveFileAsync("response", EmptyLoginResponseObj);
 
                 Frame.Navigate(typeof(LoginPage), null, new DrillInNavigationTransitionInfo());
             }
@@ -124,6 +124,12 @@ namespace mobiBooking.UWP
                             ContentFrame.Navigate(typeof(UsersPage), null, new DrillInNavigationTransitionInfo());
                         }
                         break;
+                    case "addusers":
+                        {
+                            PageTitle.Text = "Dodaj użytkownika";
+                            ContentFrame.Navigate(typeof(AddUsersPage), null, new DrillInNavigationTransitionInfo());
+                        }
+                        break;
                 }
                 if (args.IsSettingsSelected)
                 {
@@ -131,12 +137,6 @@ namespace mobiBooking.UWP
                     ContentFrame.Navigate(typeof(SettingsPage), null, new DrillInNavigationTransitionInfo());
                 }
             }
-        }
-
-        private void AddUser_Click(object sender, RoutedEventArgs e)
-        {
-            PageTitle.Text = "Dodaj użytkownika";
-            ContentFrame.Navigate(typeof(AddUsersPage), null, new DrillInNavigationTransitionInfo());
         }
     }
 }
