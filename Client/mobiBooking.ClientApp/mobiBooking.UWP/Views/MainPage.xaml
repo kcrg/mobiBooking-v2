@@ -7,32 +7,22 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    mc:Ignorable="d"
+    mc:Ignorable="d" NavigationCacheMode="Required"
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
     <!--   TODO: Style -->
     <Page.Content>
         <Grid>
             <Grid x:Name="DragArea" 
-                  Canvas.ZIndex="5" 
-                  Height="34" 
-                  VerticalAlignment="Top" 
-                  HorizontalAlignment="Stretch">
+                  Style="{StaticResource DragAreaGrid}">
 
                 <TextBlock Text="mobiBooking" 
                            VerticalAlignment="Center" 
                            Margin="12,0,0,0"/>
             </Grid>
 
-            <muxc:NavigationView x:Name="NavView" 
-                                 IsBackButtonVisible="Collapsed" 
-                                 IsPaneToggleButtonVisible="False"
-                                 PaneDisplayMode="Left"
-                                 IsPaneOpen="True"
-                                 OpenPaneLength="230" 
-                                 CompactModeThresholdWidth="0" 
-                                 ExpandedModeThresholdWidth="1100"
-                                 Margin="0,34,0,0"
-                                 SelectionChanged="NavView_SelectionChanged">
+            <muxc:NavigationView x:Name="NavView"                                 
+                                 SelectionChanged="NavView_SelectionChanged"
+                                 Style="{StaticResource NavView}">
 
                 <muxc:NavigationView.MenuItems>
                     <muxc:NavigationViewItem Tag="dashboard" Icon="Home" Content="Dashboard"/>
@@ -59,8 +49,8 @@
 
                 <muxc:NavigationView.Content>
                     <Grid>
-                        <controls:Loading x:Name="LoadingScreen" Margin="0,-34,0,0" IsLoading="False" Background="{ThemeResource SystemControlAccentAcrylicWindowAccentMediumHighBrush}" Canvas.ZIndex="5">
-                            <StackPanel Spacing="12" Padding="12">
+                        <controls:Loading x:Name="LoadingScreen" Margin="0,-34,0,0" IsLoading="False" Background="{ThemeResource SystemControlAccentAcrylicWindowAccentMediumHighBrush}" Canvas.ZIndex="4">
+                            <StackPanel Style="{StaticResource BasicStackPanel}">
                                 <ProgressRing Width="70" Height="70" IsActive="True" Foreground="White"/>
                                 <TextBlock TextAlignment="Center" Foreground="White">
                                     <Run Text="Pracujemy nad tym."/>

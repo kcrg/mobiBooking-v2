@@ -1,6 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.Helpers;
 using Microsoft.Toolkit.Uwp.UI.Extensions;
-using mobiBooking.UWP.ViewModels;
+using mobiBooking.UWP.Models;
 using mobiBooking.UWP.Views.CustomDialogs;
 using Newtonsoft.Json;
 using RestSharp;
@@ -23,7 +23,7 @@ namespace mobiBooking.UWP.Views
         {
             if (!string.IsNullOrEmpty(roomname.Text) && !string.IsNullOrEmpty(localization.Text) && TextBoxRegex.GetIsValid(numberofpeople))
             {
-                LoginViewModel result = await helper.ReadFileAsync<LoginViewModel>("response");
+                LoginModel result = await helper.ReadFileAsync<LoginModel>("response");
 
                 AddRoomModel roomObj = new AddRoomModel
                 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.Helpers;
 using Microsoft.Toolkit.Uwp.UI.Extensions;
-using mobiBooking.UWP.ViewModels;
+using mobiBooking.UWP.Models;
 using mobiBooking.UWP.Views.CustomDialogs;
 using Newtonsoft.Json;
 using RestSharp;
@@ -22,9 +22,9 @@ namespace mobiBooking.UWP.Views
         {
             if (!string.IsNullOrEmpty(username.Text) && !string.IsNullOrEmpty(password.Password) && !string.IsNullOrEmpty(passwordconfirm.Password) && password.Password == passwordconfirm.Password && TextBoxRegex.GetIsValid(email))
             {
-                LoginViewModel result = await helper.ReadFileAsync<LoginViewModel>("response");
+                LoginModel result = await helper.ReadFileAsync<LoginModel>("response");
 
-                AddUserViewModel userObj = new AddUserViewModel
+                AddUserModel userObj = new AddUserModel
                 {
                     UserName = username.Text,
                     Password = password.Password,

@@ -1,6 +1,6 @@
-﻿namespace mobiBooking.UWP.ViewModels
+﻿namespace mobiBooking.UWP.Models
 {
-    public class ConnectionModel
+    internal class ConnectionModel
     {
         public string Adress = "http://192.168.10.240:51290/api";
     }

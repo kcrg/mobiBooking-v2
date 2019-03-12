@@ -1,5 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.Helpers;
-using mobiBooking.UWP.ViewModels;
+using mobiBooking.UWP.Models;
 using mobiBooking.UWP.Views;
 using mobiBooking.UWP.Views.CustomDialogs;
 using Newtonsoft.Json;
@@ -25,7 +25,7 @@ namespace mobiBooking.UWP
 
         private async void CheckUserType()
         {
-            LoginViewModel result = await helper.ReadFileAsync<LoginViewModel>("response");
+            LoginModel result = await helper.ReadFileAsync<LoginModel>("response");
 
             UserText.Content = result.Name + " - " + result.UserType;
 
@@ -38,7 +38,7 @@ namespace mobiBooking.UWP
 
         private async void LogOut_Click(object sejnder, RoutedEventArgs e)
         {
-            LoginViewModel result = await helper.ReadFileAsync<LoginViewModel>("response");
+            LoginModel result = await helper.ReadFileAsync<LoginModel>("response");
 
             string json = JsonConvert.SerializeObject(result.Token);
 
@@ -54,7 +54,7 @@ namespace mobiBooking.UWP
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                LoginViewModel responseObj = new LoginViewModel
+                LoginModel responseObj = new LoginModel
                 {
                     UserName = null,
                     Name = null,
@@ -71,7 +71,7 @@ namespace mobiBooking.UWP
             {
                 await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem.", CustomDialog.Type.Error).ShowAsync();
 
-                LoginViewModel responseObj = new LoginViewModel
+                LoginModel responseObj = new LoginModel
                 {
                     UserName = null,
                     Name = null,

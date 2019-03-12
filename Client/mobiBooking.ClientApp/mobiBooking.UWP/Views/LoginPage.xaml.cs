@@ -1,7 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using Microsoft.Toolkit.Uwp.Helpers;
 using Microsoft.Toolkit.Uwp.UI.Extensions;
-using mobiBooking.UWP.ViewModels;
+using mobiBooking.UWP.Models;
 using mobiBooking.UWP.Views.CustomDialogs;
 using Newtonsoft.Json;
 using RestSharp;
@@ -45,15 +45,15 @@ namespace mobiBooking.UWP.Views
                 IRestResponse response = client.Execute(request);
                 string content = response.Content; // raw content as string
 
-                LoginViewModel tokenObj = new LoginViewModel();
-                tokenObj = JsonConvert.DeserializeObject<LoginViewModel>(response.Content);
+                LoginModel tokenObj = new LoginModel();
+                tokenObj = JsonConvert.DeserializeObject<LoginModel>(response.Content);
 
                 if (tokenObj.Token != null)
                 {
                     JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
                     SecurityToken jsonToken = handler.ReadToken(tokenObj.Token);
 
-                    LoginViewModel tokenvalidateObj = new LoginViewModel
+                    LoginModel tokenvalidateObj = new LoginModel
                     {
                         UserName = ((JwtSecurityToken)jsonToken).Payload["userName"].ToString(),
                         Name = ((JwtSecurityToken)jsonToken).Payload["name"].ToString(),

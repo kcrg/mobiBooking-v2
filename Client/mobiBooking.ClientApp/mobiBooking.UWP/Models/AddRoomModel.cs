@@ -1,4 +1,4 @@
-﻿namespace mobiBooking.UWP.ViewModels
+﻿namespace mobiBooking.UWP.Models
 {
     internal class AddRoomModel
     {

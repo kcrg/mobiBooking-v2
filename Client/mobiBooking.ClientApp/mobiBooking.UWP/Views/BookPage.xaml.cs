@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace mobiBooking.UWP.Views
 {
@@ -11,7 +12,7 @@ namespace mobiBooking.UWP.Views
             status.SelectedIndex = 0;
         }
 
-        private void SelectAll_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void SelectAll_Click(object sender, RoutedEventArgs e)
         {
             if (SelectAll.IsChecked == true)
             {

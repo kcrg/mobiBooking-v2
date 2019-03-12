@@ -5,31 +5,21 @@
     xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
+    mc:Ignorable="d" NavigationCacheMode="Required"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-        <TextBlock Text="MOBITOUCH" 
-                   FontSize="96" 
-                   FontWeight="ExtraBold"
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Center"
-                   Margin="0,100,0,0"
-                   FontFamily="Arial Black"
-                   Foreground="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}"/>
-        
+    <Page.Content>
         <StackPanel VerticalAlignment="Center"
                     HorizontalAlignment="Center"
                     Spacing="20"
-                    Padding="50"
-                    Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
+                    Padding="50">
 
             <TextBlock Text="Zaloguj się" TextAlignment="Center" FontSize="24" FontWeight="Bold"/>
 
-            <TextBox x:Name="email" extensions:TextBoxRegex.ValidationType="Email" Text="m.w@g.pl" PlaceholderText="E-mail" Width="200"/>
-            <PasswordBox x:Name="password" Password="123" PlaceholderText="Hasło" Width="200" InputScope="Password"/>
-            
+            <TextBox x:Name="email" Header="E-mail" extensions:TextBoxRegex.ValidationType="Email" Text="m.w@g.pl" Width="200"/>
+            <PasswordBox x:Name="password" Header="Hasło" Password="123" Width="200"/>
+
             <Button Content="Zaloguj" HorizontalAlignment="Right" Click="SignIn_Button"/>
         </StackPanel>
-    </Grid>
+    </Page.Content>
 </Page>
