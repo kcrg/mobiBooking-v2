@@ -4,9 +4,37 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
     mc:Ignorable="d">
 
-    <Grid>
-        <TextBlock Text="AddRoomPage" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-    </Grid>
+    <Page.Content>
+        <StackPanel Spacing="12" MaxWidth="400">
+            <TextBox x:Name="roomname" Header="Nazwa sali"/>
+
+            <TextBox x:Name="localization" Header="Lokalizacja"/>
+
+            <!--<ComboBox x:Name="activity" Header="Aktywność" Margin="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <x:String>Tak</x:String>
+                <x:String>Nie</x:String>
+            </ComboBox>-->
+
+            <ComboBox x:Name="availability" Header="Dostępność" HorizontalAlignment="Stretch">
+                <x:String>08.00-16.00</x:String>
+                <x:String>07.00-18.00</x:String>
+                <x:String>07.00-20.00</x:String>
+            </ComboBox>
+
+            <TextBox x:Name="numberofpeople" extensions:TextBoxRegex.ValidationType="Number" Header="Liczba osób"/>
+            
+            <Grid>
+                <CheckBox x:Name="activity" Content="Aktywny"/>
+
+                <Button Content="Zapisz" 
+                        HorizontalAlignment="Right" 
+                        Width="90"
+                        Click="Add_Click"
+                        Style="{StaticResource ButtonRevealStyle}"/>
+            </Grid>
+        </StackPanel>
+    </Page.Content>
 </Page>

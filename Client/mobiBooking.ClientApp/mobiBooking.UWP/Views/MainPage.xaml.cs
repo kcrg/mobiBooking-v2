@@ -1,55 +1,88 @@
-﻿using mobiBooking.UWP.ViewModels;
+﻿using Microsoft.Toolkit.Uwp.Helpers;
+using mobiBooking.UWP.ViewModels;
 using mobiBooking.UWP.Views;
 using mobiBooking.UWP.Views.CustomDialogs;
 using Newtonsoft.Json;
 using RestSharp;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Xaml.Navigation;
-using System;
 
 namespace mobiBooking.UWP
 {
     public sealed partial class MainPage : Page
     {
+        private readonly LocalObjectStorageHelper helper = new LocalObjectStorageHelper();
+
         public MainPage()
         {
             InitializeComponent();
 
             NavView.SelectedItem = NavView.MenuItems[0];
+            CheckUserType();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private async void CheckUserType()
         {
-            base.OnNavigatedTo(e);
+            LoginViewModel result = await helper.ReadFileAsync<LoginViewModel>("response");
 
-            //LoginViewModel parameters = (LoginViewModel)e.Parameter;
+            UserText.Content = result.Name + " - " + result.UserType;
+
+            if (result.UserType == "User")
+            {
+                adduser.Visibility = Visibility.Collapsed;
+                addroom.Visibility = Visibility.Collapsed;
+            }
         }
 
         private async void LogOut_Click(object sejnder, RoutedEventArgs e)
         {
-            LoginViewModel objResponse = new LoginViewModel();
-            string json = JsonConvert.SerializeObject(objResponse.Token);
+            LoginViewModel result = await helper.ReadFileAsync<LoginViewModel>("response");
 
-            RestClient client = new RestClient("http://192.168.10.240:51290/api");
-            // client.Authenticator = new HttpBasicAuthenticator(username, password);
+            string json = JsonConvert.SerializeObject(result.Token);
+
+            ConnectionModel IP = new ConnectionModel();
+            RestClient client = new RestClient(IP.Adress);
             client.RemoteCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
 
             RestRequest request = new RestRequest("Authenticate/Logout", Method.POST);
-            request.AddParameter("Authorization", "Bearer " + objResponse.Token, ParameterType.HttpHeader);
+            request.AddParameter("Authorization", "Bearer " + result.Token, ParameterType.HttpHeader);
 
             // execute the request
             IRestResponse response = client.Execute(request);
-            string content = response.Content; // raw content as string
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
+                LoginViewModel responseObj = new LoginViewModel
+                {
+                    UserName = null,
+                    Name = null,
+                    Surname = null,
+                    Email = null,
+                    UserType = null,
+                    Token = null
+                };
+                await helper.SaveFileAsync("response", responseObj);
+
                 Frame.Navigate(typeof(LoginPage), null, new DrillInNavigationTransitionInfo());
             }
             else
             {
-                ContentDialogResult error = await new ErrorDialog().ShowAsync();
+                await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem.", CustomDialog.Type.Error).ShowAsync();
+
+                LoginViewModel responseObj = new LoginViewModel
+                {
+                    UserName = null,
+                    Name = null,
+                    Surname = null,
+                    Email = null,
+                    UserType = null,
+                    Token = null
+                };
+                await helper.SaveFileAsync("response", responseObj);
+
+                Frame.Navigate(typeof(LoginPage), null, new DrillInNavigationTransitionInfo());
             }
         }
 

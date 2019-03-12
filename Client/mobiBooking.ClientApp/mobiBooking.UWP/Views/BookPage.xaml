@@ -8,53 +8,42 @@
 
     <Page.Content>
         <ScrollViewer>
-            <Grid MaxWidth="490">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="175"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="46"/>
-                    <RowDefinition Height="46"/>
-                    <RowDefinition Height="46"/>
-                    <RowDefinition Height="46"/>
-                    <RowDefinition Height="46"/>
-                    <RowDefinition Height="46"/>
-                    <RowDefinition Height="46"/>
-                    <RowDefinition Height="46"/>
-                    <RowDefinition Height="46"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+            <StackPanel Spacing="12" MaxWidth="400">
+                <TimePicker Header="Rezerwuje od*" HorizontalAlignment="Stretch"/>
+                <DatePicker HorizontalAlignment="Stretch"/>
 
-                <TextBlock Text="Rezerwuje od:*" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                <DatePicker Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" Margin="7"/>
+                <TimePicker Header="Rezerwuje do*" HorizontalAlignment="Stretch"/>
+                <DatePicker HorizontalAlignment="Stretch"/>
 
-                <TextBlock Text="Rezerwuje do:*" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                <DatePicker Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" Margin="7"/>
+                <TextBox Header="Pojemność sali"/>
 
-                <TextBlock Text="Pojemność sali:" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" Margin="7"/>
-
-                <TextBlock Text="Potrzebuje z wyposażeniem:" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" Margin="7">
+                <TextBlock Text="Potrzebuje z wyposażeniem:" Margin="0,0,0,-7"/>
+                <StackPanel Orientation="Horizontal">
                     <CheckBox Content="Flipchart"/>
                     <CheckBox Content="System nagłaśniający"/>
                 </StackPanel>
 
-                <TextBlock Text="Wybierz salę:*" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                <ComboBox PlaceholderText="Wybierz" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Stretch" Margin="7"/>
+                <ComboBox x:Name="room" Header="Wybierz salę*" PlaceholderText="Wybierz" HorizontalAlignment="Stretch">
+                    <x:String>Placeholder sali</x:String>
+                    <x:String>Sala nr.69</x:String>
+                </ComboBox>
 
-                <TextBlock Text="Tytuł spotkania*" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                <TextBox Grid.Column="1" Grid.Row="5" HorizontalAlignment="Stretch" Margin="7"/>
+                <TextBox Header="Tytuł spotkania*"/>
 
-                <TextBlock Text="Status:*" Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                <ComboBox PlaceholderText="Zaakceptowana" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Stretch" Margin="7"/>
+                <ComboBox x:Name="status" Header="Status*" HorizontalAlignment="Stretch">
+                    <x:String>Niedostępna</x:String>
+                    <x:String>Zaakceptowana</x:String>
+                    <x:String>Zakończona</x:String>
+                    <x:String>Zakończona przed czasem</x:String>
+                    <x:String>Dostępna</x:String>
+                    <x:String>Brak możliwości edycji</x:String>
+                </ComboBox>
 
-                <CheckBox Content="Rezerwacja cykliczna" Grid.Row="7" Grid.Column="1" Margin="7"/>
+                <CheckBox Content="Rezerwacja cykliczna"/>
 
-                <TextBlock Text="Wybierz uczestników*" Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                <CheckBox x:Name="SelectAll" Content="Zaznacz wszystkich" Grid.Column="1" Grid.Row="8" VerticalAlignment="Top" Margin="7" Click="SelectAll_Click"/>
-                <ListBox x:Name="UsersList" Grid.Column="1" Grid.Row="9" Margin="7" MaxHeight="200" VerticalAlignment="Top" SelectionMode="Multiple" Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}">
+                <TextBlock Text="Wybierz uczestników*"/>
+
+                <ListBox x:Name="UsersList" MaxHeight="200" SelectionMode="Multiple" Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}">
                     <TextBlock Text="Arial" FontFamily="Arial"/>
                     <TextBlock Text="Courier New" FontFamily="Courier New"/>
                     <TextBlock Text="Times New Roman" FontFamily="Times New Roman"/>
@@ -74,7 +63,8 @@
                     <TextBlock Text="Courier New" FontFamily="Courier New"/>
                     <TextBlock Text="Times New Roman" FontFamily="Times New Roman"/>
                 </ListBox>
-            </Grid>
+                <CheckBox x:Name="SelectAll" Content="Zaznacz wszystkich"  Click="SelectAll_Click"/>
+            </StackPanel>
         </ScrollViewer>
     </Page.Content>
 </Page>

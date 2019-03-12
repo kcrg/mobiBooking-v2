@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Extensions;
+﻿using Microsoft.Toolkit.Uwp.Helpers;
+using Microsoft.Toolkit.Uwp.UI.Extensions;
 using mobiBooking.UWP.ViewModels;
 using mobiBooking.UWP.Views.CustomDialogs;
 using Newtonsoft.Json;
@@ -10,16 +11,19 @@ namespace mobiBooking.UWP.Views
 {
     public sealed partial class AddUsersPage : Page
     {
+        private readonly LocalObjectStorageHelper helper = new LocalObjectStorageHelper();
         public AddUsersPage()
         {
             InitializeComponent();
-            usertype.SelectedIndex = 1;
+            usertype.SelectedIndex = 0;
         }
 
         private async void Add_Click(object senjder, Windows.UI.Xaml.RoutedEventArgs e)
         {
             if (!string.IsNullOrEmpty(username.Text) && !string.IsNullOrEmpty(password.Password) && !string.IsNullOrEmpty(passwordconfirm.Password) && password.Password == passwordconfirm.Password && TextBoxRegex.GetIsValid(email))
             {
+                LoginViewModel result = await helper.ReadFileAsync<LoginViewModel>("response");
+
                 AddUserViewModel userObj = new AddUserViewModel
                 {
                     UserName = username.Text,
@@ -28,36 +32,34 @@ namespace mobiBooking.UWP.Views
                     Surname = surname.Text,
                     Email = email.Text,
                     UserType = usertype.SelectedItem.ToString(),
-                    //Token = 
+                    Token = result.Token
                 };
                 string json = JsonConvert.SerializeObject(userObj);
-                Console.WriteLine(json);
 
-
-                RestClient client = new RestClient("http://192.168.10.240:51290/api");
+                ConnectionModel IP = new ConnectionModel();
+                RestClient client = new RestClient(IP.Adress);
                 client.RemoteCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
 
                 RestRequest request = new RestRequest("Users", Method.POST);
                 request.AddParameter("application/json", json, ParameterType.RequestBody);
+                request.AddParameter("Authorization", "Bearer " + result.Token, ParameterType.HttpHeader);
 
                 // execute the request
                 IRestResponse response = client.Execute(request);
-
-                LoginViewModel responseObj = new LoginViewModel();
-                responseObj = JsonConvert.DeserializeObject<LoginViewModel>(response.Content);
+                string content = response.Content;
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-
+                    await new CustomDialog("Użytkownik stworzony poprawnie.", CustomDialog.Type.Information).ShowAsync();
                 }
                 else
                 {
-                    ContentDialogResult error = await new ErrorDialog().ShowAsync();
+                    await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem lub użytkownik o podanych danych już istnieje.", CustomDialog.Type.Error).ShowAsync();
                 }
             }
             else
             {
-                ContentDialogResult error = await new ErrorDialog().ShowAsync();
+                await new CustomDialog("Wprowadzono błędne dane.", CustomDialog.Type.Warning).ShowAsync();
             }
         }
     }

@@ -8,54 +8,29 @@
     mc:Ignorable="d">
 
     <Page.Content>
-        <Grid MaxWidth="400">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="130"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="46"/>
-                <RowDefinition Height="46"/>
-                <RowDefinition Height="46"/>
-                <RowDefinition Height="46"/>
-                <RowDefinition Height="46"/>
-                <RowDefinition Height="46"/>
-                <RowDefinition Height="46"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+        <StackPanel Spacing="12" MaxWidth="400">
+            <TextBox x:Name="username" Header="Nazwa uzytkownika*"/>
 
-            <TextBlock Text="Nazwa uzytkownika*" TextAlignment="Right" VerticalAlignment="Center"/>
-            <TextBox x:Name="username" Grid.Column="1" Margin="7"/>
+            <TextBox x:Name="email" Header="E-mail*" extensions:TextBoxRegex.ValidationType="Email"/>
 
-            <TextBlock Text="Hasło*" Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center"/>
-            <PasswordBox x:Name="password" Grid.Column="1" Grid.Row="1" Margin="7"/>
+            <PasswordBox x:Name="password" Header="Hasło*"/>
 
-            <TextBlock Text="Powtórz hasło*" Grid.Row="2" TextAlignment="Right" VerticalAlignment="Center"/>
-            <PasswordBox x:Name="passwordconfirm" Grid.Column="1" Grid.Row="2" Margin="7"/>
+            <PasswordBox x:Name="passwordconfirm" Header="Powtórz hasło*" />
 
-            <TextBlock Text="Imię" Grid.Row="3" TextAlignment="Right" VerticalAlignment="Center"/>
-            <TextBox x:Name="name" Grid.Column="1" Grid.Row="3" Margin="7"/>
+            <TextBox x:Name="name" Header="Imię"/>
 
-            <TextBlock Text="Nazwisko" Grid.Row="4" TextAlignment="Right" VerticalAlignment="Center"/>
-            <TextBox x:Name="surname" Grid.Column="1" Grid.Row="4" Margin="7"/>
+            <TextBox x:Name="surname" Header="Nazwisko"/>
 
-            <TextBlock Text="E-mail*" Grid.Row="5" TextAlignment="Right" VerticalAlignment="Center"/>
-            <TextBox x:Name="email" extensions:TextBoxRegex.ValidationType="Email" Grid.Column="1" Grid.Row="5" Margin="7"/>
-
-            <TextBlock Text="Uprawnienia" Grid.Row="6" TextAlignment="Right" VerticalAlignment="Center"/>
-            <ComboBox x:Name="usertype" Grid.Column="1" Grid.Row="6" Margin="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <ComboBox x:Name="usertype" Header="Uprawnienia" HorizontalAlignment="Stretch">
                 <x:String>User</x:String>
                 <x:String>Administrator</x:String>
             </ComboBox>
 
             <Button Content="Zapisz" 
-                    Grid.Row="7" 
-                    Grid.Column="1" 
                     Margin="0,20,0,0" 
                     HorizontalAlignment="Right" 
-                    VerticalAlignment="Top"
                     Width="90"
                     Style="{StaticResource ButtonRevealStyle}" Click="Add_Click"/>
-        </Grid>
+        </StackPanel>
     </Page.Content>
 </Page>

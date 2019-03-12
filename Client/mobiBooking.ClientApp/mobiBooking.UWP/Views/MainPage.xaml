@@ -9,10 +9,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-<!--   TODO: Nawigacja tylko z mainpage, dodawać/ukrywać przyciski do nawigacji na różnych stronach
-             LogOut w footerze
-             Style
-             opcjonalny splash-->
+    <!--   TODO: Style -->
     <Page.Content>
         <Grid>
             <Grid x:Name="DragArea" 
@@ -31,30 +28,11 @@
                                  IsPaneToggleButtonVisible="False"
                                  PaneDisplayMode="Left"
                                  IsPaneOpen="True"
-                                 OpenPaneLength="200" 
+                                 OpenPaneLength="230" 
                                  CompactModeThresholdWidth="0" 
                                  ExpandedModeThresholdWidth="1100"
                                  Margin="0,34,0,0"
                                  SelectionChanged="NavView_SelectionChanged">
-                <muxc:NavigationView.Header>
-                    <Grid>
-                        <CommandBar x:Name="CommandBar"
-                                    Background="Transparent" 
-                                    OverflowButtonVisibility="Collapsed"
-                                    VerticalAlignment="Bottom"
-                                    Margin="12,2,24,0">
-                            <CommandBar.PrimaryCommands>
-                                <AppBarButton Icon="Admin"/>
-                                <AppBarButton  Icon="AddFriend" Click="AddUser_Click"/>
-                                <AppBarButton Icon="Cancel" Click="LogOut_Click"/>
-                            </CommandBar.PrimaryCommands>
-
-                            <CommandBar.Content>
-                                <TextBlock x:Name="PageTitle" Text="Dashboard"/>
-                            </CommandBar.Content>
-                        </CommandBar>
-                    </Grid>
-                </muxc:NavigationView.Header>
 
                 <muxc:NavigationView.MenuItems>
                     <muxc:NavigationViewItem Tag="dashboard" Icon="Home" Content="Dashboard"/>
@@ -64,33 +42,40 @@
 
                     <muxc:NavigationViewItem Tag="bookroom" Icon="Permissions" Content="Zarezerwuj salę"/>
                     <muxc:NavigationViewItem Tag="list" Icon="List" Content="Lista sal/rezerwacje"/>
-                    <muxc:NavigationViewItem Tag="addroom" Icon="Add" Content="Dodaj sale"/>
+                    <muxc:NavigationViewItem x:Name="addroom" Tag="addroom" Icon="Add" Content="Dodaj sale"/>
 
                     <muxc:NavigationViewItemSeparator/>
 
                     <muxc:NavigationViewItem Tag="users" Icon="People" Content="Użytkownicy"/>
+                    <muxc:NavigationViewItem x:Name="adduser" Tag="addusers" Icon="AddFriend" Content="Dodaj użytkownika" Tapped="AddUser_Click"/>
                 </muxc:NavigationView.MenuItems>
 
+                <muxc:NavigationView.PaneFooter>
+                    <StackPanel>
+                        <muxc:NavigationViewItem x:Name="UserText" Icon="Contact" Content="placeholder" IsEnabled="False"/>
+                        <muxc:NavigationViewItem Icon="Cancel" Content="Wyloguj" Tapped="LogOut_Click"/>
+                    </StackPanel>
+                </muxc:NavigationView.PaneFooter>
+
                 <muxc:NavigationView.Content>
-                    <Frame x:Name="ContentFrame" 
-                           Margin="12,12,12,24"/>
+                    <Grid>
+                        <controls:Loading x:Name="LoadingScreen" Margin="0,-34,0,0" IsLoading="False" Background="{ThemeResource SystemControlAccentAcrylicWindowAccentMediumHighBrush}" Canvas.ZIndex="5">
+                            <StackPanel Spacing="12" Padding="12">
+                                <ProgressRing Width="70" Height="70" IsActive="True" Foreground="White"/>
+                                <TextBlock TextAlignment="Center" Foreground="White">
+                                    <Run Text="Pracujemy nad tym."/>
+                                    <LineBreak/>
+                                    <Run Text="( ͡° ͜ʖ ͡° )つ──☆*:・ﾟ" />
+                                </TextBlock>
+                            </StackPanel>
+                        </controls:Loading>
+
+                        <TextBlock x:Name="PageTitle" Text="Dashboard" FontSize="32" Margin="12" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+
+                        <Frame x:Name="ContentFrame" Margin="12,60,12,24"/>
+                    </Grid>
                 </muxc:NavigationView.Content>
             </muxc:NavigationView>
-
-            <VisualStateManager.VisualStateGroups>
-                <VisualStateGroup>
-                    <VisualState>
-                        <VisualState.StateTriggers>
-                            <AdaptiveTrigger MinWindowWidth="{x:Bind NavView.ExpandedModeThresholdWidth}" />
-                        </VisualState.StateTriggers>
-
-                        <VisualState.Setters>
-                            <Setter Target="NavView.PaneDisplayMode" Value="Top"/>
-                            <Setter Target="NavHeader.Visibility" Value="Collapsed"/>
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateManager.VisualStateGroups>
         </Grid>
     </Page.Content>
 </Page>

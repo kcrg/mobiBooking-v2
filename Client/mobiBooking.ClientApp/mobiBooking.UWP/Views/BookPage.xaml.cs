@@ -7,6 +7,8 @@ namespace mobiBooking.UWP.Views
         public BookPage()
         {
             InitializeComponent();
+            room.SelectedIndex = 0;
+            status.SelectedIndex = 0;
         }
 
         private void SelectAll_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
