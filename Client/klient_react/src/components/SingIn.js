@@ -11,7 +11,7 @@ class SingIn extends Component {
         Email: null,
         Password: null
       },
-        res: []
+        error: 'default'
     }
 
     componentDidMount(){
@@ -34,7 +34,7 @@ class SingIn extends Component {
         this.props.history.push('/home');
       return res;
     }).catch(err =>{
-      console.log(err);
+      this.toggleError()
     });
     }
 
@@ -53,6 +53,10 @@ class SingIn extends Component {
         e.preventDefault();
         this.sendRequest();
     }
+
+    toggleError = () =>{
+      this.setState({error: 'error'});
+    }
   render() {
 
     return (
@@ -66,6 +70,7 @@ class SingIn extends Component {
               <input type="password" id="Password" onChange={e => this.handleChange('Password', e.target.value)}></input><br/>
 
               <input type="submit" value="Zaloguj się"></input>
+              <h1 className={this.state.error}>Nie znaleziono użytkownika o danej kombinacji e-mail i hasła!</h1>
           </form>
         </div>
     )

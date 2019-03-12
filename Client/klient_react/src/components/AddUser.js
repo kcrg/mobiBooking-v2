@@ -14,14 +14,16 @@ class AddUser extends Component {
             email: null,
             userType: 'Administrator'
         },
-        r_pass: null
+        r_pass: null,
+        error: 'default',
+        succes: 'default'
     }
 
     componentDidMount(){
       const { cookies } = this.props;
       if(cookies.get('token') === undefined){
         this.props.history.push('/');
-        console.log("Token istnieje")
+        console.log("Token nie istnieje")
       }
     }
 
@@ -32,15 +34,32 @@ class AddUser extends Component {
         headers: { Authorization: "Bearer " + cookies.get('token')}
       })
       .then(res => {
+        this.toggleError(false)
+        console.log(res);
         return res;
       }).catch(err =>{
-        console.log(err);
+        this.toggleError(true)
       });
     }
 
     handleSubmit = (e) =>{
         e.preventDefault();
         this.sendData();
+    }
+
+    toggleError = (error) =>{
+      if( error === true ){
+     this.setState({
+       error: 'errors',
+       succes: 'default'
+      })
+      }
+      else{
+        this.setState({
+          succes: 'done',
+          error: 'default'
+        })
+      };
     }
 
    
@@ -70,22 +89,22 @@ class AddUser extends Component {
 
             <form onSubmit={this.handleSubmit}>
                 <label htmlFor="user_name">Nazwa użytkownika:</label>
-                <input type="text" id="user_name" onChange={e => this.handleChange('userName', e.target.value)}></input><br/>  
+                <input type="text" id="user_name" onChange={e => this.handleChange('userName', e.target.value)} required></input><br/>  
 
                 <label htmlFor="pass">Hasło:</label>
-                <input type="password" id="pass" onChange={e => this.handleChange('password', e.target.value)}></input><br/>  
+                <input type="password" id="pass" onChange={e => this.handleChange('password', e.target.value)} required></input><br/>  
 
                 <label htmlFor="r_pass">Powtórz hasło:</label>
-                <input type="password" id="r_pass" onChange={e => this.handleRpasswordChange('r_pass', e.target.value)}></input><br/>  
+                <input type="password" id="r_pass" onChange={e => this.handleRpasswordChange('r_pass', e.target.value)} required></input><br/>  
 
                 <label htmlFor="f_name">Imię:</label>
-                <input type="text" id="f_name" onChange={e => this.handleChange('name', e.target.value)}></input><br/>  
+                <input type="text" id="f_name" onChange={e => this.handleChange('name', e.target.value)} required></input><br/>  
 
                 <label htmlFor="l_name">Nazwisko:</label>
-                <input type="text" id="l_name" onChange={e => this.handleChange('surname', e.target.value)}></input><br/>  
+                <input type="text" id="l_name" onChange={e => this.handleChange('surname', e.target.value)} required></input><br/>  
 
                 <label htmlFor="email">Email:</label>
-                <input type="email" id="email" onChange={e => this.handleChange('email', e.target.value)}></input><br/> 
+                <input type="email" id="email" onChange={e => this.handleChange('email', e.target.value)} required></input><br/> 
 
                 <label htmlFor="permissions">Uprawnienia:</label>
                 <select id="permissions" onChange={e => this.handleChange('userType', e.target.value)}>
@@ -93,7 +112,9 @@ class AddUser extends Component {
                     <option>Zwykły użytkownik</option>
                 </select> 
 
-                <input type="submit" value="Zapisz"></input>
+                <input type="submit" value="Zapisz" disabled={this.state.userData.password !== this.state.r_pass}></input>
+                <span className={this.state.error}>Istnieje użytkownik o podanym adresie e-mail lub nazwie użytkownika</span>
+                <span className={this.state.succes}>Pomyślnie dodano użytkownika</span>
             </form>
         </div>
       </div>
