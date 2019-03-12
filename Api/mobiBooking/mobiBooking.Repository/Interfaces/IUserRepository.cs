@@ -1,4 +1,5 @@
-﻿using mobiBooking.Data.Model;
+﻿using System.Collections.Generic;
+using mobiBooking.Data.Model;
 using mobiBooking.Repository.Base;
 
 namespace mobiBooking.Repository.Interfaces
@@ -8,5 +9,6 @@ namespace mobiBooking.Repository.Interfaces
         User FindByEmailAndPassword(string email, string password);
         bool UserExist(string email, string userName);
         User FindByEmail(string email);
+        IEnumerable<User> FindRange(IEnumerable<int> Ids);
     }
 }

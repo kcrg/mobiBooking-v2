@@ -24,7 +24,7 @@ namespace mobiBooking.Service.Services
             _repositoryWrapper = repositoryWrapper;
         }
 
-        public UserDataModel Authenticate(string email, string password)
+        public TokenModel Authenticate(string email, string password)
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
@@ -47,13 +47,9 @@ namespace mobiBooking.Service.Services
 
             user.Token = GenerateToken(user);
 
-            UserDataModel userDataModel = new UserDataModel
+            TokenModel userDataModel = new TokenModel
             {
-                Email = user.Email,
-                Name = user.Name,
-                Surname = user.Surname,
-                Token = user.Token,
-                UserName = user.UserName
+                Token = user.Token
             };
 
             _repositoryWrapper.User.Update(user);
@@ -71,7 +67,11 @@ namespace mobiBooking.Service.Services
             {
                 Subject = new ClaimsIdentity(new Claim[] {
                     new Claim(ClaimTypes.Name, user.Id.ToString()),
-                    new Claim("role", user.Role)
+                    new Claim("role", user.Role),
+                    new Claim("userName", user.UserName),
+                    new Claim("name", user.Name),
+                    new Claim("sureName", user.Surname),
+                    new Claim("email", user.Email)
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -89,6 +89,10 @@ namespace mobiBooking.Service.Services
         public void Logout(int id)
         {
             User user = _repositoryWrapper.User.Find(id);
+
+            if (user == null)
+                return;
+
             user.Token = null;
             _repositoryWrapper.User.Update(user);
             _repositoryWrapper.User.Save();

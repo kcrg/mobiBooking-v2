@@ -15,6 +15,7 @@ namespace mobiBooking.Repository.Base
         private IReservationRepository _reservation;
         private IUserRepository _user;
         private IRoomRepository _room;
+        private IUserToReservationRepository _userToReservation;
 
         public RepositoryWrapper(MobiBookingDBContext DBContext)
         {
@@ -54,6 +55,18 @@ namespace mobiBooking.Repository.Base
                     _user = new UserRepository(_DBContext);
                 }
                 return _user;
+            }
+        }
+
+        public IUserToReservationRepository UserToReservation
+        {
+            get
+            {
+                if (_userToReservation == null)
+                {
+                    _userToReservation = new UserToReservationRepository(_DBContext);
+                }
+                return _userToReservation;
             }
         }
     }

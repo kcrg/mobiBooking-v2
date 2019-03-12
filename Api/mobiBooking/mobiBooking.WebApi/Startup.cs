@@ -37,6 +37,8 @@ namespace mobiBooking.WebApi
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IAuthenticateService, AuthenticateService>();
+            services.AddScoped<IRoomService, RoomService>();
+            services.AddScoped<IReservationService, ReservationService>();
 
             services.AddDbContext<MobiBookingDBContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection") // MigrationsTest, DefaultConnection

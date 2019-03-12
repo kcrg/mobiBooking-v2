@@ -76,7 +76,6 @@ namespace mobiBooking.Service.Services
                     Email = user.Email,
                     Name = user.Name,
                     Surname = user.Surname,
-                    Token = user.Token,
                     UserName = user.UserName
                 });
             });
