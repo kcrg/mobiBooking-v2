@@ -14,7 +14,7 @@ class App extends Component {
 
   
   render() {
-    const ipServer = 'http://192.168.10.240:51290';
+    const ipServer = 'https://mobibookingwebapi20190313023631.azurewebsites.net';
     return (
       <BrowserRouter>
         <div className="App">

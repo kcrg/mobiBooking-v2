@@ -12,7 +12,8 @@ import axios from 'axios';
       roomCapacity: null,
       status: 'Wolna',
       title: null,
-      invitedUsersIds: []
+      invitedUsersIds: [],
+      roomId: null
     },
     roomsList: null,
     roomItems: null,
@@ -80,11 +81,14 @@ import axios from 'axios';
         ...prevState.checked,
         [name]: value
       }
-    }),() => console.log(this.state.checked))
+    }),() => console.log(this.state.reservData))
   }
 
   handleSubmit = (e) =>{
     e.preventDefault();
+  }
+
+  selectChange = (collection) => {
   }
  
   render() {
@@ -107,7 +111,7 @@ import axios from 'axios';
             <input type="checkbox" name="voice" onChange={e=>{this.toggleChecked('voice', e.target.checked)}}></input><span>System nagłaśniający</span><br/>
 
             <label id="room">Wybierz salę</label>
-            <select id="roomTook">
+            <select id="roomTook" onChange={e => {this.selectChange(e.target.options)}}>
               {this.state.roomItems}
             </select>
 
