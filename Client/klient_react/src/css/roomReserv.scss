@@ -53,6 +53,7 @@
 
     #checking{
         margin-top: 2%;
+        margin-left: -50%;
     }
 
     input[name="flipchart"]{
@@ -106,11 +107,20 @@
 
     label[for="repeat"]{
         margin-top: 3%;
+        margin-left: -80%;
     }
 
     #repeat{
         transform: scale(2);
         width: 1%;
+        margin-left: 2%;
+    }
+
+    input[type="submit"]{
+        width: 20%;
+        display: inline-block;
+        margin-top: 2%;
+        margin-left: 50%;
     }
 }
 

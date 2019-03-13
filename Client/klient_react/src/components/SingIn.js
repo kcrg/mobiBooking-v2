@@ -28,15 +28,6 @@ class SingIn extends Component {
     .then(res => {
       const { cookies } = this.props;
       cookies.set('token', res.data.token, {path: '/'});
-      axios.interceptors.request.use(function(config) {
-        const token = cookies.get('token');
-        if( token != null ){
-          config.headers.Authorization = `Bearer ${token}`;
-        }
-        return config;
-      },function(err){
-          return Promise.reject(err);
-        });
       if(res.status === 200)
         this.props.history.push('/home');
       return res;

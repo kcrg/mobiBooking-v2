@@ -46,7 +46,7 @@ class AddUser extends Component {
   toggleError = (error) =>{
     if( error === true ){
       this.setState({
-        error: 'errors',
+        error: 'wrong',
         succes: 'default'
       })
     }
