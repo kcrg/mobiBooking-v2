@@ -1,9 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.Helpers;
 using mobiBooking.UWP.Models;
 using mobiBooking.UWP.Views;
-using mobiBooking.UWP.Views.CustomDialogs;
-using Newtonsoft.Json;
-using RestSharp;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -38,52 +35,19 @@ namespace mobiBooking.UWP
 
         private async void LogOut_Click(object sejnder, RoutedEventArgs e)
         {
-            LoginModel SavedResponseObj = await helper.ReadFileAsync<LoginModel>("response");
-
-            string json = JsonConvert.SerializeObject(SavedResponseObj.Token);
-
-            ConnectionModel IP = new ConnectionModel();
-            RestClient client = new RestClient(IP.Adress);
-            client.RemoteCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
-
-            RestRequest request = new RestRequest("Authenticate/Logout", Method.POST);
-            request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
-
-            // execute the request
-            IRestResponse response = client.Execute(request);
-
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            LoginModel EmptyLoginResponseObj = new LoginModel
             {
-                LoginModel EmptyLoginResponseObj = new LoginModel
-                {
-                    UserName = null,
-                    Name = null,
-                    Surname = null,
-                    Email = null,
-                    UserType = null,
-                    Token = null
-                };
-                await helper.SaveFileAsync("response", EmptyLoginResponseObj);
+                UserName = null,
+                Name = null,
+                Surname = null,
+                Email = null,
+                UserType = null,
+                Token = null,
+                IsLoged = false
+            };
+            await helper.SaveFileAsync("response", EmptyLoginResponseObj);
 
-                Frame.Navigate(typeof(LoginPage), null, new DrillInNavigationTransitionInfo());
-            }
-            else
-            {
-                await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem.", CustomDialog.Type.Error).ShowAsync();
-
-                LoginModel EmptyLoginResponseObj = new LoginModel
-                {
-                    UserName = null,
-                    Name = null,
-                    Surname = null,
-                    Email = null,
-                    UserType = null,
-                    Token = null
-                };
-                await helper.SaveFileAsync("response", EmptyLoginResponseObj);
-
-                Frame.Navigate(typeof(LoginPage), null, new DrillInNavigationTransitionInfo());
-            }
+            Frame.Navigate(typeof(LoginPage), null, new DrillInNavigationTransitionInfo());
         }
 
         private void NavView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)

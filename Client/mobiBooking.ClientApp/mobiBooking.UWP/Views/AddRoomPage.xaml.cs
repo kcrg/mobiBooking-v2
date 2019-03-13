@@ -49,16 +49,16 @@ namespace mobiBooking.UWP.Views
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    await new CustomDialog("Sala dodana poprawnie.", CustomDialog.Type.Information).ShowAsync();
+                    await new CustomDialog("Sala dodana poprawnie.", null, CustomDialog.Type.Information).ShowAsync();
                 }
                 else
                 {
-                    await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem.", CustomDialog.Type.Error).ShowAsync();
+                    await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem.", null, CustomDialog.Type.Error).ShowAsync();
                 }
             }
             else
             {
-                await new CustomDialog("Wprowadzono błędne dane.", CustomDialog.Type.Warning).ShowAsync();
+                await new CustomDialog("Wprowadzono błędne dane.", null, CustomDialog.Type.Warning).ShowAsync();
             }
         }
     }

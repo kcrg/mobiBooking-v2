@@ -58,7 +58,7 @@ namespace mobiBooking.UWP
                     {
                         LoginModel SavedResponseObj = await helper.ReadFileAsync<LoginModel>("response");
 
-                        if (SavedResponseObj.Token != null)
+                        if (SavedResponseObj.IsLoged)
                         {
                             rootFrame.Navigate(typeof(MainPage), e.Arguments);
                         }

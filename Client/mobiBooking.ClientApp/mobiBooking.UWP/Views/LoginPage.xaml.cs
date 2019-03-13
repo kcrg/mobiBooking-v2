@@ -43,13 +43,13 @@ namespace mobiBooking.UWP.Views
 
                 // execute the request
                 IRestResponse response = client.Execute(request);
-                string content = response.Content; // raw content as string
 
-                LoginModel tokenObj = new LoginModel();
-                tokenObj = JsonConvert.DeserializeObject<LoginModel>(response.Content);
-
-                if (tokenObj.Token != null)
+                if (response.StatusCode != System.Net.HttpStatusCode.InternalServerError && response.StatusCode != System.Net.HttpStatusCode.NotFound && response.StatusCode != System.Net.HttpStatusCode.BadGateway && response.StatusCode != System.Net.HttpStatusCode.BadRequest && response.StatusCode != 0)
                 {
+                    LoginModel tokenObj = new LoginModel();
+                    tokenObj = JsonConvert.DeserializeObject<LoginModel>(response.Content);
+
+
                     JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
                     SecurityToken jsonToken = handler.ReadToken(tokenObj.Token);
 
@@ -60,7 +60,8 @@ namespace mobiBooking.UWP.Views
                         Surname = ((JwtSecurityToken)jsonToken).Payload["sureName"].ToString(),
                         Email = ((JwtSecurityToken)jsonToken).Payload["email"].ToString(),
                         UserType = ((JwtSecurityToken)jsonToken).Payload["role"].ToString(),
-                        Token = tokenObj.Token
+                        Token = tokenObj.Token,
+                        IsLoged = true
                     };
 
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -71,17 +72,18 @@ namespace mobiBooking.UWP.Views
                     }
                     else
                     {
-                        await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem.", CustomDialog.Type.Error).ShowAsync();
+                        await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem.", response.StatusCode.ToString(), CustomDialog.Type.Error).ShowAsync();
                     }
+
                 }
                 else
                 {
-                    await new CustomDialog("Konto o podanym loginie/haśle nie istnieje.", CustomDialog.Type.Warning).ShowAsync();
+                    await new CustomDialog("Konto o podanym loginie/haśle nie istnieje lub brak połączenia z serwerem.", response.StatusCode.ToString(), CustomDialog.Type.Error).ShowAsync();
                 }
             }
             else
             {
-                await new CustomDialog("Wprowadzono błędne dane lub brak połączenia z internetem.", CustomDialog.Type.Warning).ShowAsync();
+                await new CustomDialog("Wprowadzono błędne dane lub brak połączenia z internetem.", null, CustomDialog.Type.Warning).ShowAsync();
             }
         }
     }

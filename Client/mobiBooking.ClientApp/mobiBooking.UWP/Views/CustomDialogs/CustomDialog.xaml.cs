@@ -11,22 +11,23 @@ namespace mobiBooking.UWP.Views.CustomDialogs
             Warning
         }
 
-        public CustomDialog(string message, Type type = Type.Information)
+        public CustomDialog(string message, string errorcode, Type type = Type.Information)
         {
             InitializeComponent();
 
             MessageText.Text = message;
+            ErrorCodeText.Text = "Kod błędu: " + errorcode;
 
             switch (type)
             {
                 case Type.Error:
                     Title = "Błąd";
                     break;
-                case Type.Information:
-                    Title = "Informacja";
-                    break;
                 case Type.Warning:
                     Title = "Ostrzeżenie";
+                    break;
+                case Type.Information:
+                    Title = "Informacja";
                     break;
             }
         }

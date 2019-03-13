@@ -31,8 +31,7 @@ namespace mobiBooking.UWP.Views
                     Name = name.Text,
                     Surname = surname.Text,
                     Email = email.Text,
-                    UserType = usertype.SelectedItem.ToString(),
-                    Token = SavedResponseObj.Token
+                    UserType = usertype.SelectedItem.ToString()
                 };
                 string json = JsonConvert.SerializeObject(userObj);
 
@@ -50,16 +49,16 @@ namespace mobiBooking.UWP.Views
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    await new CustomDialog("Użytkownik stworzony poprawnie.", CustomDialog.Type.Information).ShowAsync();
+                    await new CustomDialog("Użytkownik stworzony poprawnie.", null, CustomDialog.Type.Information).ShowAsync();
                 }
                 else
                 {
-                    await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem lub użytkownik o podanych danych już istnieje.", CustomDialog.Type.Error).ShowAsync();
+                    await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem lub użytkownik o podanych danych już istnieje.", null, CustomDialog.Type.Error).ShowAsync();
                 }
             }
             else
             {
-                await new CustomDialog("Wprowadzono błędne dane.", CustomDialog.Type.Warning).ShowAsync();
+                await new CustomDialog("Wprowadzono błędne dane.", null, CustomDialog.Type.Warning).ShowAsync();
             }
         }
     }

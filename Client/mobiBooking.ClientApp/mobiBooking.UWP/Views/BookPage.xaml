@@ -4,33 +4,38 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" NavigationCacheMode="Required">
+    mc:Ignorable="d" NavigationCacheMode="Required" Loaded="Page_Loaded">
 
     <Page.Content>
         <ScrollViewer>
-            <StackPanel Spacing="12" MaxWidth="400">
-                <TimePicker Header="Rezerwuje od*" HorizontalAlignment="Stretch"/>
-                <DatePicker HorizontalAlignment="Stretch"/>
+            <StackPanel Spacing="12" Padding="0,12,22,0" MaxWidth="400">
+                <TimePicker x:Name="TimeFrom" Header="Rezerwuje od*" HorizontalAlignment="Stretch"/>
+                <DatePicker x:Name="DateFrom" HorizontalAlignment="Stretch"/>
 
-                <TimePicker Header="Rezerwuje do*" HorizontalAlignment="Stretch"/>
-                <DatePicker HorizontalAlignment="Stretch"/>
+                <TimePicker x:Name="TimeTo" Header="Rezerwuje do*" HorizontalAlignment="Stretch"/>
+                <DatePicker x:Name="DateTo" HorizontalAlignment="Stretch"/>
 
-                <TextBox Header="Pojemność sali"/>
+                <TextBox x:Name="RoomCap" Header="Pojemność sali"/>
 
                 <TextBlock Text="Potrzebuje z wyposażeniem:" Margin="0,0,0,-7"/>
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Content="Flipchart"/>
-                    <CheckBox Content="System nagłaśniający"/>
+                    <CheckBox x:Name="Flipchart" Content="Flipchart"/>
+                    <CheckBox x:Name="SoundSystem" Content="System nagłaśniający"/>
                 </StackPanel>
 
-                <ComboBox x:Name="room" Header="Wybierz salę*" PlaceholderText="Wybierz" HorizontalAlignment="Stretch">
-                    <x:String>Placeholder sali</x:String>
-                    <x:String>Sala nr.69</x:String>
+                <ComboBox x:Name="RoomList" Header="Wybierz salę*" PlaceholderText="Wybierz" HorizontalAlignment="Stretch">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Spacing="5" Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
                 </ComboBox>
 
-                <TextBox Header="Tytuł spotkania*"/>
+                <TextBox x:Name="Title" Header="Tytuł spotkania*"/>
 
-                <ComboBox x:Name="status" Header="Status*" HorizontalAlignment="Stretch">
+                <ComboBox x:Name="Status" Header="Status*" HorizontalAlignment="Stretch">
                     <x:String>Niedostępna</x:String>
                     <x:String>Zaakceptowana</x:String>
                     <x:String>Zakończona</x:String>
@@ -39,31 +44,24 @@
                     <x:String>Brak możliwości edycji</x:String>
                 </ComboBox>
 
-                <CheckBox Content="Rezerwacja cykliczna"/>
+                <CheckBox x:Name="IsCyclic" Content="Rezerwacja cykliczna"/>
 
                 <TextBlock Text="Wybierz uczestników*"/>
 
-                <ListBox x:Name="UsersList" MaxHeight="200" SelectionMode="Multiple" Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}">
-                    <TextBlock Text="Arial" FontFamily="Arial"/>
-                    <TextBlock Text="Courier New" FontFamily="Courier New"/>
-                    <TextBlock Text="Times New Roman" FontFamily="Times New Roman"/>
-                    <TextBlock Text="Arial" FontFamily="Arial"/>
-                    <TextBlock Text="Courier New" FontFamily="Courier New"/>
-                    <TextBlock Text="Times New Roman" FontFamily="Times New Roman"/>
-                    <TextBlock Text="Arial" FontFamily="Arial"/>
-                    <TextBlock Text="Courier New" FontFamily="Courier New"/>
-                    <TextBlock Text="Times New Roman" FontFamily="Times New Roman"/>
-                    <TextBlock Text="Arial" FontFamily="Arial"/>
-                    <TextBlock Text="Courier New" FontFamily="Courier New"/>
-                    <TextBlock Text="Times New Roman" FontFamily="Times New Roman"/>
-                    <TextBlock Text="Arial" FontFamily="Arial"/>
-                    <TextBlock Text="Courier New" FontFamily="Courier New"/>
-                    <TextBlock Text="Times New Roman" FontFamily="Times New Roman"/>
-                    <TextBlock Text="Arial" FontFamily="Arial"/>
-                    <TextBlock Text="Courier New" FontFamily="Courier New"/>
-                    <TextBlock Text="Times New Roman" FontFamily="Times New Roman"/>
-                </ListBox>
-                <CheckBox x:Name="SelectAll" Content="Zaznacz wszystkich"  Click="SelectAll_Click"/>
+                <ListView x:Name="UsersList" MaxHeight="200" SelectionMode="Multiple" Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}" SelectionChanged="UsersList_SelectionChanged">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Spacing="5" Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text="{Binding Surname}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Grid>
+                    <CheckBox x:Name="SelectAll" Content="Zaznacz wszystkich"  Click="SelectAll_Click"/>
+                    <Button Content="Zarezerwuj salę" HorizontalAlignment="Right" Click="ReservateRoom_Click"/>
+                </Grid>
             </StackPanel>
         </ScrollViewer>
     </Page.Content>
