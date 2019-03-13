@@ -4,86 +4,86 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 
 class AddRoom extends Component {
-    state = {
-      roomData:{
-        roomName: null,
-        location: null,
-        activity: true,
-        availability: "08.00 - 16.00",
-        numberOfPeople: null
-      },
-      error: 'default',
-      succes: 'default'
-    }
+  state = {
+    roomData:{
+      roomName: null,
+      location: null,
+      activity: true,
+      availability: "08.00 - 16.00",
+      numberOfPeople: null
+    },
+    error: 'default',
+    succes: 'default'
+  }
 
-    handleChange = (name, value) =>{
-      this.setState(prevState => ({
-        ...prevState,
-        roomData: {
-          ...prevState.roomData,
-          [name]: value
-        } 
-      }))
-    }
+  handleChange = (name, value) =>{
+    this.setState(prevState => ({
+      ...prevState,
+      roomData: {
+        ...prevState.roomData,
+        [name]: value
+      } 
+    }))
+  }
 
-    handleAChange = (name, value) =>{
-      this.setState(prevState => ({
-        ...prevState,
-        roomData: {
-          ...prevState.roomData,
-          [name]: value === "Tak" ? (true) : (false)
-        } 
-      }))
-    }
+  handleAChange = (name, value) =>{
+    this.setState(prevState => ({
+      ...prevState,
+      roomData: {
+        ...prevState.roomData,
+        [name]: value === "Tak" ? (true) : (false)
+      } 
+    }))
+  }
 
-    handleNChange = (name, value) =>{
-      this.setState(prevState => ({
-        ...prevState,
-        roomData: {
-          ...prevState.roomData,
-          [name]: parseInt(value)
-        } 
-      }))
-    }
+  handleNChange = (name, value) =>{
+    this.setState(prevState => ({
+      ...prevState,
+      roomData: {
+        ...prevState.roomData,
+        [name]: parseInt(value)
+      } 
+    }))
+  }
     
-    toggleError = (error) =>{
-      if( error === true ){
-        this.setState({
-          error: 'errors',
-          succes: 'default'
-        })
-      }else{
-        this.setState({
-          succes: 'done',
-          error: 'default'
-        })
-      };
-    }
+  toggleError = (error) =>{
+    if( error === true ){
+      this.setState({
+        error: 'errors',
+        succes: 'default'
+      })
+    }else{
+      this.setState({
+        succes: 'done',
+        error: 'default'
+      })
+    };
+  }
 
          
-    handleSubmit = (e) =>{
-      e.preventDefault();
-      this.sendData()
-    }
+  handleSubmit = (e) =>{
+    e.preventDefault();
+    this.sendData()
+  }
 
-    sendData = () =>{
-      const { ip } = this.props;
-      axios.post(ip + '/api/Room', this.state.roomData)
-      .then(res => {
-        this.toggleError(false)
-        return res;
-        })
-      .catch(err =>{
-        this.toggleError(true)
-      });
-    }
+  sendData = () =>{
+    const { ip } = this.props;
+    axios.post(ip + '/api/Room', this.state.roomData)
+    .then(res => {
+      this.toggleError(false)
+      return res;
+    })
+    .catch(err =>{
+      this.toggleError(true)
+    });
+  }
 
-      componentDidMount(){
-        const { cookies } = this.props;
-        if(cookies.get('token') === undefined){
-          this.props.history.push('/');
-        }
-      }
+  componentDidMount(){
+    const { cookies } = this.props;
+    if(cookies.get('token') === undefined){
+      this.props.history.push('/');
+    }
+  }
   
 
 

@@ -5,70 +5,68 @@ import { withRouter } from 'react-router-dom';
 
 class AddUser extends Component {
 
-    state = {
-      userData:{
-        userName: null,
-        password: null,
-        name: null,
-        surname: null,
-        email: null,
-        userType: 'Administrator'
-        },
-      r_pass: null,
-      error: 'default',
-      succes: 'default'
-    }
+  state = {
+    userData:{
+      userName: null,
+      password: null,
+      name: null,
+      surname: null,
+      email: null,
+      userType: 'Administrator'
+    },
+    r_pass: null,
+    error: 'default',
+    succes: 'default'
+  }
 
-    componentDidMount(){
-      const { cookies } = this.props;
-      if(cookies.get('token') === undefined){
-        this.props.history.push('/');
-        console.log("Token nie istnieje")
-      }
+  componentDidMount(){
+    const { cookies } = this.props;
+    if(cookies.get('token') === undefined){
+      this.props.history.push('/');
     }
+  }
 
-    sendData = () =>{
-      const { ip } = this.props;
-      axios.post(ip + '/api/Users', this.state.userData)
-      .then(res => {
-        this.toggleError(false)
-        console.log(res);
-        return res;
+  sendData = () =>{
+    const { ip } = this.props;
+    axios.post(ip + '/api/Users', this.state.userData)
+    .then(res => {
+      this.toggleError(false)
+      return res;
+    })
+    .catch(err =>{
+      this.toggleError(true)
+    });
+  }
+
+  handleSubmit = (e) =>{
+    e.preventDefault();
+    this.sendData();
+  }
+
+  toggleError = (error) =>{
+    if( error === true ){
+      this.setState({
+        error: 'errors',
+        succes: 'default'
       })
-      .catch(err =>{
-        this.toggleError(true)
-      });
     }
-
-    handleSubmit = (e) =>{
-      e.preventDefault();
-      this.sendData();
-    }
-
-    toggleError = (error) =>{
-      if( error === true ){
-        this.setState({
-          error: 'errors',
-          succes: 'default'
+    else{
+      this.setState({
+        succes: 'done',
+        error: 'default'
       })
-      }
-      else{
-        this.setState({
-          succes: 'done',
-          error: 'default'
-        })
-      };
-    }
+    };
+  }
 
    
-    handleChange = (name, value) =>{
-      this.setState(prevState => ({
-        ...prevState,
-        userData: {
-          ...prevState.userData,
-          [name]: value === 'Zwykły użytkownik' ? ('User') : (value)
-        } 
-      }))
+  handleChange = (name, value) =>{
+    this.setState(prevState => ({
+      ...prevState,
+      userData: {
+        ...prevState.userData,
+        [name]: value === 'Zwykły użytkownik' ? ('User') : (value)
+      } 
+    }))
   }
 
   handleRpasswordChange = (name, value) =>{

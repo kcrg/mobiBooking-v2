@@ -6,67 +6,66 @@ import axios from 'axios';
 
 class SingIn extends Component {
 
-    state = {
-      formData: {
-        Email: null,
-        Password: null
-      },
-        error: 'default'
-    }
+  state = {
+    formData: {
+      Email: null,
+      Password: null
+    },
+    error: 'default'
+  }
 
-    componentDidMount(){
+  componentDidMount(){
+    const { cookies } = this.props;
+    if(cookies.get('token') !== undefined){
+      this.props.history.push('/home');
+    }
+    document.body.style.backgroundColor = "#8d1be5";
+  }
+
+  sendRequest = () =>{
+    const { ip } = this.props
+    axios.post(ip + '/api/Authenticate', this.state.formData)
+    .then(res => {
       const { cookies } = this.props;
-      if(cookies.get('token') !== undefined){
-        this.props.history.push('/home');
-      }
-      document.body.style.backgroundColor = "#8d1be5";
-    }
-
-    sendRequest = () =>{
-      const { ip } = this.props
-      axios.post(ip + '/api/Authenticate', this.state.formData)
-      .then(res => {
-        const { cookies } = this.props;
-        cookies.set('token', res.data.token, {path: '/'});
-        axios.interceptors.request.use(function(config) {
-          const token = cookies.get('token');
-          if ( token != null ) {
-            config.headers.Authorization = `Bearer ${token}`;
-          }
-          return config;
-      }, function(err){
+      cookies.set('token', res.data.token, {path: '/'});
+      axios.interceptors.request.use(function(config) {
+        const token = cookies.get('token');
+        if( token != null ){
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+      },function(err){
           return Promise.reject(err);
         });
-        if(res.status === 200)
-          this.props.history.push('/home');
-        return res;
+      if(res.status === 200)
+        this.props.history.push('/home');
+      return res;
       })
-      .catch(err =>{
-        this.toggleError()
-      });
-    }
+    .catch(err =>{
+      this.toggleError()
+    });
+  }
 
 
-    handleChange = (name, value) =>{
-      this.setState(prevState => ({
-        ...prevState,
-        formData: {
-          ...prevState.formData,
-          [name]: value
-        } 
-      }))
-    }
+  handleChange = (name, value) =>{
+    this.setState(prevState => ({
+      ...prevState,
+      formData: {
+        ...prevState.formData,
+        [name]: value
+      } 
+    }))
+  }
 
-    handleSubmit = (e) =>{
-      e.preventDefault();
-      this.sendRequest();
-    }
+  handleSubmit = (e) =>{
+    e.preventDefault();
+    this.sendRequest();
+  }
 
-    toggleError = () =>{
-      this.setState({error: 'error'});
-    }
+  toggleError = () =>{
+    this.setState({error: 'error'});
+  }
   render() {
-
     return (
       <div id="log">
         <img src={logo} alt="logo" id="logging"></img>

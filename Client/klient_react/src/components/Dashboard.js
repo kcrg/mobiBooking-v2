@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 
 class Dashboard extends Component {
 
-
     componentDidMount(){
         const { cookies } = this.props;
         if(cookies.get('token') === undefined){
