@@ -4,28 +4,24 @@ using Microsoft.AspNetCore.Mvc;
 using mobiBooking.Model.RecivedModels;
 using mobiBooking.Model.SendModels;
 using mobiBooking.Service.Interfaces;
-using mobiBooking.WebApi.Base;
 
 namespace mobiBooking.WebApi.Controllers
 {
 
     [Route("api/[controller]")]
-    public class UsersController : ApiControllerBase
+    public class UsersController : ControllerBase
     {
         private IUsersService _usersService;
-        public UsersController(IUsersService usersService, IAuthenticateService authenticateService) : base(authenticateService)
+        public UsersController(IUsersService usersService, IAuthenticateService authenticateService)
         {
             _usersService = usersService;
         }
 
         // GET: api/Users
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, User")]
         [HttpGet]
         public ActionResult<IEnumerable<UserDataModel>> GetAll()
         {
-            if (!IsLoggedIn(out ActionResult result))
-                return result;
-
             return Ok(_usersService.GetAll());
         }
 
@@ -35,8 +31,6 @@ namespace mobiBooking.WebApi.Controllers
         [HttpPost]
         public ActionResult Post([FromBody] CreateUserModel value)
         {
-            if (!IsLoggedIn(out ActionResult result))
-                return result;
 
             if (_usersService.Create(value))
                 return Ok();
@@ -50,8 +44,6 @@ namespace mobiBooking.WebApi.Controllers
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] CreateUserModel value)
         {
-            if (!IsLoggedIn(out ActionResult result))
-                return result;
 
             _usersService.Update(id, value);
             return Ok();
@@ -62,9 +54,6 @@ namespace mobiBooking.WebApi.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            if (!IsLoggedIn(out ActionResult result))
-                return result;
-
             _usersService.Delete(id);
             return Ok();
         }

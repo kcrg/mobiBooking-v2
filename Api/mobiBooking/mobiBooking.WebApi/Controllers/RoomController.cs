@@ -1,33 +1,28 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using mobiBooking.Model.Models;
+using mobiBooking.Model.SendModels;
 using mobiBooking.Service.Interfaces;
-using mobiBooking.WebApi.Base;
 using System.Collections.Generic;
 
 namespace mobiBooking.WebApi.Controllers
 {
 
     [Route("api/[controller]")]
-    public class RoomController : ApiControllerBase
+    public class RoomController : ControllerBase
     {
         private readonly IRoomService _roomService;
 
-        public RoomController(IRoomService roomService, IAuthenticateService authenticateService) : base(authenticateService)
+        public RoomController(IRoomService roomService, IAuthenticateService authenticateService)
         {
             _roomService = roomService;
         }
 
         // GET api/values
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, User")]
         [HttpGet]
-        public ActionResult<IEnumerable<RoomModel>> Get()
+        public ActionResult<IEnumerable<RoomDataModel>> Get()
         {
-            if (!IsLoggedIn(out ActionResult result))
-            {
-                return result;
-            }
-
             return Ok(_roomService.GetAll());
         }
 
@@ -35,12 +30,7 @@ namespace mobiBooking.WebApi.Controllers
         [Authorize(Roles = "Administrator")]
         [HttpGet("{id}")]
         public ActionResult<RoomModel> Get(int id)
-        {
-            if (!IsLoggedIn(out ActionResult result))
-            {
-                return result;
-            }
-
+        { 
             RoomModel roomModel = _roomService.Get(id);
 
             if (roomModel == null)
@@ -56,10 +46,7 @@ namespace mobiBooking.WebApi.Controllers
         [HttpPost]
         public ActionResult Post([FromBody]RoomModel roomParam)
         {
-            if (!IsLoggedIn(out ActionResult result))
-            {
-                return result;
-            }
+            
 
             if (_roomService.Create(roomParam))
             {
@@ -76,10 +63,7 @@ namespace mobiBooking.WebApi.Controllers
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] RoomModel value)
         {
-            if (!IsLoggedIn(out ActionResult result))
-            {
-                return result;
-            }
+            
 
             _roomService.Update(id, value);
 
@@ -91,10 +75,7 @@ namespace mobiBooking.WebApi.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            if (!IsLoggedIn(out ActionResult result))
-            {
-                return result;
-            }
+            
 
             if (_roomService.Delete(id))
             {

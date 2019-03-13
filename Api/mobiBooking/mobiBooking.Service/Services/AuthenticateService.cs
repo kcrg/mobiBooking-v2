@@ -45,11 +45,11 @@ namespace mobiBooking.Service.Services
                 return null;
             }
 
-            user.Token = GenerateToken(user);
+            var token = GenerateToken(user);
 
             TokenModel userDataModel = new TokenModel
             {
-                Token = user.Token
+                Token = token
             };
 
             _repositoryWrapper.User.Update(user);
@@ -78,24 +78,6 @@ namespace mobiBooking.Service.Services
             };
             SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
-        }
-
-        public bool IsLoggedIn(int id)
-        {
-            string token = _repositoryWrapper.User.Find(id).Token;
-            return token != null;
-        }
-
-        public void Logout(int id)
-        {
-            User user = _repositoryWrapper.User.Find(id);
-
-            if (user == null)
-                return;
-
-            user.Token = null;
-            _repositoryWrapper.User.Update(user);
-            _repositoryWrapper.User.Save();
         }
 
         public string HashPassword(string password, byte[] salt)

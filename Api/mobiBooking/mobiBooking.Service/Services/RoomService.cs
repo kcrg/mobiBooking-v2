@@ -1,11 +1,10 @@
 ﻿using mobiBooking.Data.Model;
 using mobiBooking.Model.Models;
+using mobiBooking.Model.SendModels;
 using mobiBooking.Repository.Base;
 using mobiBooking.Service.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace mobiBooking.Service.Services
 {
@@ -22,10 +21,10 @@ namespace mobiBooking.Service.Services
         public bool Create(RoomModel value)
         {
 
-            if ( string.IsNullOrEmpty(value.Availability)
+            if (string.IsNullOrEmpty(value.Availability)
                 || string.IsNullOrEmpty(value.Location)
                 || string.IsNullOrEmpty(value.RoomName)
-                || value.Activity == null              
+                || value.Activity == null
                 || value.NumberOfPeople == null)
             {
                 return false;
@@ -49,7 +48,9 @@ namespace mobiBooking.Service.Services
             Room room = _repositoryWrapper.Room.Find(id);
 
             if (room == null)
+            {
                 return false;
+            }
 
             _repositoryWrapper.Room.Delete(room);
             return true;
@@ -60,7 +61,9 @@ namespace mobiBooking.Service.Services
             Room room = _repositoryWrapper.Room.Find(id);
 
             if (room == null)
+            {
                 return null;
+            }
 
             return new RoomModel
             {
@@ -72,18 +75,16 @@ namespace mobiBooking.Service.Services
             };
         }
 
-        public IEnumerable<RoomModel> GetAll()
+        public IEnumerable<RoomDataModel> GetAll()
         {
-            List<RoomModel> roomModels = new List<RoomModel>();
-            _repositoryWrapper.Room.FindAll().ToList().ForEach((room) =>
+            List<RoomDataModel> roomModels = new List<RoomDataModel>();
+
+            _repositoryWrapper.Room.FindAll().ToList().ForEach(room =>
             {
-                roomModels.Add(new RoomModel
+                roomModels.Add(new RoomDataModel
                 {
-                    Activity = room.Activity,
-                    Availability = room.Availability, 
-                    Location = room.Location,
-                    NumberOfPeople = room.NumberOfPeople,
-                    RoomName = room.Name
+                    Id = room.Id,
+                    Name = room.Name
                 });
             });
 

@@ -2,16 +2,16 @@
 using Microsoft.AspNetCore.Mvc;
 using mobiBooking.Model.RecivedModels;
 using mobiBooking.Service.Interfaces;
-using mobiBooking.WebApi.Base;
+
 
 namespace mobiBooking.WebApi.Controllers
 {
     [Route("api/[controller]")]
-    public class ReservationController : ApiControllerBase
+    public class ReservationController : ControllerBase
     {
         private readonly IReservationService _reservationService;
 
-        public ReservationController(IAuthenticateService authenticateService, IReservationService reservationService) : base(authenticateService)
+        public ReservationController(IReservationService reservationService)
         {
             _reservationService = reservationService;
         }
@@ -20,19 +20,13 @@ namespace mobiBooking.WebApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<ReservationModel>> Get()
         {
-            if (!IsLoggedIn(out ActionResult result))
-                return result;
-
             return Ok();
         }
 
         // GET: api/Reservation/5
         [HttpGet("{id}", Name = "Get")]
         public ActionResult Get(int id)
-        {
-            if (!IsLoggedIn(out ActionResult result))
-                return result;
-
+        { 
             return Ok();
         }
 
@@ -40,9 +34,6 @@ namespace mobiBooking.WebApi.Controllers
         [HttpPost]
         public ActionResult Post([FromBody] ReservationModel value)
         {
-            if (!IsLoggedIn(out ActionResult result))
-                return result;
-
             if (_reservationService.Create(value, int.Parse(User.Identity.Name)))
                 return Ok();
             else
@@ -53,9 +44,6 @@ namespace mobiBooking.WebApi.Controllers
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] string value)
         {
-            if (!IsLoggedIn(out ActionResult result))
-                return result;
-
             return Ok();
         }
 
@@ -63,9 +51,6 @@ namespace mobiBooking.WebApi.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            if (!IsLoggedIn(out ActionResult result))
-                return result;
-
             return Ok();
         }
     }

@@ -14,7 +14,6 @@ namespace mobiBooking.Data.Model
         public string Surname { get; set; }
         public string Email { get; set; }
         public string Role { get; set; }
-        public string Token { get; set; }
         public byte[] Salt { get; set; }
 
         public virtual ICollection<UserToReservation> Meetings { get; set; }

@@ -73,10 +73,9 @@ namespace mobiBooking.Service.Services
             {
                 users.Add(new UserDataModel
                 {
-                    Email = user.Email,
+                    Id = user.Id,
                     Name = user.Name,
                     Surname = user.Surname,
-                    UserName = user.UserName
                 });
             });
             return users;
