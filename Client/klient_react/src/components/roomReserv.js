@@ -28,7 +28,6 @@ import '../css/roomReserv.scss';
       <div className="content">
         <div className="roomForm">
             <h2>Zarezerwuj salę:</h2>
-
             <form>
                 <label htmlFor="dateFrom">Rezerwuję od:</label>
                 <input type="text" id="dateFrom" onChange={e => this.handleChange('dateFrom', e.target.value)} required></input>
