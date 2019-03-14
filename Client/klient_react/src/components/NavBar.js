@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../img/mobitouch.png';
-import '../css/NavBar.scss';
 import * as JWT from 'jwt-decode';
 
 export default class NavBar extends Component {
@@ -20,7 +19,6 @@ export default class NavBar extends Component {
         visible: null
       })
     }
-    document.body.style.backgroundColor = "#fff";
   }}
 
 
@@ -31,17 +29,17 @@ export default class NavBar extends Component {
         <img src={logo} alt="logo"></img>
         <h1>MobiReservation <br/> System</h1>
         <ul>
-          <Link to="/home" style={{textDecoration: 'none', color:'#222'}}><li className="outside">Dashboard</li></Link>
-          <li className="outside">Rezerwacja Sali
+          <Link to="/home"><li>Dashboard</li></Link>
+          <li>Rezerwacja Sali
             <ul>
-              <Link to="/roomReserv" style={{textDecoration: 'none', color:'#222'}}><li className="inside">Zarezerwuj sale</li></Link>
-              <li className="inside">Lista sal/rezerwacje</li>
-              <Link to="/addRoom" style={{textDecoration: 'none', color:'#222'}}><li className={this.state.visible}>Dodaj sale</li></Link>
+              <Link to="/roomReserv"><li>Zarezerwuj sale</li></Link>
+              <li>Lista sal/rezerwacje</li>
+              <Link to="/addRoom"><li className={this.state.visible}>Dodaj sale</li></Link>
             </ul>
           </li>
 
-          <Link to="addUser" style={{textDecoration: 'none', color:'#222'}}><li className="outside">Użytkownicy</li></Link>
-          <li className="outside">Ustawienia</li>
+          <Link to="addUser"><li>Użytkownicy</li></Link>
+          <li>Ustawienia</li>
         </ul>
       </nav>
     )

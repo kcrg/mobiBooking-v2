@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import '../css/AddUser.scss';
 import { withRouter } from 'react-router-dom';
 
 class AddUser extends Component {
@@ -79,8 +78,8 @@ class AddUser extends Component {
 
   render() {
     return (
-      <div className="content">
-        <div className="form">
+      <div>
+        <div>
           <h2>Dodaj użytkownika:</h2>
           <form onSubmit={this.handleSubmit}>
             <label htmlFor="user_name">Nazwa użytkownika:</label>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import '../css/SignIn.scss';
 import logo from '../img/mobitouch.png';
 import axios from 'axios';
 
@@ -19,7 +18,6 @@ class SingIn extends Component {
     if(cookies.get('token') !== undefined){
       this.props.history.push('/home');
     }
-    document.body.style.backgroundColor = "#8d1be5";
   }
 
   sendRequest = () =>{
@@ -58,8 +56,8 @@ class SingIn extends Component {
   }
   render() {
     return (
-      <div id="log">
-        <img src={logo} alt="logo" id="logging"></img>
+      <div>
+        <img src={logo} alt="logo"></img>
         
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="email" id="mail">E-mail:</label>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import '../css/roomReserv.scss';
 import axios from 'axios';
 import Users from './Users';
 
@@ -81,16 +80,6 @@ import Users from './Users';
     }))
   }
 
-  toggleChecked = (name,value) =>{
-    this.setState(prevState =>({
-      ...prevState,
-      checked:{
-        ...prevState.checked,
-        [name]: value
-      }
-    }))
-  }
-
   handleSubmit = (e) =>{
     e.preventDefault();
   }
@@ -107,14 +96,10 @@ import Users from './Users';
     })
   }
 
-  handleClick = () =>{
-    
-  }
- 
   render() {
     return (
-      <div className="content">
-        <div className="roomForm">
+      <div>
+        <div>
           <h2>Zarezerwuj salę:</h2>
           <form onSubmit={this.handleSubmit}>
             <label htmlFor="dateFrom">Rezerwuję od:</label>
@@ -125,10 +110,6 @@ import Users from './Users';
     
             <label htmlFor="roomCapacity" className="other">Pojemność sali:</label>
             <input type="number" id="roomCapacity" onChange={e => this.handleCapacityChange('roomCapacity', e.target.value)} required></input><br/> 
-
-            <label  id="checking">Potrzebuję z wyposażeniem:</label>
-            <input type="checkbox" name="flipchart" onChange={e=>{this.toggleChecked('flipchart', e.target.checked)}}></input><span>Flipchart</span>
-            <input type="checkbox" name="voice" onChange={e=>{this.toggleChecked('voice', e.target.checked)}}></input><span>System nagłaśniający</span><br/>
 
             <label id="room">Wybierz salę</label>
             <select id="roomTook" onChange={e => {this.selectChange(e.target.value)}}>

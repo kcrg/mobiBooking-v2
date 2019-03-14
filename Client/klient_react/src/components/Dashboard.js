@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../css/Dashboard.scss';
 import { withRouter } from 'react-router-dom';
 
 class Dashboard extends Component {
@@ -17,10 +16,10 @@ class Dashboard extends Component {
 
     render() {
         return (
-            <div className="content">
-                <div className="messeges">
+            <div>
+                <div>
                     <h3>Moje spotkania:</h3>
-                    <div className="data">
+                    <div>
                         <p>ten tydzień</p>
                         <span>0.00h</span>
 
@@ -28,7 +27,7 @@ class Dashboard extends Component {
                         <span>0.00h</span>
                     </div>
 
-                    <div className="data">
+                    <div>
                         <p>ten miesiąc</p>
                         <span>0.00h</span>
 
@@ -37,52 +36,51 @@ class Dashboard extends Component {
                     </div>
                 </div>
 
-                <div className="meetings">
+                <div>
                     <h3>Spotkania na dziś:</h3><br/>
                     <p>Nie masz żadnych spotkań</p>
                 </div>
 
-                <div className="meetings">
+                <div>
                     <button onClick={this.buttonClick}>Zarezerwuj salę</button>
                 </div>
 
-                <div className="rooms">
+                <div>
                     <h3>Sale:</h3>
-                    <div className="numbers">
+                    <div>
                         <p>Aktualnie wolne:</p>
                         <span>3</span>
                     </div>
 
-                    <div className="numbers">
+                    <div>
                         <p>Zajęte:</p>
                         <span>0</span>
                     </div>
                 </div>
 
-                <div className="meetings">
+                <div>
                     <h3>Ostatnio rezerwowałeś:</h3><br/>
                     <p>Jeszcze nie rezerwowałeś</p>
                 </div>
 
-                <div className="meetings">
+                <div>
                     <h3>Statystyki rezerwacji:</h3><br/>
-                    <div className="data">
-                        <p className="data-p">ten tydzień:</p>
-                        <span className="data-s">0</span>
+                    <div>
+                        <p>ten tydzień:</p>
+                        <span>0</span>
 
-                        <p className="data-p">poprz. tydzień:</p>
-                        <span className="data-s">0</span>
+                        <p>poprz. tydzień:</p>
+                        <span>0</span>
                     </div>
 
-                    <div className="data">
-                        <p className="data-p">ten miesiąc:</p>
-                        <span className="data-s">0</span>
+                    <div>
+                        <p>ten miesiąc:</p>
+                        <span>0</span>
 
-                        <p className="data-p">poprz. miesiąc:</p>
-                        <span  className="data-s">0</span>
+                        <p>poprz. miesiąc:</p>
+                        <span>0</span>
                     </div>
                 </div>
-            
             </div>
         )
     }

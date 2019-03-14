@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../css/addRoom.scss';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 
@@ -89,8 +88,8 @@ class AddRoom extends Component {
 
   render() {
     return (
-      <div className="content">
-        <div className="form">
+      <div>
+        <div>
           <h2>Dodaj salę:</h2>
 
           <form onSubmit={this.handleSubmit}>
