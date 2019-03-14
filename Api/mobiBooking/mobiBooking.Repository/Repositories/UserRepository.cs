@@ -4,6 +4,7 @@ using mobiBooking.Repository.Base;
 using mobiBooking.Repository.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace mobiBooking.Repository.Repositories
 {
@@ -14,40 +15,48 @@ namespace mobiBooking.Repository.Repositories
 
         }
 
-        public User FindByEmail(string email)
+        public Task<IEnumerable<User>> FindAllWithout(int loggedUserid)
         {
-            IQueryable<User> query = from Users in DBContext.Users
-                                     where Users.Email == email
-                                     select Users;
-
-            return query.FirstOrDefault();
+            return Task.Run(() => (from Users in DBContext.Users
+                                   where Users.Id != loggedUserid
+                                   select Users).AsEnumerable());
         }
 
-        public User FindByEmailAndPassword(string email, string password)
+        public Task<User> FindByEmail(string email)
         {
-            IQueryable<User> query = from Users in DBContext.Users
-                                     where Users.Email == email && Users.Password == password
-                                     select Users;
+            return (from Users in DBContext.Users
+                    where Users.Email == email
+                    select Users)
+                    .ToAsyncEnumerable()
+                    .FirstOrDefault();
 
-            return query.FirstOrDefault();
         }
 
-        public IEnumerable<User> FindRange(IEnumerable<int> Ids)
+        public Task<User> FindByEmailAndPassword(string email, string password)
         {
-            IQueryable<User> query = from Users in DBContext.Users
-                                     where Ids.Contains(Users.Id)
-                                     select Users;
+            return (from Users in DBContext.Users
+                    where Users.Email == email && Users.Password == password
+                    select Users)
+                    .ToAsyncEnumerable()
+                    .FirstOrDefault();
 
-            return query.AsEnumerable();
         }
 
-        public bool UserExist(string email, string userName)
+        public Task<IEnumerable<User>> FindRange(IEnumerable<int> Ids)
         {
-            IQueryable<User> query = from Users in DBContext.Users
-                                     where Users.Email == email || Users.UserName == userName
-                                     select Users;
+            return Task.Run(() => (from Users in DBContext.Users
+                                   where Ids.Contains(Users.Id)
+                                   select Users).AsEnumerable());
 
-            return query.FirstOrDefault() != null;
+        }
+
+        public async Task<bool> UserExist(string email, string userName)
+        {
+            User user = await (from Users in DBContext.Users
+                               where Users.Email == email || Users.UserName == userName
+                               select Users).ToAsyncEnumerable().FirstOrDefault();
+
+            return user != null;
         }
     }
 }

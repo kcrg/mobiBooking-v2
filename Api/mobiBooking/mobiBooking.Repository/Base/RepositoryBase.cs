@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace mobiBooking.Repository.Base
 {
@@ -14,34 +15,31 @@ namespace mobiBooking.Repository.Base
             this.DBContext = DBContext;
         }
 
-        public IEnumerable<T> FindAll()
+        public Task<IEnumerable<T>> FindAll()
         {
-            return DBContext.Set<T>();
+            return Task.Run<IEnumerable<T>>(() => DBContext.Set<T>());
         }
 
-        public T Find(int id)
+        public async Task<T> Find(int id) => await DBContext.Set<T>().FindAsync(id);
+
+        public async Task Create(T entity)
         {
-            return DBContext.Set<T>().Find(id);
+            await DBContext.Set<T>().AddAsync(entity);
         }
 
-        public void Create(T entity)
+        public Task Update(T entity)
         {
-            DBContext.Set<T>().Add(entity);
+            return Task.Run(() => DBContext.Set<T>().Update(entity));
         }
 
-        public void Update(T entity)
+        public Task Delete(T entity)
         {
-            DBContext.Set<T>().Update(entity);
+            return Task.Run(() => DBContext.Set<T>().Remove(entity));
         }
 
-        public void Delete(T entity)
+        public async Task Save()
         {
-            DBContext.Set<T>().Remove(entity);
-        }
-
-        public void Save()
-        {
-            DBContext.SaveChanges();
+            await DBContext.SaveChangesAsync();
         }
     }
 }

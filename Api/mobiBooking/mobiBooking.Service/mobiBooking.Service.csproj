@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\mobiBooking.Component\mobiBooking.Component.csproj" />
     <ProjectReference Include="..\mobiBooking.Model\mobiBooking.Model.csproj" />
     <ProjectReference Include="..\mobiBooking.Repository\mobiBooking.Repository.csproj" />
   </ItemGroup>

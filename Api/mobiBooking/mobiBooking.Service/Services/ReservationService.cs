@@ -1,25 +1,30 @@
 ﻿using mobiBooking.Data.Model;
 using mobiBooking.Model.RecivedModels;
-using mobiBooking.Repository.Base;
+using mobiBooking.Repository.Interfaces;
 using mobiBooking.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace mobiBooking.Service.Services
 {
     public class ReservationService : IReservationService
     {
-        private readonly IRepositoryWrapper _repositoryWrapper;
+        private readonly IUserRepository _userRepository;
+        private readonly IReservationRepository _reservationRepository;
+        private readonly IUserToReservationRepository _userToReservationRepository;
 
-        public ReservationService(IRepositoryWrapper repositoryWrapper)
+        public ReservationService(IUserRepository userRepository, IReservationRepository reservationRepository, IUserToReservationRepository userToReservationRepository)
         {
-            _repositoryWrapper = repositoryWrapper;
+            _userRepository = userRepository;
+            _reservationRepository = reservationRepository;
+            _userToReservationRepository = userToReservationRepository;
         }
 
-        public bool Create(ReservationModel value, int OwnerUserId)
+        public async Task<bool> Create(ReservationModel value, int OwnerUserId)
         {
-            IEnumerable<User> InvitedUsers = _repositoryWrapper.User.FindRange(value.InvitedUsersIds);
+            IEnumerable<User> InvitedUsers = await _userRepository.FindRange(value.InvitedUsersIds);
 
             if (value.DateFrom == null
                 || value.DateTo == null
@@ -27,11 +32,6 @@ namespace mobiBooking.Service.Services
                 || string.IsNullOrEmpty(value.Title)
                 || value.RoomId == 0
                 || value.InvitedUsersIds == null)
-            {
-                return false;
-            }
-
-            if (value.InvitedUsersIds.Contains(OwnerUserId))
             {
                 return false;
             }
@@ -46,38 +46,38 @@ namespace mobiBooking.Service.Services
                 Title = value.Title
             };
 
-            _repositoryWrapper.Reservation.Create(reservation);
+            await _reservationRepository.Create(reservation);
 
             InvitedUsers.ToList().ForEach(user =>
             {
-                _repositoryWrapper.UserToReservation.Create(new UserToReservation
+                _userToReservationRepository.Create(new UserToReservation
                 {
                     Reservation = reservation,
                     User = user
                 });
             });
 
-            _repositoryWrapper.Reservation.Save();
+            await _reservationRepository.Save();
 
             return true;
         }
 
-        public bool Delete(int id)
+        public Task<bool> Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public ReservationModel Get(int id)
+        public Task<ReservationModel> Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<ReservationModel> GetAll()
+        public Task<IEnumerable<ReservationModel>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public void Update(int id, ReservationModel value)
+        public Task Update(int id, ReservationModel value)
         {
             throw new NotImplementedException();
         }

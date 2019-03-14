@@ -10,7 +10,7 @@ using mobiBooking.Data;
 namespace mobiBooking.Data.Migrations
 {
     [DbContext(typeof(MobiBookingDBContext))]
-    [Migration("20190311132754_A")]
+    [Migration("20190314115348_A")]
     partial class A
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -87,13 +87,15 @@ namespace mobiBooking.Data.Migrations
 
                     b.Property<string>("Surname");
 
-                    b.Property<string>("Token");
-
                     b.Property<string>("UserName");
 
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new { Id = 1, Email = "m.w@g.pl", Name = "Michał", Password = "YfccNp+3ssqSWGaIDRTrtA5kq4Lu87GUET3r8Uf15r0=", Role = "Administrator", Salt = new byte[] { 42, 113, 169, 67, 186, 125, 211, 81, 93, 74, 33, 193, 226, 109, 207, 170 }, Surname = "Test", UserName = "Test" }
+                    );
                 });
 
             modelBuilder.Entity("mobiBooking.Data.Model.UserToReservation", b =>

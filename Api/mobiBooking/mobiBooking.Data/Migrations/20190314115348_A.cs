@@ -37,7 +37,6 @@ namespace mobiBooking.Data.Migrations
                     Surname = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Role = table.Column<string>(nullable: true),
-                    Token = table.Column<string>(nullable: true),
                     Salt = table.Column<byte[]>(nullable: true)
                 },
                 constraints: table =>
@@ -98,6 +97,11 @@ namespace mobiBooking.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Email", "Name", "Password", "Role", "Salt", "Surname", "UserName" },
+                values: new object[] { 1, "m.w@g.pl", "Michał", "YfccNp+3ssqSWGaIDRTrtA5kq4Lu87GUET3r8Uf15r0=", "Administrator", new byte[] { 42, 113, 169, 67, 186, 125, 211, 81, 93, 74, 33, 193, 226, 109, 207, 170 }, "Test", "Test" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_OwnerUserId",

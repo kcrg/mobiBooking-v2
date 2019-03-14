@@ -1,24 +1,25 @@
 ﻿using mobiBooking.Data.Model;
 using mobiBooking.Model.Models;
 using mobiBooking.Model.SendModels;
-using mobiBooking.Repository.Base;
+using mobiBooking.Repository.Interfaces;
 using mobiBooking.Service.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace mobiBooking.Service.Services
 {
     public class RoomService : IRoomService
     {
 
-        private readonly IRepositoryWrapper _repositoryWrapper;
+        private readonly IRoomRepository _roomRepository;
 
-        public RoomService(IRepositoryWrapper repositoryWrapper)
+        public RoomService(IRoomRepository roomRepository)
         {
-            _repositoryWrapper = repositoryWrapper;
+            _roomRepository = roomRepository;
         }
 
-        public bool Create(RoomModel value)
+        public async Task<bool> Create(RoomModel value)
         {
 
             if (string.IsNullOrEmpty(value.Availability)
@@ -30,7 +31,7 @@ namespace mobiBooking.Service.Services
                 return false;
             }
 
-            _repositoryWrapper.Room.Create(new Room
+            await _roomRepository.Create(new Room
             {
                 Activity = (bool)value.Activity,
                 Availability = value.Availability,
@@ -38,27 +39,27 @@ namespace mobiBooking.Service.Services
                 Name = value.RoomName,
                 NumberOfPeople = (int)value.NumberOfPeople
             });
-            _repositoryWrapper.Room.Save();
+            await _roomRepository.Save();
 
             return true;
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            Room room = _repositoryWrapper.Room.Find(id);
+            Room room = await _roomRepository.Find(id);
 
             if (room == null)
             {
                 return false;
             }
 
-            _repositoryWrapper.Room.Delete(room);
+            await _roomRepository.Delete(room);
             return true;
         }
 
-        public RoomModel Get(int id)
+        public async Task<RoomModel> Get(int id)
         {
-            Room room = _repositoryWrapper.Room.Find(id);
+            Room room = await _roomRepository.Find(id);
 
             if (room == null)
             {
@@ -75,11 +76,11 @@ namespace mobiBooking.Service.Services
             };
         }
 
-        public IEnumerable<RoomDataModel> GetAll()
+        public async Task<IEnumerable<RoomDataModel>> GetAll()
         {
             List<RoomDataModel> roomModels = new List<RoomDataModel>();
 
-            _repositoryWrapper.Room.FindAll().ToList().ForEach(room =>
+            (await _roomRepository.FindAll()).ToList().ForEach(room =>
             {
                 roomModels.Add(new RoomDataModel
                 {
@@ -91,9 +92,9 @@ namespace mobiBooking.Service.Services
             return roomModels;
         }
 
-        public void Update(int id, RoomModel value)
+        public async Task Update(int id, RoomModel value)
         {
-            Room room = _repositoryWrapper.Room.Find(id);
+            Room room = await _roomRepository.Find(id);
 
             room.Activity = value.Activity ?? room.Activity;
             room.Availability = value.Availability ?? room.Availability;
@@ -101,8 +102,8 @@ namespace mobiBooking.Service.Services
             room.Name = value.RoomName ?? room.Name;
             room.NumberOfPeople = value.NumberOfPeople ?? room.NumberOfPeople;
 
-            _repositoryWrapper.Room.Update(room);
-            _repositoryWrapper.Room.Save();
+            await _roomRepository.Update(room);
+            await _roomRepository.Save();
         }
     }
 }

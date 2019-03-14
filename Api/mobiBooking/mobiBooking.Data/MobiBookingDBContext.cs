@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using mobiBooking.Component;
 using mobiBooking.Data.Model;
-using System;
-using System.Security.Cryptography;
 
 namespace mobiBooking.Data
 {
@@ -29,35 +28,19 @@ namespace mobiBooking.Data
                 .HasForeignKey(bc => bc.ReservationId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            //var salt = GenerateSalt();
+            var salt = PasswordHashing.GenerateSalt();
 
-            //modelBuilder.Entity<User>().HasData(new User {
-            //    Email = "m.w@g.pl",
-            //    Name = "Michał",
-            //    Password = HashPassword("123", salt),
-            //    Role = "Administrator",
-            //    Salt = salt, Surname = "Test",
-            //    UserName = "Test"
-            //});
+            modelBuilder.Entity<User>().HasData(new User
+            {
+                Id = 1,
+                Email = "m.w@g.pl",
+                Name = "Michał",
+                Password = PasswordHashing.HashPassword("123", salt),
+                Role = "Administrator",
+                Salt = salt,
+                Surname = "Test",
+                UserName = "Test"
+            });
         }
-        //private string HashPassword(string password, byte[] salt)
-        //{
-        //    return Convert.ToBase64String(KeyDerivation.Pbkdf2(
-        //        password: password,
-        //        salt: salt,
-        //        prf: KeyDerivationPrf.HMACSHA1,
-        //        iterationCount: 10000,
-        //        numBytesRequested: 256 / 8));
-        //}
-
-        //private byte[] GenerateSalt()
-        //{
-        //    byte[] salt = new byte[128 / 8];
-        //    using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
-        //    {
-        //        rng.GetBytes(salt);
-        //    }
-        //    return salt;
-        //}
     }
 }

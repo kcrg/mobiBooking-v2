@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -7,45 +9,69 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using mobiBooking.Data;
+using mobiBooking.Repository;
 using mobiBooking.Repository.Base;
 using mobiBooking.Service;
 using mobiBooking.Service.Interfaces;
 using mobiBooking.Service.Services;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using IContainer = Autofac.IContainer;
 
 namespace mobiBooking.WebApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+            Configuration = builder.Build();
         }
 
-        public IConfiguration Configuration { get; }
+        public IContainer ApplicationContainer { get; private set; }
+
+        public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
 
             services.ConfigureCors();
             services.ConfigureJwtAuthentication(Configuration);
 
-            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
-            services.AddScoped<IUsersService, UsersService>();
-            services.AddScoped<IAuthenticateService, AuthenticateService>();
-            services.AddScoped<IRoomService, RoomService>();
-            services.AddScoped<IReservationService, ReservationService>();
+            services.AddMvc();
 
             services.AddDbContext<MobiBookingDBContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection") // MigrationsTest, DefaultConnection
-            ));
+                options.UseSqlServer(Configuration.GetConnectionString("ReleaseConnection")) // ReleaseConnection, DebugConnection            
+            );
 
             services.ConfigureSwagger();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+           // services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+
+            var builder = new ContainerBuilder();
+            builder.RegisterModule<RepositoryModule>();
+            builder.RegisterModule<ServiceModule>();
+
+            builder.Populate(services);
+            ApplicationContainer = builder.Build();
+           
+            
+            //services.AddScoped<IUsersService, UsersService>();
+            //services.AddScoped<IAccountService, AccountService>();
+            //services.AddScoped<IRoomService, RoomService>();
+            //services.AddScoped<IReservationService, ReservationService>();
+
+            return new AutofacServiceProvider(ApplicationContainer);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -4,6 +4,7 @@ using mobiBooking.Model.Models;
 using mobiBooking.Model.SendModels;
 using mobiBooking.Service.Interfaces;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace mobiBooking.WebApi.Controllers
 {
@@ -13,25 +14,25 @@ namespace mobiBooking.WebApi.Controllers
     {
         private readonly IRoomService _roomService;
 
-        public RoomController(IRoomService roomService, IAuthenticateService authenticateService)
+        public RoomController(IRoomService roomService, IAccountService authenticateService)
         {
             _roomService = roomService;
         }
 
         // GET api/values
         [Authorize(Roles = "Administrator, User")]
-        [HttpGet]
-        public ActionResult<IEnumerable<RoomDataModel>> Get()
+        [HttpGet("get_all")]
+        public async Task<ActionResult<IEnumerable<RoomDataModel>>> Get()
         {
-            return Ok(_roomService.GetAll());
+            return Ok(await _roomService.GetAll());
         }
 
         // GET api/values/5
         [Authorize(Roles = "Administrator")]
-        [HttpGet("{id}")]
-        public ActionResult<RoomModel> Get(int id)
+        [HttpGet("get/{id}")]
+        public async Task<ActionResult<RoomModel>> Get(int id)
         { 
-            RoomModel roomModel = _roomService.Get(id);
+            RoomModel roomModel = await _roomService.Get(id);
 
             if (roomModel == null)
             {
@@ -43,12 +44,10 @@ namespace mobiBooking.WebApi.Controllers
 
         // POST api/values
         [Authorize(Roles = "Administrator")]
-        [HttpPost]
-        public ActionResult Post([FromBody]RoomModel roomParam)
+        [HttpPost("create")]
+        public async Task<ActionResult> Post([FromBody]RoomModel roomParam)
         {
-            
-
-            if (_roomService.Create(roomParam))
+            if (await _roomService.Create(roomParam))
             {
                 return Ok();
             }
@@ -60,24 +59,21 @@ namespace mobiBooking.WebApi.Controllers
 
         // PUT api/values/5
         [Authorize(Roles = "Administrator")]
-        [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] RoomModel value)
-        {
-            
-
-            _roomService.Update(id, value);
+        [HttpPut("update/{id}")]
+        public async Task<ActionResult> Put(int id, [FromBody] RoomModel value)
+        {           
+            await _roomService.Update(id, value);
 
             return Ok();
         }
 
         // DELETE api/values/5
         [Authorize(Roles = "Administrator")]
-        [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        [HttpDelete("delete/{id}")]
+        public async Task<ActionResult> Delete(int id)
         {
             
-
-            if (_roomService.Delete(id))
+            if (await _roomService.Delete(id))
             {
                 return Ok();
             }

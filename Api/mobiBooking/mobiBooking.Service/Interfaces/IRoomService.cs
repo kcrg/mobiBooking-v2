@@ -3,15 +3,16 @@ using mobiBooking.Model.SendModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace mobiBooking.Service.Interfaces
 {
     public interface IRoomService
     {
-        IEnumerable<RoomDataModel> GetAll();
-        RoomModel Get(int id);
-        bool Create(RoomModel value);
-        void Update(int id, RoomModel value);
-        bool Delete(int id);
+        Task<IEnumerable<RoomDataModel>> GetAll();
+        Task<RoomModel> Get(int id);
+        Task<bool> Create(RoomModel value);
+        Task Update(int id, RoomModel value);
+        Task<bool> Delete(int id);
     }
 }
