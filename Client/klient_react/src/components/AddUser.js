@@ -28,7 +28,7 @@ class AddUser extends Component {
 
   sendData = () =>{
     const { ip } = this.props;
-    axios.post(ip + '/api/Users', this.state.userData)
+    axios.post(ip + '/api/Account/create', this.state.userData)
     .then(res => {
       this.toggleError(false)
       return res;

@@ -68,7 +68,7 @@ class AddRoom extends Component {
 
   sendData = () =>{
     const { ip } = this.props;
-    axios.post(ip + '/api/Room', this.state.roomData)
+    axios.post(ip + '/api/Room/create', this.state.roomData)
     .then(res => {
       this.toggleError(false)
       return res;

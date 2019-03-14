@@ -11,6 +11,10 @@ class Dashboard extends Component {
         }
     }
 
+    buttonClick = () =>{
+        this.props.history.push('/roomReserv');
+    }
+
     render() {
         return (
             <div className="content">
@@ -39,7 +43,7 @@ class Dashboard extends Component {
                 </div>
 
                 <div className="meetings">
-                    <button>Zarezerwuj salę</button>
+                    <button onClick={this.buttonClick}>Zarezerwuj salę</button>
                 </div>
 
                 <div className="rooms">

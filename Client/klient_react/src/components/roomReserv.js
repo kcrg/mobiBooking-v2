@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import '../css/roomReserv.scss';
 import axios from 'axios';
+import Users from './Users';
 
  class RoomReserv extends Component {
 
@@ -22,17 +23,23 @@ import axios from 'axios';
       voice: false,
       repeat: false
     },
-    isChecked: false
+    isChecked: false,
+    ip: null
   }
 
-
+  componentWillMount(){
+    const { ip } = this.props
+    this.setState({
+      ip
+    })
+  }
   componentDidMount(){
     const { cookies } = this.props;
     const { ip } = this.props
     if(cookies.get('token') === undefined){
       this.props.history.push('/');
     }
-    axios.get( ip + '/api/Room')
+    axios.get( ip + '/api/Room/get_all')
     .then(res => {
       this.setState({
         roomsList: res.data
@@ -44,10 +51,10 @@ import axios from 'axios';
   }
 
   mapItems = () =>{
-      const roomItems = this.state.roomsList.map(room =>{
-      return(
-        <option key={room.id}>{room.name}</option>
-      )
+    const roomItems = this.state.roomsList.map(room =>{
+    return(
+      <option key={room.id} value={room.id}>{room.name}</option>
+    )
     })
     this.setState({
       roomItems: roomItems
@@ -81,7 +88,7 @@ import axios from 'axios';
         ...prevState.checked,
         [name]: value
       }
-    }),() => console.log(this.state.reservData))
+    }))
   }
 
   handleSubmit = (e) =>{
@@ -89,6 +96,19 @@ import axios from 'axios';
   }
 
   selectChange = (collection) => {
+    this.setState(prevState =>({
+      ...prevState,
+      reservData:{
+        ...prevState.reservData,
+        roomId: collection
+      }
+    }), () =>{
+      console.log(this.state.reservData.roomId)
+    })
+  }
+
+  handleClick = () =>{
+    
   }
  
   render() {
@@ -111,7 +131,7 @@ import axios from 'axios';
             <input type="checkbox" name="voice" onChange={e=>{this.toggleChecked('voice', e.target.checked)}}></input><span>System nagłaśniający</span><br/>
 
             <label id="room">Wybierz salę</label>
-            <select id="roomTook" onChange={e => {this.selectChange(e.target.options)}}>
+            <select id="roomTook" onChange={e => {this.selectChange(e.target.value)}}>
               {this.state.roomItems}
             </select>
 
@@ -127,6 +147,7 @@ import axios from 'axios';
             <label htmlFor="repeat">Rezerwacja cykliczna:</label>
             <input type="checkbox"  id="repeat" name="repeat" value="repeat" onChange={e=>{this.toggleChecked('repeat', e.target.checked)}}></input><br/>
 
+            <Users ip={this.state.ip}/>
             <input type="submit" value="Rezerwuj"></input>
           </form>
         </div>

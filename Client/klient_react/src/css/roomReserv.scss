@@ -85,6 +85,8 @@
         text-align: center;
         border-radius: 5px;
         font-size: 19px;
+        position: relative;
+        left: 1%;
     }
 
     #title{
@@ -98,28 +100,77 @@
         border-radius: 5px;
         margin-top: 3%;
         text-align: center;
+        position: relative;
+        left: -24.3%;
     }
 
     label[for="status"]{
-        margin-left: -55.5%;
+        position: relative;
+        left: -25%;
+    }
+
+    label[id="room"]{
+        position: relative;
+        left: 1.8%;
     }
 
     label[for="repeat"]{
         margin-top: 3%;
-        margin-left: -80%;
+        position: relative;
+        left: -33.5%;
+    }
+
+    label[for="title"]{
+        position: relative;
+        left: 3.5%;
+    }
+    
+    input[id="title"]{
+        position: relative;
+        left: 1%;
     }
 
     #repeat{
         transform: scale(2);
         width: 1%;
-        margin-left: 2%;
+        position: relative;
+        left: -33%;
     }
 
     input[type="submit"]{
         width: 20%;
         display: inline-block;
         margin-top: 2%;
-        margin-left: 50%;
+        position: relative;
+        left: 20%;
+    }
+
+    .users{
+        width: 30%;
+        padding: 5px;
+        display: inline-block;
+        margin-top: 5%;
+        background: #fff;
+        border-radius: 5px;
+        color: #222;
+        position: relative;
+        left: -20%;
+    }
+
+    .origin{
+        width: 100%;
+        height: 100%;
+        background: #ddd;
+        font-size: 20px;
+        border-bottom: 1px dotted #222;
+        cursor: pointer;
+    }
+
+    .focused{
+        background: #00b7ce;
+        color: #fff;
+        font-weight: bold;
+        border-bottom: 1px dotted #fff;
     }
 }
 
