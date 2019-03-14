@@ -5,21 +5,29 @@ import axios from 'axios';
 
 
 
+
 class Logout extends Component {
+
+  componentDidMount(){
+    const { cookies } = this.props
+    axios.interceptors.request.use(function(config) {
+      const token = cookies.get('token');
+      if( token != null ){
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    },function(err){
+        return Promise.reject(err);
+      });
+  }
 
   handleClick = () =>{
     const { cookies } = this.props;
-    const { ip } = this.props;
-    axios.post(ip + '/api/Authenticate/Logout',"",{
-        headers: { Authorization: "Bearer " + cookies.get('token')}
-    }).then(res =>{
-      cookies.remove('token');
-      this.props.history.push('/');
-    })
+    cookies.remove('token');
+    this.props.history.push('/');
   }
  
   render() {
-
     return (
       <div id="options">
         <button onClick={this.handleClick}>Wyloguj</button>
