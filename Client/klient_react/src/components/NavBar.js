@@ -2,11 +2,19 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../img/mobitouch.png';
 import * as JWT from 'jwt-decode';
+import '../styles/NavBar.scss';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowAltCircleRight} from '@fortawesome/free-solid-svg-icons'
+
+library.add(faArrowAltCircleRight)
 
 export default class NavBar extends Component {
 
   state = {
-    visible: 'none'
+    visible: 'none',
+    showNav: 'navigation',
+    btn_show: 'show'
   }
 
   componentDidMount(){
@@ -21,27 +29,50 @@ export default class NavBar extends Component {
     }
   }}
 
+  showNav = () =>{
+    if(this.state.showNav === 'navigation'){
+      this.setState({
+        showNav: 'navigation-showed',
+        btn_show: 'hide'
+      },() =>{
+        console.log(this.state.showNav)
+      })
+    }else{
+      this.setState({
+        showNav: 'navigation',
+        btn_show: 'show'
+      })
+    }
+  }
+
 
 
   render() {
     return (
-      <nav>
-        <img src={logo} alt="logo"></img>
-        <h1>MobiReservation <br/> System</h1>
-        <ul>
-          <Link to="/home"><li>Dashboard</li></Link>
-          <li>Rezerwacja Sali
-            <ul>
-              <Link to="/roomReserv"><li>Zarezerwuj sale</li></Link>
-              <li>Lista sal/rezerwacje</li>
-              <Link to="/addRoom"><li className={this.state.visible}>Dodaj sale</li></Link>
-            </ul>
-          </li>
+      <div className="nav-container">
+        <nav className={this.state.showNav}>
+          <div className="nav-logo">
+            <img src={logo} alt="logo"></img>
+            <h1>MobiReservation <br/> System</h1>
+          </div>
+          
+          <ul className="navigation-links">
+            <Link to="/home"><li>Dashboard</li></Link>
+            <Link to="addUser"><li>Rezerwacja Sali</li></Link>
 
-          <Link to="addUser"><li>Użytkownicy</li></Link>
-          <li>Ustawienia</li>
-        </ul>
-      </nav>
+            <ul className="reserv-links">
+                <Link to="/roomReserv"><li>Zarezerwuj sale</li></Link>
+                <Link to="/555"><li>Lista sal/rezerwacje</li></Link>
+            </ul>
+
+            <Link to="/addRoom"><li className={this.state.visible}>Dodaj sale</li></Link>
+            <Link to="addUser"><li>Użytkownicy</li></Link>
+            <Link to="addUser"><li>Ustawienia</li></Link>
+          </ul>
+        </nav>
+
+        <FontAwesomeIcon icon={faArrowAltCircleRight} onClick={this.showNav} className={this.state.btn_show}>Hello</FontAwesomeIcon>
+      </div>
     )
   }
 }

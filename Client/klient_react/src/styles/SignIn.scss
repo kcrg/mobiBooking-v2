@@ -115,7 +115,7 @@
 
 @media only screen and (min-width: 1100px){
     .content .form{
-        width: 80%;
+        width: 70%;
         height: auto;
         margin-bottom: 20%;
         border-radius: 5px;
@@ -125,7 +125,7 @@
         }
 
         label:nth-child(1){
-            margin-top: 50px;
+            margin-top: 80px;
         }
 
         .error{
@@ -142,7 +142,7 @@
         }
 
         input[type="email"],input[type="password"]{
-            min-width: 300px;
+            min-width: 400px;
             border-radius: 5px;
             font-size: 28px;
         }
