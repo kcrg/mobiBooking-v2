@@ -28,8 +28,12 @@ namespace mobiBooking.UWP
 
             if (SavedResponseObj.UserType == "User")
             {
-                adduser.Visibility = Visibility.Collapsed;
                 addroom.Visibility = Visibility.Collapsed;
+
+                usersSeparator.Visibility = Visibility.Collapsed;
+                usersHeader.Visibility = Visibility.Collapsed;
+                users.Visibility = Visibility.Collapsed;
+                adduser.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -72,7 +76,7 @@ namespace mobiBooking.UWP
                     case "list":
                         {
                             PageTitle.Text = "Lista sal/rezerwacje";
-                            ContentFrame.Navigate(typeof(ListPage), null, new DrillInNavigationTransitionInfo());
+                            ContentFrame.Navigate(typeof(RoomListPage), null, new DrillInNavigationTransitionInfo());
                         }
                         break;
                     case "addroom":

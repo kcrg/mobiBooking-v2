@@ -28,15 +28,16 @@
                     <muxc:NavigationViewItem Tag="dashboard" Icon="Home" Content="Dashboard"/>
 
                     <muxc:NavigationViewItemSeparator/>
-                    <muxc:NavigationViewItemHeader x:Name="NavHeader" Visibility="Visible" Content="Rezerwacja sali"/>
+                    <muxc:NavigationViewItemHeader Content="Rezerwacja sali"/>
 
                     <muxc:NavigationViewItem Tag="bookroom" Icon="Permissions" Content="Zarezerwuj salę"/>
                     <muxc:NavigationViewItem Tag="list" Icon="List" Content="Lista sal/rezerwacje"/>
                     <muxc:NavigationViewItem x:Name="addroom" Tag="addroom" Icon="Add" Content="Dodaj sale"/>
 
-                    <muxc:NavigationViewItemSeparator/>
+                    <muxc:NavigationViewItemSeparator x:Name="usersSeparator"/>
+                    <muxc:NavigationViewItemHeader x:Name="usersHeader" Content="Zarządzanie użytkownikami"/>
 
-                    <muxc:NavigationViewItem Tag="users" Icon="People" Content="Użytkownicy"/>
+                    <muxc:NavigationViewItem x:Name="users" Tag="users" Icon="People" Content="Użytkownicy"/>
                     <muxc:NavigationViewItem x:Name="adduser" Tag="addusers" Icon="AddFriend" Content="Dodaj użytkownika"/>
                 </muxc:NavigationView.MenuItems>
 

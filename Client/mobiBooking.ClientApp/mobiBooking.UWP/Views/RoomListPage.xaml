@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="mobiBooking.UWP.Views.UsersPage"
+    x:Class="mobiBooking.UWP.Views.RoomListPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -19,17 +19,13 @@
                                 <ColumnDefinition Width="150"/>
                                 <ColumnDefinition Width="150"/>
                                 <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="70"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="ID" Style="{ThemeResource CaptionTextBlockStyle}"/>
-                            <TextBlock Grid.Column="1" Text="Imię" Style="{ThemeResource CaptionTextBlockStyle}"/>
-                            <TextBlock Grid.Column="2" Text="Nazwisko" Style="{ThemeResource CaptionTextBlockStyle}"/>
-                            <TextBlock Grid.Column="3" Text="E-mail" Style="{ThemeResource CaptionTextBlockStyle}"/>
-                            <TextBlock Grid.Column="4" Text="Telefon komórkowy" Style="{ThemeResource CaptionTextBlockStyle}"/>
-                            <TextBlock Grid.Column="5" Text="Typ konta" Style="{ThemeResource CaptionTextBlockStyle}"/>
-                            <TextBlock Grid.Column="6" Text="Status" Style="{ThemeResource CaptionTextBlockStyle}"/>
-                            <TextBlock Grid.Column="7" Text="Opcje" Style="{ThemeResource CaptionTextBlockStyle}"/>
+                            <TextBlock Grid.Column="1" Text="Nazwa sali" Style="{ThemeResource CaptionTextBlockStyle}"/>
+                            <TextBlock Grid.Column="2" Text="Lokalizacja" Style="{ThemeResource CaptionTextBlockStyle}"/>
+                            <TextBlock Grid.Column="3" Text="Dostępność" Style="{ThemeResource CaptionTextBlockStyle}"/>
+                            <TextBlock Grid.Column="4" Text="Liczba osób" Style="{ThemeResource CaptionTextBlockStyle}"/>
+                            <TextBlock Grid.Column="5" Text="Aktywność" Style="{ThemeResource CaptionTextBlockStyle}"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.HeaderTemplate>
@@ -43,23 +39,18 @@
                                 <ColumnDefinition Width="150"/>
                                 <ColumnDefinition Width="150"/>
                                 <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="70"/>
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Grid.Column="0" Text="{Binding Id}"/>
                             <TextBlock Grid.Column="1" Text="{Binding Name}"/>
-                            <TextBlock Grid.Column="2" Text="{Binding Surname}"/>
+                            <TextBlock Grid.Column="2" Text="{Binding Name}"/>
                             <TextBlock Grid.Column="3" Text="{Binding Name}"/>
-                            <TextBlock Grid.Column="4" Text="{Binding Surname}"/>
+                            <TextBlock Grid.Column="4" Text="{Binding Name}"/>
                             <TextBlock Grid.Column="5" Text="{Binding Name}"/>
-                            <TextBlock Grid.Column="6" Text="{Binding Surname}"/>
-                            <TextBlock Grid.Column="7" Text="{Binding Name}"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
-
     </Page.Content>
 </Page>

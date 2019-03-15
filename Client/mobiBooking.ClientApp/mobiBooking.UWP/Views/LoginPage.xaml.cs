@@ -24,6 +24,8 @@ namespace mobiBooking.UWP.Views
 
         private async void SignIn_Button(object sejnder, RoutedEventArgs e)
         {
+            SubmitButton.IsEnabled = false;
+
             if (!string.IsNullOrEmpty(password.Password) && TextBoxRegex.GetIsValid(email) && NetworkInterface.GetIsNetworkAvailable())
             {
                 SignInModel loginObj = new SignInModel
@@ -38,7 +40,7 @@ namespace mobiBooking.UWP.Views
                 RestClient client = new RestClient(IP.Adress);
                 client.RemoteCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
 
-                RestRequest request = new RestRequest("Authenticate", Method.POST);
+                RestRequest request = new RestRequest("Account/login", Method.POST);
                 request.AddParameter("application/json", json, ParameterType.RequestBody);
 
                 // execute the request
@@ -67,23 +69,26 @@ namespace mobiBooking.UWP.Views
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         await helper.SaveFileAsync("response", tokenvalidateObj);
+                        SubmitButton.IsEnabled = true;
 
                         Frame.Navigate(typeof(MainPage), null, new DrillInNavigationTransitionInfo());
                     }
                     else
                     {
                         await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem.", response.StatusCode.ToString(), CustomDialog.Type.Error).ShowAsync();
+                        SubmitButton.IsEnabled = true;
                     }
-
                 }
                 else
                 {
                     await new CustomDialog("Konto o podanym loginie/haśle nie istnieje lub brak połączenia z serwerem.", response.StatusCode.ToString(), CustomDialog.Type.Error).ShowAsync();
+                    SubmitButton.IsEnabled = true;
                 }
             }
             else
             {
                 await new CustomDialog("Wprowadzono błędne dane lub brak połączenia z internetem.", null, CustomDialog.Type.Warning).ShowAsync();
+                SubmitButton.IsEnabled = true;
             }
         }
     }

@@ -16,8 +16,11 @@ namespace mobiBooking.UWP.Views.CustomDialogs
             InitializeComponent();
 
             MessageText.Text = message;
-            ErrorCodeText.Text = "Kod błędu: " + errorcode;
-
+            if (errorcode != null)
+            {
+                ErrorCodeText.Text = "Kod błędu: " + errorcode;
+            }
+            
             switch (type)
             {
                 case Type.Error:

@@ -21,6 +21,8 @@ namespace mobiBooking.UWP.Views
 
         private async void Add_Click(object senjder, Windows.UI.Xaml.RoutedEventArgs e)
         {
+            SubmitButton.IsEnabled = false;
+
             if (!string.IsNullOrEmpty(roomname.Text) && !string.IsNullOrEmpty(localization.Text) && TextBoxRegex.GetIsValid(numberofpeople))
             {
                 LoginModel SavedResponseObj = await helper.ReadFileAsync<LoginModel>("response");
@@ -38,8 +40,6 @@ namespace mobiBooking.UWP.Views
 
                 ConnectionModel IP = new ConnectionModel();
                 RestClient client = new RestClient(IP.Adress);
-                client.RemoteCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
-
                 RestRequest request = new RestRequest("Room", Method.POST);
                 request.AddParameter("application/json", json, ParameterType.RequestBody);
                 request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
@@ -50,15 +50,18 @@ namespace mobiBooking.UWP.Views
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     await new CustomDialog("Sala dodana poprawnie.", null, CustomDialog.Type.Information).ShowAsync();
+                    SubmitButton.IsEnabled = true;
                 }
                 else
                 {
-                    await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem.", null, CustomDialog.Type.Error).ShowAsync();
+                    await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem.", response.StatusCode.ToString(), CustomDialog.Type.Error).ShowAsync();
+                    SubmitButton.IsEnabled = true;
                 }
             }
             else
             {
                 await new CustomDialog("Wprowadzono błędne dane.", null, CustomDialog.Type.Warning).ShowAsync();
+                SubmitButton.IsEnabled = true;
             }
         }
     }

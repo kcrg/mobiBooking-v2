@@ -8,29 +8,33 @@
     mc:Ignorable="d" NavigationCacheMode="Required">
 
     <Page.Content>
-        <StackPanel Spacing="12" MaxWidth="400">
-            <TextBox x:Name="username" Header="Nazwa uzytkownika*"/>
+        <ScrollViewer>
+            <Grid>
+                <StackPanel Spacing="12" Padding="0,12,22,12" MaxWidth="400">
+                    <TextBox x:Name="username" Header="Nazwa uzytkownika*"/>
 
-            <TextBox x:Name="email" Header="E-mail*" extensions:TextBoxRegex.ValidationType="Email"/>
+                    <TextBox x:Name="email" Header="E-mail*" extensions:TextBoxRegex.ValidationType="Email"/>
 
-            <PasswordBox x:Name="password" Header="Hasło*"/>
+                    <PasswordBox x:Name="password" Header="Hasło*"/>
 
-            <PasswordBox x:Name="passwordconfirm" Header="Powtórz hasło*" />
+                    <PasswordBox x:Name="passwordconfirm" Header="Powtórz hasło*" />
 
-            <TextBox x:Name="name" Header="Imię"/>
+                    <TextBox x:Name="name" Header="Imię"/>
 
-            <TextBox x:Name="surname" Header="Nazwisko"/>
+                    <TextBox x:Name="surname" Header="Nazwisko"/>
 
-            <ComboBox x:Name="usertype" Header="Uprawnienia" HorizontalAlignment="Stretch">
-                <x:String>User</x:String>
-                <x:String>Administrator</x:String>
-            </ComboBox>
+                    <ComboBox x:Name="usertype" Header="Uprawnienia" HorizontalAlignment="Stretch">
+                        <x:String>User</x:String>
+                        <x:String>Administrator</x:String>
+                    </ComboBox>
 
-            <Button Content="Zapisz" 
-                    Margin="0,20,0,0" 
+                    <Button x:Name="SubmitButton"
+                    Content="Dodaj użytkownika" 
                     HorizontalAlignment="Right" 
-                    Width="90"
-                    Style="{StaticResource ButtonRevealStyle}" Click="Add_Click"/>
-        </StackPanel>
+                    Style="{StaticResource ButtonRevealStyle}" 
+                    Click="Add_Click"/>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
     </Page.Content>
 </Page>

@@ -19,7 +19,7 @@
             <TextBox x:Name="email" Header="E-mail" extensions:TextBoxRegex.ValidationType="Email" Text="m.w@g.pl" Width="200"/>
             <PasswordBox x:Name="password" Header="Hasło" Password="123" Width="200"/>
 
-            <Button Content="Zaloguj" HorizontalAlignment="Right" Click="SignIn_Button"/>
+            <Button x:Name="SubmitButton" Content="Zaloguj" HorizontalAlignment="Right" Click="SignIn_Button"/>
         </StackPanel>
     </Page.Content>
 </Page>

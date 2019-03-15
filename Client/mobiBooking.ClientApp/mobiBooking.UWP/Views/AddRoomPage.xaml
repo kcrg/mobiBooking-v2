@@ -8,33 +8,32 @@
     mc:Ignorable="d" NavigationCacheMode="Required">
 
     <Page.Content>
-        <StackPanel Spacing="12" MaxWidth="400">
-            <TextBox x:Name="roomname" Header="Nazwa sali"/>
-
-            <TextBox x:Name="localization" Header="Lokalizacja"/>
-
-            <!--<ComboBox x:Name="activity" Header="Aktywność" Margin="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <x:String>Tak</x:String>
-                <x:String>Nie</x:String>
-            </ComboBox>-->
-
-            <ComboBox x:Name="availability" Header="Dostępność" HorizontalAlignment="Stretch">
-                <x:String>08.00-16.00</x:String>
-                <x:String>07.00-18.00</x:String>
-                <x:String>07.00-20.00</x:String>
-            </ComboBox>
-
-            <TextBox x:Name="numberofpeople" extensions:TextBoxRegex.ValidationType="Number" Header="Liczba osób"/>
-
+        <ScrollViewer>
             <Grid>
-                <CheckBox x:Name="activity" Content="Aktywny"/>
+                <StackPanel Spacing="12" Padding="0,12,22,12" MaxWidth="400">
+                    <TextBox x:Name="roomname" Header="Nazwa sali"/>
 
-                <Button Content="Zapisz" 
+                    <TextBox x:Name="localization" Header="Lokalizacja"/>
+
+                    <ComboBox x:Name="availability" Header="Dostępność" HorizontalAlignment="Stretch">
+                        <x:String>08.00-16.00</x:String>
+                        <x:String>07.00-18.00</x:String>
+                        <x:String>07.00-20.00</x:String>
+                    </ComboBox>
+
+                    <TextBox x:Name="numberofpeople" extensions:TextBoxRegex.ValidationType="Number" Header="Liczba osób"/>
+
+                    <Grid>
+                        <CheckBox x:Name="activity" Content="Aktywny"/>
+
+                        <Button x:Name="SubmitButton" 
+                        Content="Dodaj salę" 
                         HorizontalAlignment="Right" 
-                        Width="90"
                         Click="Add_Click"
                         Style="{StaticResource ButtonRevealStyle}"/>
+                    </Grid>
+                </StackPanel>
             </Grid>
-        </StackPanel>
+        </ScrollViewer>
     </Page.Content>
 </Page>
