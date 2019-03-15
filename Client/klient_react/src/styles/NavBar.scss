@@ -1,7 +1,6 @@
 @import '../index.scss';
 
 .nav-container{
-
     .show{
         cursor: pointer;
         position: fixed;
@@ -11,7 +10,8 @@
         transition-duration: 0.2s;
         transition-timing-function: linear;
         transform: rotate(360deg);
-        color: #444;
+        color: $mobi-blue;
+        z-index: 1000;
     }
 
     .hide{
@@ -25,7 +25,8 @@
         transition-duration: 0.3s;
         transition-timing-function: linear;
         transform: rotate(180deg);
-        color: #444;
+        color: $mobi-blue;
+        z-index: 1000;
     }
 
     .navigation{
@@ -41,6 +42,7 @@
         width: 300px;
         border-bottom-right-radius: 5px;
         border-top-right-radius: 5px;
+        z-index: 1000;
 
         .nav-logo{
             display: flex;
@@ -114,6 +116,7 @@
         width: 300px;
         border-bottom-right-radius: 5px;
         border-top-right-radius: 5px;
+        z-index: 1000;
 
         .nav-logo{
             display: flex;

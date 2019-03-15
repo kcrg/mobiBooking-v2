@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import '../styles/Dashboard.scss';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMugHot } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faMugHot)
 
 class Dashboard extends Component {
 
@@ -16,70 +22,52 @@ class Dashboard extends Component {
 
     render() {
         return (
-            <div>
-                <div>
-                    <h3>Moje spotkania:</h3>
-                    <div>
-                        <p>ten tydzień</p>
-                        <span>0.00h</span>
-
-                        <p>poprz. tydzień</p>
-                        <span>0.00h</span>
+            <div className="dashboard-content">
+                <div className="data meetings">
+                    <h2>Moje spotkania:</h2>
+                    <div className="meetings">
+                        <span>Ten tydzień</span>
+                        <p>0.00h</p>
+                        <span>poprz. tydzień</span>
+                        <p>0.00h</p>
                     </div>
-
-                    <div>
-                        <p>ten miesiąc</p>
-                        <span>0.00h</span>
-
-                        <p>poprz. miesiąc</p>
-                        <span>0.00h</span>
+                    <div className="meetings">
+                        <span>ten miesiąc:</span>
+                        <p>0.00h</p>
+                        <span>poprz. miesiąc</span>
+                        <p>0.00h</p>
                     </div>
                 </div>
 
-                <div>
-                    <h3>Spotkania na dziś:</h3><br/>
-                    <p>Nie masz żadnych spotkań</p>
-                </div>
-
-                <div>
-                    <button onClick={this.buttonClick}>Zarezerwuj salę</button>
-                </div>
-
-                <div>
-                    <h3>Sale:</h3>
-                    <div>
-                        <p>Aktualnie wolne:</p>
-                        <span>3</span>
-                    </div>
-
-                    <div>
-                        <p>Zajęte:</p>
-                        <span>0</span>
+                <div className="data">
+                    <div className="today_meetings">
+                        <h2>Spotkania na dziś:</h2>
+                        <span>W dzisiejszym dniu nie masz spotkań</span>
+                        <FontAwesomeIcon icon={faMugHot}></FontAwesomeIcon>
                     </div>
                 </div>
 
-                <div>
-                    <h3>Ostatnio rezerwowałeś:</h3><br/>
-                    <p>Jeszcze nie rezerwowałeś</p>
+                <button onClick={this.buttonClick} className="data_btn">Zarezerwuj salę</button>
+
+                <div className="data">
+                    <div className="rooms">
+                        <h2>Sale:</h2>
+                        <span>Aktualnie wolne:</span>
+                        <p>3</p>
+                        <span>Aktualnie zajęte:</span>
+                        <p>0</p>
+                    </div>
                 </div>
 
-                <div>
-                    <h3>Statystyki rezerwacji:</h3><br/>
-                    <div>
-                        <p>ten tydzień:</p>
-                        <span>0</span>
+                <div className="data">
+                   <div className="lastReservations">
+                       <h2>Ostatnio rezerwowałeś/aś:</h2>
+                       <span>Jeszcze nie rezerwowałeś</span>
+                   </div>
+                </div>
 
-                        <p>poprz. tydzień:</p>
-                        <span>0</span>
-                    </div>
-
-                    <div>
-                        <p>ten miesiąc:</p>
-                        <span>0</span>
-
-                        <p>poprz. miesiąc:</p>
-                        <span>0</span>
-                    </div>
+                <div className="data">
+                    ONE
                 </div>
             </div>
         )

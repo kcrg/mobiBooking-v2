@@ -1,0 +1,106 @@
+@import '../index.scss';
+
+.dashboard-content{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    background: $mobi-purple;
+    align-items: center;
+    justify-content: center;
+
+    .data_btn{
+        display: flex;
+        flex-flow: column;
+        flex-basis: 200px;
+        max-width: 310px;
+        min-width: 290px;
+        padding: 20px;
+        background: $mobi-blue;
+        border: none;
+        color: $primary-color;
+        font-size: 26px;
+        margin-top: 20px;
+        border-radius: 5px;
+        text-align: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    .data:nth-child(1){
+        margin-top: 150px;
+    }
+
+    .data{
+        display: flex;
+        flex-flow: column;
+        flex-basis: 200px;
+        max-width: 310px;
+        min-width: 250px;
+        padding: 20px;
+        background: $primary-color;
+        border: none;
+        color: #222;
+        font-size: 26px;
+        margin-top: 20px;
+        border-radius: 5px;
+        text-align: center;
+
+        h2{
+            font-size: 20px;
+            margin: 0 auto 10px auto;
+        }
+
+        .meetings{
+            flex-grow: 1;
+            align-self: center;
+
+            span{
+                font-size: 18px;
+            }
+
+            p{
+                color: $mobi-blue;
+                font-weight: bold;
+            }
+        }
+
+        .today_meetings{
+            flex-grow: 1;
+            align-self: center;
+            display: flex;
+            flex-flow: column;
+            text-align: center;
+            align-items: center;
+
+            span{
+                font-size: 20px;
+            }
+
+            .svg-inline--fa{
+                font-size: 60px;
+                margin-top: 40px;
+                opacity: 0.6;
+            }
+
+        }
+
+        .rooms{
+            p{
+                color: $mobi-blue;
+                font-size: 30px;
+                font-weight: bold;
+            }
+        }
+
+        .lastReservations{
+            display: flex;
+            flex-direction: column;
+
+            span{
+                font-size: 20px;
+                margin-top: 50px;
+            }
+        }
+    }
+}

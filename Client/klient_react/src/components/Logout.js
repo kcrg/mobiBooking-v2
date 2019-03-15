@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-
-
-
+import '../styles/Logout.scss';
 
 class Logout extends Component {
 
@@ -28,8 +26,8 @@ class Logout extends Component {
  
   render() {
     return (
-      <div>
-        <button onClick={this.handleClick}>Wyloguj</button>
+      <div className="logout">
+        <button onClick={this.handleClick} className="btn_logout">Wyloguj</button>
       </div>
     )
   }
