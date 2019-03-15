@@ -17,12 +17,12 @@
                     <TimePicker x:Name="TimeTo" Header="Rezerwuje do*" HorizontalAlignment="Stretch"/>
                     <CalendarDatePicker  x:Name="DateTo" HorizontalAlignment="Stretch"/>
 
-                    <TextBox x:Name="RoomCap" Header="Pojemność sali" extensions:TextBoxRegex.ValidationType="Number"/>
+                    <TextBox x:Name="RoomCap" Header="Pojemność sali" extensions:TextBoxRegex.ValidationType="Number" LostFocus="RoomCap_LostFocus"/>
 
                     <TextBlock Text="Potrzebuje z wyposażeniem:" Margin="0,0,0,-7"/>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox x:Name="Flipchart" Content="Flipchart"/>
-                        <CheckBox x:Name="SoundSystem" Content="System nagłaśniający"/>
+                        <CheckBox x:Name="Flipchart" Content="Flipchart" Click="Flipchart_Click"/>
+                        <CheckBox x:Name="SoundSystem" Content="System nagłaśniający" Click="SoundSystem_Click"/>
                     </StackPanel>
 
                     <ComboBox x:Name="RoomList" Header="Wybierz salę*" PlaceholderText="Wybierz" HorizontalAlignment="Stretch">
@@ -44,7 +44,15 @@
                         <x:String>Brak możliwości edycji</x:String>
                     </ComboBox>
 
-                    <CheckBox x:Name="IsCyclic" Content="Rezerwacja cykliczna"/>
+                    <CheckBox x:Name="IsCyclic" Content="Rezerwacja cykliczna" Click="IsCyclic_Click"/>
+
+                    <ComboBox x:Name="Cyclic" Header="Ustaw przedział rezerwacji cyklicznej" HorizontalAlignment="Stretch" Visibility="Collapsed">
+                        <x:String>codziennie</x:String>
+                        <x:String>co tydzień</x:String>
+                        <x:String>co 2 tygodnie</x:String>
+                        <x:String>co miesiąc</x:String>
+                        <x:String>co rok</x:String>
+                    </ComboBox>
 
                     <TextBlock Text="Wybierz uczestników*"/>
 
@@ -60,7 +68,7 @@
                     </ListView>
                     <Grid>
                         <CheckBox x:Name="SelectAll" Content="Zaznacz wszystkich"  Click="SelectAll_Click"/>
-                        <Button x:Name="SubmitButton" Content="Zarezerwuj salę" HorizontalAlignment="Right" Click="ReservateRoom_Click"/>
+                        <Button x:Name="SubmitButton" Content="Rezerwuję" HorizontalAlignment="Right" Click="ReservateRoom_Click"/>
                     </Grid>
                 </StackPanel>
             </Grid>

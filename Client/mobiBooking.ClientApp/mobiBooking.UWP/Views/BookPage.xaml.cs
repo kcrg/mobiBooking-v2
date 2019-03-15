@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -18,15 +19,16 @@ namespace mobiBooking.UWP.Views
             InitializeComponent();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            GetUsers();
-            GetRooms();
-            RoomList.SelectedIndex = 0;
+            await GetUsers();
+            //await GetRooms();
+            //RoomList.SelectedIndex = 0;
             Status.SelectedIndex = 0;
+            Cyclic.SelectedIndex = 0;
         }
 
-        private async void GetUsers()
+        private async Task GetUsers()
         {
             LoginModel SavedResponseObj = await helper.ReadFileAsync<LoginModel>("response");
 
@@ -44,7 +46,7 @@ namespace mobiBooking.UWP.Views
             UsersList.ItemsSource = usersList;
         }
 
-        private async void GetRooms()
+        private async Task GetRooms()
         {
             LoginModel SavedResponseObj = await helper.ReadFileAsync<LoginModel>("response");
 
@@ -60,6 +62,7 @@ namespace mobiBooking.UWP.Views
             roomsList = JsonConvert.DeserializeAnonymousType(response.Content, roomsList);
 
             RoomList.ItemsSource = roomsList;
+            RoomList.SelectedIndex = 0;
         }
 
         private void SelectAll_Click(object sender, RoutedEventArgs e)
@@ -103,6 +106,7 @@ namespace mobiBooking.UWP.Views
                     DateTo = formatedDateTo,
                     Status = Status.SelectedItem.ToString(),
                     Title = Title.Text,
+                    Cyclic = Cyclic.SelectedItem.ToString(),
                     InvitedUsersIds = UsersIndexArray
                 };
                 string json = JsonConvert.SerializeObject(bookObj);
@@ -131,6 +135,33 @@ namespace mobiBooking.UWP.Views
             {
                 await new CustomDialog("Wprowadzono błędne dane.", null, CustomDialog.Type.Warning).ShowAsync();
                 SubmitButton.IsEnabled = true;
+            }
+        }
+
+        private async void Flipchart_Click(object sender, RoutedEventArgs e)
+        {
+            await GetRooms();
+        }
+
+        private async void SoundSystem_Click(object sender, RoutedEventArgs e)
+        {
+            await GetRooms();
+        }
+
+        private async void RoomCap_LostFocus(object sender, RoutedEventArgs e)
+        {
+            await GetRooms();
+        }
+
+        private void IsCyclic_Click(object sender, RoutedEventArgs e)
+        {
+            if(IsCyclic.IsChecked ?? false)
+            {
+                Cyclic.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Cyclic.Visibility = Visibility.Collapsed;
             }
         }
     }

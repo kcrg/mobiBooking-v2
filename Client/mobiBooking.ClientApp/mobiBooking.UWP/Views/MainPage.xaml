@@ -2,10 +2,8 @@
     x:Class="mobiBooking.UWP.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:mobiBooking.UWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"   
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
@@ -20,7 +18,8 @@
                            Margin="12,0,0,0"/>
             </Grid>
 
-            <muxc:NavigationView x:Name="NavView"                                 
+            <muxc:NavigationView x:Name="NavView"
+                                 Padding="0,34,0,0"
                                  SelectionChanged="NavView_SelectionChanged"
                                  Style="{StaticResource NavView}">
 
@@ -50,18 +49,7 @@
 
                 <muxc:NavigationView.Content>
                     <Grid>
-                        <controls:Loading x:Name="LoadingScreen" Margin="0,-34,0,0" IsLoading="False" Background="{ThemeResource SystemControlAccentAcrylicWindowAccentMediumHighBrush}" Canvas.ZIndex="4">
-                            <StackPanel Style="{StaticResource BasicStackPanel}">
-                                <ProgressRing Width="70" Height="70" IsActive="True" Foreground="White"/>
-                                <TextBlock TextAlignment="Center" Foreground="White">
-                                    <Run Text="Pracujemy nad tym."/>
-                                    <LineBreak/>
-                                    <Run Text="( ͡° ͜ʖ ͡° )つ──☆*:・ﾟ" />
-                                </TextBlock>
-                            </StackPanel>
-                        </controls:Loading>
-
-                        <TextBlock x:Name="PageTitle" Text="Dashboard" FontSize="32" Margin="12" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                        <TextBlock x:Name="PageTitle" Text="Dashboard" FontSize="32" Margin="24,12,12,12" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 
                         <Frame x:Name="ContentFrame" Margin="12,60,0,0"/>
                     </Grid>

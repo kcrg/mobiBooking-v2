@@ -21,6 +21,12 @@
                         <x:String>07.00-20.00</x:String>
                     </ComboBox>
 
+                    <TextBlock Text="Potrzebuje z wyposażeniem:" Margin="0,0,0,-7"/>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox x:Name="Flipchart" Content="Flipchart"/>
+                        <CheckBox x:Name="SoundSystem" Content="System nagłaśniający"/>
+                    </StackPanel>
+
                     <TextBox x:Name="numberofpeople" extensions:TextBoxRegex.ValidationType="Number" Header="Liczba osób"/>
 
                     <Grid>

@@ -26,7 +26,7 @@
                 <Setter Property="OpenPaneLength" Value="230"/>
                 <Setter Property="CompactModeThresholdWidth" Value="0"/>
                 <Setter Property="ExpandedModeThresholdWidth" Value="1100"/>
-                <Setter Property="Margin" Value="0,34,0,0"/>
+                <Setter Property="Margin" Value="0,0,0,0"/>
             </Style>
 
             <AcrylicBrush x:Key="CyanAcrylicBrush"
@@ -40,9 +40,9 @@
                 <ResourceDictionary>
                     <ResourceDictionary.ThemeDictionaries>
                         <ResourceDictionary x:Key="Default">
-                            <LinearGradientBrush x:Key="NavigationViewDefaultPaneBackground"/>
-                            <LinearGradientBrush x:Key="NavigationViewTopPaneBackground"/>
-                            <LinearGradientBrush x:Key="NavigationViewExpandedPaneBackground"/>
+                            <AcrylicBrush x:Key="NavigationViewDefaultPaneBackground" AlwaysUseFallback="True" Opacity="0.3" FallbackColor="{ThemeResource SystemAltHighColor}"/>
+                            <AcrylicBrush x:Key="NavigationViewTopPaneBackground" AlwaysUseFallback="True"/>
+                            <AcrylicBrush x:Key="NavigationViewExpandedPaneBackground" AlwaysUseFallback="True" Opacity="0.3" FallbackColor="{ThemeResource SystemAltHighColor}"/>
                         </ResourceDictionary>
                         <ResourceDictionary x:Key="HighContrast">
                             <!-- Always include a "HighContrast" dictionary when you override

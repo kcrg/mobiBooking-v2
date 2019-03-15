@@ -75,7 +75,7 @@ namespace mobiBooking.UWP
                         break;
                     case "list":
                         {
-                            PageTitle.Text = "Lista sal/rezerwacje";
+                            PageTitle.Text = "Lista sal/rezerwacji";
                             ContentFrame.Navigate(typeof(RoomListPage), null, new DrillInNavigationTransitionInfo());
                         }
                         break;
@@ -101,7 +101,7 @@ namespace mobiBooking.UWP
                 }
                 if (args.IsSettingsSelected)
                 {
-                    PageTitle.Text = "Ustawienia";
+                    PageTitle.Text = "Ustawienia - placeholder";
                     ContentFrame.Navigate(typeof(SettingsPage), null, new DrillInNavigationTransitionInfo());
                 }
             }

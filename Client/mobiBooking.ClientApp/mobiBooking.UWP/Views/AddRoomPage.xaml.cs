@@ -40,7 +40,7 @@ namespace mobiBooking.UWP.Views
 
                 ConnectionModel IP = new ConnectionModel();
                 RestClient client = new RestClient(IP.Adress);
-                RestRequest request = new RestRequest("Room", Method.POST);
+                RestRequest request = new RestRequest("Room/create", Method.POST);
                 request.AddParameter("application/json", json, ParameterType.RequestBody);
                 request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
 

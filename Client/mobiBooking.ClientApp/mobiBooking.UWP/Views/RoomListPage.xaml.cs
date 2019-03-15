@@ -3,6 +3,7 @@ using mobiBooking.UWP.Models;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -16,7 +17,7 @@ namespace mobiBooking.UWP.Views
             InitializeComponent();
         }
 
-        private async void GetRooms()
+        private async Task GetRooms()
         {
             LoginModel SavedResponseObj = await helper.ReadFileAsync<LoginModel>("response");
 
@@ -34,9 +35,9 @@ namespace mobiBooking.UWP.Views
             UsersList.ItemsSource = usersList;
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            GetRooms();
+            await GetRooms();
         }
     }
 }

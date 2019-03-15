@@ -10,6 +10,8 @@ namespace mobiBooking.UWP.Models
         public string DateTo { get; set; }
         public string Status { get; set; }
         public string Title { get; set; }
+
+        public string Cyclic { get; set; }
         public List<int> InvitedUsersIds { get; set; }
     }
 }
