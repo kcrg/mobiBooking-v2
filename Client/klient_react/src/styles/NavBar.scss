@@ -5,27 +5,27 @@
         cursor: pointer;
         position: fixed;
         left: -5px;
-        top: 80px;
+        top: 70px;
         font-size: 40px; transition-property: transform, left;
-        transition-duration: 0.2s;
+        transition-duration: 0.1s;
         transition-timing-function: linear;
         transform: rotate(360deg);
-        color: $mobi-blue;
+        color: #222;
         z-index: 1000;
     }
 
     .hide{
         position: fixed;
         transition: left 0.5s ease;
-        left: 292px;
-        top: 80px;
+        left: 263px;
+        top: 70px;
         cursor: pointer;
         font-size: 40px;
         transition-property: transform, left;
         transition-duration: 0.3s;
         transition-timing-function: linear;
         transform: rotate(180deg);
-        color: $mobi-blue;
+        color: #222;
         z-index: 1000;
     }
 
@@ -33,7 +33,7 @@
         position: fixed;
         left: -1000px;
         transition-property:left;
-        transition-duration: 0.3s;
+        transition-duration: 0.1s;
         transition-timing-function: linear;
         display: flex;
         height: 100%;
@@ -43,25 +43,6 @@
         border-bottom-right-radius: 5px;
         border-top-right-radius: 5px;
         z-index: 1000;
-
-        .nav-logo{
-            display: flex;
-            justify-content: space-between;
-
-            img{
-                align-self: center;
-                max-width: 140px;
-                padding-left: 10px;
-            }
-
-            h1{
-                margin: 0;
-                padding: 20px;
-                font-size: 16px;
-                align-self: center;
-                color: #222;
-            }
-        }
 
         .navigation-links{
             display: flex;
@@ -92,7 +73,7 @@
                 justify-content: center;
             }
 
-            .reserv-links{
+              .reserv-links{
                 list-style-type: none;
                 padding: 0;
                 display: flex;
@@ -119,25 +100,6 @@
         border-bottom-right-radius: 5px;
         border-top-right-radius: 5px;
         z-index: 1000;
-
-        .nav-logo{
-            display: flex;
-            justify-content: space-between;
-            
-            img{
-                align-self: center;
-                max-width: 140px;
-                padding-left: 10px;
-            }
-
-            h1{
-                margin: 0;
-                padding: 20px;
-                font-size: 16px;
-                align-self: center;
-                color: #222;
-            }
-        }
 
         .navigation-links{
             display: flex;
@@ -204,25 +166,6 @@
             border-radius: 0;
             background: linear-gradient(#fff, #ccc);
 
-            .nav-logo{
-                display: flex;
-                position: static;
-                justify-content: space-between;
-    
-                img{
-                    align-self: center;
-                    min-width: 80px;
-                    padding-left: 10px;
-                }
-    
-                h1{
-                    margin: 0;
-                    padding: 20px;
-                    font-size: 1vw;
-                    align-self: center;
-                    color: #222;
-                }
-
                 .navigation-links{
                     display: flex;
                     flex-direction: column;
@@ -264,6 +207,5 @@
         
                 }
             }
-        }
     }
 }

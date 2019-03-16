@@ -24,9 +24,11 @@ class App extends Component {
             <Route  path="/home" render={() => <Dashboard cookies={this.props.cookies} ip={ipServer}/>}/>
           </div>
          
-          <Route path="/addUser" render={() => <NavBar cookies={this.props.cookies}/>}/>
           <Route path="/addUser" render={() => <Logout cookies={this.props.cookies} ip={ipServer}/>}/>
-          <Route path="/addUser" render={() => <AddUser cookies={this.props.cookies} ip={ipServer}/>}/>
+          <div className="full">
+            <Route path="/addUser" render={() => <NavBar cookies={this.props.cookies}/>}/>
+            <Route path="/addUser" render={() => <AddUser cookies={this.props.cookies} ip={ipServer}/>}/>
+          </div>
 
           <Route path="/addRoom" render={() => <NavBar cookies={this.props.cookies}/>}/>
           <Route path="/addRoom" render={() => <Logout cookies={this.props.cookies} ip={ipServer}/>}/>

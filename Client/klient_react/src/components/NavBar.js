@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../img/mobitouch.png';
 import * as JWT from 'jwt-decode';
 import '../styles/NavBar.scss';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowAltCircleRight} from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faArrowAltCircleRight)
+library.add( faArrowRight)
 
 export default class NavBar extends Component {
 
@@ -66,7 +65,7 @@ export default class NavBar extends Component {
           </ul>
         </nav>
 
-        <FontAwesomeIcon icon={faArrowAltCircleRight} onClick={this.showNav} className={this.state.btn_show}>Hello</FontAwesomeIcon>
+        <FontAwesomeIcon icon={ faArrowRight} onClick={this.showNav} className={this.state.btn_show}>Hello</FontAwesomeIcon>
       </div>
     )
   }
