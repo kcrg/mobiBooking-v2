@@ -50,12 +50,7 @@ export default class NavBar extends Component {
   render() {
     return (
       <div className="nav-container">
-        <nav className={this.state.showNav}>
-          <div className="nav-logo">
-            <img src={logo} alt="logo"></img>
-            <h1>MobiReservation <br/> System</h1>
-          </div>
-          
+        <nav className={this.state.showNav}> 
           <ul className="navigation-links">
             <Link to="/home"><li>Dashboard</li></Link>
             <Link to="addUser"><li>Rezerwacja Sali</li></Link>

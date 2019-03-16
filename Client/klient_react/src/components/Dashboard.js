@@ -23,19 +23,24 @@ class Dashboard extends Component {
     render() {
         return (
             <div className="dashboard-content">
-                <div className="data meetings">
-                    <h2>Moje spotkania:</h2>
-                    <div className="meetings">
-                        <span>Ten tydzień</span>
-                        <p>0.00h</p>
-                        <span>poprz. tydzień</span>
-                        <p>0.00h</p>
+                <div className="data">
+                    <div className="meetings_content">
+                        <h2>Moje spotkania:</h2>
                     </div>
-                    <div className="meetings">
-                        <span>ten miesiąc:</span>
-                        <p>0.00h</p>
-                        <span>poprz. miesiąc</span>
-                        <p>0.00h</p>
+
+                    <div className="meetings_content">
+                        <div className="meetings">
+                            <span>ten tydzień:</span>
+                            <p>0.00h</p>
+                            <span>poprz. tydzień</span>
+                            <p>0.00h</p>
+                        </div>
+                        <div className="meetings">
+                            <span>ten miesiąc:</span>
+                            <p>0.00h</p>
+                            <span>poprz. miesiąc</span>
+                            <p>0.00h</p>
+                        </div>
                     </div>
                 </div>
 
@@ -50,8 +55,8 @@ class Dashboard extends Component {
                 <button onClick={this.buttonClick} className="data_btn">Zarezerwuj salę</button>
 
                 <div className="data">
+                    <h2>Sale:</h2>
                     <div className="rooms">
-                        <h2>Sale:</h2>
                         <span>Aktualnie wolne:</span>
                         <p>3</p>
                         <span>Aktualnie zajęte:</span>
@@ -60,14 +65,30 @@ class Dashboard extends Component {
                 </div>
 
                 <div className="data">
+                    <h2>Ostatnio rezerwowałeś/aś:</h2>
                    <div className="lastReservations">
-                       <h2>Ostatnio rezerwowałeś/aś:</h2>
                        <span>Jeszcze nie rezerwowałeś</span>
                    </div>
                 </div>
 
                 <div className="data">
-                    ONE
+                    <div className="meetings_content">
+                        <h2>Statystyki rezerwacji:</h2>
+                    </div>
+                    <div className="meetings_content">
+                        <div className="meetings">
+                            <span>Ten tydzień</span>
+                            <p>0.00h</p>
+                            <span>poprz. tydzień</span>
+                            <p>0.00h</p>
+                        </div>
+                        <div className="meetings">
+                            <span>ten miesiąc:</span>
+                            <p>0.00h</p>
+                            <span>poprz. miesiąc</span>
+                            <p>0.00h</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         )

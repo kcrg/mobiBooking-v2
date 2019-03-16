@@ -11,8 +11,6 @@ import RoomReserv from './components/roomReserv';
 
 class App extends Component {
 
-
-  
   render() {
     const ipServer = 'https://mobibookingwebapi.azurewebsites.net';
     return (
@@ -20,9 +18,11 @@ class App extends Component {
         <div className="App">
           <Route exact path="/" render={() => <SignIn cookies={this.props.cookies} ip={ipServer}/>}/>
 
-          <Route path="/home" render={() => <NavBar cookies={this.props.cookies}/>}/>
           <Route path="/home" render={() => <Logout cookies={this.props.cookies} ip={ipServer}/>}/>
-          <Route  path="/home" render={() => <Dashboard cookies={this.props.cookies} ip={ipServer}/>}/>
+          <div className="full">
+            <Route path="/home" render={() => <NavBar cookies={this.props.cookies}/>}/>
+            <Route  path="/home" render={() => <Dashboard cookies={this.props.cookies} ip={ipServer}/>}/>
+          </div>
          
           <Route path="/addUser" render={() => <NavBar cookies={this.props.cookies}/>}/>
           <Route path="/addUser" render={() => <Logout cookies={this.props.cookies} ip={ipServer}/>}/>
