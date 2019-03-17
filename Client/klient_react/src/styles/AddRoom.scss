@@ -1,0 +1,231 @@
+@import '../index.scss';
+
+.add_room{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background: $mobi-purple;
+    align-items: center;
+
+    .default{
+        display: none;
+    }
+
+    .errors{
+        display: flex;
+        background: red;
+        color: $primary-color;
+        align-items: center;
+        font-size: 30px;
+        text-align: center;
+        padding: 30px;
+        min-width: 200px;
+        min-height: 120px;
+        border-radius: 5px;
+        margin-bottom: 30px;
+        
+        span{
+            text-align: center;
+            width: 100%;
+            align-items: center;
+        }
+    }
+
+    .done{
+        display: flex;
+        background: green;
+        color: $primary-color;
+        align-items: center;
+        font-size: 25px;
+        text-align: center;
+        padding: 30px;
+        min-width: 200px;
+        min-height: 120px;
+        border-radius: 5px;
+        margin-bottom: 30px;
+
+        span{
+            text-align: center;
+            width: 100%;
+            align-items: center;
+        }
+    }
+
+    h2{
+        margin-top: 100px;
+        margin-bottom: 20px;
+        color: $primary-color;
+    }
+
+    .add_room_form{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+
+        label{
+            font-size: 25px;
+            color: $primary-color;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            min-width: 180px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+
+        input{
+            font-size: 22px;
+            border-radius: 5px;
+            max-width: 240px;
+            align-self: center;
+        }
+
+        input[type="number"]{
+            max-width: 235px;
+        }
+
+        input[type="checkbox"]{
+            transform: scale(2);
+        }
+
+        input[type="submit"]{
+            min-width: 220px;
+            font-size: 28px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            background: $mobi-blue;
+            color: $primary-color;
+            padding: 10px;
+        }
+
+        select{
+            min-width: 240px;
+            font-size: 22px;
+            border-radius: 5px;
+            align-self: center;
+        }
+
+        .equ_lab{
+            color: $primary-color;
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .equip{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+
+            label{
+                max-width: 100px;
+            }
+
+        }
+    }
+}
+
+@media only screen and (min-width: 700px){
+    .add_room{
+
+        .errors{
+            min-width: 500px;
+        }
+
+        .done{
+            min-width: 500px;
+        }
+        .add_room_form{
+            flex-direction: row;
+
+            label{
+                min-width: 320px;
+                margin-bottom: 20px;
+            }
+
+            input{
+                min-width: 280px;
+                margin-bottom: 20px;
+                justify-self: flex-start;
+                margin-right: 100px;
+            }
+
+            select{
+                min-width: 280px;
+                margin-bottom: 20px;
+                margin-right: 100px;
+            }
+
+            .equ_lab{
+                min-width: 600px;
+            }
+
+            .equip{
+                flex-direction: row;
+                justify-content: center;
+                justify-items: center;
+                width: 680px;
+
+                input{
+                    margin: 0;
+                    min-width: 100px;
+                }
+
+                label{
+                    min-width: 220px;
+                }
+            }
+
+            input[type="submit"]{
+                min-width: 400px;
+                margin: 30px 0 50px 0;
+            }
+        }
+    }
+}
+
+
+@media only screen and (min-width: 900px){
+    .add_room{
+        .errors{
+            min-width: 800px;
+        }
+
+        .done{
+            min-width: 600px;
+        }
+    }
+}
+
+
+@media only screen and (min-width: 1200px){
+    .add_room{
+        h2{
+            margin-bottom: 40px;
+        }
+
+        .errors{
+            min-width: 700px;
+        }
+
+        .done{
+            min-width: 700px;
+        }
+        .add_room_form{
+            label{
+                min-width: 500px;
+
+                .equip{
+                    min-width: 530px;
+
+                    label{
+                        min-width: 500px;
+                    }
+                }
+            }
+        }
+    }
+}

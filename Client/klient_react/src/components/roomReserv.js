@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Users from './Users';
+import '../styles/RoomReserv.scss';
 
  class RoomReserv extends Component {
 
@@ -19,7 +20,7 @@ import Users from './Users';
     roomItems: null,
     checked:{
       flipchart: false,
-      voice: false,
+      soundSystem: false,
       repeat: false
     },
     isChecked: false,
@@ -96,12 +97,23 @@ import Users from './Users';
     })
   }
 
+  handleCheck = (name, value) =>{
+    this.setState(prevState =>({
+      ...prevState,
+      checked:{
+        ...prevState.checked,
+        [name]: value
+      }
+    }), () => {
+      console.log(this.state.checked)
+    })
+  }
+
   render() {
     return (
-      <div>
-        <div>
+        <div className="reserv_div">
           <h2>Zarezerwuj salę:</h2>
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit} className="reserv_form">
             <label htmlFor="dateFrom">Rezerwuję od:</label>
             <input type="text" id="dateFrom" onChange={e => this.handleChange('dateFrom', e.target.value)} required></input>
 
@@ -110,6 +122,18 @@ import Users from './Users';
     
             <label htmlFor="roomCapacity" className="other">Pojemność sali:</label>
             <input type="number" id="roomCapacity" onChange={e => this.handleCapacityChange('roomCapacity', e.target.value)} required></input><br/> 
+
+            <div className="eqw">
+              <span>Wybierz wyposażenie:</span>
+            </div>
+
+            <div className="checkboxes">
+              <label htmlFor="flipchart">Flipchart</label>
+              <input type="checkbox" value="flipchart" id="flipchart" onChange={e=>{this.handleCheck('flipchart', e.target.checked)}}></input>
+           
+              <label htmlFor="voice">System nagłaśniający</label>
+              <input type="checkbox" value="voice" id="voice" onChange={e=>{this.handleCheck('soundSystem', e.target.checked)}}></input>
+            </div>
 
             <label id="room">Wybierz salę</label>
             <select id="roomTook" onChange={e => {this.selectChange(e.target.value)}}>
@@ -125,14 +149,15 @@ import Users from './Users';
               <option>Zajęta</option>
             </select><br/>
 
-            <label htmlFor="repeat">Rezerwacja cykliczna:</label>
-            <input type="checkbox"  id="repeat" name="repeat" value="repeat" onChange={e=>{this.toggleChecked('repeat', e.target.checked)}}></input><br/>
-
+            <div className="cyclic">
+              <label htmlFor="repeat">Rezerwacja cykliczna:</label>
+              <input type="checkbox"  id="repeat" name="repeat" value="repeat" onChange={e=>{this.handleCheck('repeat', e.target.checked)}}></input><br/>
+            </div>
+            
             <Users ip={this.state.ip}/>
             <input type="submit" value="Rezerwuj"></input>
           </form>
         </div>
-      </div>
     )
   }
 }
