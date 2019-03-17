@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using mobiBooking.Model.Models;
+using mobiBooking.Model.Room.Request;
 using mobiBooking.Model.SendModels;
 using mobiBooking.Service.Interfaces;
 using System.Collections.Generic;
@@ -25,6 +26,13 @@ namespace mobiBooking.WebApi.Controllers
         public async Task<ActionResult<IEnumerable<RoomDataModel>>> Get()
         {
             return Ok(await _roomService.GetAll());
+        }
+
+        [Authorize(Roles = "Administrator, User")]
+        [HttpPost("for_reservation")]
+        public async Task<ActionResult<IEnumerable<RoomDataModel>>> GetForReservationn([FromBody] RoomsForReservationModel roomsForReservationModel)
+        {
+            return Ok(await _roomService.GetForReservation(roomsForReservationModel));
         }
 
         // GET api/values/5

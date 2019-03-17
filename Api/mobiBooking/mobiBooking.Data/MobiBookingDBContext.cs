@@ -28,14 +28,18 @@ namespace mobiBooking.Data
                 .HasForeignKey(bc => bc.ReservationId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            var salt = PasswordHashing.GenerateSalt();
+            modelBuilder.Entity<Room>()
+            .HasMany(c => c.Reservations)
+            .WithOne(e => e.Room);
+
+            var salt = Helpers.GenerateSalt();
 
             modelBuilder.Entity<User>().HasData(new User
             {
                 Id = 1,
                 Email = "m.w@g.pl",
                 Name = "Michał",
-                Password = PasswordHashing.HashPassword("123", salt),
+                Password = Helpers.HashPassword("123", salt),
                 Role = "Administrator",
                 Salt = salt,
                 Surname = "Test",

@@ -5,11 +5,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190314115348_A.cs" />
+    <Compile Remove="Migrations\20190314115348_A.Designer.cs" />
+    <Compile Remove="Migrations\20190315081605_A.cs" />
+    <Compile Remove="Migrations\20190315081605_A.Designer.cs" />
+    <Compile Remove="Migrations\20190315091432_A.cs" />
+    <Compile Remove="Migrations\20190315091432_A.Designer.cs" />
+    <Compile Remove="Migrations\20190315093632_A.cs" />
+    <Compile Remove="Migrations\20190315093632_A.Designer.cs" />
+    <Compile Remove="Migrations\20190315100545_A.cs" />
+    <Compile Remove="Migrations\20190315100545_A.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.1.1" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
+    <PackageReference Include="TimePeriodCore" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>

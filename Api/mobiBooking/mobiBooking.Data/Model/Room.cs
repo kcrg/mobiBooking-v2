@@ -13,5 +13,9 @@ namespace mobiBooking.Data.Model
         public bool Activity { get; set; }
         public string Availability { get; set; }
         public int NumberOfPeople { get; set; }
+        public bool Flipchart { get; set; }
+        public bool SoundSystem { get; set; }
+
+        public virtual ICollection<Reservation> Reservations { get; set; }
     }
 }

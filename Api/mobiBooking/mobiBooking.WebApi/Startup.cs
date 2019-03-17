@@ -50,7 +50,7 @@ namespace mobiBooking.WebApi
             services.AddMvc();
 
             services.AddDbContext<MobiBookingDBContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ReleaseConnection")) // ReleaseConnection, DebugConnection            
+                options.UseSqlServer(Configuration.GetConnectionString("DebugConnection")) // ReleaseConnection, DebugConnection            
             );
 
             services.ConfigureSwagger();

@@ -33,7 +33,7 @@ namespace mobiBooking.Data.Migrations
 
                     b.Property<int>("RoomId");
 
-                    b.Property<string>("Status");
+                    b.Property<int>("Status");
 
                     b.Property<string>("Title");
 
@@ -56,11 +56,15 @@ namespace mobiBooking.Data.Migrations
 
                     b.Property<string>("Availability");
 
+                    b.Property<bool>("Flipchart");
+
                     b.Property<string>("Location");
 
                     b.Property<string>("Name");
 
                     b.Property<int>("NumberOfPeople");
+
+                    b.Property<bool>("SoundSystem");
 
                     b.HasKey("Id");
 
@@ -92,7 +96,7 @@ namespace mobiBooking.Data.Migrations
                     b.ToTable("Users");
 
                     b.HasData(
-                        new { Id = 1, Email = "m.w@g.pl", Name = "Michał", Password = "YfccNp+3ssqSWGaIDRTrtA5kq4Lu87GUET3r8Uf15r0=", Role = "Administrator", Salt = new byte[] { 42, 113, 169, 67, 186, 125, 211, 81, 93, 74, 33, 193, 226, 109, 207, 170 }, Surname = "Test", UserName = "Test" }
+                        new { Id = 1, Email = "m.w@g.pl", Name = "Michał", Password = "32qojE7n/4pJTDxy1/9jDj7xKjWjp9KYyObAsGbvMsA=", Role = "Administrator", Salt = new byte[] { 65, 157, 89, 58, 32, 63, 134, 167, 194, 92, 71, 9, 194, 15, 204, 58 }, Surname = "Test", UserName = "Test" }
                     );
                 });
 
@@ -117,7 +121,7 @@ namespace mobiBooking.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("mobiBooking.Data.Model.Room", "Room")
-                        .WithMany()
+                        .WithMany("Reservations")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

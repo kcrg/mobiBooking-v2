@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+﻿using Itenso.TimePeriod;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace mobiBooking.Component
 {
-    public static class PasswordHashing
+    public static class Helpers
     {
 
         public static string HashPassword(string password, byte[] salt)
@@ -27,6 +28,11 @@ namespace mobiBooking.Component
                 rng.GetBytes(salt);
             }
             return salt;
+        }
+
+        public static bool CheckDateOverlaps(DateTime AdateFrom, DateTime AdateTo, DateTime BdateFrom, DateTime BdateTo)
+        {
+            return new TimeRange(AdateFrom, AdateTo).OverlapsWith(new TimeRange(BdateFrom, BdateTo));
         }
     }
 }

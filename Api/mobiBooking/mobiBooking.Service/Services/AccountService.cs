@@ -39,7 +39,7 @@ namespace mobiBooking.Service.Services
                 return null;
             }
 
-            string salt = PasswordHashing.HashPassword(password, user.Salt);
+            string salt = Helpers.HashPassword(password, user.Salt);
 
             if (user.Password != salt)
             {
@@ -82,13 +82,13 @@ namespace mobiBooking.Service.Services
                 return false;
             }
 
-            byte[] salt = PasswordHashing.GenerateSalt();
+            byte[] salt = Helpers.GenerateSalt();
 
             await _userRepository.Create(new User
             {
                 Email = value.Email,
                 Name = value.Name,
-                Password = PasswordHashing.HashPassword(value.Password, salt),
+                Password = Helpers.HashPassword(value.Password, salt),
                 Salt = salt,
                 Surname = value.Surname,
                 UserName = value.UserName,
@@ -111,7 +111,7 @@ namespace mobiBooking.Service.Services
             User user = await _userRepository.Find(id);
 
             user.Password = (value.Password != null)
-                ? (PasswordHashing.HashPassword(value.Password, PasswordHashing.GenerateSalt()))
+                ? (Helpers.HashPassword(value.Password, Helpers.GenerateSalt()))
                 : (user.Password);
             user.Name = value.Name ?? user.Name;
             user.Surname = value.Surname ?? user.Surname;

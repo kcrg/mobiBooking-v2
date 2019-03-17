@@ -1,5 +1,6 @@
 ﻿using mobiBooking.Data.Model;
 using mobiBooking.Model.Models;
+using mobiBooking.Model.Room.Request;
 using mobiBooking.Model.SendModels;
 using mobiBooking.Repository.Interfaces;
 using mobiBooking.Service.Interfaces;
@@ -26,7 +27,9 @@ namespace mobiBooking.Service.Services
                 || string.IsNullOrEmpty(value.Location)
                 || string.IsNullOrEmpty(value.RoomName)
                 || value.Activity == null
-                || value.NumberOfPeople == null)
+                || value.NumberOfPeople == null
+                || value.SoundSystem == null
+                || value.Flipchart == null)
             {
                 return false;
             }
@@ -37,7 +40,9 @@ namespace mobiBooking.Service.Services
                 Availability = value.Availability,
                 Location = value.Location,
                 Name = value.RoomName,
-                NumberOfPeople = (int)value.NumberOfPeople
+                NumberOfPeople = (int)value.NumberOfPeople,
+                SoundSystem = (bool)value.SoundSystem,
+                Flipchart = (bool)value.Flipchart
             });
             await _roomRepository.Save();
 
@@ -72,7 +77,9 @@ namespace mobiBooking.Service.Services
                 Availability = room.Availability,
                 Location = room.Location,
                 NumberOfPeople = room.NumberOfPeople,
-                RoomName = room.Name
+                RoomName = room.Name,
+                Flipchart = room.Flipchart,
+                SoundSystem = room.SoundSystem
             };
         }
 
@@ -85,7 +92,40 @@ namespace mobiBooking.Service.Services
                 roomModels.Add(new RoomDataModel
                 {
                     Id = room.Id,
-                    Name = room.Name
+                    Name = room.Name,
+                    Activity = room.Activity,
+                    Availability = room.Availability,
+                    Location = room.Location,
+                    NumberOfPeople = room.NumberOfPeople,
+                    SoundSystem = room.SoundSystem,
+                    Flipchart = room.Flipchart
+                });
+            });
+
+            return roomModels;
+        }
+
+        public async Task<IEnumerable<RoomDataModel>> GetForReservation(RoomsForReservationModel roomForReservationModel)
+        {
+            List<RoomDataModel> roomModels = new List<RoomDataModel>();
+
+            (await _roomRepository.GetRoomsForReservation(
+                roomForReservationModel.Size,
+                roomForReservationModel.DateFrom,
+                roomForReservationModel.DateTo,
+                roomForReservationModel.SoundSystem,
+                roomForReservationModel.FlipChart)).ToList().ForEach(room =>
+            {
+                roomModels.Add(new RoomDataModel
+                {
+                    Id = room.Id,
+                    Name = room.Name,
+                    Activity = room.Activity,
+                    Availability = room.Availability,
+                    Location = room.Location,
+                    NumberOfPeople = room.NumberOfPeople,
+                    SoundSystem = room.SoundSystem,
+                    Flipchart = room.Flipchart
                 });
             });
 
@@ -101,6 +141,8 @@ namespace mobiBooking.Service.Services
             room.Location = value.Location ?? room.Location;
             room.Name = value.RoomName ?? room.Name;
             room.NumberOfPeople = value.NumberOfPeople ?? room.NumberOfPeople;
+            room.Flipchart = value.Flipchart ?? room.Flipchart;
+            room.SoundSystem = value.SoundSystem ?? room.SoundSystem;
 
             await _roomRepository.Update(room);
             await _roomRepository.Save();

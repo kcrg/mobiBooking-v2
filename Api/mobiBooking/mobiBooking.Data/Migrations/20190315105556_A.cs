@@ -18,7 +18,9 @@ namespace mobiBooking.Data.Migrations
                     Location = table.Column<string>(nullable: true),
                     Activity = table.Column<bool>(nullable: false),
                     Availability = table.Column<string>(nullable: true),
-                    NumberOfPeople = table.Column<int>(nullable: false)
+                    NumberOfPeople = table.Column<int>(nullable: false),
+                    Flipchart = table.Column<bool>(nullable: false),
+                    SoundSystem = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -50,11 +52,11 @@ namespace mobiBooking.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    OwnerUserId = table.Column<int>(nullable: false),
                     RoomId = table.Column<int>(nullable: false),
+                    OwnerUserId = table.Column<int>(nullable: false),
                     DateFrom = table.Column<DateTime>(nullable: false),
                     DateTo = table.Column<DateTime>(nullable: false),
-                    Status = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
                     Title = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -101,7 +103,7 @@ namespace mobiBooking.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "Name", "Password", "Role", "Salt", "Surname", "UserName" },
-                values: new object[] { 1, "m.w@g.pl", "Michał", "YfccNp+3ssqSWGaIDRTrtA5kq4Lu87GUET3r8Uf15r0=", "Administrator", new byte[] { 42, 113, 169, 67, 186, 125, 211, 81, 93, 74, 33, 193, 226, 109, 207, 170 }, "Test", "Test" });
+                values: new object[] { 1, "m.w@g.pl", "Michał", "32qojE7n/4pJTDxy1/9jDj7xKjWjp9KYyObAsGbvMsA=", "Administrator", new byte[] { 65, 157, 89, 58, 32, 63, 134, 167, 194, 92, 71, 9, 194, 15, 204, 58 }, "Test", "Test" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_OwnerUserId",

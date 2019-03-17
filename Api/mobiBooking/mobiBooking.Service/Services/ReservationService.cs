@@ -1,4 +1,5 @@
-﻿using mobiBooking.Data.Model;
+﻿using mobiBooking.Component.Enums;
+using mobiBooking.Data.Model;
 using mobiBooking.Model.RecivedModels;
 using mobiBooking.Repository.Interfaces;
 using mobiBooking.Service.Interfaces;
@@ -14,24 +15,31 @@ namespace mobiBooking.Service.Services
         private readonly IUserRepository _userRepository;
         private readonly IReservationRepository _reservationRepository;
         private readonly IUserToReservationRepository _userToReservationRepository;
+        private readonly IRoomRepository _roomRepository;
 
-        public ReservationService(IUserRepository userRepository, IReservationRepository reservationRepository, IUserToReservationRepository userToReservationRepository)
+        public ReservationService(IUserRepository userRepository, IReservationRepository reservationRepository, IUserToReservationRepository userToReservationRepository, IRoomRepository roomRepository)
         {
             _userRepository = userRepository;
             _reservationRepository = reservationRepository;
             _userToReservationRepository = userToReservationRepository;
+            _roomRepository = roomRepository;
         }
 
         public async Task<bool> Create(ReservationModel value, int OwnerUserId)
         {
             IEnumerable<User> InvitedUsers = await _userRepository.FindRange(value.InvitedUsersIds);
+            Room room = await _roomRepository.Find(value.RoomId);
+            User OwnerUser = await _userRepository.Find(OwnerUserId);
 
             if (value.DateFrom == null
                 || value.DateTo == null
-                || string.IsNullOrEmpty(value.Status)
                 || string.IsNullOrEmpty(value.Title)
-                || value.RoomId == 0
-                || value.InvitedUsersIds == null)
+                || (value.Status != ReservationStatus.Reserved && value.Status != ReservationStatus.NotReserved)
+                || !InvitedUsers.Any()
+                || InvitedUsers.Count() != value.InvitedUsersIds.Count()
+                || room == null
+                || !await _roomRepository.CheckIfCanReserv(value.DateFrom, value.DateTo, room)
+                )
             {
                 return false;
             }
@@ -40,8 +48,8 @@ namespace mobiBooking.Service.Services
             {
                 DateFrom = value.DateFrom,
                 DateTo = value.DateTo,
-                OwnerUserId = OwnerUserId,
-                RoomId = value.RoomId,
+                OwnerUser = OwnerUser,
+                Room = room,
                 Status = value.Status,
                 Title = value.Title
             };

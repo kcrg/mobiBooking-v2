@@ -1,4 +1,5 @@
 ﻿using mobiBooking.Model.Models;
+using mobiBooking.Model.Room.Request;
 using mobiBooking.Model.SendModels;
 using System;
 using System.Collections.Generic;
@@ -14,5 +15,6 @@ namespace mobiBooking.Service.Interfaces
         Task<bool> Create(RoomModel value);
         Task Update(int id, RoomModel value);
         Task<bool> Delete(int id);
+        Task<IEnumerable<RoomDataModel>> GetForReservation(RoomsForReservationModel createReservationModel);
     }
 }

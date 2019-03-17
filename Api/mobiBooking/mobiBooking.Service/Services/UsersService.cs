@@ -30,6 +30,9 @@ namespace mobiBooking.Service.Services
                     Id = user.Id,
                     Name = user.Name,
                     Surname = user.Surname,
+                    Email = user.Email,
+                    Role = user.Role,
+                    UserName = user.UserName
                 });
             });
             return users;
