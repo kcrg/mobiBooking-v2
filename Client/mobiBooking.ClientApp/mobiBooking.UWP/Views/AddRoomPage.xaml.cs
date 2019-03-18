@@ -5,6 +5,9 @@ using mobiBooking.UWP.Views.CustomDialogs;
 using Newtonsoft.Json;
 using RestSharp;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace mobiBooking.UWP.Views
@@ -12,14 +15,30 @@ namespace mobiBooking.UWP.Views
     public sealed partial class AddRoomPage : Page
     {
         private readonly LocalObjectStorageHelper helper = new LocalObjectStorageHelper();
+        ConnectionModel IP = new ConnectionModel();
         public AddRoomPage()
         {
             InitializeComponent();
+        }
+
+        private async Task GetIntervals()
+        {
+            LoginModel SavedResponseObj = await helper.ReadFileAsync<LoginModel>("response");
+
+            RestClient client = new RestClient(IP.Adress);
+            RestRequest request = new RestRequest("Room/get_room_availabilities", Method.GET);
+            request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
+
+            // execute the request
+            IRestResponse response = client.Execute(request);
+
+            List<GetIntervalsModel> availabilityList = new List<GetIntervalsModel>();
+            availability.ItemsSource = JsonConvert.DeserializeAnonymousType(response.Content, availabilityList);
 
             availability.SelectedIndex = 0;
         }
 
-        private async void Add_Click(object senjder, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void Add_Click(object senjder, RoutedEventArgs e)
         {
             SubmitButton.IsEnabled = false;
 
@@ -29,16 +48,16 @@ namespace mobiBooking.UWP.Views
 
                 AddRoomModel roomObj = new AddRoomModel
                 {
-                    RoomName = roomname.Text,
-                    Location = localization.Text,
+                    RoomName = roomname.Text.Trim(),
+                    Location = localization.Text.Trim(),
                     Activity = activity.IsChecked ?? false,
-                    Availability = availability.SelectedItem.ToString(),
+                    Availability = availability.SelectedIndex + 1,
                     NumberOfPeople = Convert.ToInt32(numberofpeople.Text),
-                    Token = SavedResponseObj.Token
+                    Flipchart = Flipchart.IsChecked ?? false,
+                    SoundSystem = SoundSystem.IsChecked ?? false
                 };
                 string json = JsonConvert.SerializeObject(roomObj);
 
-                ConnectionModel IP = new ConnectionModel();
                 RestClient client = new RestClient(IP.Adress);
                 RestRequest request = new RestRequest("Room/create", Method.POST);
                 request.AddParameter("application/json", json, ParameterType.RequestBody);
@@ -63,6 +82,11 @@ namespace mobiBooking.UWP.Views
                 await new CustomDialog("Wprowadzono błędne dane.", null, CustomDialog.Type.Warning).ShowAsync();
                 SubmitButton.IsEnabled = true;
             }
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            await GetIntervals();
         }
     }
 }

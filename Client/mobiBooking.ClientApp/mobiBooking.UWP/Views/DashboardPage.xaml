@@ -5,7 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mtuuc="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    mc:Ignorable="d" NavigationCacheMode="Required">
+    mc:Ignorable="d" NavigationCacheMode="Required" 
+    Loaded="Page_Loaded" GotFocus="Page_GotFocus">
 
     <Page.Content>
         <Grid>
@@ -81,7 +82,7 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Text="Spotkania na dziś" FontSize="20" FontWeight="Bold"/>
-                    <TextBlock Text="&#xED56;" FontFamily="Segoe MDL2 Assets" TextAlignment="Right" FontSize="36"/>
+                    <Image x:Name="MeetingsTodayImage" Height="38" VerticalAlignment="Top" HorizontalAlignment="Right"/>
 
                     <TextBlock Text="W dniu dzisiejszym nie masz spotkań" Grid.Row="1"/>
                 </Grid>

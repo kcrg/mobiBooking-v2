@@ -36,27 +36,23 @@
                     <TextBox x:Name="Title" Header="Tytuł spotkania*"/>
 
                     <ComboBox x:Name="Status" Header="Status*" HorizontalAlignment="Stretch">
-                        <x:String>Niedostępna</x:String>
-                        <x:String>Zaakceptowana</x:String>
-                        <x:String>Zakończona</x:String>
-                        <x:String>Zakończona przed czasem</x:String>
-                        <x:String>Dostępna</x:String>
-                        <x:String>Brak możliwości edycji</x:String>
+                        <x:String>Wolna</x:String>
+                        <x:String>Zajęta</x:String>
                     </ComboBox>
 
                     <CheckBox x:Name="IsCyclic" Content="Rezerwacja cykliczna" Click="IsCyclic_Click"/>
 
-                    <ComboBox x:Name="Cyclic" Header="Ustaw przedział rezerwacji cyklicznej" HorizontalAlignment="Stretch" Visibility="Collapsed">
-                        <x:String>codziennie</x:String>
-                        <x:String>co tydzień</x:String>
-                        <x:String>co 2 tygodnie</x:String>
-                        <x:String>co miesiąc</x:String>
-                        <x:String>co rok</x:String>
+                    <ComboBox x:Name="Intervals" Header="Ustaw interwał rezerwacji cyklicznej" HorizontalAlignment="Stretch" Visibility="Collapsed">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
                     </ComboBox>
 
                     <TextBlock Text="Wybierz uczestników*"/>
 
-                    <ListView x:Name="UsersList" MaxHeight="200" SelectionMode="Multiple" Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}">
+                    <ListView x:Name="UsersList" MaxHeight="220" SelectionMode="Multiple" Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Spacing="5" Orientation="Horizontal">

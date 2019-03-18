@@ -12,6 +12,22 @@
                 <Setter Property="VerticalAlignment" Value="Top"/>
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
             </Style>
+            
+            <Style x:Key="AppLogoImage" TargetType="Image">
+                <Setter Property="Width" Value="20"/>
+                <Setter Property="Height" Value="20"/>
+                <Setter Property="Margin" Value="8,0"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+
+            <Style x:Key="AppTitleText" TargetType="TextBlock" BasedOn="{StaticResource CaptionTextBlockStyle}">
+                <Setter Property="Text" Value="mobiBooking"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="Margin" Value="34,8"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+            </Style>
 
             <Style x:Key="BasicStackPanel" TargetType="StackPanel">
                 <Setter Property="Spacing" Value="12"/>
@@ -19,7 +35,7 @@
             </Style>
 
             <Style x:Key="NavView" TargetType="muxc:NavigationView">
-                <Setter Property="IsBackButtonVisible" Value="Collapsed"/>
+                <Setter Property="IsBackButtonVisible" Value="Auto"/>
                 <Setter Property="IsPaneToggleButtonVisible" Value="False"/>
                 <Setter Property="PaneDisplayMode" Value="Left"/>
                 <Setter Property="IsPaneOpen" Value="True"/>

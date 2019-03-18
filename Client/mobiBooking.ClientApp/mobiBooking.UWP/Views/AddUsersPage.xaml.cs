@@ -29,11 +29,11 @@ namespace mobiBooking.UWP.Views
 
                 AddUserModel userObj = new AddUserModel
                 {
-                    UserName = username.Text,
-                    Password = password.Password,
-                    Name = name.Text,
-                    Surname = surname.Text,
-                    Email = email.Text,
+                    UserName = username.Text.Trim(),
+                    Password = password.Password.Trim(),
+                    Name = name.Text.Trim(),
+                    Surname = surname.Text.Trim(),
+                    Email = email.Text.Trim(),
                     UserType = usertype.SelectedItem.ToString()
                 };
                 string json = JsonConvert.SerializeObject(userObj);

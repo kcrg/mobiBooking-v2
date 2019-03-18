@@ -6,22 +6,22 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"   
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}" Loaded="Page_Loaded" GotFocus="Page_GotFocus">
     <!--   TODO: Style -->
     <Page.Content>
         <Grid>
             <Grid x:Name="DragArea" 
                   Style="{StaticResource DragAreaGrid}">
 
-                <TextBlock Text="mobiBooking" 
-                           VerticalAlignment="Center" 
-                           Margin="12,0,0,0"/>
+                <Image x:Name="AppLogoImage" Style="{StaticResource AppLogoImage}" Source=""/>
+                <TextBlock Style="{StaticResource AppTitleText}"/>
             </Grid>
 
             <muxc:NavigationView x:Name="NavView"
-                                 Padding="0,34,0,0"
+                                 Padding="0,0,0,0"
+                                 IsBackEnabled="False"
                                  SelectionChanged="NavView_SelectionChanged"
-                                 Style="{StaticResource NavView}">
+                                 Style="{StaticResource NavView}" BackRequested="NavView_BackRequested">
 
                 <muxc:NavigationView.MenuItems>
                     <muxc:NavigationViewItem Tag="dashboard" Icon="Home" Content="Dashboard"/>

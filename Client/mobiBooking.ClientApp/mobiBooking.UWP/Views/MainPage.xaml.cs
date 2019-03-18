@@ -5,6 +5,8 @@ using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Media.Imaging;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace mobiBooking.UWP
 {
@@ -12,12 +14,26 @@ namespace mobiBooking.UWP
     {
         private readonly LocalObjectStorageHelper helper = new LocalObjectStorageHelper();
 
+        private readonly BitmapImage LogoWhite = new BitmapImage(new Uri("ms-appx:///Assets/TitleBarAssets/WhiteLogo.png"));
+        private readonly BitmapImage LogoBlack = new BitmapImage(new Uri("ms-appx:///Assets/TitleBarAssets/BlackLogo.png"));
+        public Frame NavigationFrame => ContentFrame;
+        public muxc.NavigationView NView => NavView;
         public MainPage()
         {
             InitializeComponent();
+        }
 
-            NavView.SelectedItem = NavView.MenuItems[0];
-            CheckUserType();
+        private void ChangeThemeLogo()
+        {
+            if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
+            {
+                AppLogoImage.Source = LogoWhite;
+            }
+
+            else
+            {
+                AppLogoImage.Source = LogoBlack;
+            }
         }
 
         private async void CheckUserType()
@@ -54,7 +70,7 @@ namespace mobiBooking.UWP
             Frame.Navigate(typeof(LoginPage), null, new DrillInNavigationTransitionInfo());
         }
 
-        private void NavView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
+        private void NavView_SelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)
         {
             if (args.SelectedItemContainer != null)
             {
@@ -105,6 +121,34 @@ namespace mobiBooking.UWP
                     ContentFrame.Navigate(typeof(SettingsPage), null, new DrillInNavigationTransitionInfo());
                 }
             }
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            ChangeThemeLogo();
+            CheckUserType();
+            NavView.SelectedItem = NavView.MenuItems[0];
+        }
+
+        private void Page_GotFocus(object sender, RoutedEventArgs e)
+        {
+            ChangeThemeLogo();
+        }
+
+        private void NavView_BackRequested(muxc.NavigationView sender, muxc.NavigationViewBackRequestedEventArgs args)
+        {
+            On_BackRequested();
+        }
+
+        public bool On_BackRequested()
+        {
+            if (!ContentFrame.CanGoBack)
+            {
+                return false;
+            }
+
+            ContentFrame.GoBack();
+            return true;
         }
     }
 }

@@ -29,10 +29,10 @@ namespace mobiBooking.UWP.Views
             // execute the request
             IRestResponse response = client.Execute(request);
 
-            List<GetUsersModel> usersList = new List<GetUsersModel>();
-            usersList = JsonConvert.DeserializeAnonymousType(response.Content, usersList);
+            List<GetRoomsModel> roomsList = new List<GetRoomsModel>();
+            roomsList = JsonConvert.DeserializeAnonymousType(response.Content, roomsList);
 
-            UsersList.ItemsSource = usersList;
+            UsersList.ItemsSource = roomsList;
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)

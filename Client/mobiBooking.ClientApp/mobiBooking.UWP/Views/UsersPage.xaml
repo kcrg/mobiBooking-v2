@@ -8,7 +8,8 @@
 
     <Page.Content>
         <Grid Margin="24">
-            <ListView x:Name="UsersList" SelectionMode="None" Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}">
+            <Button Content="Dodaj użytkownika" Background="{ThemeResource SystemAccentColor}" Style="{StaticResource ButtonRevealStyle}" Margin="0,-12,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Canvas.ZIndex="5" Click="AddUser_Click"/>
+            <ListView x:Name="UsersList" SelectionMode="None" Margin="0,30,0,0" Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}">
                 <ListView.HeaderTemplate>
                     <DataTemplate>
                         <Grid Padding="12" Background="{ThemeResource SystemControlChromeLowAcrylicElementBrush}">
@@ -20,7 +21,8 @@
                                 <ColumnDefinition Width="150"/>
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="ID" Style="{ThemeResource CaptionTextBlockStyle}"/>
                             <TextBlock Grid.Column="1" Text="Imię" Style="{ThemeResource CaptionTextBlockStyle}"/>
@@ -35,7 +37,7 @@
                 </ListView.HeaderTemplate>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Height="48" Margin="0,12,0,0">
+                        <Grid Height="48">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="34"/>
                                 <ColumnDefinition Width="100"/>
@@ -44,17 +46,20 @@
                                 <ColumnDefinition Width="150"/>
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="200"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Column="0" Text="{Binding Id}"/>
-                            <TextBlock Grid.Column="1" Text="{Binding Name}"/>
-                            <TextBlock Grid.Column="2" Text="{Binding Surname}"/>
-                            <TextBlock Grid.Column="3" Text="{Binding Name}"/>
-                            <TextBlock Grid.Column="4" Text="{Binding Surname}"/>
-                            <TextBlock Grid.Column="5" Text="{Binding Name}"/>
-                            <TextBlock Grid.Column="6" Text="{Binding Surname}"/>
-                            <TextBlock Grid.Column="7" Text="{Binding Name}"/>
+                            <TextBlock x:Name="IDtext" Grid.Column="0" Text="{Binding Id}" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="2" Text="{Binding Surname}" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="3" Text="{Binding Email}" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="4" Text="{Binding Id}" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="5" Text="{Binding Role}" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="6" Text="{Binding Surname}" VerticalAlignment="Center"/>
+                            <StackPanel Grid.Column="7" Orientation="Horizontal">
+                                <AppBarButton Icon="Delete" Click="Delete_Click"/>
+                                <AppBarButton Icon="Edit" Click="Edit_Click"/>
+                            </StackPanel>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
