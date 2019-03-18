@@ -8,6 +8,6 @@
         public string Email { get; set; }
         public string UserType { get; set; }
         public string Token { get; set; }
-        public bool IsLoged = false;
+        public bool IsLoged { get; set; }  = false;
     }
 }

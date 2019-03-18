@@ -14,6 +14,7 @@ namespace mobiBooking.UWP.Views
     public sealed partial class BookPage : Page
     {
         private readonly LocalObjectStorageHelper helper = new LocalObjectStorageHelper();
+        private readonly ConnectionModel IP = new ConnectionModel();
         public BookPage()
         {
             InitializeComponent();
@@ -32,7 +33,6 @@ namespace mobiBooking.UWP.Views
         {
             LoginModel SavedResponseObj = await helper.ReadFileAsync<LoginModel>("response");
 
-            ConnectionModel IP = new ConnectionModel();
             RestClient client = new RestClient(IP.Adress);
             RestRequest request = new RestRequest("Users/all_for_reservation", Method.GET);
             request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
@@ -50,7 +50,6 @@ namespace mobiBooking.UWP.Views
         {
             LoginModel SavedResponseObj = await helper.ReadFileAsync<LoginModel>("response");
 
-            ConnectionModel IP = new ConnectionModel();
             RestClient client = new RestClient(IP.Adress);
             RestRequest request = new RestRequest("Room/get_all", Method.GET);
             request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
@@ -111,7 +110,6 @@ namespace mobiBooking.UWP.Views
                 };
                 string json = JsonConvert.SerializeObject(bookObj);
 
-                ConnectionModel IP = new ConnectionModel();
                 RestClient client = new RestClient(IP.Adress);
                 RestRequest request = new RestRequest("Reservation/create", Method.POST);
                 request.AddParameter("application/json", json, ParameterType.RequestBody);
@@ -155,7 +153,7 @@ namespace mobiBooking.UWP.Views
 
         private void IsCyclic_Click(object sender, RoutedEventArgs e)
         {
-            if(IsCyclic.IsChecked ?? false)
+            if (IsCyclic.IsChecked ?? false)
             {
                 Cyclic.Visibility = Visibility.Visible;
             }
