@@ -11,11 +11,12 @@ namespace mobiBooking.Data.Model
         public string Name { get; set; }
         public string Location { get; set; }
         public bool Activity { get; set; }
-        public string Availability { get; set; }
+        public int AvailabilityId { get; set; }
         public int NumberOfPeople { get; set; }
         public bool Flipchart { get; set; }
         public bool SoundSystem { get; set; }
 
+        public virtual RoomAvailability Availability { get; set; }
         public virtual ICollection<Reservation> Reservations { get; set; }
     }
 }

@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace mobiBooking.Model.SendModels
+namespace mobiBooking.Model.User.Request
 {
-    public class UserDataModel
+    public class EditUserModel
     {
-        public int Id { get; set; }
         public string UserName { get; set; }
+        public string Password { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
-        public string Role { get; set; }
-        public bool Active { get; set; }
+        public string UserType { get; set; }
+        public bool? Active { get; set; }
     }
 }

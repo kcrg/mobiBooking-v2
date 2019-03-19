@@ -1,4 +1,5 @@
-﻿using mobiBooking.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using mobiBooking.Data;
 using mobiBooking.Data.Model;
 using mobiBooking.Repository.Base;
 using mobiBooking.Repository.Interfaces;
@@ -50,13 +51,19 @@ namespace mobiBooking.Repository.Repositories
 
         }
 
-        public async Task<bool> UserExist(string email, string userName)
+        public Task<bool> UserExist(string email, string userName)
         {
-            User user = await (from Users in DBContext.Users
+            return (from Users in DBContext.Users
                                where Users.Email == email || Users.UserName == userName
-                               select Users).ToAsyncEnumerable().FirstOrDefault();
+                               select Users).AnyAsync();
+        }
 
-            return user != null;
+        public Task<bool> UserExist(string email, string userName, int id)
+        {
+            return (from Users in DBContext.Users
+                    where Users.Email == email || Users.UserName == userName
+                    where Users.Id != id
+                    select Users).AnyAsync();
         }
     }
 }

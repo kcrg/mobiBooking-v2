@@ -11,6 +11,7 @@ namespace mobiBooking.Repository.Interfaces
         Task<IEnumerable<Room>> FindBySize(int size);
         new Task<IEnumerable<Room>> FindAll();
         Task<IEnumerable<Room>> GetRoomsForReservation(int size, DateTime dateFrom, DateTime dateTo, bool soundSystem, bool flipChart);
-        Task<bool> CheckIfCanReserv(DateTime dateFrom, DateTime dateTo, Room room);
+        Task<bool> CheckIfRoomExists(string roomName);
+        Task<IEnumerable<RoomAvailability>> GetRoomAvailabilities();
     }
 }

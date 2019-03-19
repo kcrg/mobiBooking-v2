@@ -42,11 +42,16 @@ namespace mobiBooking.Repository.Repositories
                                    select rooms).AsEnumerable());
         }
 
-        public Task<bool> CheckIfCanReserv(DateTime dateFrom, DateTime dateTo, Room room)
+        public Task<bool> CheckIfRoomExists(string roomName)
         {
             return (from rooms in DBContext.Rooms
-                    where !rooms.Reservations.Where(reserv => Helpers.CheckDateOverlaps(reserv.DateFrom, reserv.DateTo, dateFrom, dateTo)).Any()
-                    select rooms).ContainsAsync(room);
+                    where rooms.Name == roomName
+                    select rooms).AnyAsync();
+        }
+
+        public Task<IEnumerable<RoomAvailability>> GetRoomAvailabilities()
+        {
+            return Task.Run(() => DBContext.RoomAvailabilities.AsEnumerable());
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using mobiBooking.Model.Models;
 using mobiBooking.Model.RecivedModels;
 using mobiBooking.Model.SendModels;
+using mobiBooking.Model.User.Request;
 using mobiBooking.Service.Interfaces;
 using System.Threading.Tasks;
 
@@ -49,10 +50,12 @@ namespace mobiBooking.WebApi.Controllers
         // PUT: api/Users/5
         [Authorize(Roles = "Administrator")]
         [HttpPut("update/{id}")]
-        public async Task<ActionResult> UpdateUser(int id, [FromBody] CreateUserModel value)
+        public async Task<ActionResult> UpdateUser(int id, [FromBody] EditUserModel value)
         {
-            await _accountService.Update(id, value);
-            return Ok();
+            if (await _accountService.Update(id, value))
+                return Ok();
+            else
+                return BadRequest(new { message = "Bad data or user exists." });
         }
 
         // DELETE: api/ApiWithActions/5

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using mobiBooking.Data.Model;
 using mobiBooking.Model.Models;
 using mobiBooking.Model.Room.Request;
 using mobiBooking.Model.SendModels;
@@ -26,6 +27,13 @@ namespace mobiBooking.WebApi.Controllers
         public async Task<ActionResult<IEnumerable<RoomDataModel>>> Get()
         {
             return Ok(await _roomService.GetAll());
+        }
+
+        [Authorize(Roles = "Administrator, User")]
+        [HttpGet("get_room_availabilities")]
+        public async Task<ActionResult<IEnumerable<RoomAvailability>>> GetRoomAvailabilities()
+        {
+            return Ok(await _roomService.GetRoomAvailabilities());
         }
 
         [Authorize(Roles = "Administrator, User")]
@@ -61,7 +69,7 @@ namespace mobiBooking.WebApi.Controllers
             }
             else
             {
-                return BadRequest(new { message = "Value can not be null" });
+                return BadRequest(new { message = "Bad data" });
             }
         }
 

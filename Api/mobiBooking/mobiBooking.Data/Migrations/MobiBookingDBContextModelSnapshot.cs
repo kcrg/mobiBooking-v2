@@ -25,11 +25,15 @@ namespace mobiBooking.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("CyclicReservation");
+
                     b.Property<DateTime>("DateFrom");
 
                     b.Property<DateTime>("DateTo");
 
                     b.Property<int>("OwnerUserId");
+
+                    b.Property<int?>("ReservationIntervalId");
 
                     b.Property<int>("RoomId");
 
@@ -41,9 +45,34 @@ namespace mobiBooking.Data.Migrations
 
                     b.HasIndex("OwnerUserId");
 
+                    b.HasIndex("ReservationIntervalId");
+
                     b.HasIndex("RoomId");
 
                     b.ToTable("Reservations");
+                });
+
+            modelBuilder.Entity("mobiBooking.Data.Model.ReservationInterval", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("Time");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ReservationIntervals");
+
+                    b.HasData(
+                        new { Id = 1, Name = "Codziennie", Time = 0 },
+                        new { Id = 2, Name = "Co tydzień", Time = 1 },
+                        new { Id = 3, Name = "Co 2 tygodnie", Time = 2 },
+                        new { Id = 4, Name = "Co miesiąc", Time = 3 },
+                        new { Id = 5, Name = "Co rok", Time = 4 }
+                    );
                 });
 
             modelBuilder.Entity("mobiBooking.Data.Model.Room", b =>
@@ -54,7 +83,7 @@ namespace mobiBooking.Data.Migrations
 
                     b.Property<bool>("Activity");
 
-                    b.Property<string>("Availability");
+                    b.Property<int>("AvailabilityId");
 
                     b.Property<bool>("Flipchart");
 
@@ -68,7 +97,28 @@ namespace mobiBooking.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AvailabilityId");
+
                     b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("mobiBooking.Data.Model.RoomAvailability", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RoomAvailabilities");
+
+                    b.HasData(
+                        new { Id = 1, Name = "7:00 - 20:00" },
+                        new { Id = 2, Name = "7:00 - 18:00" },
+                        new { Id = 3, Name = "8:00 - 16:00" }
+                    );
                 });
 
             modelBuilder.Entity("mobiBooking.Data.Model.User", b =>
@@ -76,6 +126,8 @@ namespace mobiBooking.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active");
 
                     b.Property<string>("Email");
 
@@ -96,7 +148,7 @@ namespace mobiBooking.Data.Migrations
                     b.ToTable("Users");
 
                     b.HasData(
-                        new { Id = 1, Email = "m.w@g.pl", Name = "Michał", Password = "32qojE7n/4pJTDxy1/9jDj7xKjWjp9KYyObAsGbvMsA=", Role = "Administrator", Salt = new byte[] { 65, 157, 89, 58, 32, 63, 134, 167, 194, 92, 71, 9, 194, 15, 204, 58 }, Surname = "Test", UserName = "Test" }
+                        new { Id = 1, Active = true, Email = "m.w@g.pl", Name = "Michał", Password = "ZTfNbGdHOLzrBCiz0tXBrxdfC+5QuqPd9ZlPSG+i52Y=", Role = "Administrator", Salt = new byte[] { 25, 32, 110, 136, 213, 18, 139, 65, 176, 102, 235, 61, 198, 184, 219, 229 }, Surname = "Test", UserName = "Test" }
                     );
                 });
 
@@ -120,9 +172,21 @@ namespace mobiBooking.Data.Migrations
                         .HasForeignKey("OwnerUserId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("mobiBooking.Data.Model.ReservationInterval", "ReservationInterval")
+                        .WithMany()
+                        .HasForeignKey("ReservationIntervalId");
+
                     b.HasOne("mobiBooking.Data.Model.Room", "Room")
                         .WithMany("Reservations")
                         .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("mobiBooking.Data.Model.Room", b =>
+                {
+                    b.HasOne("mobiBooking.Data.Model.RoomAvailability", "Availability")
+                        .WithMany()
+                        .HasForeignKey("AvailabilityId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

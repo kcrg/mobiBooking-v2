@@ -20,20 +20,24 @@ namespace mobiBooking.Service.Services
             _userRepository = userRepository;
         }
 
-        public async Task<IEnumerable<UserDataModel>> GetAll()
+        public async Task<IEnumerable<UserDataModel>> GetAll(bool isAdministrator)
         {
             List<UserDataModel> users = new List<UserDataModel>();
             (await _userRepository.FindAll()).ToList().ForEach(user =>
             {
-                users.Add(new UserDataModel
-                {
-                    Id = user.Id,
-                    Name = user.Name,
-                    Surname = user.Surname,
-                    Email = user.Email,
-                    Role = user.Role,
-                    UserName = user.UserName
-                });
+                if (!isAdministrator && !user.Active)
+                        return;
+
+                        users.Add(new UserDataModel
+                        {
+                            Id = user.Id,
+                            Name = user.Name,
+                            Surname = user.Surname,
+                            Email = user.Email,
+                            Role = user.Role,
+                            UserName = user.UserName,
+                            Active = user.Active
+                        });
             });
             return users;
         }

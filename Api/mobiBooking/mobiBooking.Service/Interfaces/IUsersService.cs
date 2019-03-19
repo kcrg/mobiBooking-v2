@@ -11,6 +11,6 @@ namespace mobiBooking.Service.Interfaces
 {
     public interface IUsersService
     {
-        Task<IEnumerable<UserDataModel>> GetAll();
+        Task<IEnumerable<UserDataModel>> GetAll(bool isAdministrator);
     }
 }

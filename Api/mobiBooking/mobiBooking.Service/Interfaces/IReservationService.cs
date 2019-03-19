@@ -1,4 +1,5 @@
 ﻿using mobiBooking.Model.RecivedModels;
+using mobiBooking.Model.Reservation.Request;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,5 +14,6 @@ namespace mobiBooking.Service.Interfaces
         Task<bool> Create(ReservationModel value, int OwnerUserId);
         Task Update(int id, ReservationModel value);
         Task<bool> Delete(int id);
+        Task<IEnumerable<ReservationIntervalModel>> GetReservationIntervals();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using mobiBooking.Component;
 using mobiBooking.Data.Model;
+using System;
 
 namespace mobiBooking.Data
 {
@@ -10,6 +11,8 @@ namespace mobiBooking.Data
         public virtual DbSet<Reservation> Reservations { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserToReservation> UsersToReservations { get; set; }
+        public virtual DbSet<RoomAvailability> RoomAvailabilities { get; set; }
+        public virtual DbSet<ReservationInterval> ReservationIntervals { get; set; }
 
         public MobiBookingDBContext(DbContextOptions<MobiBookingDBContext> options) : base(options) { }
 
@@ -32,7 +35,7 @@ namespace mobiBooking.Data
             .HasMany(c => c.Reservations)
             .WithOne(e => e.Room);
 
-            var salt = Helpers.GenerateSalt();
+            byte[] salt = Helpers.GenerateSalt();
 
             modelBuilder.Entity<User>().HasData(new User
             {
@@ -43,8 +46,62 @@ namespace mobiBooking.Data
                 Role = "Administrator",
                 Salt = salt,
                 Surname = "Test",
-                UserName = "Test"
+                UserName = "Test",
+                Active = true
             });
+
+            modelBuilder.Entity<RoomAvailability>().HasData(
+                new RoomAvailability
+                {
+                    Id = 1,
+                    Name = "7:00 - 20:00"
+                },
+                new RoomAvailability
+                {
+                    Id = 2,
+                    Name = "7:00 - 18:00"
+                },
+                new RoomAvailability
+                {
+                    Id = 3,
+                    Name = "8:00 - 16:00"
+                }
+            );
+
+            modelBuilder.Entity<ReservationInterval>().HasData(
+
+                new ReservationInterval
+                {
+                    Id = 1,
+                    Name = "Codziennie",
+                    Time = Intervals.Day
+                },
+                new ReservationInterval
+                {
+                    Id = 2,
+                    Name = "Co tydzień",
+                    Time = Intervals.Week
+                },
+                new ReservationInterval
+                {
+                    Id = 3,
+                    Name = "Co 2 tygodnie",
+                    Time = Intervals.TwoWeeks
+                },
+                new ReservationInterval
+                {
+                    Id = 4,
+                    Name = "Co miesiąc",
+                    Time = Intervals.Month
+                },
+                new ReservationInterval
+                {
+                    Id = 5,
+                    Name = "Co rok",
+                    Time = Intervals.Year
+                }
+            );
+
         }
     }
 }

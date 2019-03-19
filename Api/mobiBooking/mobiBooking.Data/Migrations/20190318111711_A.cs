@@ -9,22 +9,30 @@ namespace mobiBooking.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Rooms",
+                name: "ReservationIntervals",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
-                    Location = table.Column<string>(nullable: true),
-                    Activity = table.Column<bool>(nullable: false),
-                    Availability = table.Column<string>(nullable: true),
-                    NumberOfPeople = table.Column<int>(nullable: false),
-                    Flipchart = table.Column<bool>(nullable: false),
-                    SoundSystem = table.Column<bool>(nullable: false)
+                    Time = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Rooms", x => x.Id);
+                    table.PrimaryKey("PK_ReservationIntervals", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RoomAvailabilities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoomAvailabilities", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -39,11 +47,37 @@ namespace mobiBooking.Data.Migrations
                     Surname = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Role = table.Column<string>(nullable: true),
+                    Active = table.Column<bool>(nullable: false),
                     Salt = table.Column<byte[]>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Rooms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Location = table.Column<string>(nullable: true),
+                    Activity = table.Column<bool>(nullable: false),
+                    AvailabilityId = table.Column<int>(nullable: false),
+                    NumberOfPeople = table.Column<int>(nullable: false),
+                    Flipchart = table.Column<bool>(nullable: false),
+                    SoundSystem = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rooms", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Rooms_RoomAvailabilities_AvailabilityId",
+                        column: x => x.AvailabilityId,
+                        principalTable: "RoomAvailabilities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -57,7 +91,9 @@ namespace mobiBooking.Data.Migrations
                     DateFrom = table.Column<DateTime>(nullable: false),
                     DateTo = table.Column<DateTime>(nullable: false),
                     Status = table.Column<int>(nullable: false),
-                    Title = table.Column<string>(nullable: true)
+                    Title = table.Column<string>(nullable: true),
+                    CyclicReservation = table.Column<bool>(nullable: false),
+                    ReservationIntervalId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -68,6 +104,12 @@ namespace mobiBooking.Data.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reservations_ReservationIntervals_ReservationIntervalId",
+                        column: x => x.ReservationIntervalId,
+                        principalTable: "ReservationIntervals",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Reservations_Rooms_RoomId",
                         column: x => x.RoomId,
@@ -101,9 +143,31 @@ namespace mobiBooking.Data.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "ReservationIntervals",
+                columns: new[] { "Id", "Name", "Time" },
+                values: new object[,]
+                {
+                    { 1, "Codziennie", 0 },
+                    { 2, "Co tydzień", 1 },
+                    { 3, "Co 2 tygodnie", 2 },
+                    { 4, "Co miesiąc", 3 },
+                    { 5, "Co rok", 4 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "RoomAvailabilities",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "7:00 - 20:00" },
+                    { 2, "7:00 - 18:00" },
+                    { 3, "8:00 - 16:00" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Email", "Name", "Password", "Role", "Salt", "Surname", "UserName" },
-                values: new object[] { 1, "m.w@g.pl", "Michał", "32qojE7n/4pJTDxy1/9jDj7xKjWjp9KYyObAsGbvMsA=", "Administrator", new byte[] { 65, 157, 89, 58, 32, 63, 134, 167, 194, 92, 71, 9, 194, 15, 204, 58 }, "Test", "Test" });
+                columns: new[] { "Id", "Active", "Email", "Name", "Password", "Role", "Salt", "Surname", "UserName" },
+                values: new object[] { 1, true, "m.w@g.pl", "Michał", "ZTfNbGdHOLzrBCiz0tXBrxdfC+5QuqPd9ZlPSG+i52Y=", "Administrator", new byte[] { 25, 32, 110, 136, 213, 18, 139, 65, 176, 102, 235, 61, 198, 184, 219, 229 }, "Test", "Test" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_OwnerUserId",
@@ -111,9 +175,19 @@ namespace mobiBooking.Data.Migrations
                 column: "OwnerUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Reservations_ReservationIntervalId",
+                table: "Reservations",
+                column: "ReservationIntervalId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Reservations_RoomId",
                 table: "Reservations",
                 column: "RoomId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rooms_AvailabilityId",
+                table: "Rooms",
+                column: "AvailabilityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UsersToReservations_ReservationId",
@@ -133,7 +207,13 @@ namespace mobiBooking.Data.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
+                name: "ReservationIntervals");
+
+            migrationBuilder.DropTable(
                 name: "Rooms");
+
+            migrationBuilder.DropTable(
+                name: "RoomAvailabilities");
         }
     }
 }

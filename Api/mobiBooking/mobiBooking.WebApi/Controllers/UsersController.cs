@@ -22,7 +22,7 @@ namespace mobiBooking.WebApi.Controllers
         [HttpGet("get_all")]
         public async Task<ActionResult<IEnumerable<UserDataModel>>> GetAll()
         {
-            return Ok(await _usersService.GetAll());
+            return Ok(await _usersService.GetAll(User.IsInRole("Administrator")));
         }
     }
 }

@@ -9,6 +9,7 @@ namespace mobiBooking.Repository.Interfaces
     {
         Task<User> FindByEmailAndPassword(string email, string password);
         Task<bool> UserExist(string email, string userName);
+        Task<bool> UserExist(string email, string userName, int id);
         Task<User> FindByEmail(string email);
         Task<IEnumerable<User>> FindRange(IEnumerable<int> Ids);
         Task<IEnumerable<User>> FindAllWithout(int loggedUserid);

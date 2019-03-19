@@ -4,6 +4,7 @@ using mobiBooking.Component;
 using mobiBooking.Data.Model;
 using mobiBooking.Model.RecivedModels;
 using mobiBooking.Model.SendModels;
+using mobiBooking.Model.User.Request;
 using mobiBooking.Repository.Interfaces;
 using mobiBooking.Service.Interfaces;
 using System;
@@ -39,9 +40,9 @@ namespace mobiBooking.Service.Services
                 return null;
             }
 
-            string salt = Helpers.HashPassword(password, user.Salt);
+            string hashedPassword = Helpers.HashPassword(password, user.Salt);
 
-            if (user.Password != salt)
+            if (user.Password != hashedPassword || !user.Active)
             {
                 return null;
             }
@@ -92,7 +93,8 @@ namespace mobiBooking.Service.Services
                 Salt = salt,
                 Surname = value.Surname,
                 UserName = value.UserName,
-                Role = value.UserType
+                Role = value.UserType,
+                Active = true
             });
 
             await _userRepository.Save();
@@ -106,7 +108,7 @@ namespace mobiBooking.Service.Services
             await _userRepository.Save();
         }
 
-        public async Task Update(int id, CreateUserModel value)
+        public async Task<bool> Update(int id, EditUserModel value)
         {
             User user = await _userRepository.Find(id);
 
@@ -117,9 +119,17 @@ namespace mobiBooking.Service.Services
             user.Surname = value.Surname ?? user.Surname;
             user.UserName = value.UserName ?? user.UserName;
             user.Email = value.Email ?? user.Email;
+            user.Role = value.UserType ?? user.Role;
+            user.Active = value.Active ?? user.Active;
+
+            if (!string.IsNullOrEmpty(user.Email) || !string.IsNullOrEmpty(user.UserName))
+                if (await _userRepository.UserExist(user.Email, user.UserName, user.Id))
+                    return false;
 
             await _userRepository.Update(user);
             await _userRepository.Save();
+
+            return true;
         }
 
         private string GenerateToken(User user)

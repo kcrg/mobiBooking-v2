@@ -13,8 +13,11 @@ namespace mobiBooking.Data.Model
         public DateTime DateTo { get; set; }
         public ReservationStatus Status { get; set; }
         public string Title { get; set; }
+        public bool CyclicReservation { get; set; }
+        public int? ReservationIntervalId { get; set; }
 
         public virtual Room Room { get; set; }
+        public virtual ReservationInterval ReservationInterval { get; set; }
         public virtual User OwnerUser { get; set; }
         public virtual ICollection<UserToReservation> InvitedUsers { get; set; }
     }

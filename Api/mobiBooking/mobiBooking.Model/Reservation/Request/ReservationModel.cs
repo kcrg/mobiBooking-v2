@@ -14,5 +14,7 @@ namespace mobiBooking.Model.RecivedModels
         public ReservationStatus Status { get; set; }
         public string Title { get; set; }
         public IEnumerable<int> InvitedUsersIds { get; set; }
+        public bool? CyclicReservation { get; set; }
+        public int? ReservationIntervalId { get; set; }
     }
 }

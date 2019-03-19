@@ -1,6 +1,7 @@
 ﻿using mobiBooking.Component.Enums;
 using mobiBooking.Data.Model;
 using mobiBooking.Model.RecivedModels;
+using mobiBooking.Model.Reservation.Request;
 using mobiBooking.Repository.Interfaces;
 using mobiBooking.Service.Interfaces;
 using System;
@@ -38,7 +39,7 @@ namespace mobiBooking.Service.Services
                 || !InvitedUsers.Any()
                 || InvitedUsers.Count() != value.InvitedUsersIds.Count()
                 || room == null
-                || !await _roomRepository.CheckIfCanReserv(value.DateFrom, value.DateTo, room)
+                || !await _reservationRepository.CheckIfCanReserv(value.DateFrom, value.DateTo, room)
                 )
             {
                 return false;
@@ -51,7 +52,9 @@ namespace mobiBooking.Service.Services
                 OwnerUser = OwnerUser,
                 Room = room,
                 Status = value.Status,
-                Title = value.Title
+                Title = value.Title,
+                CyclicReservation = (bool)value.CyclicReservation,
+                ReservationIntervalId = value.ReservationIntervalId
             };
 
             await _reservationRepository.Create(reservation);
@@ -83,6 +86,23 @@ namespace mobiBooking.Service.Services
         public Task<IEnumerable<ReservationModel>> GetAll()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<ReservationIntervalModel>> GetReservationIntervals()
+        {
+            List<ReservationIntervalModel> reservationIntervals = new List<ReservationIntervalModel>();
+
+
+            (await _reservationRepository.GetReservationIntervals()).ToList().ForEach(reservationInterval =>
+            {
+                reservationIntervals.Add(new ReservationIntervalModel
+                {
+                    Id = reservationInterval.Id,
+                    Name = reservationInterval.Name
+                });
+            });
+
+            return reservationIntervals;
         }
 
         public Task Update(int id, ReservationModel value)

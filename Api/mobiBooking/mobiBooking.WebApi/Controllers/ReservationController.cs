@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using mobiBooking.Model.RecivedModels;
+using mobiBooking.Model.Reservation.Request;
 using mobiBooking.Service.Interfaces;
 
 
@@ -29,6 +30,12 @@ namespace mobiBooking.WebApi.Controllers
         public ActionResult Get(int id)
         { 
             return Ok();
+        }
+
+        [HttpGet("get_reservation_intervals")]
+        public async Task<ActionResult<IEnumerable<ReservationIntervalModel>>> GetReservationIntervals()
+        {
+            return Ok(await _reservationService.GetReservationIntervals());
         }
 
         // POST: api/Reservation

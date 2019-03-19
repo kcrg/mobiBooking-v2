@@ -22,14 +22,14 @@ namespace mobiBooking.Service.Services
 
         public async Task<bool> Create(RoomModel value)
         {
-
-            if (string.IsNullOrEmpty(value.Availability)
+            if (value.Availability == null
                 || string.IsNullOrEmpty(value.Location)
                 || string.IsNullOrEmpty(value.RoomName)
                 || value.Activity == null
                 || value.NumberOfPeople == null
                 || value.SoundSystem == null
-                || value.Flipchart == null)
+                || value.Flipchart == null
+                || await _roomRepository.CheckIfRoomExists(value.RoomName))
             {
                 return false;
             }
@@ -37,7 +37,7 @@ namespace mobiBooking.Service.Services
             await _roomRepository.Create(new Room
             {
                 Activity = (bool)value.Activity,
-                Availability = value.Availability,
+                AvailabilityId = (int)value.Availability,
                 Location = value.Location,
                 Name = value.RoomName,
                 NumberOfPeople = (int)value.NumberOfPeople,
@@ -74,7 +74,7 @@ namespace mobiBooking.Service.Services
             return new RoomModel
             {
                 Activity = room.Activity,
-                Availability = room.Availability,
+                Availability = room.Availability.Id,
                 Location = room.Location,
                 NumberOfPeople = room.NumberOfPeople,
                 RoomName = room.Name,
@@ -94,7 +94,7 @@ namespace mobiBooking.Service.Services
                     Id = room.Id,
                     Name = room.Name,
                     Activity = room.Activity,
-                    Availability = room.Availability,
+                    Availability = room.AvailabilityId,
                     Location = room.Location,
                     NumberOfPeople = room.NumberOfPeople,
                     SoundSystem = room.SoundSystem,
@@ -121,7 +121,7 @@ namespace mobiBooking.Service.Services
                     Id = room.Id,
                     Name = room.Name,
                     Activity = room.Activity,
-                    Availability = room.Availability,
+                    Availability = room.AvailabilityId,
                     Location = room.Location,
                     NumberOfPeople = room.NumberOfPeople,
                     SoundSystem = room.SoundSystem,
@@ -132,12 +132,17 @@ namespace mobiBooking.Service.Services
             return roomModels;
         }
 
+        public Task<IEnumerable<RoomAvailability>> GetRoomAvailabilities()
+        {
+            return _roomRepository.GetRoomAvailabilities();
+        }
+
         public async Task Update(int id, RoomModel value)
         {
             Room room = await _roomRepository.Find(id);
 
             room.Activity = value.Activity ?? room.Activity;
-            room.Availability = value.Availability ?? room.Availability;
+            room.AvailabilityId = value.Availability ?? room.AvailabilityId;
             room.Location = value.Location ?? room.Location;
             room.Name = value.RoomName ?? room.Name;
             room.NumberOfPeople = value.NumberOfPeople ?? room.NumberOfPeople;
