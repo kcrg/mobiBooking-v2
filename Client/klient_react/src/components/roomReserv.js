@@ -3,7 +3,14 @@ import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Users from './Users';
 import '../styles/RoomReserv.scss';
-import Calendar from './Calendar'
+import Calendar from './Calendar';
+import moment from 'moment';
+import ReservationIntervals from './ReservationIntervals';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowCircleRight, faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faArrowCircleRight, faArrowCircleLeft)
 
 
 
@@ -11,26 +18,29 @@ import Calendar from './Calendar'
 
   state = {
     reservData: {
-      dateFrom: null,
-      dateTo: null,
+      dateFrom: moment().format('YYYY-MM-DDTHH:mm'),
+      dateTo: moment().format('YYYY-MM-DDTHH:mm'),
       status: 0,
       title: null,
       invitedUsersIds: [],
       roomId: 1,
       cyclicReservation: false,
-      reservationIntervalid: 0
+      reservationIntervalId: 0
     },
     roomsList: null,
     roomItems: null,
     roomsInfo:{
       flipchart: false,
       soundSystem: false,
-      dateFrom: "2019-03-18T14:41",
-      dateTo: "2019-03-18T14:42",
+      dateFrom: moment().format('YYYY-MM-DDTHH:mm'),
+      dateTo: moment().format('YYYY-MM-DDTHH:mm'),
       size: 0
     },
     isChecked: false,
-    ip: null
+    ip: null,
+    isVisible: 'none',
+    users: null,
+    invitedUsers: null
   }
 
   componentWillMount(){
@@ -45,6 +55,17 @@ import Calendar from './Calendar'
       this.props.history.push('/');
     }
     this.getRooms();
+    this.getUsers();
+  }
+
+  getUsers = () =>{
+    const { ip } = this.props
+    axios.get( ip + '/api/Users/get_all')
+    .then(res =>{
+        this.setState({
+           users: res.data 
+        })
+    })
   }
 
   getRooms = () =>{
@@ -73,23 +94,25 @@ import Calendar from './Calendar'
   }
 
   handleChange = (name, value) =>{
-    if(name === 'dataFrom' || name === 'dataTo'){
+    
       this.setState(prevState =>({
         ...prevState,
         roomsInfo:{
           ...prevState.roomsInfo,
           [name]: value
         }
-      }), this.getRooms)
-    }else{
+      }), name !== 'title' ? this.getRooms : null)
+    
       this.setState(prevState => ({
-        ...prevState,
-        reservData: {
-          ...prevState.reservData,
-          [name]: value
-        } 
-      }))
-    }
+            ...prevState,
+            reservData: {
+              ...prevState.reservData,
+              [name]: value
+            } 
+          }
+        )
+      )
+    
   }
 
   handleCapacityChange = (name, value) =>{
@@ -115,7 +138,7 @@ import Calendar from './Calendar'
 
   handleSubmit = (e) =>{
     e.preventDefault();
-    console.log(this.state)
+    console.log(this.state.reservData)
   }
 
   selectChange = (collection) => {
@@ -125,9 +148,7 @@ import Calendar from './Calendar'
         ...prevState.reservData,
         roomId: collection
       }
-    }), () =>{
-      console.log(this.state.reservData.roomId)
-    })
+    }))
   }
 
   handleCheck = (name, value) =>{
@@ -141,15 +162,27 @@ import Calendar from './Calendar'
   }
 
   handleRepeatCheck = (name, value) =>{
+    if(value){
+      this.setState({
+        isVisible: 'isVisible'
+      })
+    }else{
+      this.setState({
+        isVisible: 'none'
+      })
+    }
     this.setState(prevState =>({
       ...prevState,
       reservData:{
         ...prevState.reservData,
         [name]: value
       }
-    }), () => {
-      console.log(this.state.reservData)
-    })
+    }))
+  }
+
+  arrowRightClick = () =>{
+    
+
   }
 
   render() {
@@ -158,13 +191,13 @@ import Calendar from './Calendar'
           <h2>Zarezerwuj salę:</h2>
           <form onSubmit={this.handleSubmit} className="reserv_form">
             <label htmlFor="dateFrom">Rezerwuję od:</label>
-            <Calendar onChange={this.handleChange}/>
+            <Calendar onChange={this.handleChange} name = "dateFrom"/>
 
             <label htmlFor="dateTo">Do:</label>
-            <Calendar onChange={this.handleChange}/>
+            <Calendar onChange={this.handleChange} name = "dateTo"/>
     
-            <label htmlFor="roomCapacity" className="other" onBlur={this.getRooms()}>Pojemność sali:</label>
-            <input type="number" id="roomCapacity" onChange={e => this.handleCapacityChange('size', e.target.value)}></input><br/> 
+            <label htmlFor="roomCapacity" className="other">Pojemność sali:</label>
+            <input type="number" id="roomCapacity" onBlur={e => this.handleCapacityChange('size', e.target.value)}></input><br/> 
 
             <div className="eqw">
               <span>Wybierz wyposażenie:</span>
@@ -196,8 +229,21 @@ import Calendar from './Calendar'
               <label htmlFor="repeat">Rezerwacja cykliczna:</label>
               <input type="checkbox"  id="repeat" name="repeat" value="repeat" onChange={e=>{this.handleRepeatCheck('cyclicReservation', e.target.checked)}}></input><br/>
             </div>
-          
-            <Users ip={this.state.ip}/>
+
+            <div className={this.state.isVisible}>
+              <ReservationIntervals ip={this.state.ip} onChange={this.handleChange}/>
+            </div>
+
+
+          <div className="users_div">
+            <Users users={this.state.users}/>
+            <div className="arrows">
+              <FontAwesomeIcon icon={faArrowCircleLeft} onClick = {this.arrowLeftClick}></FontAwesomeIcon>
+              <FontAwesomeIcon icon={faArrowCircleRight} onClick = {this.arrowRightClick}></FontAwesomeIcon>
+            </div>
+            <Users users={this.state.invitedUsers}/>
+          </div>
+
             <input type="submit" value="Rezerwuj"></input>
           </form>
         </div>

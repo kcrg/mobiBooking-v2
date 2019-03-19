@@ -13,12 +13,11 @@ class Calendar extends Component {
   }
 
   handleChange = (moment) => {
+    const { name } = this.props;
     this.setState({
       moment
-    });
-    console.log(this.props);
-    console.log(moment);
-    this.props.onChange('dataFrom', moment)
+    }, () => this.props.onChange(name, moment.format('YYYY-MM-DDTHH:mm')));
+    
   }
 
   render() {

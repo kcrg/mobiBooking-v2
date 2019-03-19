@@ -8,21 +8,20 @@ export default class UserTemp extends Component {
   }
 
   buttonClick = (e) =>{
-    if(e.target.className === 'origin'){
+    const {id} = this.props;
+    if(!this.state.isChecked){
       this.setState({
         class: 'focused',
         isChecked: true
-      }, () =>{
-        console.log(this.state)
       })
+      this.props.AddUser(id);
     }
     else{
       this.setState({
         class: 'origin',
         isChecked: false
-      }, () =>{
-        console.log(this.state)
       })
+      this.props.DeleteUser(id);
     }
   }
 

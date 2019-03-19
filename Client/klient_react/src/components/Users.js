@@ -1,35 +1,50 @@
 import React, { Component } from 'react';
 import UserTemp from './userTemp';
-import axios from 'axios';
+
 
 export default class Users extends Component {
 
     state = {
         users: null,
         userItem: null,
+        selectedUsers: []
     }
 
-    componentDidMount(){
-        const { ip } = this.props
-        axios.get( ip + '/api/Users/get_all')
-        .then(res =>{
+    componentWillReceiveProps(){
+        const { users } = this.props
+        console.log(users)
+        if(users != null){
             this.setState({
-               users: res.data 
+                users
             }, this.mapItems)
-        })
+        }
+    }
+
+    AddSelectedUser = (id) => {
+        console.log('AddSelectedUser ' + id);
+        this.setState(prevState => ({
+            selectedUsers: [...prevState.selectedUsers, id]
+          }), () => console.log(this.state.selectedUsers))
+    }
+
+    DeleteSelectedUser = (id) => {
+        const filteredUsers  = this.state.selectedUsers.filter(idt => idt !== id)
+        this.setState({
+            selectedUsers: filteredUsers
+        }, () => console.log(this.state.selectedUsers))
     }
 
     mapItems = () =>{
     const userItem = this.state.users.map(user =>{
     return(
         <div key={user.id} className="origin">
-            <UserTemp id={user.id} name={user.name} surname={user.surname}></UserTemp>
+            <UserTemp id={user.id} name={user.name} surname={user.surname} AddUser = {this.AddSelectedUser} DeleteUser = {this.DeleteSelectedUser}></UserTemp>
         </div>
     )
     })
     this.setState({
       userItem
-    })
+    }, this.getSelectedUsers)
   }
     render() {
         return (
