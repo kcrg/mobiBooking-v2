@@ -1,0 +1,159 @@
+@import '../index.scss';
+
+.user_form_div{
+    background-color: $mobi-purple;
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    color: $primary-color;
+    align-items: center;
+
+    .form_div{
+        width: 100%;
+    }
+    .default{
+        display: none;
+    }
+
+    .wrong{
+        display: flex;
+        max-width: 250px;
+        height: 150px;
+        background: red;
+        color: $primary-color;
+        padding: 40px;
+        border-radius: 5px;
+        margin-bottom: 50px;
+        margin-top: 20px;
+
+        p{
+            font-size: 25px;
+            margin: 0;
+            font-weight: bold;
+        }
+    }
+
+    .done{
+        display: flex;
+        background: green;
+        color: $primary-color;
+        font-size: 25px;
+        text-align: center;
+        border-radius: 5px;
+        max-width: 250px;
+        height: 150px;
+        margin-bottom: 50px;
+        margin-top: 20px;
+        padding: 40px;
+
+        p{ 
+            display: inline-block;
+            align-self: center;
+            justify-self: center;
+        }
+    }
+
+    h2{
+        padding-top: 100px;
+        padding-bottom: 20px;
+    }
+
+    .user_form{
+        display: flex;
+        flex-direction: column;
+
+        label{
+            font-size: 25px;
+            text-align: center;
+            margin:  5px 0 10px 0;
+        }
+
+        input{
+            font-size: 22px;
+            border-radius: 5px;
+            margin-bottom: 5%;
+            max-width: 250px;
+            align-self: center;
+        }
+
+        input[type="submit"]{
+            margin-top: 20px;
+            font-size: 30px;
+            min-width: 250px;
+            padding: 10px;
+            background: $mobi-blue;
+            color: $primary-color;
+        }
+
+        select{
+            display: inline-flex;
+            font-size: 22px;
+            min-width: 250px;
+            margin-bottom: 5%;
+            align-self: center;
+        }
+    }
+}
+
+@media only screen and (min-width: 750px){
+    .user_form_div{
+        height: auto;
+        .user_form{
+            flex-flow: row;
+            flex-wrap: wrap;
+            justify-content: center;
+
+            label{
+                min-width: 400px;
+                justify-self: flex-end;
+                margin: 0;
+                margin-bottom: 40px;
+            }
+
+            input{
+                align-self: center;
+                margin: 0;
+                margin-bottom: 40px;
+                min-width: 250px;
+            }
+
+            select{
+                min-width: 250px;
+            }
+
+            input[type="submit"]{
+                align-self: center;
+                justify-self: center;
+                min-width: 400px;
+            }
+        }
+    }
+}
+
+@media only screen and(min-width: 1000px){
+    .user_form_div{
+        height: 830px;
+        width: 100%;
+
+        h2{
+            padding-top: 0;
+        }
+
+        .user_form{
+            label{
+                min-width: 50%;
+            }
+
+            input{
+                min-width: 35%;
+                margin-left: 100px;
+            }
+
+            select{
+                min-width: 35%;
+                margin-left: 100px;
+            }
+        }
+    }
+}

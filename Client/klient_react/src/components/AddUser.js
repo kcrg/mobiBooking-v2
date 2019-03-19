@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import '../css/AddUser.scss';
 import { withRouter } from 'react-router-dom';
+import '../styles/AddUser.scss';
 
 class AddUser extends Component {
 
@@ -23,7 +23,7 @@ class AddUser extends Component {
     const { cookies } = this.props;
     if(cookies.get('token') === undefined){
       this.props.history.push('/');
-    }
+    } 
   }
 
   sendData = () =>{
@@ -79,10 +79,10 @@ class AddUser extends Component {
 
   render() {
     return (
-      <div className="content">
-        <div className="form">
-          <h2>Dodaj użytkownika:</h2>
-          <form onSubmit={this.handleSubmit}>
+      <div className="user_form_div">
+        <h2>Dodaj użytkownika:</h2>
+        <div className="form_div">
+          <form onSubmit={this.handleSubmit} className="user_form">
             <label htmlFor="user_name">Nazwa użytkownika:</label>
             <input type="text" id="user_name" onChange={e => this.handleChange('userName', e.target.value)} required></input><br/>  
 
@@ -105,12 +105,18 @@ class AddUser extends Component {
             <select id="permissions" onChange={e => this.handleChange('userType', e.target.value)}>
               <option>Administrator</option>
               <option>Zwykły użytkownik</option>
-            </select> 
+            </select>
 
             <input type="submit" value="Zapisz" disabled={this.state.userData.password !== this.state.r_pass}></input>
-            <span className={this.state.error}>Istnieje użytkownik o podanym adresie e-mail lub nazwie użytkownika</span>
-            <span className={this.state.succes}>Pomyślnie dodano użytkownika</span>
           </form>
+        </div>
+
+        <div className={this.state.error}>
+          <p>Istnieje użytkownik o podanej nazwie użytkownika lub adresie e-mail</p>
+        </div>
+
+        <div className={this.state.succes}>
+          <p>Pomyślnie dodano użytkownika!</p>
         </div>
       </div>
     )

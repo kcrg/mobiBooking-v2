@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import '../css/Logout.scss';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-
-
-
+import '../styles/Logout.scss';
+import logo from '../img/mobitouch.png';
 
 class Logout extends Component {
 
@@ -29,8 +27,12 @@ class Logout extends Component {
  
   render() {
     return (
-      <div id="options">
-        <button onClick={this.handleClick}>Wyloguj</button>
+      <div className="logout">
+      <div className="nav-logo">
+            <img src={logo} alt="logo"></img>
+            <h1>MobiReservation <br/> System</h1>
+          </div>
+        <button onClick={this.handleClick} className="btn_logout">Wyloguj</button>
       </div>
     )
   }

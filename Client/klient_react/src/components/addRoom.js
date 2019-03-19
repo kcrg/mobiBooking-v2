@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import '../css/addRoom.scss';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
+import '../styles/AddRoom.scss';
 
 class AddRoom extends Component {
   state = {
@@ -9,11 +9,18 @@ class AddRoom extends Component {
       roomName: null,
       location: null,
       activity: true,
-      availability: "08.00 - 16.00",
-      numberOfPeople: null
+      availability: 1,
+      numberOfPeople: null,
+      flipchart: false,
+      soundSystem: false,
     },
     error: 'default',
-    succes: 'default'
+    succes: 'default',
+    mapAva: null,
+    availability:{
+      id: null,
+      name: null
+    }
   }
 
   handleChange = (name, value) =>{
@@ -24,6 +31,18 @@ class AddRoom extends Component {
         [name]: value
       } 
     }))
+  }
+
+  handleCheck = (name, value) => {
+    this.setState(prevState =>({
+      ...prevState,
+      roomData: {
+        ...prevState.roomData,
+        [name]: value
+      }
+    }), () =>{
+      console.log(this.state.roomData)
+    })
   }
 
   handleAChange = (name, value) =>{
@@ -78,22 +97,42 @@ class AddRoom extends Component {
     });
   }
 
+  mapAva = () =>{
+    const Ava = this.state.availability.map(ava =>{
+      return(
+        <option key={ava.id} value={ava.id}>{ava.name}</option>
+      )
+    })
+    this.setState({
+      mapAva: Ava
+    })
+  }
+
   componentDidMount(){
+    const { ip } = this.props
     const { cookies } = this.props;
     if(cookies.get('token') === undefined){
       this.props.history.push('/');
     }
+
+    axios.get( ip + '/api/Room/get_room_availabilities')
+    .then( res=>{
+      this.setState(prevState =>({
+        ...prevState,
+        availability: res.data
+      }),  this.mapAva)
+    })
+
   }
   
 
 
   render() {
     return (
-      <div className="content">
-        <div className="form">
+        <div className="add_room">
           <h2>Dodaj salę:</h2>
 
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit} className="add_room_form">
             <label htmlFor="roomName">Nazwa sali:</label>
             <input type="text" id="roomName" onChange={e => this.handleChange('roomName', e.target.value)} required></input><br/>  
 
@@ -111,16 +150,31 @@ class AddRoom extends Component {
 
             <label htmlFor="availability">Dostępność:</label>
             <select id="availability" onChange={e => this.handleChange('availability', e.target.value)}>
-              <option>08.00 - 16.00</option>
-              <option>07.00 - 18.00</option>
-              <option>07.00 - 20.00</option>
+              {this.state.mapAva}
             </select><br/>
 
+            <div className="equ_lab">
+              <span>Wybierz wyposażenie:</span>
+            </div>
+
+            <div className="equip">
+              <label htmlFor="flipchart">Flipchart</label>
+              <input type="checkbox" value="flipchart" id="flipchart" onChange={e=>{this.handleCheck('flipchart', e.target.checked)}}></input>
+           
+              <label htmlFor="voice">System nagłaśniający</label>
+              <input type="checkbox" value="voice" id="voice" onChange={e=>{this.handleCheck('soundSystem', e.target.checked)}}></input>
+            </div>
+
             <input type="submit" value="Zapisz"></input>
-            <span className={this.state.error}>Błąd ! Spróbuj ponownie</span>
-            <span className={this.state.succes}>Dodano salę!</span>
+
+            <div className={this.state.error}>
+              <span>Błąd! Spróbuj ponownie</span>
+            </div>
+
+            <div className={this.state.succes}>
+              <span>Dodano salę!</span>
+            </div>
           </form>
-        </div>
       </div>
     )
   }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import '../css/SignIn.scss';
 import logo from '../img/mobitouch.png';
 import axios from 'axios';
+import '../styles/SignIn.scss';
 
 class SingIn extends Component {
 
@@ -19,7 +19,6 @@ class SingIn extends Component {
     if(cookies.get('token') !== undefined){
       this.props.history.push('/home');
     }
-    document.body.style.backgroundColor = "#8d1be5";
   }
 
   sendRequest = () =>{
@@ -58,17 +57,23 @@ class SingIn extends Component {
   }
   render() {
     return (
-      <div id="log">
-        <img src={logo} alt="logo" id="logging"></img>
-        
-        <form onSubmit={this.handleSubmit}>
+      <div className="content">
+
+        <div className="logo">
+          <img src={logo} alt="logo"></img>
+        </div>
+
+        <form onSubmit={this.handleSubmit} className="form">
           <label htmlFor="email" id="mail">E-mail:</label>
-          <input type="email" id="Email" onChange={e => this.handleChange('Email', e.target.value)}></input><br/>
+          <input type="email" id="Email" onChange={e => this.handleChange('Email', e.target.value)} required></input>
           <label htmlFor="password" id="pass">Hasło:</label>
-          <input type="password" id="Password" onChange={e => this.handleChange('Password', e.target.value)}></input><br/>
+          <input type="password" id="Password" onChange={e => this.handleChange('Password', e.target.value)} required></input>
 
           <input type="submit" value="Zaloguj się"></input>
-          <h1 className={this.state.error}>Nie znaleziono użytkownika o danej kombinacji e-mail i hasła!</h1>
+          
+          <div className={this.state.error}>
+            <h1>Nie znaleziono użytkownika o danej kombinacji e-mail i hasła!</h1>
+          </div>
         </form>
       </div>
     )

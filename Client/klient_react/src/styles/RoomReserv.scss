@@ -1,0 +1,251 @@
+@import '../index.scss';
+
+.reserv_div{
+    background: $mobi-purple;
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    h2{
+        color: $primary-color;
+        margin-top: 100px;
+        align-self: center;
+    }
+
+    .reserv_form{
+        display: flex;
+        flex-direction: column;
+
+        label{
+            color: $primary-color;
+            align-self: center;
+            font-size: 26px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        input{
+            align-self: center;
+            min-width: 250px;
+            font-size: 26px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        input[type="submit"]{
+            min-width: 250px;
+            background: $mobi-blue;
+            color: $primary-color;
+            font-size: 30px;
+            padding: 5px;
+        }
+
+        select{
+            align-self: center;
+            font-size: 26px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        #roomTook{
+            max-width: 290px;
+        }
+
+        #status{
+            min-width: 290px;
+        }
+
+        input[type="checkbox"]{
+            transform: scale(2);
+            margin-top: 20px;
+        }
+
+        .eqw{
+            font-size: 28px;
+            color: $primary-color;
+            align-self: center;
+        }
+
+        .checkboxes{
+            align-self: center;
+            display: flex;
+            flex-direction: column;
+
+            label{
+                margin-top: 20px;
+            }
+        }
+
+        .cyclic{
+            display: flex;
+            align-self: center;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .users{
+            background: $primary-color;
+            min-width: 280px;
+            align-self: center;
+            border-radius: 5px;
+            padding: 5px;
+            text-align: center;
+            margin-bottom: 50px;
+            height: auto;
+            margin-top: 20px;
+
+            .origin{
+                width: 100%;
+                cursor: pointer;
+                border-bottom: 1px solid #222;
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .focused{
+                background: $mobi-blue;
+                color: $primary-color;
+                border: none;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 800px){
+    .reserv_div{
+        .reserv_form{
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-content: space-around;
+
+            input{
+                justify-self: center;
+                min-width: 300px;
+            }
+
+            label{
+                min-width: 380px;
+            }
+
+            select{
+                flex-grow: 1;
+            }
+
+            .eqw{
+                min-width: 500px;
+                text-align: center;
+            }
+
+            .checkboxes{
+                text-align: center;
+                align-self: center;
+                flex-direction: row;
+                flex-wrap: wrap;
+                max-width: 700px;
+                margin-bottom: 30px;
+
+                label{
+                    min-width: 300px;
+                    text-align: right;
+                }
+
+                input[type="checbox"]{
+                    margin: 0;
+                }
+            }
+
+            #status{
+                max-width: 310px;
+            }
+
+            #roomTook{
+                min-width: 310px;
+            }
+
+            .cyclic{
+                min-width: 800px;
+            }
+
+            .users{
+                min-width: 500px;
+            }
+
+            input[type="submit"]{
+                min-width: 550px;
+            }
+        }
+    }
+}
+
+@media only screen and(min-width: 1000px){
+    .reserv_div{
+        h2{
+            margin-top: 20px;
+        }
+
+        .reserv_form{
+            input{
+                min-width: 300px;
+            }
+
+            label{
+                min-width: 300px;
+            }
+
+            select{
+                min-width: 600px;
+            }
+        }
+    }
+}
+
+@media only screen and(min-width: 1150px){
+    .reserv_div{
+        height: auto;
+
+        h2{
+            margin-top: 20px;
+        }
+
+        .reserv_form{
+            input{
+                min-width: 45%;
+            }
+
+            label{
+                min-width: 45%;
+                text-align: center;
+            }
+
+            #roomTook{
+                min-width: 45%;
+            }
+
+            #status{
+                min-width: 45%;
+            }
+
+            .checkboxes{
+                min-width: 900px;
+            }
+
+            .cyclic{
+                min-width: 52%;
+            }
+
+            .users{
+                min-width: 55%;;
+            }
+
+            input[type="submit"]{
+                min-width: 50%;
+            }
+
+            .eqw{
+                min-width: 80%;
+                margin-bottom: 30px;
+            }
+        }
+    }
+}
