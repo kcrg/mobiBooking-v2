@@ -133,7 +133,7 @@
 
 @media only screen and(min-width: 1000px){
     .user_form_div{
-        height: 90%;
+        height: 830px;
         width: 100%;
 
         h2{
@@ -142,15 +142,17 @@
 
         .user_form{
             label{
-                min-width: 400px;
+                min-width: 50%;
             }
 
             input{
-                min-width: 350px;
+                min-width: 35%;
+                margin-left: 100px;
             }
 
             select{
-                min-width: 350px;
+                min-width: 35%;
+                margin-left: 100px;
             }
         }
     }

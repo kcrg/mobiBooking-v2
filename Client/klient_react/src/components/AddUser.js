@@ -23,7 +23,7 @@ class AddUser extends Component {
     const { cookies } = this.props;
     if(cookies.get('token') === undefined){
       this.props.history.push('/');
-    }
+    } 
   }
 
   sendData = () =>{

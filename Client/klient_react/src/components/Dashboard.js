@@ -14,7 +14,7 @@ class Dashboard extends Component {
         if(cookies.get('token') === undefined){
             this.props.history.push('/');
         }
-    }
+    } 
 
     buttonClick = () =>{
         this.props.history.push('/roomReserv');
@@ -52,7 +52,9 @@ class Dashboard extends Component {
                     </div>
                 </div>
 
-                <button onClick={this.buttonClick} className="data_btn">Zarezerwuj salę</button>
+                <div className="data" onClick={this.buttonClick} style={{background: '#00b7ce', cursor: 'pointer'}}>
+                   <p className="btn">Zarezerwuj sale</p>
+                </div>
 
                 <div className="data">
                     <h2>Sale:</h2>

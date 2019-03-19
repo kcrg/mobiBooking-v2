@@ -202,33 +202,49 @@
 
 @media only screen and(min-width: 1150px){
     .reserv_div{
+        height: auto;
+
         h2{
             margin-top: 20px;
         }
 
         .reserv_form{
             input{
-                min-width: 500px;
+                min-width: 45%;
             }
 
             label{
-                min-width: 300px;
+                min-width: 45%;
+                text-align: center;
             }
 
             #roomTook{
-                min-width: 500px;
+                min-width: 45%;
             }
 
             #status{
-                min-width: 500px;
+                min-width: 45%;
             }
 
             .checkboxes{
                 min-width: 900px;
             }
 
+            .cyclic{
+                min-width: 52%;
+            }
+
             .users{
-                min-width: 550px;
+                min-width: 55%;;
+            }
+
+            input[type="submit"]{
+                min-width: 50%;
+            }
+
+            .eqw{
+                min-width: 80%;
+                margin-bottom: 30px;
             }
         }
     }

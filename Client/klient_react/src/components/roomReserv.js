@@ -3,6 +3,9 @@ import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Users from './Users';
 import '../styles/RoomReserv.scss';
+import Calendar from './Calendar'
+
+
 
  class RoomReserv extends Component {
 
@@ -10,18 +13,21 @@ import '../styles/RoomReserv.scss';
     reservData: {
       dateFrom: null,
       dateTo: null,
-      roomCapacity: null,
-      status: 'Wolna',
+      status: 0,
       title: null,
       invitedUsersIds: [],
-      roomId: null
+      roomId: 1,
+      cyclicReservation: false,
+      reservationIntervalid: 0
     },
     roomsList: null,
     roomItems: null,
-    checked:{
+    roomsInfo:{
       flipchart: false,
       soundSystem: false,
-      repeat: false
+      dateFrom: "2019-03-18T14:41",
+      dateTo: "2019-03-18T14:42",
+      size: 0
     },
     isChecked: false,
     ip: null
@@ -35,11 +41,15 @@ import '../styles/RoomReserv.scss';
   }
   componentDidMount(){
     const { cookies } = this.props;
-    const { ip } = this.props
     if(cookies.get('token') === undefined){
       this.props.history.push('/');
     }
-    axios.get( ip + '/api/Room/get_all')
+    this.getRooms();
+  }
+
+  getRooms = () =>{
+    const { ip } = this.props
+    axios.post( ip + '/api/Room/for_reservation', this.state.roomsInfo)
     .then(res => {
       this.setState({
         roomsList: res.data
@@ -49,6 +59,7 @@ import '../styles/RoomReserv.scss';
       console.log(err)
     })
   }
+  
 
   mapItems = () =>{
     const roomItems = this.state.roomsList.map(room =>{
@@ -62,27 +73,49 @@ import '../styles/RoomReserv.scss';
   }
 
   handleChange = (name, value) =>{
-    this.setState(prevState => ({
-      ...prevState,
-      reservData: {
-        ...prevState.reservData,
-        [name]: value
-      } 
-    }))
+    if(name === 'dataFrom' || name === 'dataTo'){
+      this.setState(prevState =>({
+        ...prevState,
+        roomsInfo:{
+          ...prevState.roomsInfo,
+          [name]: value
+        }
+      }), this.getRooms)
+    }else{
+      this.setState(prevState => ({
+        ...prevState,
+        reservData: {
+          ...prevState.reservData,
+          [name]: value
+        } 
+      }))
+    }
   }
 
   handleCapacityChange = (name, value) =>{
     this.setState(prevState => ({
       ...prevState,
+      roomsInfo: {
+        ...prevState.roomsInfo,
+        [name]: parseInt(value)
+      } 
+    }), this.getRooms)
+  }
+
+  handleStatusChange = (name, value) =>{
+    this.setState(prevState => ({
+      ...prevState,
       reservData: {
         ...prevState.reservData,
-        [name]: parseInt(value)
+        [name]: value === 'Wolna' ? (0) : (1)
       } 
     }))
   }
 
+
   handleSubmit = (e) =>{
     e.preventDefault();
+    console.log(this.state)
   }
 
   selectChange = (collection) => {
@@ -100,12 +133,22 @@ import '../styles/RoomReserv.scss';
   handleCheck = (name, value) =>{
     this.setState(prevState =>({
       ...prevState,
-      checked:{
-        ...prevState.checked,
+      roomsInfo:{
+        ...prevState.roomsInfo,
+        [name]: value
+      }
+    }), this.getRooms)
+  }
+
+  handleRepeatCheck = (name, value) =>{
+    this.setState(prevState =>({
+      ...prevState,
+      reservData:{
+        ...prevState.reservData,
         [name]: value
       }
     }), () => {
-      console.log(this.state.checked)
+      console.log(this.state.reservData)
     })
   }
 
@@ -115,13 +158,13 @@ import '../styles/RoomReserv.scss';
           <h2>Zarezerwuj salę:</h2>
           <form onSubmit={this.handleSubmit} className="reserv_form">
             <label htmlFor="dateFrom">Rezerwuję od:</label>
-            <input type="text" id="dateFrom" onChange={e => this.handleChange('dateFrom', e.target.value)} required></input>
+            <Calendar onChange={this.handleChange}/>
 
             <label htmlFor="dateTo">Do:</label>
-            <input type="text" id="dateTo" onChange={e => this.handleChange('dateTo', e.target.value)} required></input><br/>
+            <Calendar onChange={this.handleChange}/>
     
-            <label htmlFor="roomCapacity" className="other">Pojemność sali:</label>
-            <input type="number" id="roomCapacity" onChange={e => this.handleCapacityChange('roomCapacity', e.target.value)} required></input><br/> 
+            <label htmlFor="roomCapacity" className="other" onBlur={this.getRooms()}>Pojemność sali:</label>
+            <input type="number" id="roomCapacity" onChange={e => this.handleCapacityChange('size', e.target.value)}></input><br/> 
 
             <div className="eqw">
               <span>Wybierz wyposażenie:</span>
@@ -144,16 +187,16 @@ import '../styles/RoomReserv.scss';
             <input type="text" id="title" onChange={e => this.handleChange('title', e.target.value)} required></input><br/>
 
             <label htmlFor="status">Status:</label>
-            <select id="status" onChange={e => this.handleChange('status', e.target.value)}>
+            <select id="status" onChange={e => this.handleStatusChange('status', e.target.value)}>
               <option>Wolna</option>
               <option>Zajęta</option>
             </select><br/>
 
             <div className="cyclic">
               <label htmlFor="repeat">Rezerwacja cykliczna:</label>
-              <input type="checkbox"  id="repeat" name="repeat" value="repeat" onChange={e=>{this.handleCheck('repeat', e.target.checked)}}></input><br/>
+              <input type="checkbox"  id="repeat" name="repeat" value="repeat" onChange={e=>{this.handleRepeatCheck('cyclicReservation', e.target.checked)}}></input><br/>
             </div>
-            
+          
             <Users ip={this.state.ip}/>
             <input type="submit" value="Rezerwuj"></input>
           </form>

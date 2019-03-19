@@ -9,13 +9,18 @@ class AddRoom extends Component {
       roomName: null,
       location: null,
       activity: true,
-      availability: "08.00 - 16.00",
+      availability: 1,
       numberOfPeople: null,
       flipchart: false,
       soundSystem: false,
     },
     error: 'default',
-    succes: 'default'
+    succes: 'default',
+    mapAva: null,
+    availability:{
+      id: null,
+      name: null
+    }
   }
 
   handleChange = (name, value) =>{
@@ -92,11 +97,32 @@ class AddRoom extends Component {
     });
   }
 
+  mapAva = () =>{
+    const Ava = this.state.availability.map(ava =>{
+      return(
+        <option key={ava.id} value={ava.id}>{ava.name}</option>
+      )
+    })
+    this.setState({
+      mapAva: Ava
+    })
+  }
+
   componentDidMount(){
+    const { ip } = this.props
     const { cookies } = this.props;
     if(cookies.get('token') === undefined){
       this.props.history.push('/');
     }
+
+    axios.get( ip + '/api/Room/get_room_availabilities')
+    .then( res=>{
+      this.setState(prevState =>({
+        ...prevState,
+        availability: res.data
+      }),  this.mapAva)
+    })
+
   }
   
 
@@ -124,9 +150,7 @@ class AddRoom extends Component {
 
             <label htmlFor="availability">Dostępność:</label>
             <select id="availability" onChange={e => this.handleChange('availability', e.target.value)}>
-              <option>08.00 - 16.00</option>
-              <option>07.00 - 18.00</option>
-              <option>07.00 - 20.00</option>
+              {this.state.mapAva}
             </select><br/>
 
             <div className="equ_lab">

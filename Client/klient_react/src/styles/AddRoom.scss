@@ -140,6 +140,7 @@
         }
         .add_room_form{
             flex-direction: row;
+            height: 900px;
 
             label{
                 min-width: 320px;
@@ -177,6 +178,7 @@
                 label{
                     min-width: 220px;
                 }
+                
             }
 
             input[type="submit"]{
@@ -208,23 +210,37 @@
         }
 
         .errors{
-            min-width: 700px;
+            min-width: 52%;
         }
 
         .done{
-            min-width: 700px;
+            min-width: 60%;
         }
         .add_room_form{
+
             label{
-                min-width: 500px;
+                min-width: 30%;
+                align-self: center;
+            }
 
-                .equip{
-                    min-width: 530px;
+            .equip{
+                min-width: 85%;
 
-                    label{
-                        min-width: 500px;
-                    }
+                label{
+                    min-width: 45%;
                 }
+
+                input[type="checkbox"]{
+                   min-width: 20px;;
+                }
+            }
+
+            input{
+                min-width: 40%;
+            }
+
+            select{
+                min-width: 40%;
             }
         }
     }
