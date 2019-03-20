@@ -207,22 +207,6 @@ library.add(faArrowCircleRight, faArrowCircleLeft)
                 <input type="number" id="roomCapacity" onBlur={e => this.handleCapacityChange('size', e.target.value)} placeholder="Pojemność sali"></input>
             </div>
 
-            <div className="equip">
-              <h3>Wybierz wyposażenie:</h3>
-            </div>
-
-            <div className="equip_parts">
-              <div className="equip_partsv2">
-                <label htmlFor="flipchart">Flipchart</label>
-                <input type="checkbox" value="flipchart" id="flipchart" onChange={e=>{this.handleCheck('flipchart', e.target.checked)}}></input>
-              </div>
-            
-              <div className="equip_partsv2">
-                <label htmlFor="voice">System nagłaśniający</label>
-                <input type="checkbox" value="voice" id="voice" onChange={e=>{this.handleCheck('soundSystem', e.target.checked)}}></input>
-              </div>
-            </div>
-
             <div className="select_room">
               <label id="room">Wybierz salę:</label>
               <select id="roomTook" onChange={e => {this.selectChange(e.target.value)}}>

@@ -92,7 +92,7 @@
         }
 
         select{
-            min-width: 220px;
+            max-width: 220px;
             align-self: center;
             border-radius: 5px;
             font-size: 18px;
@@ -270,7 +270,11 @@
             justify-content: center;
 
             label{
-                width: 145px;
+                width: 160px;
+            }
+
+            input{
+                margin-right: 13px;
             }
         }
 
