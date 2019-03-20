@@ -88,8 +88,10 @@ class AddUser extends Component {
           <form onSubmit={this.handleSubmit} className="user_form">
 
             <div className="user_name">
-              <label htmlFor="user_name">Nazwa użytkownika: <span className="star">*</span></label>
-              <input type="text" id="user_name" onChange={e => this.handleChange('userName', e.target.value)} required placeholder="Nazwa użytkownika..."></input> 
+                <label htmlFor="user_name">Nazwa użytkownika:  <span className="star">*</span></label>
+              <div className="user_name_input">
+                <input type="text" id="user_name" onChange={e => this.handleChange('userName', e.target.value)} required placeholder="Nazwa użytkownika..."></input> 
+              </div>
             </div>
 
             <div className="password">

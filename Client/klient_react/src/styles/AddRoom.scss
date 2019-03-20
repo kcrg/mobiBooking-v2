@@ -90,18 +90,6 @@
             }
         }
 
-        .activity{
-            display: flex;
-            flex-direction: column;
-
-            label{
-                font-size: 20px;
-                align-self: center;
-                min-width: 230px;
-                margin-top: 8px;
-            }
-        }
-
         .availability{
             display: flex;
             flex-direction: column;
@@ -111,59 +99,6 @@
                 align-self: center;
                 min-width: 230px;
                 margin-top: 8px;
-            }
-        }
-
-        .equ_lab{
-            margin-top: 15px;
-            display: flex;
-            justify-content: center;
-
-            span{
-                font-size: 20px;
-            }
-        }
-
-        .equip{
-            display: flex;
-            flex-direction: column;
-
-            .flipchart_label{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                label{
-                    display: inline-block;
-                    line-height: 45px;
-                    font-size: 18px;
-                }
-
-                input[type="checkbox"]{
-                    position: relative;
-                    top: 2px;
-                    display: inline-block;
-                    margin: 0 0 0 10px;
-                }
-            }
-
-            .voice_label{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                label{
-                    display: inline-block;
-                    line-height: 45px;
-                    font-size: 18px;
-                }
-
-                input[type="checkbox"]{
-                    position: relative;
-                    top: 2px;
-                    display: inline-block;
-                    margin: 0 0 0 10px;
-                }
             }
         }
 
@@ -274,18 +209,6 @@
                 }
             }
 
-            .activity{
-                flex-direction: row;
-                justify-content: center;
-                margin-top: 20px;
-
-                label{
-                    text-align: right;
-                    margin: 0 10px 0 0;
-                    min-width: 85px;
-                }
-            }
-
             .availability{
                 flex-direction: row;
                 justify-content: center;
@@ -298,13 +221,12 @@
                 }
 
                 select{
-                    margin-right: 10px;;
+                    margin-right: 10px;
                 }
             }
-            .equip{
-                .flipchart_label{
-                    margin-top: 20px;
-                }
+
+            .add_room_submit{
+                margin-top: 40px;
             }
         }
     }

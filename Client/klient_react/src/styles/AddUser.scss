@@ -15,7 +15,7 @@
     }
 
     .star{
-        color: red;
+        color: red
     }
 
     .user_form{
@@ -193,113 +193,5 @@
 }
 
 @media only screen and (min-width: 700px){
-    .user_form_div{
-
-        h2{
-            margin-bottom: 30px;
-        }
-        .user_form{
-
-            label{
-                margin: 0;
-                min-width: 130px;
-            }
-
-            input{
-                margin-right: 20px;
-            }
-
-            .user_name{
-                flex-direction: row;
-                justify-content: center;
-                margin-bottom: 10px;
-
-                label{
-                    text-align: right;
-                    padding-right: 10px;
-                    min-width: 130px;
-                }
-            }
-
-            .password{
-                flex-direction: row;
-                justify-content: center;
-                margin-bottom: 10px;
-
-                label{
-                    text-align: right;
-                    padding-right: 10px;
-                    min-width: 200px;
-                }
-            }
-
-            .r_password{
-                flex-direction: row;
-                justify-content: center;
-                margin-bottom: 10px;
-
-                label{
-                    text-align: right;
-                    padding-right: 10px;
-                    min-width: 200px;
-                }
-            }
-
-            
-            .name{
-                flex-direction: row;
-                justify-content: center;
-                margin-bottom: 10px;
-
-                label{
-                    text-align: right;
-                    padding-right: 10px;
-                    min-width: 200px;
-                }
-            }
-
-            
-            .surname{
-                flex-direction: row;
-                justify-content: center;
-                margin-bottom: 10px;
-
-                label{
-                    text-align: right;
-                    padding-right: 10px;
-                    min-width: 200px;
-                }
-            }
-
-            
-            .email{
-                flex-direction: row;
-                justify-content: center;
-                margin-bottom: 10px;
-
-                label{
-                    text-align: right;
-                    padding-right: 10px;
-                    min-width: 200px;
-                }
-            }
-
-            
-            .permissions{
-                flex-direction: row;
-                justify-content: center;
-                margin-bottom: 10px;
-
-                label{
-                    text-align: right;
-                    padding-right: 10px;
-                    min-width: 200px;
-                }
-
-                select{
-                    margin-right: 20px;
-                }
-            }
-        }
-    }
+  
 }

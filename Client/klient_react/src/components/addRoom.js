@@ -157,35 +157,11 @@ class AddRoom extends Component {
               <input type="number" id="numberOfPeople" onChange={e => this.handleNChange('numberOfPeople', e.target.value)} required></input> 
             </div>
 
-            <div className="activity">
-              <label htmlFor="activity">Aktywność:</label>
-              <select id="activity" onChange={e => this.handleAChange('activity', e.target.value)}>
-                <option>Tak</option>
-                <option>Nie</option>
-              </select>
-            </div>
-
             <div className="availability">
               <label htmlFor="availability">Dostępność:</label>
               <select id="availability" onChange={e => this.handleChange('availability', e.target.value)}>
                 {this.state.mapAva}
               </select>
-            </div>
-
-            <div className="equ_lab">
-              <span>Wybierz wyposażenie:</span>
-            </div>
-
-            <div className="equip">
-              <div className="flipchart_label">
-                <label htmlFor="flipchart">Flipchart</label>
-                <input type="checkbox" value="flipchart" id="flipchart" onChange={e=>{this.handleCheck('flipchart', e.target.checked)}}></input>
-              </div>
-
-              <div className="voice_label">
-                <label htmlFor="voice">System nagłaśniający</label>
-                <input type="checkbox" value="voice" id="voice" onChange={e=>{this.handleCheck('soundSystem', e.target.checked)}}></input>
-              </div>
             </div>
 
             <div className="add_room_submit">

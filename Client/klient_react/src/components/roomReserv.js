@@ -192,39 +192,69 @@ library.add(faArrowCircleRight, faArrowCircleLeft)
         <div className="reserv_div">
           <h2>Zarezerwuj salę:</h2>
           <form onSubmit={this.handleSubmit} className="reserv_form">
+
             <div className="calendar_label">
-              <label htmlFor="dateFrom">Rezerwuję od:</label>
-              <Calendar onChange={this.handleChange} name = "dateFrom"/>
+              <div className="label">
+                <label htmlFor="dateFrom">Rezerwuję od:</label>
+              </div>
+          
+              <div className="calendar_input">
+                <Calendar onChange={this.handleChange} name = "dateFrom"/>
+              </div>
             </div>
 
             <div className="calendar_label">
-              <label htmlFor="dateTo">Do:</label>
-              <Calendar onChange={this.handleChange} name = "dateTo"/>
+              <div className="label_to">
+                <label htmlFor="dateTo">Do:</label>
+              </div>
+
+              <div className="calendar_input_to">
+                <Calendar onChange={this.handleChange} name = "dateTo"/>
+              </div>
             </div>
 
             <div className="room_size_label">
+              <div className="room_size">
                 <label htmlFor="roomCapacity">Pojemność sali:</label>
+              </div>
+
+              <div className="room_number">
                 <input type="number" id="roomCapacity" onBlur={e => this.handleCapacityChange('size', e.target.value)} placeholder="Pojemność sali"></input>
+              </div>
             </div>
 
             <div className="select_room">
-              <label id="room">Wybierz salę:</label>
-              <select id="roomTook" onChange={e => {this.selectChange(e.target.value)}}>
-                {this.state.roomItems}
-              </select>
+              <div className="select_label">
+                <label id="room">Wybierz salę:</label>
+              </div>
+              <div className="select_list">
+                <select id="roomTook" onChange={e => {this.selectChange(e.target.value)}}>
+                  {this.state.roomItems}
+                </select>
+              </div>
             </div>
 
             <div className="meeting_title">
-              <label htmlFor="title">Tytuł spotkania:</label>
-              <input type="text" id="title" onChange={e => this.handleChange('title', e.target.value)} required placeholder="Tytuł spotkania..."></input>
+              <div className="meeting_label">
+                <label htmlFor="title">Tytuł spotkania:</label>
+              </div>
+
+              <div className="meeting_input">
+                <input type="text" id="title" onChange={e => this.handleChange('title', e.target.value)} required placeholder="Tytuł spotkania..."></input>
+              </div>
             </div>
 
             <div className="status">
-              <label htmlFor="status">Status:</label>
-              <select id="status" onChange={e => this.handleStatusChange('status', e.target.value)}>
-                <option>Wolna</option>
-                <option>Zajęta</option>
-              </select>
+              <div className="status_label">
+                <label htmlFor="status">Status:</label>
+              </div>
+
+              <div className="status_select">
+                <select id="status" onChange={e => this.handleStatusChange('status', e.target.value)}>
+                  <option>Wolna</option>
+                  <option>Zajęta</option>
+                </select>
+              </div>
             </div>
 
             <div className="cyclic">
