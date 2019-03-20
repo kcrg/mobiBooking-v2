@@ -52,15 +52,10 @@ export default class NavBar extends Component {
         <nav className={this.state.showNav}> 
           <ul className="navigation-links">
             <Link to="/home"><li>Dashboard</li></Link>
-            {/*<Link to="addUser"><li>Rezerwacja Sali</li></Link> */}
-
-            <ul className="reserv-links">
-                <Link to="/roomReserv"><li>Zarezerwuj sale</li></Link>
-                <Link to="/555"><li>Lista sal/rezerwacje</li></Link>
-            </ul>
-
+            <Link to="/roomReserv"><li>Zarezerwuj sale</li></Link>
+            <Link to="/555"><li>Lista sal/rezerwacje</li></Link>
             <Link to="/addRoom"  className={this.state.visible}><li>Dodaj sale</li></Link>
-            <Link to="addUser"><li>Użytkownicy</li></Link>
+            <Link to="addUser"  className={this.state.visible}><li>Użytkownicy</li></Link>
             <Link to="addUser"><li>Ustawienia</li></Link>
           </ul>
         </nav>

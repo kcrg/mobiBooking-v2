@@ -33,7 +33,7 @@ class Calendar extends Component {
         moment={this.state.moment}
         onChange={this.handleChange}
         className="calendar">
-        <input type="text" value={this.state.moment.format('YYYY-MM-DD HH:mm')} id="dateFrom" readOnly />
+        <input type="text" value={this.state.moment.format('DD-MM-YYYY HH:mm')} id="dateFrom" readOnly />
       </DatetimePickerTrigger>
     );
   }

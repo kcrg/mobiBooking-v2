@@ -1,0 +1,56 @@
+@import '../../index.scss';
+
+.reserv_stats{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: $primary-color;
+    max-width: 250px;
+    min-height: 250px;
+    overflow: auto;
+    color: #222;
+    padding: 10px 10px 20px 10px;
+    border-radius: 5px;
+    margin: 20px auto 40px auto;
+
+    .svg-inline--fa{
+        font-size: 30px;
+    }
+
+    .reserv_week{
+        h5{
+            font-size: 18px;
+        }
+
+        span{
+            color: $mobi-blue;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    }
+
+    .reserv_month{
+        h5{
+            font-size: 18px;
+        }
+
+        span{
+            color: $mobi-blue;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    }
+}
+
+@media only screen and(min-width: 740px){
+    .reserv_stats{
+        min-width: 400px;
+        min-height: 300px;
+        align-items: center;
+        justify-content: center;
+
+        .res_whole{
+            display: flex;
+        }
+    }
+}

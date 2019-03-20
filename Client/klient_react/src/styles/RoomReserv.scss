@@ -1,275 +1,324 @@
 @import '../index.scss';
 
 .reserv_div{
-    background: $mobi-purple;
-    height: auto;
-    width: 100%;
     display: flex;
     flex-direction: column;
+    background: $mobi-purple;
+    width: 100%;
+    min-height: 800px;
+    height: auto;
+    overflow: auto;
+    text-align: center;
+    color: $primary-color;
+    overflow: auto;
 
     h2{
-        color: $primary-color;
-        margin-top: 100px;
-        align-self: center;
+        margin-top: 80px;
     }
 
-    .reserv_form{
+    .calendar_label{
         display: flex;
         flex-direction: column;
-
-        .none{
-            display: none;
-        }
-
-        .isVisible{
-            display: block;
-        }
+        text-align: center;
+        margin-bottom: 10px;
 
         label{
-            color: $primary-color;
+            display: inline-block;
+            width: 220px;
+            text-align: left;
+            font-size: 20px;
             align-self: center;
-            font-size: 26px;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }
 
         input{
-            align-self: center;
-            min-width: 250px;
-            font-size: 26px;
+            width: 220px;
+            font-size: 18px;
             border-radius: 5px;
-            margin-bottom: 20px;
+        }
+    }
+
+    .room_size_label{
+        display: flex;
+        flex-direction: column;
+
+        label{
+            width: 220px;
+            text-align: left;
+            font-size: 20px;
+            align-self: center;
         }
 
-        input[type="submit"]{
-            min-width: 250px;
-            background: $mobi-blue;
-            color: $primary-color;
-            font-size: 30px;
-            padding: 5px;
+        input{
+            width: 220px;
+            font-size: 18px;
+            border-radius: 5px;
+            align-self: center;
+        }
+    }
+
+    .equip_parts{
+        .equip_partsv2{
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            label{
+                display: inline-block;
+                line-height: 45px;
+                font-size: 20px;
+            }
+
+            input[type="checkbox"]{
+                position: relative;
+                top: 3px;
+                display: inline-block;
+                margin: 0 0 0 10px;
+            }
+        }
+    }
+
+    .select_room{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+        margin-top: 10px;
+
+        label{
+            font-size: 20px;
+            min-width: 220px;
+            text-align: left;
+            align-self: center;
+            font-size: 20px;
         }
 
         select{
+            min-width: 220px;
             align-self: center;
-            font-size: 26px;
             border-radius: 5px;
-            margin-bottom: 20px;
+            font-size: 18px;
+        }
+    }
+
+    .meeting_title{
+        display: flex;
+        flex-direction: column;
+
+        label{
+            font-size: 20px;
+            min-width: 220px;
+            text-align: left;
+            align-self: center;
         }
 
-        #roomTook{
-            max-width: 290px;
+        input{
+            width: 220px;
+            font-size: 18px;
+            border-radius: 5px;
+            align-self: center;
+        }
+    }
+
+    .status{
+        display: flex;
+        flex-direction: column;
+        margin-top: 15px;
+
+        label{
+            min-width: 220px;
+            text-align: left;
+            align-self: center;
+            font-size: 20px;
         }
 
-        #status{
-            min-width: 290px;
+        select{
+            min-width: 220px;
+            align-self: center;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+    }
+
+    .cyclic{
+        display: flex;
+        margin-top: 20px;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+
+        label{
+            font-size: 20px;
         }
 
         input[type="checkbox"]{
-            transform: scale(2);
-            margin-top: 20px;
-        }
-
-        .eqw{
-            font-size: 28px;
-            color: $primary-color;
+            margin: 0 0 0 10px;
             align-self: center;
+            position: relative;
+            top: 3px;
         }
+    }
 
-        .checkboxes{
-            align-self: center;
-            display: flex;
-            flex-direction: column;
-
-            label{
-                margin-top: 20px;
-            }
+    .none{
+        opacity: 0;
+        select{
+            min-width: 220px;
+            margin-top: 15px;
+            border-radius: 5px;
+            font-size: 18px;
         }
+    }
 
-        .cyclic{
-            display: flex;
-            align-self: center;
-            text-align: center;
-            flex-direction: column;
+    .isVisible{
+        opacity: 1;
+        select{
+            min-width: 220px;
+            margin-top: 15px;
+            border-radius: 5px;
+            font-size: 18px;
         }
+    }
+
+    .users_div{
+        margin-top: 40px;
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
 
         .users{
             background: $primary-color;
-            min-width: 280px;
-            min-height: 250px;
+            color: #222;
+            min-width: 250px;
             align-self: center;
-            border-radius: 5px;
-            padding: 5px;
-            text-align: center;
-            margin-bottom: 50px;
+            height: 200px;
             overflow: auto;
-            margin-top: 20px;
+            border-radius: 5px;
+            z-index: 900;
+            cursor: pointer;
 
             .origin{
-                width: 100%;
-                cursor: pointer;
-                border-bottom: 1px solid #222;
-                font-size: 18px;
-                font-weight: bold;
+                border-bottom: 0.2px solid #222;
+                min-height: 30px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
 
             .focused{
+                border-bottom: 0.2px solid #222;
+                min-height: 30px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 background: $mobi-blue;
-                color: $primary-color;
-                border: none;
+                color: #fff;
+                font-weight: bold;
             }
+        }
+
+        .arrows{
+            font-size: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform: rotate(90deg);
+
+            .svg-inline--fa{
+               margin: 3px;
+               cursor: pointer;
+            }
+        }
+    }
+
+    .reserv_submit{
+        display: flex;
+        margin-top: 40px;
+        justify-content: center;
+
+        input[type="submit"]{
+            min-width: 180px;
+            font-size: 19px;
+            border-radius: 5px;
+            background: $mobi-blue;
+            color: $primary-color;
+            padding: 4px;
+            z-index: 900;
+            margin-bottom: 20px;
         }
     }
 }
 
-@media only screen and (min-width: 800px){
+@media only screen and (min-width: 720px){
     .reserv_div{
-        .reserv_form{
+        .calendar_label{
+            display: flex;
             flex-direction: row;
-            flex-wrap: wrap;
+            margin-bottom: 10px;
             justify-content: center;
-            align-content: space-around;
-
-            input{
-                justify-self: center;
-                min-width: 300px;
-            }
 
             label{
-                min-width: 380px;
+                display: inline-block;
+                text-align: right;
+                width: 145px;
+                padding-right: 20px;
+            }
+            input{
+                padding-left: 5px;
+            }
+        }
+
+        .room_size_label{
+            flex-direction: row;
+            justify-content: center;
+
+            label{
+                width: 145px;
+            }
+        }
+
+        .select_room{
+            flex-direction: row;
+            justify-content: center;
+
+            label{
+                min-width: 145px;
+                text-align: right;
+                padding-right: 20px;
             }
 
             select{
-                flex-grow: 1;
+                max-width: 220px;
             }
+        }
 
-            .eqw{
-                min-width: 500px;
-                text-align: center;
+        .meeting_title{
+            flex-direction: row;
+            justify-content: center;
+
+            label{
+                min-width: 145px;
             }
+        }
 
-            .checkboxes{
-                text-align: center;
-                align-self: center;
-                flex-direction: row;
-                flex-wrap: wrap;
-                max-width: 700px;
-                margin-bottom: 30px;
+        .status{
+            flex-direction: row;
+            justify-content: center;
 
-                label{
-                    min-width: 300px;
-                    text-align: right;
-                }
-
-                input[type="checbox"]{
-                    margin: 0;
-                }
+            label{
+                min-width: 145px;
+                text-align: right;
+                padding-right: 20px;
             }
+        }
 
-            #status{
-                max-width: 310px;
-            }
-
-            #roomTook{
-                min-width: 310px;
-            }
-
-            .cyclic{
-                min-width: 800px;
-            }
+        .users_div{
+            flex-direction: row;
 
             .users{
-                min-width: 500px;
+                margin: 0 10px 0 10px;
             }
 
-            input[type="submit"]{
-                min-width: 550px;
-            }
-        }
-    }
-}
-
-@media only screen and(min-width: 1000px){
-    .reserv_div{
-        h2{
-            margin-top: 20px;
-        }
-
-        .reserv_form{
-            input{
-                min-width: 300px;
-            }
-
-            label{
-                min-width: 300px;
-            }
-
-            select{
-                min-width: 600px;
-            }
-        }
-    }
-}
-
-@media only screen and(min-width: 1150px){
-    .reserv_div{
-        height: auto;
-
-        h2{
-            margin-top: 20px;
-        }
-
-        .reserv_form{
-            input{
-                min-width: 45%;
-            }
-
-            label{
-                min-width: 45%;
-                text-align: center;
-            }
-
-            #roomTook{
-                min-width: 45%;
-            }
-
-            #status{
-                min-width: 45%;
-            }
-
-            .checkboxes{
-                min-width: 900px;
-            }
-
-            .cyclic{
-                min-width: 65%;
-            }
-
-            .users_div{
-                display: flex;
-                justify-content: space-between;
-                width: 90%;
-
-                .users{
-                    min-width: 40%;
-                }
-
-                .arrows{
-                    align-self: center;
-                    min-width: 10%;
-                    display: flex;
-                    justify-content: space-between;
-                    color: $mobi-blue;
-                    font-size: 40px;
-                    cursor: pointer;
-                }
-            }
-
-            input[type="submit"]{
-                min-width: 50%;
-            }
-
-            .eqw{
-                min-width: 80%;
-                margin-bottom: 30px;
+            .arrows{
+                flex-direction: row;
+                transform: rotate(180deg);
             }
         }
     }

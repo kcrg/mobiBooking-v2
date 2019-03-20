@@ -40,7 +40,9 @@ library.add(faArrowCircleRight, faArrowCircleLeft)
     ip: null,
     isVisible: 'none',
     users: null,
-    invitedUsers: null
+    invitedUsers: null,
+    errors: 'default',
+    succes: 'default'
   }
 
   componentWillMount(){
@@ -190,40 +192,56 @@ library.add(faArrowCircleRight, faArrowCircleLeft)
         <div className="reserv_div">
           <h2>Zarezerwuj salę:</h2>
           <form onSubmit={this.handleSubmit} className="reserv_form">
-            <label htmlFor="dateFrom">Rezerwuję od:</label>
-            <Calendar onChange={this.handleChange} name = "dateFrom"/>
-
-            <label htmlFor="dateTo">Do:</label>
-            <Calendar onChange={this.handleChange} name = "dateTo"/>
-    
-            <label htmlFor="roomCapacity" className="other">Pojemność sali:</label>
-            <input type="number" id="roomCapacity" onBlur={e => this.handleCapacityChange('size', e.target.value)}></input><br/> 
-
-            <div className="eqw">
-              <span>Wybierz wyposażenie:</span>
+            <div className="calendar_label">
+              <label htmlFor="dateFrom">Rezerwuję od:</label>
+              <Calendar onChange={this.handleChange} name = "dateFrom"/>
             </div>
 
-            <div className="checkboxes">
-              <label htmlFor="flipchart">Flipchart</label>
-              <input type="checkbox" value="flipchart" id="flipchart" onChange={e=>{this.handleCheck('flipchart', e.target.checked)}}></input>
-           
-              <label htmlFor="voice">System nagłaśniający</label>
-              <input type="checkbox" value="voice" id="voice" onChange={e=>{this.handleCheck('soundSystem', e.target.checked)}}></input>
+            <div className="calendar_label">
+              <label htmlFor="dateTo">Do:</label>
+              <Calendar onChange={this.handleChange} name = "dateTo"/>
             </div>
 
-            <label id="room">Wybierz salę</label>
-            <select id="roomTook" onChange={e => {this.selectChange(e.target.value)}}>
-              {this.state.roomItems}
-            </select>
+            <div className="room_size_label">
+                <label htmlFor="roomCapacity">Pojemność sali:</label>
+                <input type="number" id="roomCapacity" onBlur={e => this.handleCapacityChange('size', e.target.value)} placeholder="Pojemność sali"></input>
+            </div>
 
-            <label htmlFor="title">Tytuł spotkania:</label>
-            <input type="text" id="title" onChange={e => this.handleChange('title', e.target.value)} required></input><br/>
+            <div className="equip">
+              <h3>Wybierz wyposażenie:</h3>
+            </div>
 
-            <label htmlFor="status">Status:</label>
-            <select id="status" onChange={e => this.handleStatusChange('status', e.target.value)}>
-              <option>Wolna</option>
-              <option>Zajęta</option>
-            </select><br/>
+            <div className="equip_parts">
+              <div className="equip_partsv2">
+                <label htmlFor="flipchart">Flipchart</label>
+                <input type="checkbox" value="flipchart" id="flipchart" onChange={e=>{this.handleCheck('flipchart', e.target.checked)}}></input>
+              </div>
+            
+              <div className="equip_partsv2">
+                <label htmlFor="voice">System nagłaśniający</label>
+                <input type="checkbox" value="voice" id="voice" onChange={e=>{this.handleCheck('soundSystem', e.target.checked)}}></input>
+              </div>
+            </div>
+
+            <div className="select_room">
+              <label id="room">Wybierz salę:</label>
+              <select id="roomTook" onChange={e => {this.selectChange(e.target.value)}}>
+                {this.state.roomItems}
+              </select>
+            </div>
+
+            <div className="meeting_title">
+              <label htmlFor="title">Tytuł spotkania:</label>
+              <input type="text" id="title" onChange={e => this.handleChange('title', e.target.value)} required placeholder="Tytuł spotkania..."></input>
+            </div>
+
+            <div className="status">
+              <label htmlFor="status">Status:</label>
+              <select id="status" onChange={e => this.handleStatusChange('status', e.target.value)}>
+                <option>Wolna</option>
+                <option>Zajęta</option>
+              </select>
+            </div>
 
             <div className="cyclic">
               <label htmlFor="repeat">Rezerwacja cykliczna:</label>
@@ -235,17 +253,28 @@ library.add(faArrowCircleRight, faArrowCircleLeft)
             </div>
 
 
-          <div className="users_div">
-            <Users users={this.state.users}/>
-            <div className="arrows">
-              <FontAwesomeIcon icon={faArrowCircleLeft} onClick = {this.arrowLeftClick}></FontAwesomeIcon>
-              <FontAwesomeIcon icon={faArrowCircleRight} onClick = {this.arrowRightClick}></FontAwesomeIcon>
+            <div className="users_div">
+              <Users users={this.state.users}/>
+              <div className="arrows">
+                <FontAwesomeIcon icon={faArrowCircleLeft} onClick = {this.arrowLeftClick}></FontAwesomeIcon>
+                <FontAwesomeIcon icon={faArrowCircleRight} onClick = {this.arrowRightClick}></FontAwesomeIcon>
+              </div>
+              <Users users={this.state.invitedUsers}/>
             </div>
-            <Users users={this.state.invitedUsers}/>
-          </div>
 
-            <input type="submit" value="Rezerwuj"></input>
+            <div className="reserv_submit">
+              <input type="submit" value="Rezerwuj"></input>
+            </div>
           </form>
+
+          <div className={this.state.error}>
+          <p>Istnieje użytkownik o podanej nazwie użytkownika lub adresie e-mail!</p>
+        </div>
+
+        <div className={this.state.succes}>
+          <p>Pomyślnie dodano użytkownika!</p>
+        </div>
+
         </div>
     )
   }

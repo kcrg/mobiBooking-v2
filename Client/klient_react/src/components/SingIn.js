@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import logo from '../img/mobitouch.png';
+import logo from '../img/mobitouch_w.png';
 import axios from 'axios';
 import '../styles/SignIn.scss';
 
@@ -54,7 +54,11 @@ class SingIn extends Component {
 
   toggleError = () =>{
     this.setState({error: 'error'});
+    setTimeout(() =>{
+      this.setState({error: 'default'});
+     }, 3000);
   }
+  
   render() {
     return (
       <div className="content">
@@ -64,16 +68,30 @@ class SingIn extends Component {
         </div>
 
         <form onSubmit={this.handleSubmit} className="form">
-          <label htmlFor="email" id="mail">E-mail:</label>
-          <input type="email" id="Email" onChange={e => this.handleChange('Email', e.target.value)} required></input>
-          <label htmlFor="password" id="pass">Hasło:</label>
-          <input type="password" id="Password" onChange={e => this.handleChange('Password', e.target.value)} required></input>
+          <div className="crudentials">
+            <div className="crudentialsv2">
+              <label htmlFor="email" id="mail">E-mail:</label>
+              <input type="email" id="Email" onChange={e => this.handleChange('Email', e.target.value)} required 
+              placeholder="Wprowadź swój e-mail"></input>
+            </div>
+          </div>
 
-          <input type="submit" value="Zaloguj się"></input>
+          <div className="crudentials">
+            <div className="crudentialsv2">
+              <label htmlFor="password" id="pass">Hasło:</label>
+              <input type="password" id="Password" onChange={e => this.handleChange('Password', e.target.value)} required 
+              placeholder="Wprowadź swoje hasło"></input>
+            </div>
+          </div>
+
+          <div className="submit">
+            <input type="submit" value="Zaloguj się"></input>
+          </div>
           
           <div className={this.state.error}>
-            <h1>Nie znaleziono użytkownika o danej kombinacji e-mail i hasła!</h1>
+            <p>Nie znaleziono użytkownika o danej kombinacji e-mail i hasła!</p>
           </div>
+
         </form>
       </div>
     )

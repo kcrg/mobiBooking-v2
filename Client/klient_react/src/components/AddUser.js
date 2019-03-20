@@ -46,15 +46,19 @@ class AddUser extends Component {
   toggleError = (error) =>{
     if( error === true ){
       this.setState({
-        error: 'wrong',
-        succes: 'default'
+        error: 'wrong'
       })
+      setTimeout(() =>{
+        this.setState({error: 'default'});
+       }, 3000);
     }
     else{
       this.setState({
-        succes: 'done',
-        error: 'default'
+        succes: 'done'
       })
+      setTimeout(() =>{
+        this.setState({succes: 'default'});
+       }, 3000);
     };
   }
 
@@ -81,44 +85,60 @@ class AddUser extends Component {
     return (
       <div className="user_form_div">
         <h2>Dodaj użytkownika:</h2>
-        <div className="form_div">
           <form onSubmit={this.handleSubmit} className="user_form">
-            <label htmlFor="user_name">Nazwa użytkownika:</label>
-            <input type="text" id="user_name" onChange={e => this.handleChange('userName', e.target.value)} required></input><br/>  
 
-            <label htmlFor="pass">Hasło:</label>
-            <input type="password" id="pass" onChange={e => this.handleChange('password', e.target.value)} required></input><br/>  
+            <div className="user_name">
+              <label htmlFor="user_name">Nazwa użytkownika: <span className="star">*</span></label>
+              <input type="text" id="user_name" onChange={e => this.handleChange('userName', e.target.value)} required placeholder="Nazwa użytkownika..."></input> 
+            </div>
 
-            <label htmlFor="r_pass">Powtórz hasło:</label>
-            <input type="password" id="r_pass" onChange={e => this.handleRpasswordChange('r_pass', e.target.value)} required></input><br/>  
+            <div className="password">
+              <label htmlFor="pass">Hasło: <span className="star">*</span></label>
+              <input type="password" id="pass" onChange={e => this.handleChange('password', e.target.value)} required placeholder="Hasło..."></input>  
+            </div>
 
-            <label htmlFor="f_name">Imię:</label>
-            <input type="text" id="f_name" onChange={e => this.handleChange('name', e.target.value)} required></input><br/>  
+            <div className="r_password">
+              <label htmlFor="r_pass">Powtórz hasło: <span className="star">*</span></label>
+              <input type="password" id="r_pass" onChange={e => this.handleRpasswordChange('r_pass', e.target.value)} required placeholder="Powtórz hasło..."></input>  
+            </div>
 
-            <label htmlFor="l_name">Nazwisko:</label>
-            <input type="text" id="l_name" onChange={e => this.handleChange('surname', e.target.value)} required></input><br/>  
+            <div className="name">
+              <label htmlFor="f_name">Imię:</label>
+              <input type="text" id="f_name" onChange={e => this.handleChange('name', e.target.value)} required placeholder="Imię..."></input> 
+            </div>
 
-            <label htmlFor="email">Email:</label>
-            <input type="email" id="email" onChange={e => this.handleChange('email', e.target.value)} required></input><br/> 
+            <div className="surname">
+              <label htmlFor="l_name">Nazwisko:</label>
+              <input type="text" id="l_name" onChange={e => this.handleChange('surname', e.target.value)} required placeholder="Nazwisko"></input> 
+            </div>
 
-            <label htmlFor="permissions">Uprawnienia:</label>
-            <select id="permissions" onChange={e => this.handleChange('userType', e.target.value)}>
-              <option>Administrator</option>
-              <option>Zwykły użytkownik</option>
-            </select>
+            <div className="email">
+              <label htmlFor="email">Email:  <span className="star">*</span></label>
+              <input type="email" id="email" onChange={e => this.handleChange('email', e.target.value)} required placeholder="E-mail"></input>
+            </div>
 
-            <input type="submit" value="Zapisz" disabled={this.state.userData.password !== this.state.r_pass}></input>
+            <div className="permissions">
+              <label htmlFor="permissions">Uprawnienia:</label>
+              <select id="permissions" onChange={e => this.handleChange('userType', e.target.value)}>
+                <option>Administrator</option>
+                <option>Zwykły użytkownik</option>
+              </select>
+            </div>
+
+            <div className="add_user_submit">
+              <input type="submit" value="Zapisz" disabled={this.state.userData.password !== this.state.r_pass}></input>
+            </div>
+
           </form>
-        </div>
 
         <div className={this.state.error}>
-          <p>Istnieje użytkownik o podanej nazwie użytkownika lub adresie e-mail</p>
+          <p>Istnieje użytkownik o podanej nazwie użytkownika lub adresie e-mail!</p>
         </div>
 
         <div className={this.state.succes}>
           <p>Pomyślnie dodano użytkownika!</p>
         </div>
-      </div>
+    </div>
     )
   }
 }
