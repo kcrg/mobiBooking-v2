@@ -4,20 +4,17 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using mobiBooking.Data;
 using mobiBooking.Repository;
-using mobiBooking.Repository.Base;
 using mobiBooking.Service;
-using mobiBooking.Service.Interfaces;
-using mobiBooking.Service.Services;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using IContainer = Autofac.IContainer;
@@ -28,7 +25,7 @@ namespace mobiBooking.WebApi
     {
         public Startup(IHostingEnvironment env)
         {
-            var builder = new ConfigurationBuilder()
+            IConfigurationBuilder builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
@@ -40,12 +37,11 @@ namespace mobiBooking.WebApi
 
         public IConfigurationRoot Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
 
-            services.ConfigureCors();
-            services.ConfigureJwtAuthentication(Configuration);
+            ConfigureCors(services);
+            ConfigureJwtAuthentication(services, Configuration);
 
             services.AddMvc();
 
@@ -53,28 +49,13 @@ namespace mobiBooking.WebApi
                 options.UseSqlServer(Configuration.GetConnectionString("ReleaseConnection")) // ReleaseConnection, DebugConnection            
             );
 
-            services.ConfigureSwagger();
+            ConfigureSwagger(services);
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-           // services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
-
-            var builder = new ContainerBuilder();
-            builder.RegisterModule<RepositoryModule>();
-            builder.RegisterModule<ServiceModule>();
-
-            builder.Populate(services);
-            ApplicationContainer = builder.Build();
-           
-            
-            //services.AddScoped<IUsersService, UsersService>();
-            //services.AddScoped<IAccountService, AccountService>();
-            //services.AddScoped<IRoomService, RoomService>();
-            //services.AddScoped<IReservationService, ReservationService>();
-
-            return new AutofacServiceProvider(ApplicationContainer);
+            return ConfigureAutofac(services);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
 
@@ -106,11 +87,20 @@ namespace mobiBooking.WebApi
             app.UseHttpsRedirection();
             app.UseMvc();
         }
-    }
 
-    public static class ConfigureServicesExtensions
-    {
-        public static void ConfigureCors(this IServiceCollection services)
+        private IServiceProvider ConfigureAutofac(IServiceCollection services)
+        {
+            ContainerBuilder builder = new ContainerBuilder();
+            builder.RegisterModule<RepositoryModule>();
+            builder.RegisterModule<ServiceModule>();
+
+            builder.Populate(services);
+            ApplicationContainer = builder.Build();
+
+            return new AutofacServiceProvider(ApplicationContainer);
+        }
+
+        private void ConfigureCors(IServiceCollection services)
         {
             services.AddCors(options =>
             {
@@ -125,7 +115,7 @@ namespace mobiBooking.WebApi
             });
         }
 
-        public static void ConfigureSwagger(this IServiceCollection services)
+        private void ConfigureSwagger(IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
             {
@@ -137,7 +127,7 @@ namespace mobiBooking.WebApi
             });
         }
 
-        public static void ConfigureJwtAuthentication(this IServiceCollection services, IConfiguration Configuration)
+        private void ConfigureJwtAuthentication(IServiceCollection services, IConfiguration Configuration)
         {
             IConfigurationSection appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);

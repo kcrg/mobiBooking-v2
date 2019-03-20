@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace mobiBooking.Model.Reservation.Request
+namespace mobiBooking.Model.Reservation.Response
 {
     public class ReservationIntervalModel
     {

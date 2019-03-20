@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\mobiBooking.Data\mobiBooking.Data.csproj" />
+    <ProjectReference Include="..\mobiBooking.Model\mobiBooking.Model.csproj" />
   </ItemGroup>
 
 </Project>

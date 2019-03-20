@@ -1,15 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace mobiBooking.Model.Room.Request
 {
     public class RoomsForReservationModel
     {
+        [Required]
         public int Size { get; set; }
+        [Required]
         public DateTime DateFrom { get; set; }
+        [Required]
         public DateTime DateTo { get; set; }
+        [Required]
         public bool FlipChart { get; set; }
+        [Required]
         public bool SoundSystem { get; set; }
     }
 }

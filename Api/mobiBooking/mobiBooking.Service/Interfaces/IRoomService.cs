@@ -11,12 +11,12 @@ namespace mobiBooking.Service.Interfaces
 {
     public interface IRoomService
     {
-        Task<IEnumerable<RoomDataModel>> GetAll();
-        Task<RoomModel> Get(int id);
-        Task<bool> Create(RoomModel value);
-        Task Update(int id, RoomModel value);
-        Task<bool> Delete(int id);
-        Task<IEnumerable<RoomDataModel>> GetForReservation(RoomsForReservationModel createReservationModel);
-        Task<IEnumerable<RoomAvailability>> GetRoomAvailabilities();
+        Task<IEnumerable<RoomDataModel>> GetAllAsync();
+        Task<RoomModel> GetAsync(int id);
+        Task<bool> CreateAsync(RoomModel value);
+        Task<bool> UpdateAsync(int id, RoomModel value);
+        Task<bool> DeleteAsync(int id);
+        Task<IEnumerable<RoomDataModel>> GetForReservationAsync(RoomsForReservationModel createReservationModel);
+        Task<IEnumerable<RoomAvailability>> GetRoomAvailabilitiesAsync();
     }
 }

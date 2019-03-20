@@ -23,48 +23,60 @@ namespace mobiBooking.WebApi.Controllers
 
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<ActionResult<TokenModel>> Login([FromBody]AuthenticateUserModel userParam)
+        public async Task<ActionResult<TokenModel>> LoginAsync([FromBody]AuthenticateUserModel userParam)
         {
-            TokenModel user = await _accountService.Authenticate(userParam.Email, userParam.Password);
-
-            if (user == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
-
-            return Ok(user);
+            TokenModel tokenModel = await _accountService.AuthenticateAsync(userParam.Email, userParam.Password);
+            if (tokenModel != null)
+            {
+                return Ok(tokenModel);
+            }
+            else
+            {
+                return BadRequest(new { message = "Incorrect email or password" });
+            }
         }
 
-        // POST: api/Users
-        //[AllowAnonymous]
         [Authorize(Roles = "Administrator")]
         [HttpPost("create")]
-        public async Task<ActionResult> CreateUser([FromBody] CreateUserModel value)
+        public async Task<ActionResult> CreateUserAsync([FromBody] CreateUserModel value)
         {
 
-            if (await _accountService.Create(value))
+            if (await _accountService.CreateAsync(value))
+            {
                 return Ok();
+            }
             else
+            {
                 return BadRequest(new { message = "Bad data or user with this email or username already exists." });
-
+            }
         }
 
-        // PUT: api/Users/5
         [Authorize(Roles = "Administrator")]
         [HttpPut("update/{id}")]
-        public async Task<ActionResult> UpdateUser(int id, [FromBody] EditUserModel value)
+        public async Task<ActionResult> UpdateUserAsync(int id, [FromBody] EditUserModel value)
         {
-            if (await _accountService.Update(id, value))
+            if (await _accountService.UpdateAsync(id, value))
+            {
                 return Ok();
+            }
             else
-                return BadRequest(new { message = "Bad data or user exists." });
+            {
+                return BadRequest(new { message = "Bad data or user with this email or username already exists." });
+            }
         }
 
-        // DELETE: api/ApiWithActions/5
         [Authorize(Roles = "Administrator")]
         [HttpDelete("delete/{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> DeleteAsync(int id)
         {
-            await _accountService.Delete(id);
-            return Ok();
+            if (await _accountService.DeleteAsync(id))
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(new { message = "User with this id is not exists." });
+            }
         }
     }
 }

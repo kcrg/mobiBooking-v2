@@ -1,12 +1,7 @@
-﻿using mobiBooking.Component;
-using mobiBooking.Data.Model;
-using mobiBooking.Model.RecivedModels;
-using mobiBooking.Model.SendModels;
-using mobiBooking.Repository.Base;
+﻿using mobiBooking.Model.SendModels;
 using mobiBooking.Repository.Interfaces;
 using mobiBooking.Service.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace mobiBooking.Service.Services
@@ -20,26 +15,10 @@ namespace mobiBooking.Service.Services
             _userRepository = userRepository;
         }
 
-        public async Task<IEnumerable<UserDataModel>> GetAll(bool isAdministrator)
+        public async Task<IEnumerable<UserDataModel>> GetAllAsync(bool isAdministrator)
         {
-            List<UserDataModel> users = new List<UserDataModel>();
-            (await _userRepository.FindAll()).ToList().ForEach(user =>
-            {
-                if (!isAdministrator && !user.Active)
-                        return;
-
-                        users.Add(new UserDataModel
-                        {
-                            Id = user.Id,
-                            Name = user.Name,
-                            Surname = user.Surname,
-                            Email = user.Email,
-                            Role = user.Role,
-                            UserName = user.UserName,
-                            Active = user.Active
-                        });
-            });
-            return users;
+            if (isAdministrator) return await _userRepository.FindAllAsync();
+            else return await _userRepository.FindActiveUsersAsync();
         }
     }
 }

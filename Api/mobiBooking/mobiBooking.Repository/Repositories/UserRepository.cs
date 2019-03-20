@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using mobiBooking.Data;
 using mobiBooking.Data.Model;
+using mobiBooking.Model.RecivedModels;
+using mobiBooking.Model.SendModels;
+using mobiBooking.Model.User.Request;
 using mobiBooking.Repository.Base;
 using mobiBooking.Repository.Interfaces;
 using System.Collections.Generic;
@@ -9,41 +12,81 @@ using System.Threading.Tasks;
 
 namespace mobiBooking.Repository.Repositories
 {
-    public class UserRepository : RepositoryBase<User>, IUserRepository
+    public class UserRepository : RepositoryBase, IUserRepository
     {
         public UserRepository(MobiBookingDBContext DBContext) : base(DBContext)
         {
 
         }
 
-        public Task<IEnumerable<User>> FindAllWithout(int loggedUserid)
+        public async Task CreateAsync(CreateUserModel value, string pass, byte[] salt)
         {
-            return Task.Run(() => (from Users in DBContext.Users
-                                   where Users.Id != loggedUserid
-                                   select Users).AsEnumerable());
+            await DBContext.Users.AddAsync(new User
+            {
+                Email = value.Email,
+                Name = value.Name,
+                Password = pass,
+                Salt = salt,
+                Surname = value.Surname,
+                UserName = value.UserName,
+                Role = value.UserType,
+                Active = true
+            });
         }
 
-        public Task<User> FindByEmail(string email)
+        public Task DeleteAsync(int id)
+        {
+            return Task.Run(() => DBContext.Remove(DBContext.Users.Where(i => i.Id == id)));
+        }
+
+        public async Task<User> FindAsync(int id)
+        {
+            return await DBContext.Users.Where(i => i.Id == id).FirstOrDefaultAsync();
+        }
+
+        public async Task<List<UserDataModel>> FindActiveUsersAsync()
+        {
+            return await DBContext.Users
+                 .Where(w => !w.Active)
+                 .Select(s => new UserDataModel
+                 {
+                     Active = s.Active,
+                     Email = s.Email,
+                     Id = s.Id,
+                     Name = s.Name,
+                     Role = s.Role,
+                     Surname = s.Surname,
+                     UserName = s.UserName
+                 }).ToListAsync();
+        }
+
+        public async Task<IEnumerable<UserDataModel>> FindAllAsync()
+        {
+            return await DBContext.Users
+                 .Select(s => new UserDataModel
+                 {
+                     Active = s.Active,
+                     Email = s.Email,
+                     Id = s.Id,
+                     Name = s.Name,
+                     Role = s.Role,
+                     Surname = s.Surname,
+                     UserName = s.UserName
+                 }).ToListAsync();
+        }
+
+        public Task<User> FindActiveByEmailAsync(string email)
         {
             return (from Users in DBContext.Users
                     where Users.Email == email
+                    where Users.Active == true
                     select Users)
                     .ToAsyncEnumerable()
                     .FirstOrDefault();
 
         }
 
-        public Task<User> FindByEmailAndPassword(string email, string password)
-        {
-            return (from Users in DBContext.Users
-                    where Users.Email == email && Users.Password == password
-                    select Users)
-                    .ToAsyncEnumerable()
-                    .FirstOrDefault();
-
-        }
-
-        public Task<IEnumerable<User>> FindRange(IEnumerable<int> Ids)
+        public Task<IEnumerable<User>> FindRangeAsync(IEnumerable<int> Ids)
         {
             return Task.Run(() => (from Users in DBContext.Users
                                    where Ids.Contains(Users.Id)
@@ -51,19 +94,32 @@ namespace mobiBooking.Repository.Repositories
 
         }
 
-        public Task<bool> UserExist(string email, string userName)
+        public Task<bool> UserExistAsync(string email, string userName)
         {
             return (from Users in DBContext.Users
-                               where Users.Email == email || Users.UserName == userName
-                               select Users).AnyAsync();
+                    where Users.Email == email || Users.UserName == userName
+                    select Users).AnyAsync();
         }
 
-        public Task<bool> UserExist(string email, string userName, int id)
+        public Task<bool> UserExistAsync(string email, string userName, int id)
         {
             return (from Users in DBContext.Users
                     where Users.Email == email || Users.UserName == userName
                     where Users.Id != id
                     select Users).AnyAsync();
+        }
+
+        public async Task UpdateAsync(int id, EditUserModel userModel)
+        {
+            User user = await DBContext.Users.FindAsync(id);
+            user.Active = userModel.Active;
+            user.Email = userModel.Email;
+            user.Name = userModel.Name;
+            user.Password = userModel.Password;
+            user.Role = userModel.UserType;
+            user.Surname = userModel.Surname;
+            user.UserName = userModel.UserName;
+            await Task.Run(() => DBContext.Users.Update(user));
         }
     }
 }

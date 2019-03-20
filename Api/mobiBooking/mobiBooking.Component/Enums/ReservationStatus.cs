@@ -6,7 +6,7 @@ namespace mobiBooking.Component.Enums
 {
     public enum ReservationStatus
     {
-        Reserved,
-        NotReserved
+        Reserved = 0,
+        NotReserved = 1
     }
 }

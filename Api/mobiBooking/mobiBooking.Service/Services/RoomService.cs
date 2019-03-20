@@ -20,137 +20,67 @@ namespace mobiBooking.Service.Services
             _roomRepository = roomRepository;
         }
 
-        public async Task<bool> Create(RoomModel value)
+        public async Task<bool> CreateAsync(RoomModel value)
         {
-            if (value.Availability == null
-                || string.IsNullOrEmpty(value.Location)
-                || string.IsNullOrEmpty(value.RoomName)
-                || value.Activity == null
-                || value.NumberOfPeople == null
-                || value.SoundSystem == null
-                || value.Flipchart == null
-                || await _roomRepository.CheckIfRoomExists(value.RoomName))
+
+            var test1 = await _roomRepository.CheckIfRoomExistsAsync(value.RoomName);
+
+            var test2 = await _roomRepository.CheckIfAvailabilityExistsAsync(value.Availability);
+
+            if (test1 || !(test2))
             {
                 return false;
             }
 
-            await _roomRepository.Create(new Room
-            {
-                Activity = (bool)value.Activity,
-                AvailabilityId = (int)value.Availability,
-                Location = value.Location,
-                Name = value.RoomName,
-                NumberOfPeople = (int)value.NumberOfPeople,
-                SoundSystem = (bool)value.SoundSystem,
-                Flipchart = (bool)value.Flipchart
-            });
+            await _roomRepository.CreateAsync(value);
             await _roomRepository.Save();
 
             return true;
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            Room room = await _roomRepository.Find(id);
+            Room room = await _roomRepository.FindAsync(id);
 
             if (room == null)
             {
                 return false;
             }
 
-            await _roomRepository.Delete(room);
+            await _roomRepository.DeleteAsync(room);
             return true;
         }
 
-        public async Task<RoomModel> Get(int id)
+        public async Task<RoomModel> GetAsync(int id)
         {
-            Room room = await _roomRepository.Find(id);
-
-            if (room == null)
-            {
-                return null;
-            }
-
-            return new RoomModel
-            {
-                Activity = room.Activity,
-                Availability = room.Availability.Id,
-                Location = room.Location,
-                NumberOfPeople = room.NumberOfPeople,
-                RoomName = room.Name,
-                Flipchart = room.Flipchart,
-                SoundSystem = room.SoundSystem
-            };
+            return await _roomRepository.FindRoomAsync(id);
         }
 
-        public async Task<IEnumerable<RoomDataModel>> GetAll()
+        public async Task<IEnumerable<RoomDataModel>> GetAllAsync()
         {
-            List<RoomDataModel> roomModels = new List<RoomDataModel>();
-
-            (await _roomRepository.FindAll()).ToList().ForEach(room =>
-            {
-                roomModels.Add(new RoomDataModel
-                {
-                    Id = room.Id,
-                    Name = room.Name,
-                    Activity = room.Activity,
-                    Availability = room.AvailabilityId,
-                    Location = room.Location,
-                    NumberOfPeople = room.NumberOfPeople,
-                    SoundSystem = room.SoundSystem,
-                    Flipchart = room.Flipchart
-                });
-            });
-
-            return roomModels;
+            return await _roomRepository.FindAllAsync();
         }
 
-        public async Task<IEnumerable<RoomDataModel>> GetForReservation(RoomsForReservationModel roomForReservationModel)
+        public async Task<IEnumerable<RoomDataModel>> GetForReservationAsync(RoomsForReservationModel roomForReservationModel)
         {
-            List<RoomDataModel> roomModels = new List<RoomDataModel>();
-
-            (await _roomRepository.GetRoomsForReservation(
-                roomForReservationModel.Size,
-                roomForReservationModel.DateFrom,
-                roomForReservationModel.DateTo,
-                roomForReservationModel.SoundSystem,
-                roomForReservationModel.FlipChart)).ToList().ForEach(room =>
-            {
-                roomModels.Add(new RoomDataModel
-                {
-                    Id = room.Id,
-                    Name = room.Name,
-                    Activity = room.Activity,
-                    Availability = room.AvailabilityId,
-                    Location = room.Location,
-                    NumberOfPeople = room.NumberOfPeople,
-                    SoundSystem = room.SoundSystem,
-                    Flipchart = room.Flipchart
-                });
-            });
-
-            return roomModels;
+            return await _roomRepository.GetRoomsForReservationAsync(roomForReservationModel);
         }
 
-        public Task<IEnumerable<RoomAvailability>> GetRoomAvailabilities()
+        public Task<IEnumerable<RoomAvailability>> GetRoomAvailabilitiesAsync()
         {
-            return _roomRepository.GetRoomAvailabilities();
+            return _roomRepository.GetRoomAvailabilitiesAsync();
         }
 
-        public async Task Update(int id, RoomModel value)
+        public async Task<bool> UpdateAsync(int id, RoomModel value)
         {
-            Room room = await _roomRepository.Find(id);
 
-            room.Activity = value.Activity ?? room.Activity;
-            room.AvailabilityId = value.Availability ?? room.AvailabilityId;
-            room.Location = value.Location ?? room.Location;
-            room.Name = value.RoomName ?? room.Name;
-            room.NumberOfPeople = value.NumberOfPeople ?? room.NumberOfPeople;
-            room.Flipchart = value.Flipchart ?? room.Flipchart;
-            room.SoundSystem = value.SoundSystem ?? room.SoundSystem;
+            if (await _roomRepository.FindAsync(id) == null || await _roomRepository.CheckIfRoomExistsAsync(value.RoomName, id))
+                return false;
 
-            await _roomRepository.Update(room);
+            await _roomRepository.UpdateAsync(id, value);
             await _roomRepository.Save();
+
+            return true;
         }
     }
 }
