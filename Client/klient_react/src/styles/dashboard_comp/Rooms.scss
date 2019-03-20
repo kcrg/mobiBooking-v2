@@ -1,0 +1,30 @@
+@import '../../index.scss';
+
+.rooms{
+    display: flex;
+    flex-direction: column;
+    max-width: 250px;
+    background: $primary-color;
+    padding: 10px 10px 20px 10px;
+    margin: 20px auto 0 auto;
+    border-radius: 5px;
+    color: #222;
+
+    h5{
+        font-size: 18px;
+    }
+
+    span{
+        font-size: 22px;
+        color: $mobi-blue;
+        font-weight: bold;
+    }
+
+}
+
+@media only screen and(min-width: 740px){
+    .rooms{
+        min-width: 400px;
+        min-height: 300px;
+    }
+}

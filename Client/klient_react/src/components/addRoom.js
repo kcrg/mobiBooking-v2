@@ -70,11 +70,19 @@ class AddRoom extends Component {
       this.setState({
         error: 'errors',
         succes: 'default'
+      }, () =>{
+        setTimeout(() =>{
+          this.setState({error: 'default'});
+         }, 3000);
       })
     }else{
       this.setState({
         succes: 'done',
         error: 'default'
+      }, () =>{
+        setTimeout(() =>{
+          this.setState({succes: 'default'});
+         }, 3000);
       })
     };
   }
@@ -130,42 +138,59 @@ class AddRoom extends Component {
   render() {
     return (
         <div className="add_room">
+
           <h2>Dodaj salę:</h2>
 
           <form onSubmit={this.handleSubmit} className="add_room_form">
-            <label htmlFor="roomName">Nazwa sali:</label>
-            <input type="text" id="roomName" onChange={e => this.handleChange('roomName', e.target.value)} required></input><br/>  
+            <div className="room_label">
+              <label htmlFor="roomName">Nazwa sali:</label>
+              <input type="text" id="roomName" onChange={e => this.handleChange('roomName', e.target.value)} required placeholder="Nazwa sali"></input>
+            </div>
 
-            <label htmlFor="location">Lokalizacja:</label>
-            <input type="text" id="location" onChange={e => this.handleChange('location', e.target.value)} required></input><br/>  
+            <div className="location">
+              <label htmlFor="location">Lokalizacja:</label>
+              <input type="text" id="location" onChange={e => this.handleChange('location', e.target.value)} required placeholder="Lokalizacja"></input> 
+            </div>
 
-            <label htmlFor="numberOfPeople">Liczba osób</label>
-            <input type="number" id="numberOfPeople" onChange={e => this.handleNChange('numberOfPeople', e.target.value)} required></input><br/>  
+            <div className="number_of_people">
+              <label htmlFor="numberOfPeople">Liczba osób:</label>
+              <input type="number" id="numberOfPeople" onChange={e => this.handleNChange('numberOfPeople', e.target.value)} required></input> 
+            </div>
 
-            <label htmlFor="activity">Aktywność:</label>
-            <select id="activity" onChange={e => this.handleAChange('activity', e.target.value)}>
-              <option>Tak</option>
-              <option>Nie</option>
-            </select>
+            <div className="activity">
+              <label htmlFor="activity">Aktywność:</label>
+              <select id="activity" onChange={e => this.handleAChange('activity', e.target.value)}>
+                <option>Tak</option>
+                <option>Nie</option>
+              </select>
+            </div>
 
-            <label htmlFor="availability">Dostępność:</label>
-            <select id="availability" onChange={e => this.handleChange('availability', e.target.value)}>
-              {this.state.mapAva}
-            </select><br/>
+            <div className="availability">
+              <label htmlFor="availability">Dostępność:</label>
+              <select id="availability" onChange={e => this.handleChange('availability', e.target.value)}>
+                {this.state.mapAva}
+              </select>
+            </div>
 
             <div className="equ_lab">
               <span>Wybierz wyposażenie:</span>
             </div>
 
             <div className="equip">
-              <label htmlFor="flipchart">Flipchart</label>
-              <input type="checkbox" value="flipchart" id="flipchart" onChange={e=>{this.handleCheck('flipchart', e.target.checked)}}></input>
-           
-              <label htmlFor="voice">System nagłaśniający</label>
-              <input type="checkbox" value="voice" id="voice" onChange={e=>{this.handleCheck('soundSystem', e.target.checked)}}></input>
+              <div className="flipchart_label">
+                <label htmlFor="flipchart">Flipchart</label>
+                <input type="checkbox" value="flipchart" id="flipchart" onChange={e=>{this.handleCheck('flipchart', e.target.checked)}}></input>
+              </div>
+
+              <div className="voice_label">
+                <label htmlFor="voice">System nagłaśniający</label>
+                <input type="checkbox" value="voice" id="voice" onChange={e=>{this.handleCheck('soundSystem', e.target.checked)}}></input>
+              </div>
             </div>
 
-            <input type="submit" value="Zapisz"></input>
+            <div className="add_room_submit">
+              <input type="submit" value="Zapisz"></input>
+            </div>
 
             <div className={this.state.error}>
               <span>Błąd! Spróbuj ponownie</span>
@@ -174,6 +199,7 @@ class AddRoom extends Component {
             <div className={this.state.succes}>
               <span>Dodano salę!</span>
             </div>
+
           </form>
       </div>
     )

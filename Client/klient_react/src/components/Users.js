@@ -12,7 +12,6 @@ export default class Users extends Component {
 
     componentWillReceiveProps(){
         const { users } = this.props
-        console.log(users)
         if(users != null){
             this.setState({
                 users
@@ -37,7 +36,7 @@ export default class Users extends Component {
     mapItems = () =>{
     const userItem = this.state.users.map(user =>{
     return(
-        <div key={user.id} className="origin">
+        <div key={user.id}>
             <UserTemp id={user.id} name={user.name} surname={user.surname} AddUser = {this.AddSelectedUser} DeleteUser = {this.DeleteSelectedUser}></UserTemp>
         </div>
     )

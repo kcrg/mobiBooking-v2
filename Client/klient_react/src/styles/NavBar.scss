@@ -36,9 +36,9 @@
         transition-duration: 0.1s;
         transition-timing-function: linear;
         display: flex;
+        min-height: 800px;
         height: 100%;
         flex-direction: column;
-        position: fixed;
         width: 300px;
         border-bottom-right-radius: 5px;
         border-top-right-radius: 5px;
@@ -54,7 +54,6 @@
             margin-right: auto;
             list-style-type: none;
             font-size: 28px;
-            flex-grow: 1;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
             .none{
@@ -65,27 +64,12 @@
                 text-decoration: none;
                 display: flex;
                 color: #222;
-                flex-grow: 1;
                 padding: 2px;
                 border-top: 2px solid #222;
                 padding: 4px;
                 align-items: center;
                 justify-content: center;
             }
-
-              .reserv-links{
-                list-style-type: none;
-                padding: 0;
-                display: flex;
-                flex-flow: column;
-                flex-grow: 2;
-                padding: 2px;
-
-                a{
-                    border-top: 2px solid #222;
-                }
-            }
-
         }
     }
     .navigation-showed{
@@ -121,26 +105,12 @@
                 text-decoration: none;
                 display: flex;
                 color: #222;
-                flex-grow: 1;
                 padding: 2px;
                 border-top: 2px solid #222;
                 padding: 4px;
+                min-height: 80px;
                 align-items: center;
             }
-
-            .reserv-links{
-                list-style-type: none;
-                padding: 0;
-                display: flex;
-                flex-flow: column;
-                flex-grow: 2;
-                padding: 2px;
-
-                a{
-                    border-top: 2px solid #222;
-                }
-            }
-
         }
     }
 }
@@ -175,7 +145,6 @@
                     margin-right: auto;
                     list-style-type: none;
                     font-size: 28px;
-                    flex-grow: 1;
                     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         
                     .none{
@@ -186,25 +155,11 @@
                         text-decoration: none;
                         display: flex;
                         color: #222;
-                        flex-grow: 1;
                         padding: 2px;
                         border-top: 2px solid #222;
                         justify-items: flex-end;
+                        min-height: 80px;
                     }
-        
-                    .reserv-links{
-                        list-style-type: none;
-                        padding: 0;
-                        display: flex;
-                        flex-flow: column;
-                        flex-grow: 2;
-                        padding: 2px;
-        
-                        a{
-                            border-top: 2px solid #222;
-                        }
-                    }
-        
                 }
             }
     }

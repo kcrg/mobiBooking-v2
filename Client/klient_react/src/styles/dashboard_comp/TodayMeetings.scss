@@ -1,0 +1,40 @@
+@import '../../index.scss';
+
+.today_meetings{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: $primary-color;
+    max-width: 250px;
+    overflow: auto;
+    color: #222;
+    padding: 10px 10px 20px 10px;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+
+    .svg-inline--fa{
+        font-size: 60px;
+        opacity: 0.4;
+    }
+
+    .time{
+        font-size: 18px;
+        font-style: italic;
+    }
+}
+
+@media only screen and(min-width: 740px){
+    .today_meetings{
+        max-width: 400px;
+        min-height: 300px;
+        align-items: center;
+
+        .svg-inline--fa{
+            font-size: 80px;
+            opacity: 0.4;
+            margin-top: 20px;
+        }
+    }
+}

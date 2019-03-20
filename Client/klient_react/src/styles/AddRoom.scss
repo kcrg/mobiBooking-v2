@@ -1,129 +1,212 @@
 @import '../index.scss';
 
 .add_room{
+    display: flex;
     width: 100%;
     height: auto;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+    min-height: 1000px;
     background: $mobi-purple;
+    flex-direction: column;
     align-items: center;
-
-    .default{
-        display: none;
-    }
-
-    .errors{
-        display: flex;
-        background: red;
-        color: $primary-color;
-        align-items: center;
-        font-size: 30px;
-        text-align: center;
-        padding: 30px;
-        min-width: 200px;
-        min-height: 120px;
-        border-radius: 5px;
-        margin-bottom: 30px;
-        
-        span{
-            text-align: center;
-            width: 100%;
-            align-items: center;
-        }
-    }
-
-    .done{
-        display: flex;
-        background: green;
-        color: $primary-color;
-        align-items: center;
-        font-size: 25px;
-        text-align: center;
-        padding: 30px;
-        min-width: 200px;
-        min-height: 120px;
-        border-radius: 5px;
-        margin-bottom: 30px;
-
-        span{
-            text-align: center;
-            width: 100%;
-            align-items: center;
-        }
-    }
+    color: $primary-color;
 
     h2{
-        margin-top: 100px;
-        margin-bottom: 20px;
-        color: $primary-color;
+        margin-top: 80px;
     }
 
     .add_room_form{
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-
-        label{
-            font-size: 25px;
-            color: $primary-color;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            min-width: 180px;
-            margin-bottom: 10px;
-            margin-top: 10px;
-        }
-
-        input{
-            font-size: 22px;
-            border-radius: 5px;
-            max-width: 240px;
-            align-self: center;
-        }
-
-        input[type="number"]{
-            max-width: 235px;
-        }
-
-        input[type="checkbox"]{
-            transform: scale(2);
-        }
-
-        input[type="submit"]{
-            min-width: 220px;
-            font-size: 28px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            background: $mobi-blue;
-            color: $primary-color;
-            padding: 10px;
-        }
+        overflow: auto;
 
         select{
-            min-width: 240px;
-            font-size: 22px;
+            min-width: 230px;
             border-radius: 5px;
             align-self: center;
+            font-size: 18px;
+        }
+
+        ::-webkit-input-placeholder{
+            font-size: 15px;
+            padding-left: 4px;
+        }
+
+        .room_label{
+            display: flex;
+            flex-direction: column;
+
+            label{
+                font-size: 20px;
+                align-self: center;
+                min-width: 230px;
+                margin-top: 8px;
+            }
+
+            
+            input{
+                font-size: 18px;
+                width: 230px;
+                align-self: center;
+                border-radius: 5px;
+            }
+
+        }
+
+        .location{
+            display: flex;
+            flex-direction: column;
+
+            label{
+                font-size: 20px;
+                align-self: center;
+                min-width: 230px;
+                margin-top: 8px;
+            }
+
+            
+            input{
+                font-size: 18px;
+                width: 230px;
+                align-self: center;
+                border-radius: 5px;
+            }
+        }
+
+        .number_of_people{
+            display: flex;
+            flex-direction: column;
+
+            label{
+                font-size: 20px;
+                align-self: center;
+                min-width: 230px;
+                margin-top: 8px;
+            }
+
+            
+            input{
+                font-size: 18px;
+                width: 230px;
+                align-self: center;
+                border-radius: 5px;
+            }
+        }
+
+        .activity{
+            display: flex;
+            flex-direction: column;
+
+            label{
+                font-size: 20px;
+                align-self: center;
+                min-width: 230px;
+                margin-top: 8px;
+            }
+        }
+
+        .availability{
+            display: flex;
+            flex-direction: column;
+
+            label{
+                font-size: 20px;
+                align-self: center;
+                min-width: 230px;
+                margin-top: 8px;
+            }
         }
 
         .equ_lab{
-            color: $primary-color;
-            margin-top: 20px;
-            font-size: 24px;
-            font-weight: bold;
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+
+            span{
+                font-size: 20px;
+            }
         }
 
         .equip{
             display: flex;
             flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
 
-            label{
-                max-width: 100px;
+            .flipchart_label{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                label{
+                    display: inline-block;
+                    line-height: 45px;
+                    font-size: 18px;
+                }
+
+                input[type="checkbox"]{
+                    position: relative;
+                    top: 2px;
+                    display: inline-block;
+                    margin: 0 0 0 10px;
+                }
             }
 
+            .voice_label{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                label{
+                    display: inline-block;
+                    line-height: 45px;
+                    font-size: 18px;
+                }
+
+                input[type="checkbox"]{
+                    position: relative;
+                    top: 2px;
+                    display: inline-block;
+                    margin: 0 0 0 10px;
+                }
+            }
+        }
+
+        .add_room_submit{
+            display: flex;
+            margin-top: 10px;
+            justify-content: center;
+
+            input[type="submit"]{
+                min-width: 200px;
+                font-size: 20px;
+                background: $mobi-blue;
+                color: $primary-color;
+                padding: 4px;
+                border-radius: 5px;
+            }
+        }
+
+        .default{
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            font-weight: bold;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .errors{
+            margin-top: 20px;
+            padding: 20px;
+            font-weight: bold;
+            border-radius: 5px;
+            text-align: center;
+            background: red;
+        }
+
+        .done{
+            margin-top: 20px;
+            padding: 20px;
+            font-weight: bold;
+            border-radius: 5px;
+            text-align: center;
+            background: green;
         }
     }
 }
@@ -131,116 +214,97 @@
 @media only screen and (min-width: 700px){
     .add_room{
 
-        .errors{
-            min-width: 500px;
-        }
-
-        .done{
-            min-width: 500px;
-        }
-        .add_room_form{
-            flex-direction: row;
-            height: 900px;
-
-            label{
-                min-width: 320px;
-                margin-bottom: 20px;
-            }
-
-            input{
-                min-width: 280px;
-                margin-bottom: 20px;
-                justify-self: flex-start;
-                margin-right: 100px;
-            }
-
-            select{
-                min-width: 280px;
-                margin-bottom: 20px;
-                margin-right: 100px;
-            }
-
-            .equ_lab{
-                min-width: 600px;
-            }
-
-            .equip{
-                flex-direction: row;
-                justify-content: center;
-                justify-items: center;
-                width: 680px;
-
-                input{
-                    margin: 0;
-                    min-width: 100px;
-                }
-
-                label{
-                    min-width: 220px;
-                }
-                
-            }
-
-            input[type="submit"]{
-                min-width: 400px;
-                margin: 30px 0 50px 0;
-            }
-        }
-    }
-}
-
-
-@media only screen and (min-width: 900px){
-    .add_room{
-        .errors{
-            min-width: 800px;
-        }
-
-        .done{
-            min-width: 600px;
-        }
-    }
-}
-
-
-@media only screen and (min-width: 1200px){
-    .add_room{
         h2{
-            margin-bottom: 40px;
-        }
-
-        .errors{
-            min-width: 52%;
-        }
-
-        .done{
-            min-width: 60%;
+            margin-top: 100px;
         }
         .add_room_form{
+            width: 100%;
+            margin-top: 20px;
+            text-align: center;
 
-            label{
-                min-width: 30%;
+            .errors{
+                display: inline-block;
+                min-width: 400px;
                 align-self: center;
             }
 
-            .equip{
-                min-width: 85%;
+            
+            .done{
+                display: inline-block;
+                min-width: 400px;
+                align-self: center;
+            }
+
+            .room_label{
+                flex-direction: row;
+                justify-content: center;
 
                 label{
-                    min-width: 45%;
-                }
-
-                input[type="checkbox"]{
-                   min-width: 20px;;
+                    text-align: right;
+                    margin: 0 10px 0 0;
+                    min-width: auto;
                 }
             }
 
-            input{
-                min-width: 40%;
+            .location{
+                flex-direction: row;
+                justify-content: center;
+                margin-top: 20px;
+
+                label{
+                    text-align: right;
+                    margin: 0 10px 0 0;
+                    min-width: auto;
+                }
             }
 
-            select{
-                min-width: 40%;
+            .number_of_people{
+                flex-direction: row;
+                justify-content: center;
+                margin-top: 20px;
+
+                label{
+                    text-align: right;
+                    margin: 0 10px 0 0;
+                    min-width: 85px;
+                }
+
+                input{
+                    margin-right: 8px;
+                }
+            }
+
+            .activity{
+                flex-direction: row;
+                justify-content: center;
+                margin-top: 20px;
+
+                label{
+                    text-align: right;
+                    margin: 0 10px 0 0;
+                    min-width: 85px;
+                }
+            }
+
+            .availability{
+                flex-direction: row;
+                justify-content: center;
+                margin-top: 20px;
+
+                label{
+                    text-align: right;
+                    margin: 0 10px 0 0;
+                    min-width: 85px;
+                }
+
+                select{
+                    margin-right: 10px;;
+                }
+            }
+            .equip{
+                .flipchart_label{
+                    margin-top: 20px;
+                }
             }
         }
     }

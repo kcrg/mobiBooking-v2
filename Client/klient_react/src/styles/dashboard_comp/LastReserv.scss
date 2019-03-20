@@ -1,0 +1,43 @@
+@import '../../index.scss';
+
+.last_reserv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: $primary-color;
+    max-width: 250px;
+    min-height: 250px;
+    overflow: auto;
+    color: #222;
+    padding: 10px 10px 20px 10px;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+
+    h3{
+        margin: 0;
+    }
+
+    .reserv_time{
+        height: 200px;
+        width: 250px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+    }
+}
+
+@media only screen and(min-width: 740px){
+    .last_reserv{
+        min-width: 400px;
+        min-height: 300px;
+        align-items: center;
+        justify-content: center;
+
+        .reserv_time{
+            font-size: 25px;
+        }
+    }
+}
