@@ -1,19 +1,17 @@
 ﻿using mobiBooking.Model.RecivedModels;
-using mobiBooking.Model.Reservation.Request;
-using System;
+using mobiBooking.Model.Reservation.Response;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace mobiBooking.Service.Interfaces
 {
     public interface IReservationService
     {
-        Task<IEnumerable<ReservationModel>> GetAll();
-        Task<ReservationModel> Get(int id);
-        Task<bool> Create(ReservationModel value, int OwnerUserId);
-        Task Update(int id, ReservationModel value);
-        Task<bool> Delete(int id);
-        Task<IEnumerable<ReservationIntervalModel>> GetReservationIntervals();
+        Task<IEnumerable<ReservationModel>> GetAllAsync();
+        Task<ReservationModel> GetAsync(int id);
+        Task<bool> CreateAsync(ReservationModel value, int OwnerUserId);
+        Task UpdateAsync(int id, ReservationModel value);
+        Task<bool> DeleteAsync(int id);
+        Task<IEnumerable<ReservationIntervalModel>> GetReservationIntervalsAsync();
     }
 }

@@ -10,9 +10,9 @@ namespace mobiBooking.Service.Interfaces
 {
     public interface IAccountService
     {
-        Task<TokenModel> Authenticate(string email, string password);
-        Task<bool> Create(CreateUserModel value);
-        Task<bool> Update(int id, EditUserModel value);
-        Task Delete(int id);
+        Task<TokenModel> AuthenticateAsync(string email, string password);
+        Task<bool> CreateAsync(CreateUserModel value);
+        Task<bool> UpdateAsync(int id, EditUserModel value);
+        Task<bool> DeleteAsync(int id);
     }
 }

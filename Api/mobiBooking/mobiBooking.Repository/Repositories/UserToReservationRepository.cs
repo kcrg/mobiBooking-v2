@@ -8,7 +8,7 @@ using System.Text;
 
 namespace mobiBooking.Repository.Repositories
 {
-    public class UserToReservationRepository : RepositoryBase<UserToReservation>, IUserToReservationRepository
+    public class UserToReservationRepository : RepositoryBase, IUserToReservationRepository
     {
         public UserToReservationRepository(MobiBookingDBContext DBContext) : base(DBContext)
         {

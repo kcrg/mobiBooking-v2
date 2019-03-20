@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using mobiBooking.Model.RecivedModels;
-using mobiBooking.Model.Reservation.Request;
+using mobiBooking.Model.Reservation.Response;
 using mobiBooking.Service.Interfaces;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 
 namespace mobiBooking.WebApi.Controllers
@@ -18,46 +18,45 @@ namespace mobiBooking.WebApi.Controllers
             _reservationService = reservationService;
         }
 
-        // GET: api/Reservation
         [HttpGet("get_all")]
-        public ActionResult<IEnumerable<ReservationModel>> Get()
+        public ActionResult<IEnumerable<ReservationModel>> GetAsync()
         {
             return Ok();
         }
 
-        // GET: api/Reservation/5
         [HttpGet("get/{id}", Name = "Get")]
         public ActionResult Get(int id)
-        { 
+        {
             return Ok();
         }
 
         [HttpGet("get_reservation_intervals")]
-        public async Task<ActionResult<IEnumerable<ReservationIntervalModel>>> GetReservationIntervals()
+        public async Task<ActionResult<IEnumerable<ReservationIntervalModel>>> GetReservationIntervalsAsync()
         {
-            return Ok(await _reservationService.GetReservationIntervals());
+            return Ok(await _reservationService.GetReservationIntervalsAsync());
         }
 
-        // POST: api/Reservation
         [HttpPost("create")]
-        public async Task<ActionResult> Post([FromBody] ReservationModel value)
+        public async Task<ActionResult> PostAsync([FromBody] ReservationModel value)
         {
-            if (await _reservationService.Create(value, int.Parse(User.Identity.Name)))
+            if (await _reservationService.CreateAsync(value, int.Parse(User.Identity.Name)))
+            {
                 return Ok();
+            }
             else
-                return BadRequest(new { message = "Wrong data" });
+            {
+                return BadRequest(new { message = "Wrong data or room reserved." });
+            }
         }
 
-        // PUT: api/Reservation/5
         [HttpPut("update/{id}")]
-        public ActionResult Put(int id, [FromBody] string value)
+        public ActionResult PutAsync(int id, [FromBody] string value)
         {
             return Ok();
         }
 
-        // DELETE: api/ApiWithActions/5
         [HttpDelete("delete/{id}")]
-        public ActionResult Delete(int id)
+        public ActionResult DeleteAsync(int id)
         {
             return Ok();
         }

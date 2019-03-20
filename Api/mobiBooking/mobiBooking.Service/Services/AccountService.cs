@@ -26,107 +26,59 @@ namespace mobiBooking.Service.Services
             _userRepository = userRepository;
         }
 
-        public async Task<TokenModel> Authenticate(string email, string password)
+        public async Task<TokenModel> AuthenticateAsync(string email, string password)
         {
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+
+            User user = await _userRepository.FindActiveByEmailAsync(email);
+
+            if (user == null || user.Password != Helpers.HashPassword(password, user.Salt))
             {
                 return null;
             }
 
-            User user = await _userRepository.FindByEmail(email);
-
-            if (user == null)
+            return new TokenModel
             {
-                return null;
-            }
-
-            string hashedPassword = Helpers.HashPassword(password, user.Salt);
-
-            if (user.Password != hashedPassword || !user.Active)
-            {
-                return null;
-            }
-
-            string token = GenerateToken(user);
-
-            TokenModel userDataModel = new TokenModel
-            {
-                Token = token
+                Token = GenerateToken(user)
             };
-
-            await _userRepository.Update(user);
-            await _userRepository.Save();
-
-            return userDataModel;
         }
 
-        public async Task<bool> Create(CreateUserModel value)
+        public async Task<bool> CreateAsync(CreateUserModel value)
         {
 
-            if (string.IsNullOrEmpty(value.Email)
-                || string.IsNullOrEmpty(value.Name)
-                || string.IsNullOrEmpty(value.Password)
-                || string.IsNullOrEmpty(value.Surname)
-                || string.IsNullOrEmpty(value.UserName)
-                || string.IsNullOrEmpty(value.UserType))
-            {
-                return false;
-            }
-
-            if (value.UserType != "Administrator" && value.UserType != "User")
-            {
-                return false;
-            }
-
-            if (await _userRepository.UserExist(value.Email, value.UserName))
+            if (await _userRepository.UserExistAsync(value.Email, value.UserName))
             {
                 return false;
             }
 
             byte[] salt = Helpers.GenerateSalt();
-
-            await _userRepository.Create(new User
-            {
-                Email = value.Email,
-                Name = value.Name,
-                Password = Helpers.HashPassword(value.Password, salt),
-                Salt = salt,
-                Surname = value.Surname,
-                UserName = value.UserName,
-                Role = value.UserType,
-                Active = true
-            });
-
+            await _userRepository.CreateAsync(value, Helpers.HashPassword(value.Password, salt), salt);
             await _userRepository.Save();
 
             return true;
         }
 
-        public async Task Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            await _userRepository.Delete(await _userRepository.Find(id));
+            if (await _userRepository.FindAsync(id) == null)
+            {
+                return false;
+            }
+
+            await _userRepository.DeleteAsync(id);
             await _userRepository.Save();
+            return true;
         }
 
-        public async Task<bool> Update(int id, EditUserModel value)
+        public async Task<bool> UpdateAsync(int id, EditUserModel value)
         {
-            User user = await _userRepository.Find(id);
+            User user = await _userRepository.FindAsync(id);
 
-            user.Password = (value.Password != null)
-                ? (Helpers.HashPassword(value.Password, Helpers.GenerateSalt()))
-                : (user.Password);
-            user.Name = value.Name ?? user.Name;
-            user.Surname = value.Surname ?? user.Surname;
-            user.UserName = value.UserName ?? user.UserName;
-            user.Email = value.Email ?? user.Email;
-            user.Role = value.UserType ?? user.Role;
-            user.Active = value.Active ?? user.Active;
+            if (user == null || await _userRepository.UserExistAsync(user.Email, user.UserName, user.Id))
+            {
+                return false;
+            }
 
-            if (!string.IsNullOrEmpty(user.Email) || !string.IsNullOrEmpty(user.UserName))
-                if (await _userRepository.UserExist(user.Email, user.UserName, user.Id))
-                    return false;
-
-            await _userRepository.Update(user);
+            await _userRepository.UpdateAsync(id, value);
             await _userRepository.Save();
 
             return true;
@@ -134,7 +86,6 @@ namespace mobiBooking.Service.Services
 
         private string GenerateToken(User user)
         {
-            // authentication successful so generate jwt token
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             byte[] key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor

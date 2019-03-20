@@ -35,6 +35,11 @@ namespace mobiBooking.Data
             .HasMany(c => c.Reservations)
             .WithOne(e => e.Room);
 
+            CreateTemplateData(modelBuilder);
+        }
+
+        private void CreateTemplateData(ModelBuilder modelBuilder)
+        {
             byte[] salt = Helpers.GenerateSalt();
 
             modelBuilder.Entity<User>().HasData(new User
@@ -101,7 +106,7 @@ namespace mobiBooking.Data
                     Time = Intervals.Year
                 }
             );
-
         }
+
     }
 }

@@ -20,9 +20,9 @@ namespace mobiBooking.WebApi.Controllers
         // GET: api/Users
         [Authorize(Roles = "Administrator, User")]
         [HttpGet("get_all")]
-        public async Task<ActionResult<IEnumerable<UserDataModel>>> GetAll()
+        public async Task<ActionResult<IEnumerable<UserDataModel>>> GetAllAsync()
         {
-            return Ok(await _usersService.GetAll(User.IsInRole("Administrator")));
+            return Ok(await _usersService.GetAllAsync(User.IsInRole("Administrator")));
         }
     }
 }

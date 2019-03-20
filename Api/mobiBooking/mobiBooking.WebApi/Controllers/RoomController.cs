@@ -16,39 +16,37 @@ namespace mobiBooking.WebApi.Controllers
     {
         private readonly IRoomService _roomService;
 
-        public RoomController(IRoomService roomService, IAccountService authenticateService)
+        public RoomController(IRoomService roomService)
         {
             _roomService = roomService;
         }
 
-        // GET api/values
         [Authorize(Roles = "Administrator, User")]
         [HttpGet("get_all")]
-        public async Task<ActionResult<IEnumerable<RoomDataModel>>> Get()
+        public async Task<ActionResult<IEnumerable<RoomDataModel>>> GetAsync()
         {
-            return Ok(await _roomService.GetAll());
+            return Ok(await _roomService.GetAllAsync());
         }
 
         [Authorize(Roles = "Administrator, User")]
         [HttpGet("get_room_availabilities")]
-        public async Task<ActionResult<IEnumerable<RoomAvailability>>> GetRoomAvailabilities()
+        public async Task<ActionResult<IEnumerable<RoomAvailability>>> GetRoomAvailabilitiesAsync()
         {
-            return Ok(await _roomService.GetRoomAvailabilities());
+            return Ok(await _roomService.GetRoomAvailabilitiesAsync());
         }
 
         [Authorize(Roles = "Administrator, User")]
         [HttpPost("for_reservation")]
-        public async Task<ActionResult<IEnumerable<RoomDataModel>>> GetForReservationn([FromBody] RoomsForReservationModel roomsForReservationModel)
+        public async Task<ActionResult<IEnumerable<RoomDataModel>>> GetForReservationnAsync([FromBody] RoomsForReservationModel roomsForReservationModel)
         {
-            return Ok(await _roomService.GetForReservation(roomsForReservationModel));
+            return Ok(await _roomService.GetForReservationAsync(roomsForReservationModel));
         }
 
-        // GET api/values/5
         [Authorize(Roles = "Administrator")]
         [HttpGet("get/{id}")]
-        public async Task<ActionResult<RoomModel>> Get(int id)
-        { 
-            RoomModel roomModel = await _roomService.Get(id);
+        public async Task<ActionResult<RoomModel>> GetAsync(int id)
+        {
+            RoomModel roomModel = await _roomService.GetAsync(id);
 
             if (roomModel == null)
             {
@@ -58,12 +56,25 @@ namespace mobiBooking.WebApi.Controllers
             return Ok(roomModel);
         }
 
-        // POST api/values
         [Authorize(Roles = "Administrator")]
         [HttpPost("create")]
-        public async Task<ActionResult> Post([FromBody]RoomModel roomParam)
+        public async Task<ActionResult> PostAsync([FromBody]RoomModel roomParam)
         {
-            if (await _roomService.Create(roomParam))
+            if (await _roomService.CreateAsync(roomParam))
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(new { message = "Room with this name already exsist or incorrect availability" });
+            }
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpPut("update/{id}")]
+        public async Task<ActionResult> PutAsync(int id, [FromBody] RoomModel value)
+        {
+            if (await _roomService.UpdateAsync(id, value))
             {
                 return Ok();
             }
@@ -73,23 +84,12 @@ namespace mobiBooking.WebApi.Controllers
             }
         }
 
-        // PUT api/values/5
-        [Authorize(Roles = "Administrator")]
-        [HttpPut("update/{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] RoomModel value)
-        {           
-            await _roomService.Update(id, value);
-
-            return Ok();
-        }
-
-        // DELETE api/values/5
         [Authorize(Roles = "Administrator")]
         [HttpDelete("delete/{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> DeleteAsync(int id)
         {
-            
-            if (await _roomService.Delete(id))
+
+            if (await _roomService.DeleteAsync(id))
             {
                 return Ok();
             }

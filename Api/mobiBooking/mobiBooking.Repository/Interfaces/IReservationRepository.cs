@@ -1,15 +1,17 @@
 ﻿using mobiBooking.Data.Model;
+using mobiBooking.Model.RecivedModels;
+using mobiBooking.Model.Reservation.Response;
 using mobiBooking.Repository.Base;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace mobiBooking.Repository.Interfaces
 {
-    public interface IReservationRepository : IRepositoryBase<Reservation>
+    public interface IReservationRepository : IRepositoryBase
     {
-        Task<bool> CheckIfCanReserv(DateTime dateFrom, DateTime dateTo, Room room);
-        Task<IEnumerable<ReservationInterval>> GetReservationIntervals();
+        Task<bool> CheckIfCanReservAsync(DateTime dateFrom, DateTime dateTo, Room room);
+        Task<IEnumerable<ReservationIntervalModel>> GetReservationIntervalsAsync();
+        Task CreateAsync(ReservationModel value, Room room, User ownerUser, IEnumerable<User> InvitedUsers);
     }
 }
