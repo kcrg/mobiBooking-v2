@@ -3,68 +3,114 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
-    mc:Ignorable="d" NavigationCacheMode="Required" Loaded="Page_Loaded">
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Loaded="Page_Loaded"
+    NavigationCacheMode="Required"
+    mc:Ignorable="d">
 
     <Page.Content>
         <ScrollViewer>
             <Grid>
-                <StackPanel Spacing="12" Padding="0,12,22,12" MaxWidth="400">
-                    <TimePicker x:Name="TimeFrom" Header="Rezerwuje od*" HorizontalAlignment="Stretch"/>
-                    <CalendarDatePicker  x:Name="DateFrom" HorizontalAlignment="Stretch"/>
+                <StackPanel
+                    MaxWidth="400"
+                    Padding="0,12,22,12"
+                    Spacing="12">
+                    <TimePicker
+                        x:Name="TimeFrom"
+                        HorizontalAlignment="Stretch"
+                        Header="Rezerwuje od*" />
+                    <CalendarDatePicker x:Name="DateFrom" HorizontalAlignment="Stretch" />
 
-                    <TimePicker x:Name="TimeTo" Header="Rezerwuje do*" HorizontalAlignment="Stretch"/>
-                    <CalendarDatePicker  x:Name="DateTo" HorizontalAlignment="Stretch"/>
+                    <TimePicker
+                        x:Name="TimeTo"
+                        HorizontalAlignment="Stretch"
+                        Header="Rezerwuje do*" />
+                    <CalendarDatePicker x:Name="DateTo" HorizontalAlignment="Stretch" />
 
-                    <TextBox x:Name="RoomCap" Header="Pojemność sali" extensions:TextBoxRegex.ValidationType="Number" LostFocus="RoomCap_LostFocus"/>
+                    <TextBox
+                        x:Name="RoomCap"
+                        extensions:TextBoxRegex.ValidationType="Number"
+                        Header="Pojemność sali"
+                        LostFocus="RoomCap_LostFocus" />
 
-                    <TextBlock Text="Potrzebuje z wyposażeniem:" Margin="0,0,0,-7"/>
+                    <TextBlock Margin="0,0,0,-7" Text="Potrzebuje z wyposażeniem:" />
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox x:Name="Flipchart" Content="Flipchart" Click="Flipchart_Click"/>
-                        <CheckBox x:Name="SoundSystem" Content="System nagłaśniający" Click="SoundSystem_Click"/>
+                        <CheckBox
+                            x:Name="Flipchart"
+                            Click="Flipchart_Click"
+                            Content="Flipchart" />
+                        <CheckBox
+                            x:Name="SoundSystem"
+                            Click="SoundSystem_Click"
+                            Content="System nagłaśniający" />
                     </StackPanel>
 
-                    <ComboBox x:Name="RoomList" Header="Wybierz salę*" PlaceholderText="Wybierz" HorizontalAlignment="Stretch">
+                    <ComboBox
+                        x:Name="RoomList"
+                        HorizontalAlignment="Stretch"
+                        Header="Wybierz salę*"
+                        PlaceholderText="Wybierz">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text="{Binding Name}" />
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
 
-                    <TextBox x:Name="Title" Header="Tytuł spotkania*"/>
+                    <TextBox x:Name="Title" Header="Tytuł spotkania*" />
 
-                    <ComboBox x:Name="Status" Header="Status*" HorizontalAlignment="Stretch">
+                    <ComboBox
+                        x:Name="Status"
+                        HorizontalAlignment="Stretch"
+                        Header="Status*">
                         <x:String>Wolna</x:String>
                         <x:String>Zajęta</x:String>
                     </ComboBox>
 
-                    <CheckBox x:Name="IsCyclic" Content="Rezerwacja cykliczna" Click="IsCyclic_Click"/>
+                    <CheckBox
+                        x:Name="IsCyclic"
+                        Click="IsCyclic_Click"
+                        Content="Rezerwacja cykliczna" />
 
-                    <ComboBox x:Name="Intervals" Header="Ustaw interwał rezerwacji cyklicznej" HorizontalAlignment="Stretch" Visibility="Collapsed">
+                    <ComboBox
+                        x:Name="Intervals"
+                        HorizontalAlignment="Stretch"
+                        Header="Ustaw interwał rezerwacji cyklicznej"
+                        Visibility="Collapsed">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text="{Binding Name}" />
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
 
-                    <TextBlock Text="Wybierz uczestników*"/>
+                    <TextBlock Text="Wybierz uczestników*" />
 
-                    <ListView x:Name="UsersList" MaxHeight="220" SelectionMode="Multiple" Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}">
+                    <ListView
+                        x:Name="UsersList"
+                        MaxHeight="220"
+                        Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}"
+                        SelectionMode="Multiple">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Spacing="5" Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Name}"/>
-                                    <TextBlock Text="{Binding Surname}"/>
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <TextBlock Text="{Binding Name}" />
+                                    <TextBlock Text="{Binding Surname}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
                     <Grid>
-                        <CheckBox x:Name="SelectAll" Content="Zaznacz wszystkich"  Click="SelectAll_Click"/>
-                        <Button x:Name="SubmitButton" Content="Rezerwuję" HorizontalAlignment="Right" Click="ReservateRoom_Click"/>
+                        <CheckBox
+                            x:Name="SelectAll"
+                            Click="SelectAll_Click"
+                            Content="Zaznacz wszystkich" />
+                        <Button
+                            x:Name="SubmitButton"
+                            HorizontalAlignment="Right"
+                            Click="ReservateRoom_Click"
+                            Content="Rezerwuję" />
                     </Grid>
                 </StackPanel>
             </Grid>

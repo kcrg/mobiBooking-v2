@@ -5,6 +5,7 @@ using mobiBooking.UWP.Views.CustomDialogs;
 using Newtonsoft.Json;
 using RestSharp;
 using System;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -20,6 +21,11 @@ namespace mobiBooking.UWP.Views
         }
 
         private async void Add_Click(object senjder, RoutedEventArgs e)
+        {
+            await AddUser();
+        }
+
+        private async Task AddUser()
         {
             SubmitButton.IsEnabled = false;
 
@@ -50,6 +56,15 @@ namespace mobiBooking.UWP.Views
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     await new CustomDialog("Użytkownik stworzony poprawnie.", null, CustomDialog.Type.Information).ShowAsync();
+
+                    // clean user input
+                    username.Text = string.Empty;
+                    password.Password = string.Empty;
+                    passwordconfirm.Password = string.Empty;
+                    name.Text = string.Empty;
+                    surname.Text = string.Empty;
+                    email.Text = string.Empty;
+
                     SubmitButton.IsEnabled = true;
                 }
                 else

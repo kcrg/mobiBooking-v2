@@ -134,21 +134,5 @@ namespace mobiBooking.UWP
         {
             ChangeThemeLogo();
         }
-
-        private void NavView_BackRequested(muxc.NavigationView sender, muxc.NavigationViewBackRequestedEventArgs args)
-        {
-            On_BackRequested();
-        }
-
-        public bool On_BackRequested()
-        {
-            if (!ContentFrame.CanGoBack)
-            {
-                return false;
-            }
-
-            ContentFrame.GoBack();
-            return true;
-        }
     }
 }

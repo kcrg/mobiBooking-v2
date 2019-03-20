@@ -3,42 +3,54 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
-    mc:Ignorable="d" NavigationCacheMode="Required" Loaded="Page_Loaded">
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Loaded="Page_Loaded"
+    NavigationCacheMode="Required"
+    mc:Ignorable="d">
 
     <Page.Content>
         <ScrollViewer>
             <Grid>
-                <StackPanel Spacing="12" Padding="0,12,22,12" MaxWidth="400">
-                    <TextBox x:Name="roomname" Header="Nazwa sali"/>
+                <StackPanel
+                    MaxWidth="400"
+                    Padding="0,12,22,12"
+                    Spacing="12">
+                    <TextBox x:Name="roomname" Header="Nazwa sali" />
 
-                    <TextBox x:Name="localization" Header="Lokalizacja"/>
+                    <TextBox x:Name="localization" Header="Lokalizacja" />
 
-                    <ComboBox x:Name="availability" Header="Dostępność" HorizontalAlignment="Stretch">
+                    <ComboBox
+                        x:Name="availability"
+                        HorizontalAlignment="Stretch"
+                        Header="Dostępność">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text="{Binding Name}" />
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
 
-                    <TextBlock Text="Potrzebuje z wyposażeniem:" Margin="0,0,0,-7"/>
+                    <TextBlock Margin="0,0,0,-7" Text="Potrzebuje z wyposażeniem:" />
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox x:Name="Flipchart" Content="Flipchart"/>
-                        <CheckBox x:Name="SoundSystem" Content="System nagłaśniający"/>
+                        <CheckBox x:Name="Flipchart" Content="Flipchart" />
+                        <CheckBox x:Name="SoundSystem" Content="System nagłaśniający" />
                     </StackPanel>
 
-                    <TextBox x:Name="numberofpeople" extensions:TextBoxRegex.ValidationType="Number" Header="Liczba osób"/>
+                    <TextBox
+                        x:Name="numberofpeople"
+                        extensions:TextBoxRegex.ValidationType="Number"
+                        Header="Liczba osób" />
 
                     <Grid>
-                        <CheckBox x:Name="activity" Content="Aktywny"/>
+                        <CheckBox x:Name="activity" Content="Aktywny" />
 
-                        <Button x:Name="SubmitButton" 
-                        Content="Dodaj salę" 
-                        HorizontalAlignment="Right" 
-                        Click="Add_Click"
-                        Style="{StaticResource ButtonRevealStyle}"/>
+                        <Button
+                            x:Name="SubmitButton"
+                            HorizontalAlignment="Right"
+                            Click="Add_Click"
+                            Content="Dodaj salę"
+                            Style="{StaticResource ButtonRevealStyle}" />
                     </Grid>
                 </StackPanel>
             </Grid>

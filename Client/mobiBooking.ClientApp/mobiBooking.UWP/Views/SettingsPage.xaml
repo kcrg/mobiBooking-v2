@@ -4,9 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" NavigationCacheMode="Required">
+    NavigationCacheMode="Required"
+    mc:Ignorable="d">
 
     <Grid>
-        <TextBlock Text="SettingsPage" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Text="SettingsPage" />
     </Grid>
 </Page>

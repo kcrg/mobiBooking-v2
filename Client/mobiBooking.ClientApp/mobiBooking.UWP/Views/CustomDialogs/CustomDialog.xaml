@@ -4,16 +4,20 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    PrimaryButtonText="Zamknij"
+    Background="{ThemeResource SystemControlAcrylicElementBrush}"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     PrimaryButtonStyle="{StaticResource ButtonRevealStyle}"
-    Background="{ThemeResource SystemControlAcrylicElementBrush}">
+    PrimaryButtonText="Zamknij"
+    mc:Ignorable="d">
 
     <ContentDialog.Content>
-        <StackPanel Spacing="5" MaxWidth="250">
-            <TextBlock x:Name="MessageText" TextWrapping="Wrap"/>
-            <TextBlock x:Name="ErrorCodeText" Foreground="Gray" FontSize="12" TextWrapping="Wrap"/>
+        <StackPanel MaxWidth="250" Spacing="5">
+            <TextBlock x:Name="MessageText" TextWrapping="Wrap" />
+            <TextBlock
+                x:Name="ErrorCodeText"
+                FontSize="12"
+                Foreground="Gray"
+                TextWrapping="Wrap" />
         </StackPanel>
     </ContentDialog.Content>
 </ContentDialog>

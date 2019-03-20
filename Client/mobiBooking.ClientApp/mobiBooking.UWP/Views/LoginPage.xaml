@@ -2,24 +2,43 @@
     x:Class="mobiBooking.UWP.Views.LoginPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" NavigationCacheMode="Required"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    NavigationCacheMode="Required"
+    mc:Ignorable="d">
 
     <Page.Content>
-        <StackPanel VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    Spacing="20"
-                    Padding="50">
+        <StackPanel
+            Padding="50"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Spacing="20">
 
-            <TextBlock Text="Zaloguj się" TextAlignment="Center" FontSize="24" FontWeight="Bold"/>
+            <TextBlock
+                FontSize="24"
+                FontWeight="Bold"
+                Text="Zaloguj się"
+                TextAlignment="Center" />
 
-            <TextBox x:Name="email" Header="E-mail" extensions:TextBoxRegex.ValidationType="Email" Text="m.w@g.pl" Width="200"/>
-            <PasswordBox x:Name="password" Header="Hasło" Password="123" Width="200"/>
+            <TextBox
+                x:Name="email"
+                Width="200"
+                extensions:TextBoxRegex.ValidationType="Email"
+                Header="E-mail"
+                Text="m.w@g.pl" />
+            <PasswordBox
+                x:Name="password"
+                Width="200"
+                Header="Hasło"
+                Password="123" />
 
-            <Button x:Name="SubmitButton" Content="Zaloguj" HorizontalAlignment="Right" Click="SignIn_Button"/>
+            <Button
+                x:Name="SubmitButton"
+                HorizontalAlignment="Right"
+                Click="SignIn_Button"
+                Content="Zaloguj" />
         </StackPanel>
     </Page.Content>
 </Page>

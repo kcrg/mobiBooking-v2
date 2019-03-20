@@ -8,7 +8,6 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 
@@ -43,14 +42,25 @@ namespace mobiBooking.UWP.Views
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             await GetUsers();
-        } 
-
-        private void Options_Click(object sender, RoutedEventArgs e)
-        {
-            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
         }
 
         private async void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            await DeleteUser(sender);
+            await GetUsers();
+        }
+
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            EditOrAddUser();
+        }
+
+        private void AddUser_Click(object sender, RoutedEventArgs e)
+        {
+            EditOrAddUser();
+        }
+
+        private async Task DeleteUser(object sender)
         {
             LoginModel SavedResponseObj = await helper.ReadFileAsync<LoginModel>("response");
 
@@ -65,18 +75,10 @@ namespace mobiBooking.UWP.Views
             request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
             request.AddParameter("id", idItem, ParameterType.UrlSegment);
             IRestResponse response = client.Execute(request);
-
-            await GetUsers();
+            string asd = response.Content;
         }
 
-        private void Edit_Click(object sender, RoutedEventArgs e)
-        {
-            Frame rootFrame = Window.Current.Content as Frame;
-            MainPage homePage = rootFrame.Content as MainPage;
-            homePage.NavigationFrame.Navigate(typeof(AddUsersPage), null, new DrillInNavigationTransitionInfo());
-        }
-
-        private void AddUser_Click(object sender, RoutedEventArgs e)
+        private void EditOrAddUser() //TODO add parameter with user information
         {
             Frame rootFrame = Window.Current.Content as Frame;
             MainPage homePage = rootFrame.Content as MainPage;
