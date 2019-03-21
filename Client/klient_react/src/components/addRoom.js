@@ -127,30 +127,44 @@ class AddRoom extends Component {
   render() {
     return (
         <div className="add_room">
-
           <h2>Dodaj salę:</h2>
-
           <form onSubmit={this.handleSubmit} className="add_room_form">
             <div className="room_label">
-              <label htmlFor="roomName">Nazwa sali:</label>
-              <input type="text" id="roomName" onChange={e => this.handleChange('roomName', e.target.value)} placeholder="Nazwa sali"></input>
+              <div className="room">
+                <label htmlFor="roomName">Nazwa sali:</label>
+              </div>
+              <div className="room_input">
+                <input type="text" id="roomName" onChange={e => this.handleChange('roomName', e.target.value)} placeholder="Nazwa sali"></input>
+              </div>
             </div>
 
             <div className="location">
-              <label htmlFor="location">Lokalizacja:</label>
-              <input type="text" id="location" onChange={e => this.handleChange('location', e.target.value)} placeholder="Lokalizacja"></input> 
+              <div className="location_label">
+                <label htmlFor="location">Lokalizacja:</label>
+              </div>
+              <div className="location_input">
+                <input type="text" id="location" onChange={e => this.handleChange('location', e.target.value)} placeholder="Lokalizacja"></input> 
+              </div>
             </div>
 
             <div className="number_of_people">
-              <label htmlFor="numberOfPeople">Liczba osób:</label>
-              <input type="number" id="numberOfPeople" onChange={e => this.handleNChange('numberOfPeople', e.target.value)}></input> 
+              <div className="number_label">
+                <label htmlFor="numberOfPeople">Liczba osób:</label>
+              </div>
+              <div className="number_input">
+                <input type="number" id="numberOfPeople" onChange={e => this.handleNChange('numberOfPeople', e.target.value)}></input>
+              </div> 
             </div>
 
             <div className="availability">
-              <label htmlFor="availability">Dostępność:</label>
-              <select id="availability" onChange={e => this.handleChange('availability', e.target.value)}>
-                {this.state.mapAva}
-              </select>
+              <div className="ava_label">
+                <label htmlFor="availability">Dostępność:</label>
+              </div>
+              <div className="ava_select">
+                <select id="availability" onChange={e => this.handleChange('availability', e.target.value)}>
+                  {this.state.mapAva}
+                </select>
+              </div>
             </div>
 
             <div className="add_room_submit">

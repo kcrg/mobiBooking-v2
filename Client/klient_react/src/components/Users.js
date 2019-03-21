@@ -10,24 +10,35 @@ export default class Users extends Component {
         selectedUsers: []
     }
 
-    componentWillReceiveProps(){
-        const { users } = this.props
-        if(users != null){
+    componentWillReceiveProps(nextProps){
+        const users = this.props.users
+        const newUsers = nextProps.users
+        if(newUsers !== null){
             this.setState({
-                users
+                users : newUsers
             }, this.mapItems)
+        }
+
+        if(newUsers !== users) {     
+            this.setState({
+                selectedUsers: []
+            })
         }
     }
 
-    AddSelectedUser = (id) => {
-        console.log('AddSelectedUser ' + id);
+    AddSelectedUser = (user) => {
+        // const { disableClearSelected } = this.props
+        // disableClearSelected();
+        const { setSelectedUsers } = this.props
         this.setState(prevState => ({
-            selectedUsers: [...prevState.selectedUsers, id]
-          }), () => console.log(this.state.selectedUsers))
+            selectedUsers: [...prevState.selectedUsers, user]
+          }), () => setSelectedUsers(this.state.selectedUsers))
     }
 
-    DeleteSelectedUser = (id) => {
-        const filteredUsers  = this.state.selectedUsers.filter(idt => idt !== id)
+    DeleteSelectedUser = (user) => {
+        // const { disableClearSelected } = this.props
+        // disableClearSelected();
+        const filteredUsers  = this.state.selectedUsers.filter(usert => usert !== user)
         this.setState({
             selectedUsers: filteredUsers
         }, () => console.log(this.state.selectedUsers))
@@ -37,7 +48,7 @@ export default class Users extends Component {
     const userItem = this.state.users.map(user =>{
     return(
         <div key={user.id}>
-            <UserTemp id={user.id} userName={user.userName} AddUser = {this.AddSelectedUser} DeleteUser = {this.DeleteSelectedUser}></UserTemp>
+            <UserTemp user={user} AddUser = {this.AddSelectedUser} DeleteUser = {this.DeleteSelectedUser}></UserTemp>
         </div>
     )
     })
