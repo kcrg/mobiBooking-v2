@@ -42,7 +42,7 @@ export default class UserList extends Component {
             usersLeft: filteredUsers,
             clearSelected: true,
             selectedUsersLeft: []
-      })
+      }, this.upadteUsersList)
       }
 
     
@@ -58,7 +58,7 @@ export default class UserList extends Component {
            usersRight: filteredUsers,
            selectedUsersRight: [],
            clearSelected: true
-      })
+      }, this.upadteUsersList)
       }
     
       setSelectedUsersLeft = (selectedUsers) =>{
@@ -77,6 +77,13 @@ export default class UserList extends Component {
           this.setState({
               clearSelected: false
           })
+      }
+
+      upadteUsersList = () =>{
+        const { updateInvitedUsers } = this.props;
+        const userIds = []
+        this.state.usersRight.forEach(user => userIds.push(user.id))
+        updateInvitedUsers(userIds);
       }
 
   render() {

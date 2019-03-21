@@ -53,11 +53,11 @@ export default class NavBar extends Component {
           <ul className="navigation-links">
             <Link to="/home"><li>Dashboard</li></Link>
             <Link to="/roomReserv"><li>Zarezerwuj sale</li></Link>
-            <Link to="/555"><li>Lista sal/rezerwacje</li></Link>
+            <Link to="/404"><li>Lista sal/rezerwacje</li></Link>
             <Link to="/addRoom"  className={this.state.visible}><li>Dodaj sale</li></Link>
-            <Link to="addUser"><li>Użytkownicy</li></Link>
+            <Link to="/404"><li>Użytkownicy</li></Link>
             <Link to="addUser" className={this.state.visible}><li>Dodaj użytkownika</li></Link>
-            <Link to="addUser"><li>Ustawienia</li></Link>
+            <Link to="/404"><li>Ustawienia</li></Link>
           </ul>
         </nav>
 

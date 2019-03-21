@@ -27,21 +27,21 @@ export default class Users extends Component {
     }
 
     AddSelectedUser = (user) => {
-        // const { disableClearSelected } = this.props
-        // disableClearSelected();
         const { setSelectedUsers } = this.props
         this.setState(prevState => ({
             selectedUsers: [...prevState.selectedUsers, user]
-          }), () => setSelectedUsers(this.state.selectedUsers))
+          }), () =>{
+              setSelectedUsers(this.state.selectedUsers)
+          })
     }
 
     DeleteSelectedUser = (user) => {
-        // const { disableClearSelected } = this.props
-        // disableClearSelected();
+        const { setSelectedUsers } = this.props
         const filteredUsers  = this.state.selectedUsers.filter(usert => usert !== user)
         this.setState({
             selectedUsers: filteredUsers
-        }, () => console.log(this.state.selectedUsers))
+        }, () =>{
+            setSelectedUsers(this.state.selectedUsers)})
     }
 
     mapItems = () =>{
