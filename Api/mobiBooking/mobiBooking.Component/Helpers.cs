@@ -34,5 +34,21 @@ namespace mobiBooking.Component
         {
             return new TimeRange(AdateFrom, AdateTo).OverlapsWith(new TimeRange(BdateFrom, BdateTo));
         }
+
+        public static bool CheckDateInside(DateTime AdateFrom, DateTime AdateTo, DateTime BdateFrom, DateTime BdateTo)
+        {
+            return new TimeRange(AdateFrom, AdateTo).HasInside(new TimeRange(BdateFrom, BdateTo));
+        }
+
+        public static DateTime StartOfWeek(this DateTime dt, DayOfWeek startOfWeek)
+        {
+            int diff = (7 + (dt.DayOfWeek - startOfWeek)) % 7;
+            return dt.AddDays(-1 * diff).Date;
+        }
+
+        public static DateTime EndOfWeek(this DateTime date, DayOfWeek startOfWeek)
+        {
+            return date.StartOfWeek(startOfWeek).AddDays(6);
+        }
     }
 }

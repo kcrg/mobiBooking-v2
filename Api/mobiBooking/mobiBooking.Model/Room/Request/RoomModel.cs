@@ -12,14 +12,8 @@ namespace mobiBooking.Model.Models
         [Required]
         public string Location { get; set; }
         [Required]
-        public bool Activity { get; set; }
-        [Required]
         public int Availability { get; set; }
         [Required]
         public int NumberOfPeople { get; set; }
-        [Required]
-        public bool Flipchart { get; set; }
-        [Required]
-        public bool SoundSystem { get; set; }
     }
 }

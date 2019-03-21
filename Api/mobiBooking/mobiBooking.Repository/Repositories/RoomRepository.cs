@@ -4,7 +4,7 @@ using mobiBooking.Data;
 using mobiBooking.Data.Model;
 using mobiBooking.Model.Models;
 using mobiBooking.Model.Room.Request;
-using mobiBooking.Model.SendModels;
+using mobiBooking.Model.Room.Response;
 using mobiBooking.Repository.Base;
 using mobiBooking.Repository.Interfaces;
 using System;
@@ -54,61 +54,64 @@ namespace mobiBooking.Repository.Repositories
         {
             return Task.Run(() => DBContext.Rooms.AddAsync(new Room
             {
-                Activity = (bool)value.Activity,
-                AvailabilityId = (int)value.Availability,
+                AvailabilityId = value.Availability,
                 Location = value.Location,
                 Name = value.RoomName,
-                NumberOfPeople = (int)value.NumberOfPeople,
-                SoundSystem = (bool)value.SoundSystem,
-                Flipchart = (bool)value.Flipchart
+                NumberOfPeople = value.NumberOfPeople
             }));
         }
 
-        public async Task<IEnumerable<RoomDataModel>> GetRoomsForReservationAsync(RoomsForReservationModel roomForReservationModel)
+        public async Task<IEnumerable<RoomDataModelForReservation>> GetRoomsForReservationAsync(RoomsForReservationModel roomForReservationModel)
         {
+
+
             return await (from rooms in DBContext.Rooms
                           where !rooms.Reservations.Where(reserv => Helpers.CheckDateOverlaps(reserv.DateFrom, reserv.DateTo, roomForReservationModel.DateFrom, roomForReservationModel.DateTo)).Any()
                           where rooms.NumberOfPeople >= roomForReservationModel.Size
-                          where (roomForReservationModel.FlipChart ? rooms.Flipchart : true)
-                          where (roomForReservationModel.SoundSystem ? rooms.SoundSystem : true)
-                          select new RoomDataModel
+                          where rooms.Availability.HoursFrom <= roomForReservationModel.DateFrom.Hour
+                          where rooms.Availability.HoursTo >= roomForReservationModel.DateTo.Hour
+                          where roomForReservationModel.DateFrom.Date == roomForReservationModel.DateTo.Date
+                          select new RoomDataModelForReservation
                           {
-                              Activity = rooms.Activity,
-                              SoundSystem = rooms.SoundSystem,
-                              Availability = rooms.AvailabilityId,
-                              Flipchart = rooms.Flipchart,
-                              Location = rooms.Location,
                               Name = rooms.Name,
-                              NumberOfPeople = rooms.NumberOfPeople,
                               Id = rooms.Id
                           }).ToListAsync();
         }
 
-        public async Task<IEnumerable<RoomDataModel>> FindAllAsync()
+        public async Task<IEnumerable<RoomDataModel>> FindAllAsync(bool orderByName)
         {
-            return await DBContext.Rooms.Select(rooms => new RoomDataModel
-            {
-                Activity = rooms.Activity,
-                SoundSystem = rooms.SoundSystem,
-                Availability = rooms.AvailabilityId,
-                Flipchart = rooms.Flipchart,
-                Location = rooms.Location,
-                Name = rooms.Name,
-                NumberOfPeople = rooms.NumberOfPeople,
-                Id = rooms.Id
-            }).ToListAsync();
+
+            if (orderByName)
+                return await DBContext.Rooms.OrderBy(r => r.Name).Select(rooms => new RoomDataModel
+                {
+                    Availability = rooms.Availability.Name,
+                    AvailabilityId = rooms.AvailabilityId,
+                    Location = rooms.Location,
+                    Name = rooms.Name,
+                    NumberOfPeople = rooms.NumberOfPeople,
+                    Id = rooms.Id
+                }).ToListAsync();
+            else
+                return await DBContext.Rooms.OrderBy(r => r.NumberOfPeople).Select(rooms => new RoomDataModel
+                {
+                    Availability = rooms.Availability.Name,
+                    AvailabilityId = rooms.AvailabilityId,
+                    Location = rooms.Location,
+                    Name = rooms.Name,
+                    NumberOfPeople = rooms.NumberOfPeople,
+                    Id = rooms.Id
+                }).ToListAsync();
         }
 
-        public async Task<RoomModel> FindRoomAsync(int id)
+        public async Task<RoomDataModel> FindRoomAsync(int id)
         {
-            return await DBContext.Rooms.Where(r => r.Id == id).Select(rooms => new RoomModel
+            return await DBContext.Rooms.Where(r => r.Id == id).Select(rooms => new RoomDataModel
             {
-                Activity = rooms.Activity,
-                SoundSystem = rooms.SoundSystem,
-                Availability = rooms.AvailabilityId,
-                Flipchart = rooms.Flipchart,
+                Id = rooms.Id,
+                AvailabilityId = rooms.AvailabilityId,
+                Availability = rooms.Availability.Name,
                 Location = rooms.Location,
-                RoomName = rooms.Name,
+                Name = rooms.Name,
                 NumberOfPeople = rooms.NumberOfPeople
             }).FirstOrDefaultAsync();
         }
@@ -116,13 +119,10 @@ namespace mobiBooking.Repository.Repositories
         public async Task UpdateAsync(int id, RoomModel roomModel)
         {
             Room room = await DBContext.Rooms.FindAsync(id);
-            room.Activity = roomModel.Activity;
             room.AvailabilityId = roomModel.Availability;
-            room.Flipchart = roomModel.Flipchart;
             room.Location = roomModel.Location;
             room.Name = roomModel.RoomName;
             room.NumberOfPeople = roomModel.NumberOfPeople;
-            room.SoundSystem = roomModel.SoundSystem;
             await Task.Run(() => DBContext.Rooms.Update(room));
         }
 

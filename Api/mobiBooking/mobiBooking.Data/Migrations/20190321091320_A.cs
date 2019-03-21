@@ -28,7 +28,9 @@ namespace mobiBooking.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    HoursFrom = table.Column<int>(nullable: false),
+                    HoursTo = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -63,11 +65,8 @@ namespace mobiBooking.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Location = table.Column<string>(nullable: true),
-                    Activity = table.Column<bool>(nullable: false),
                     AvailabilityId = table.Column<int>(nullable: false),
-                    NumberOfPeople = table.Column<int>(nullable: false),
-                    Flipchart = table.Column<bool>(nullable: false),
-                    SoundSystem = table.Column<bool>(nullable: false)
+                    NumberOfPeople = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -156,18 +155,18 @@ namespace mobiBooking.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "RoomAvailabilities",
-                columns: new[] { "Id", "Name" },
+                columns: new[] { "Id", "HoursFrom", "HoursTo", "Name" },
                 values: new object[,]
                 {
-                    { 1, "7:00 - 20:00" },
-                    { 2, "7:00 - 18:00" },
-                    { 3, "8:00 - 16:00" }
+                    { 1, 7, 20, "7:00 - 20:00" },
+                    { 2, 7, 18, "7:00 - 18:00" },
+                    { 3, 8, 16, "8:00 - 16:00" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Active", "Email", "Name", "Password", "Role", "Salt", "Surname", "UserName" },
-                values: new object[] { 1, true, "m.w@g.pl", "Michał", "ZTfNbGdHOLzrBCiz0tXBrxdfC+5QuqPd9ZlPSG+i52Y=", "Administrator", new byte[] { 25, 32, 110, 136, 213, 18, 139, 65, 176, 102, 235, 61, 198, 184, 219, 229 }, "Test", "Test" });
+                values: new object[] { 1, true, "m.w@g.pl", "Michał", "OuCeqrWViZ8HKXWmo+AbBRPas8UDrussC4A8KvzKHII=", "Administrator", new byte[] { 11, 88, 148, 49, 4, 161, 188, 18, 45, 95, 80, 213, 143, 112, 36, 190 }, "Test", "Test" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_OwnerUserId",

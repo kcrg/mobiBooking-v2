@@ -73,7 +73,7 @@ namespace mobiBooking.Service.Services
         {
             User user = await _userRepository.FindAsync(id);
 
-            if (user == null || await _userRepository.UserExistAsync(user.Email, user.UserName, user.Id))
+            if (user == null || await _userRepository.UserExistAsync(value.Email, value.UserName, user.Id))
             {
                 return false;
             }

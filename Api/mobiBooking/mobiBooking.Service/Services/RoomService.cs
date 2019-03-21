@@ -1,11 +1,10 @@
 ﻿using mobiBooking.Data.Model;
 using mobiBooking.Model.Models;
 using mobiBooking.Model.Room.Request;
-using mobiBooking.Model.SendModels;
+using mobiBooking.Model.Room.Response;
 using mobiBooking.Repository.Interfaces;
 using mobiBooking.Service.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace mobiBooking.Service.Services
@@ -23,9 +22,9 @@ namespace mobiBooking.Service.Services
         public async Task<bool> CreateAsync(RoomModel value)
         {
 
-            var test1 = await _roomRepository.CheckIfRoomExistsAsync(value.RoomName);
+            bool test1 = await _roomRepository.CheckIfRoomExistsAsync(value.RoomName);
 
-            var test2 = await _roomRepository.CheckIfAvailabilityExistsAsync(value.Availability);
+            bool test2 = await _roomRepository.CheckIfAvailabilityExistsAsync(value.Availability);
 
             if (test1 || !(test2))
             {
@@ -48,20 +47,21 @@ namespace mobiBooking.Service.Services
             }
 
             await _roomRepository.DeleteAsync(room);
+            await _roomRepository.Save();
             return true;
         }
 
-        public async Task<RoomModel> GetAsync(int id)
+        public async Task<RoomDataModel> GetAsync(int id)
         {
             return await _roomRepository.FindRoomAsync(id);
         }
 
-        public async Task<IEnumerable<RoomDataModel>> GetAllAsync()
+        public async Task<IEnumerable<RoomDataModel>> GetAllAsync(bool orderByName)
         {
-            return await _roomRepository.FindAllAsync();
+            return await _roomRepository.FindAllAsync(orderByName);
         }
 
-        public async Task<IEnumerable<RoomDataModel>> GetForReservationAsync(RoomsForReservationModel roomForReservationModel)
+        public async Task<IEnumerable<RoomDataModelForReservation>> GetForReservationAsync(RoomsForReservationModel roomForReservationModel)
         {
             return await _roomRepository.GetRoomsForReservationAsync(roomForReservationModel);
         }
@@ -74,8 +74,10 @@ namespace mobiBooking.Service.Services
         public async Task<bool> UpdateAsync(int id, RoomModel value)
         {
 
-            if (await _roomRepository.FindAsync(id) == null || await _roomRepository.CheckIfRoomExistsAsync(value.RoomName, id))
+            if (await _roomRepository.FindAsync(id) == null || await _roomRepository.CheckIfRoomExistsAsync(value.RoomName, id) || await _roomRepository.CheckIfAvailabilityExistsAsync(value.Availability))
+            {
                 return false;
+            }
 
             await _roomRepository.UpdateAsync(id, value);
             await _roomRepository.Save();

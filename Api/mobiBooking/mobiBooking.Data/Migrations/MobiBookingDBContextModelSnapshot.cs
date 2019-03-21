@@ -81,19 +81,13 @@ namespace mobiBooking.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Activity");
-
                     b.Property<int>("AvailabilityId");
-
-                    b.Property<bool>("Flipchart");
 
                     b.Property<string>("Location");
 
                     b.Property<string>("Name");
 
                     b.Property<int>("NumberOfPeople");
-
-                    b.Property<bool>("SoundSystem");
 
                     b.HasKey("Id");
 
@@ -108,6 +102,10 @@ namespace mobiBooking.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("HoursFrom");
+
+                    b.Property<int>("HoursTo");
+
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
@@ -115,9 +113,9 @@ namespace mobiBooking.Data.Migrations
                     b.ToTable("RoomAvailabilities");
 
                     b.HasData(
-                        new { Id = 1, Name = "7:00 - 20:00" },
-                        new { Id = 2, Name = "7:00 - 18:00" },
-                        new { Id = 3, Name = "8:00 - 16:00" }
+                        new { Id = 1, HoursFrom = 7, HoursTo = 20, Name = "7:00 - 20:00" },
+                        new { Id = 2, HoursFrom = 7, HoursTo = 18, Name = "7:00 - 18:00" },
+                        new { Id = 3, HoursFrom = 8, HoursTo = 16, Name = "8:00 - 16:00" }
                     );
                 });
 
@@ -148,7 +146,7 @@ namespace mobiBooking.Data.Migrations
                     b.ToTable("Users");
 
                     b.HasData(
-                        new { Id = 1, Active = true, Email = "m.w@g.pl", Name = "Michał", Password = "ZTfNbGdHOLzrBCiz0tXBrxdfC+5QuqPd9ZlPSG+i52Y=", Role = "Administrator", Salt = new byte[] { 25, 32, 110, 136, 213, 18, 139, 65, 176, 102, 235, 61, 198, 184, 219, 229 }, Surname = "Test", UserName = "Test" }
+                        new { Id = 1, Active = true, Email = "m.w@g.pl", Name = "Michał", Password = "OuCeqrWViZ8HKXWmo+AbBRPas8UDrussC4A8KvzKHII=", Role = "Administrator", Salt = new byte[] { 11, 88, 148, 49, 4, 161, 188, 18, 45, 95, 80, 213, 143, 112, 36, 190 }, Surname = "Test", UserName = "Test" }
                     );
                 });
 
