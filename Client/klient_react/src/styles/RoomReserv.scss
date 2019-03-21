@@ -5,7 +5,7 @@
     flex-direction: column;
     background: $mobi-purple;
     width: 100%;
-    min-height: 800px;
+    min-height: 900px;
     height: auto;
     overflow: auto;
     text-align: center;
@@ -77,12 +77,14 @@
             }
         }
 
-        select{
-            max-width: 220px;
-            align-self: center;
-            border-radius: 5px;
-            font-size: 18px;
+        .select_list{
+            select{
+                border-radius: 5px;
+                font-size: 18px;
+                width: 220px;
+            }
         }
+
     }
 
     .meeting_title{

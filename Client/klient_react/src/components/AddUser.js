@@ -7,16 +7,18 @@ class AddUser extends Component {
 
   state = {
     userData:{
-      userName: null,
-      password: null,
+      userName: '',
+      password: '',
       name: null,
       surname: null,
-      email: null,
+      email: '',
       userType: 'Administrator'
     },
-    r_pass: null,
+    r_pass: '',
     error: 'default',
-    succes: 'default'
+    succes: 'default',
+    warning: 'default',
+    difPass: 'default'
   }
 
   componentDidMount(){
@@ -24,7 +26,7 @@ class AddUser extends Component {
     if(cookies.get('token') === undefined){
       this.props.history.push('/');
     } 
-  }
+  } 
 
   sendData = () =>{
     const { ip } = this.props;
@@ -40,7 +42,33 @@ class AddUser extends Component {
 
   handleSubmit = (e) =>{
     e.preventDefault();
-    this.sendData();
+    if(this.checkData()){
+      this.setState({
+        warning: 'warning'
+      }, () =>{
+        setTimeout(() =>{
+          this.setState({warning: 'default'});
+         }, 3000);
+      })
+    }else{
+      if(this.state.userData.password !== this.state.r_pass){
+        this.setState({
+          difPass: 'diff_pass'
+        }, () =>{
+          setTimeout(() =>{
+            this.setState({difPass: 'default'});
+           }, 3000);
+        })
+      }else
+      this.sendData();
+    }
+  }
+
+  checkData = () =>{
+    return (this.state.userData.userName === '' ||
+    this.state.userData.password === '' ||
+    this.state.r_pass === '' ||
+    this.state.userData.email === '')
   }
 
   toggleError = (error) =>{
@@ -56,7 +84,7 @@ class AddUser extends Component {
       this.setState({
         succes: 'done'
       })
-      setTimeout(() =>{
+        setTimeout(() =>{
         this.setState({succes: 'default'});
        }, 3000);
     };
@@ -92,7 +120,7 @@ class AddUser extends Component {
                 <label htmlFor="user_name">Nazwa użytkownika:  <span className="star">*</span></label>
               </div>
               <div className="user_name_input">
-                <input type="text" id="user_name" onChange={e => this.handleChange('userName', e.target.value)} required placeholder="Nazwa użytkownika..."></input> 
+                <input type="text" id="user_name" onChange={e => this.handleChange('userName', e.target.value)} placeholder="Nazwa użytkownika..."></input> 
               </div>
             </div>
 
@@ -101,7 +129,7 @@ class AddUser extends Component {
                 <label htmlFor="pass">Hasło: <span className="star">*</span></label>
               </div>
               <div className="password_input">
-                <input type="password" id="pass" onChange={e => this.handleChange('password', e.target.value)} required placeholder="Hasło..."></input>  
+                <input type="password" id="pass" onChange={e => this.handleChange('password', e.target.value)} placeholder="Hasło..."></input>  
               </div>
             </div>
 
@@ -110,7 +138,7 @@ class AddUser extends Component {
                 <label htmlFor="r_pass">Powtórz hasło: <span className="star">*</span></label>
               </div>
               <div className="r_password_input">
-                <input type="password" id="r_pass" onChange={e => this.handleRpasswordChange('r_pass', e.target.value)} required placeholder="Powtórz hasło..."></input> 
+                <input type="password" id="r_pass" onChange={e => this.handleRpasswordChange('r_pass', e.target.value)} placeholder="Powtórz hasło..."></input> 
               </div> 
             </div>
 
@@ -119,7 +147,7 @@ class AddUser extends Component {
                 <label htmlFor="f_name">Imię:</label>
               </div>
               <div className="name_input">
-                <input type="text" id="f_name" onChange={e => this.handleChange('name', e.target.value)} required placeholder="Imię..."></input> 
+                <input type="text" id="f_name" onChange={e => this.handleChange('name', e.target.value)} placeholder="Imię..."></input> 
               </div>
             </div>
 
@@ -128,7 +156,7 @@ class AddUser extends Component {
                 <label htmlFor="l_name">Nazwisko:</label>
               </div>
               <div className="surname_input">
-                <input type="text" id="l_name" onChange={e => this.handleChange('surname', e.target.value)} required placeholder="Nazwisko"></input> 
+                <input type="text" id="l_name" onChange={e => this.handleChange('surname', e.target.value)} placeholder="Nazwisko"></input> 
               </div>
             </div>
 
@@ -137,7 +165,7 @@ class AddUser extends Component {
                 <label htmlFor="email">Email:  <span className="star">*</span></label>
               </div>
               <div className="email_input">
-                <input type="email" id="email" onChange={e => this.handleChange('email', e.target.value)} required placeholder="E-mail"></input>
+                <input type="email" id="email" onChange={e => this.handleChange('email', e.target.value)} placeholder="E-mail"></input>
               </div>
             </div>
 
@@ -154,18 +182,25 @@ class AddUser extends Component {
             </div>
 
             <div className="add_user_submit">
-              <input type="submit" value="Zapisz" disabled={this.state.userData.password !== this.state.r_pass}></input>
+              <input type="submit" value="Zapisz"></input>
             </div>
 
+            <div className={this.state.error}>
+              <p>Istnieje użytkownik o podanej nazwie użytkownika lub adresie e-mail!</p>
+            </div>
+
+            <div className={this.state.succes}>
+              <p>Pomyślnie dodano użytkownika!</p>
+            </div>
+
+            <div className={this.state.warning}>
+              <p>Uzupełnij wymagane pola!</p>
+            </div>
+
+            <div className={this.state.difPass}>
+              <p>Hasła nie są zgodne!</p>
+            </div>
           </form>
-
-        <div className={this.state.error}>
-          <p>Istnieje użytkownik o podanej nazwie użytkownika lub adresie e-mail!</p>
-        </div>
-
-        <div className={this.state.succes}>
-          <p>Pomyślnie dodano użytkownika!</p>
-        </div>
     </div>
     )
   }

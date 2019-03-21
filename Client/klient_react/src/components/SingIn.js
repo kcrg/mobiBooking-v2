@@ -8,10 +8,11 @@ class SingIn extends Component {
 
   state = {
     formData: {
-      Email: null,
-      Password: null
+      Email: '',
+      Password: ''
     },
-    error: 'default'
+    error: 'default',
+    warning: 'default_warning'
   }
 
   componentDidMount(){
@@ -44,12 +45,24 @@ class SingIn extends Component {
         ...prevState.formData,
         [name]: value
       } 
-    }))
+    }), () =>{
+      console.log(this.state.formData.Email)
+    })
   }
 
   handleSubmit = (e) =>{
     e.preventDefault();
+    if(this.state.formData.Email !== '' && this.state.formData.Password !== ''){
     this.sendRequest();
+    }else{
+      this.setState({
+        warning: 'warning'
+      }, () =>{
+        setTimeout(() =>{
+          this.setState({warning: 'default_warning'});
+         }, 3000);
+      })
+    }
   }
 
   toggleError = () =>{
@@ -71,7 +84,7 @@ class SingIn extends Component {
           <div className="crudentials">
             <div className="crudentialsv2">
               <label htmlFor="email" id="mail">E-mail:</label>
-              <input type="email" id="Email" onChange={e => this.handleChange('Email', e.target.value)} required 
+              <input type="email" id="Email" onChange={e => this.handleChange('Email', e.target.value)}
               placeholder="Wprowadź swój e-mail"></input>
             </div>
           </div>
@@ -79,7 +92,7 @@ class SingIn extends Component {
           <div className="crudentials">
             <div className="crudentialsv2">
               <label htmlFor="password" id="pass">Hasło:</label>
-              <input type="password" id="Password" onChange={e => this.handleChange('Password', e.target.value)} required 
+              <input type="password" id="Password" onChange={e => this.handleChange('Password', e.target.value)}
               placeholder="Wprowadź swoje hasło"></input>
             </div>
           </div>
@@ -90,6 +103,10 @@ class SingIn extends Component {
           
           <div className={this.state.error}>
             <p>Nie znaleziono użytkownika o danej kombinacji e-mail i hasła!</p>
+          </div>
+
+          <div className={this.state.warning}>
+            Uzupełnij wwszystkie pola!
           </div>
 
         </form>

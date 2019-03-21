@@ -6,13 +6,14 @@ import '../styles/AddRoom.scss';
 class AddRoom extends Component {
   state = {
     roomData:{
-      roomName: null,
-      location: null,
+      roomName: '',
+      location: '',
       availability: 1,
-      numberOfPeople: null
+      numberOfPeople: ''
     },
     error: 'default',
     succes: 'default',
+    warning: 'default',
     mapAva: null,
     availability:{
       id: null,
@@ -64,8 +65,24 @@ class AddRoom extends Component {
 
   handleSubmit = (e) =>{
     e.preventDefault();
-    this.sendData()
+    if(this.checkData()){
+      this.setState({
+        warning: 'warning'
+      }, () =>{
+        setTimeout(() =>{
+          this.setState({warning: 'default'});
+         }, 3000);
+      })
+    }else
+      this.sendData()
   }
+
+  checkData = () =>{
+    return (this.state.roomData.roomName === '' ||
+    this.state.roomData.location === '' ||
+    this.state.roomData.numberOfPeople === '')
+  }
+
 
   sendData = () =>{
     const { ip } = this.props;
@@ -116,17 +133,17 @@ class AddRoom extends Component {
           <form onSubmit={this.handleSubmit} className="add_room_form">
             <div className="room_label">
               <label htmlFor="roomName">Nazwa sali:</label>
-              <input type="text" id="roomName" onChange={e => this.handleChange('roomName', e.target.value)} required placeholder="Nazwa sali"></input>
+              <input type="text" id="roomName" onChange={e => this.handleChange('roomName', e.target.value)} placeholder="Nazwa sali"></input>
             </div>
 
             <div className="location">
               <label htmlFor="location">Lokalizacja:</label>
-              <input type="text" id="location" onChange={e => this.handleChange('location', e.target.value)} required placeholder="Lokalizacja"></input> 
+              <input type="text" id="location" onChange={e => this.handleChange('location', e.target.value)} placeholder="Lokalizacja"></input> 
             </div>
 
             <div className="number_of_people">
               <label htmlFor="numberOfPeople">Liczba osób:</label>
-              <input type="number" id="numberOfPeople" onChange={e => this.handleNChange('numberOfPeople', e.target.value)} required></input> 
+              <input type="number" id="numberOfPeople" onChange={e => this.handleNChange('numberOfPeople', e.target.value)}></input> 
             </div>
 
             <div className="availability">
@@ -141,11 +158,16 @@ class AddRoom extends Component {
             </div>
 
             <div className={this.state.error}>
-              <span>Błąd! Spróbuj ponownie</span>
+              <p>Błąd! Spróbuj ponownie</p>
             </div>
 
             <div className={this.state.succes}>
-              <span>Dodano salę!</span>
+              <p>Dodano salę!</p>
+            </div>
+
+            
+            <div className={this.state.warning}>
+              <p>Uzupełnij wszystkie pola !</p>
             </div>
 
           </form>

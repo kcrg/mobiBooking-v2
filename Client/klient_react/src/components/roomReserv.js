@@ -229,7 +229,7 @@ library.add(faArrowCircleRight, faArrowCircleLeft)
               </div>
 
               <div className="meeting_input">
-                <input type="text" id="title" onChange={e => this.handleChange('title', e.target.value)} required placeholder="Tytuł spotkania..."></input>
+                <input type="text" id="title" onChange={e => this.handleChange('title', e.target.value)} placeholder="Tytuł spotkania..."></input>
               </div>
             </div>
 
