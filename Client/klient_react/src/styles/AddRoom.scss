@@ -178,85 +178,93 @@
 
 @media only screen and (min-width: 700px){
     .add_room{
-
-        h2{
-            margin-top: 100px;
-        }
         .add_room_form{
-            width: 100%;
-            margin-top: 20px;
-            text-align: center;
-
-            .errors{
-                display: inline-block;
-                min-width: 400px;
-                align-self: center;
-            }
-
-            
-            .done{
-                display: inline-block;
-                min-width: 400px;
-                align-self: center;
-            }
-
             .room_label{
-                flex-direction: row;
-                justify-content: center;
+                display: grid;
+                grid-template-columns: 0.5fr 1fr;
+                grid-gap: 20px;
 
-                label{
+                .room{
                     text-align: right;
-                    margin: 0 10px 0 0;
-                    min-width: auto;
+                    padding-bottom: 20px;
+                    label{
+                        align-self: center;
+                    }
+                }
+
+                .room_input{
+                    text-align: left;
+                    input{
+                        display: inline-block;
+                        width: 320px;
+                    }
                 }
             }
 
             .location{
-                flex-direction: row;
-                justify-content: center;
-                margin-top: 20px;
+                display: grid;
+                grid-template-columns: 0.5fr 1fr;
+                grid-gap: 20px;
 
-                label{
+                .location_label{
                     text-align: right;
-                    margin: 0 10px 0 0;
-                    min-width: auto;
+                    padding-bottom: 20px;
+                    label{
+                        align-self: center;
+                    }
+                }
+
+                .location_input{
+                    text-align: left;
+                    input{
+                        display: inline-block;
+                        width: 320px;
+                    }
                 }
             }
 
             .number_of_people{
-                flex-direction: row;
-                justify-content: center;
-                margin-top: 20px;
+                display: grid;
+                grid-template-columns: 0.5fr 1fr;
+                grid-gap: 20px;
 
-                label{
+                .number_label{
                     text-align: right;
-                    margin: 0 10px 0 0;
-                    min-width: 85px;
+                    padding-bottom: 20px;
+                    label{
+                        align-self: center;
+                    }
                 }
 
-                input{
-                    margin-right: 8px;
+                .number_input{
+                    text-align: left;
+                    input{
+                        display: inline-block;
+                        width: 320px;
+                    }
                 }
             }
 
             .availability{
-                flex-direction: row;
-                justify-content: center;
-                margin-top: 20px;
+                display: grid;
+                grid-template-columns: 0.5fr 1fr;
+                grid-gap: 20px;
 
-                label{
+                .ava_label{
                     text-align: right;
-                    margin: 0 10px 0 0;
-                    min-width: 85px;
+                    padding-bottom: 20px;
+                    label{
+                        align-self: center;
+                    }
                 }
 
-                select{
-                    margin-right: 10px;
+                .ava_select{
+                    text-align: left;
+                    select{
+                        display: inline-block;
+                        width: 320px;
+                    }
                 }
-            }
-
-            .add_room_submit{
-                margin-top: 40px;
             }
         }
     }

@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import Users from './Users';
 import '../styles/RoomReserv.scss';
 import Calendar from './Calendar';
 import moment from 'moment';
 import ReservationIntervals from './ReservationIntervals';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowCircleRight, faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons'
-
-library.add(faArrowCircleRight, faArrowCircleLeft)
-
-
+import UserList from './UserList';
 
  class RoomReserv extends Component {
 
@@ -34,13 +27,10 @@ library.add(faArrowCircleRight, faArrowCircleLeft)
       dateTo: moment().format('YYYY-MM-DDTHH:mm'),
       size: 0
     },
-    isChecked: false,
     ip: null,
     isVisible: 'none',
-    users: null,
-    invitedUsers: null,
     errors: 'default',
-    succes: 'default'
+    succes: 'default',
   }
 
   componentWillMount(){
@@ -55,17 +45,6 @@ library.add(faArrowCircleRight, faArrowCircleLeft)
       this.props.history.push('/');
     }
     this.getRooms();
-    this.getUsers();
-  }
-
-  getUsers = () =>{
-    const { ip } = this.props
-    axios.get( ip + '/api/Users/get_all')
-    .then(res =>{
-        this.setState({
-           users: res.data 
-        })
-    })
   }
 
   getRooms = () =>{
@@ -171,11 +150,6 @@ library.add(faArrowCircleRight, faArrowCircleLeft)
     }))
   }
 
-  arrowRightClick = () =>{
-    
-
-  }
-
   render() {
     return (
         <div className="reserv_div">
@@ -255,15 +229,7 @@ library.add(faArrowCircleRight, faArrowCircleLeft)
               <ReservationIntervals ip={this.state.ip} onChange={this.handleChange}/>
             </div>
 
-
-            <div className="users_div">
-              <Users users={this.state.users}/>
-              <div className="arrows">
-                <FontAwesomeIcon icon={faArrowCircleLeft} onClick = {this.arrowLeftClick}></FontAwesomeIcon>
-                <FontAwesomeIcon icon={faArrowCircleRight} onClick = {this.arrowRightClick}></FontAwesomeIcon>
-              </div>
-              <Users users={this.state.invitedUsers}/>
-            </div>
+            <UserList  ip={this.state.ip}/>
 
             <div className="reserv_submit">
               <input type="submit" value="Rezerwuj"></input>
