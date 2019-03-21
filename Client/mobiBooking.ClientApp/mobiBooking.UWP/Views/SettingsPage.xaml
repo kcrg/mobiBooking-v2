@@ -11,6 +11,6 @@
         <TextBlock
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Text="SettingsPage" />
+            Text="SettingsPage"/>
     </Grid>
 </Page>

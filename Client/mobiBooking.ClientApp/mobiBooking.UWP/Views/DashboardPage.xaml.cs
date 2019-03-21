@@ -30,13 +30,9 @@ namespace mobiBooking.UWP.Views
 
         private void BookRoomButton_Click(object sender, RoutedEventArgs e)
         {
-            //MainPage nav = new MainPage();
-
             Frame rootFrame = Window.Current.Content as Frame;
             MainPage homePage = rootFrame.Content as MainPage;
-            //nav.NView.SelectedItem = nav.NView.MenuItems[1];
             homePage.NavigationFrame.Navigate(typeof(BookPage), null, new DrillInNavigationTransitionInfo());
-            //LoadingScreen.IsLoading = true;
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

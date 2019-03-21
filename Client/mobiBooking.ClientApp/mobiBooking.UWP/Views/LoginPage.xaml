@@ -20,25 +20,22 @@
                 FontSize="24"
                 FontWeight="Bold"
                 Text="Zaloguj się"
-                TextAlignment="Center" />
+                TextAlignment="Center"/>
 
-            <TextBox
-                x:Name="email"
+            <TextBox x:Name="email"
                 Width="200"
                 extensions:TextBoxRegex.ValidationType="Email"
                 Header="E-mail"
-                Text="m.w@g.pl" />
-            <PasswordBox
-                x:Name="password"
+                Text="m.w@g.pl"/>
+            <PasswordBox x:Name="password"
                 Width="200"
                 Header="Hasło"
-                Password="123" />
+                Password="123"/>
 
-            <Button
-                x:Name="SubmitButton"
+            <Button x:Name="SubmitButton"
                 HorizontalAlignment="Right"
                 Click="SignIn_Button"
-                Content="Zaloguj" />
+                Content="Zaloguj"/>
         </StackPanel>
     </Page.Content>
 </Page>

@@ -9,7 +9,7 @@
     mc:Ignorable="d">
 
     <Page.Content>
-        <Grid Margin="24">
+        <Grid Padding="24">
             <Button
                 Margin="0,-12,0,0"
                 HorizontalAlignment="Right"
@@ -18,55 +18,54 @@
                 Canvas.ZIndex="5"
                 Click="AddUser_Click"
                 Content="Dodaj użytkownika"
-                Style="{StaticResource ButtonRevealStyle}" />
-            <ListView
-                x:Name="UsersList"
-                Margin="0,30,0,0"
+                Style="{StaticResource ButtonRevealStyle}"/>
+            <ListView x:Name="UsersList"
+                Margin="0,30,0,30"
                 Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}"
                 SelectionMode="None">
                 <ListView.HeaderTemplate>
                     <DataTemplate>
                         <Grid Padding="12" Background="{ThemeResource SystemControlChromeLowAcrylicElementBrush}">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="34" />
-                                <ColumnDefinition Width="100" />
-                                <ColumnDefinition Width="120" />
-                                <ColumnDefinition Width="150" />
-                                <ColumnDefinition Width="150" />
-                                <ColumnDefinition Width="100" />
-                                <ColumnDefinition Width="100" />
-                                <ColumnDefinition Width="150" />
-                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="34"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Text="ID" />
+                            <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Text="ID"/>
                             <TextBlock
                                 Grid.Column="1"
                                 Style="{ThemeResource CaptionTextBlockStyle}"
-                                Text="Imię" />
+                                Text="Imię"/>
                             <TextBlock
                                 Grid.Column="2"
                                 Style="{ThemeResource CaptionTextBlockStyle}"
-                                Text="Nazwisko" />
+                                Text="Nazwisko"/>
                             <TextBlock
                                 Grid.Column="3"
                                 Style="{ThemeResource CaptionTextBlockStyle}"
-                                Text="E-mail" />
+                                Text="E-mail"/>
                             <TextBlock
                                 Grid.Column="4"
                                 Style="{ThemeResource CaptionTextBlockStyle}"
-                                Text="Telefon komórkowy" />
+                                Text="Nazwa użytkownika"/>
                             <TextBlock
                                 Grid.Column="5"
                                 Style="{ThemeResource CaptionTextBlockStyle}"
-                                Text="Typ konta" />
+                                Text="Typ konta"/>
                             <TextBlock
                                 Grid.Column="6"
                                 Style="{ThemeResource CaptionTextBlockStyle}"
-                                Text="Status" />
+                                Text="Aktywność"/>
                             <TextBlock
                                 Grid.Column="7"
                                 Style="{ThemeResource CaptionTextBlockStyle}"
-                                Text="Opcje" />
+                                Text="Opcje"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.HeaderTemplate>
@@ -74,61 +73,68 @@
                     <DataTemplate>
                         <Grid Height="40" Margin="1">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="34" />
-                                <ColumnDefinition Width="100" />
-                                <ColumnDefinition Width="120" />
-                                <ColumnDefinition Width="150" />
-                                <ColumnDefinition Width="150" />
-                                <ColumnDefinition Width="100" />
-                                <ColumnDefinition Width="100" />
-                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="34"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="200"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock
-                                x:Name="IDtext"
+                            <TextBlock x:Name="IDtext"
                                 Grid.Column="0"
                                 VerticalAlignment="Center"
-                                Text="{Binding Id}" />
+                                Text="{Binding Id}"/>
                             <TextBlock
                                 Grid.Column="1"
                                 VerticalAlignment="Center"
-                                Text="{Binding Name}" />
+                                Text="{Binding Name}"/>
                             <TextBlock
                                 Grid.Column="2"
                                 VerticalAlignment="Center"
-                                Text="{Binding Surname}" />
+                                Text="{Binding Surname}"/>
                             <TextBlock
                                 Grid.Column="3"
                                 VerticalAlignment="Center"
-                                Text="{Binding Email}" />
+                                Text="{Binding Email}"/>
                             <TextBlock
                                 Grid.Column="4"
                                 VerticalAlignment="Center"
-                                Text="{Binding Id}" />
+                                Text="{Binding UserName}"/>
                             <TextBlock
                                 Grid.Column="5"
                                 VerticalAlignment="Center"
-                                Text="{Binding Role}" />
+                                Text="{Binding Role}"/>
                             <TextBlock
                                 Grid.Column="6"
                                 VerticalAlignment="Center"
-                                Text="{Binding Surname}" />
+                                Text="{Binding Active}"/>
                             <StackPanel Grid.Column="7" Orientation="Horizontal">
                                 <AppBarButton
                                     Click="Delete_Click"
                                     Icon="Delete"
                                     IsCompact="True"
-                                    Style="{StaticResource AppBarButtonRevealStyle}" />
+                                    Style="{StaticResource AppBarButtonRevealStyle}"/>
+                                <AppBarButton
+                                    Click="Activate_Click"
+                                    Icon="BlockContact"
+                                    IsCompact="True"
+                                    Style="{StaticResource AppBarButtonRevealStyle}"/>
                                 <AppBarButton
                                     Click="Edit_Click"
                                     Icon="Edit"
                                     IsCompact="True"
-                                    Style="{StaticResource AppBarButtonRevealStyle}" />
+                                    Style="{StaticResource AppBarButtonRevealStyle}"/>
                             </StackPanel>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <TextBlock x:Name="usersCount"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"/>
         </Grid>
     </Page.Content>
 </Page>

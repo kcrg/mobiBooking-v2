@@ -12,12 +12,11 @@
 
     <ContentDialog.Content>
         <StackPanel MaxWidth="250" Spacing="5">
-            <TextBlock x:Name="MessageText" TextWrapping="Wrap" />
-            <TextBlock
-                x:Name="ErrorCodeText"
+            <TextBlock x:Name="MessageText" TextWrapping="Wrap"/>
+            <TextBlock x:Name="ErrorCodeText"
                 FontSize="12"
                 Foreground="Gray"
-                TextWrapping="Wrap" />
+                TextWrapping="Wrap"/>
         </StackPanel>
     </ContentDialog.Content>
 </ContentDialog>

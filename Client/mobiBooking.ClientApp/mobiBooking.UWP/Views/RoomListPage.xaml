@@ -10,42 +10,41 @@
 
     <Page.Content>
         <Grid Margin="24">
-            <ListView
-                x:Name="UsersList"
+            <ListView x:Name="UsersList"
                 Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}"
                 SelectionMode="None">
                 <ListView.HeaderTemplate>
                     <DataTemplate>
                         <Grid Padding="12" Background="{ThemeResource SystemControlChromeLowAcrylicElementBrush}">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="34" />
-                                <ColumnDefinition Width="150" />
-                                <ColumnDefinition Width="120" />
-                                <ColumnDefinition Width="150" />
-                                <ColumnDefinition Width="150" />
-                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="34"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Text="ID" />
+                            <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Text="ID"/>
                             <TextBlock
                                 Grid.Column="1"
                                 Style="{ThemeResource CaptionTextBlockStyle}"
-                                Text="Nazwa sali" />
+                                Text="Nazwa sali"/>
                             <TextBlock
                                 Grid.Column="2"
                                 Style="{ThemeResource CaptionTextBlockStyle}"
-                                Text="Lokalizacja" />
+                                Text="Lokalizacja"/>
                             <TextBlock
                                 Grid.Column="3"
                                 Style="{ThemeResource CaptionTextBlockStyle}"
-                                Text="Dostępność" />
+                                Text="Dostępność"/>
                             <TextBlock
                                 Grid.Column="4"
                                 Style="{ThemeResource CaptionTextBlockStyle}"
-                                Text="Liczba osób" />
+                                Text="Liczba osób"/>
                             <TextBlock
                                 Grid.Column="5"
                                 Style="{ThemeResource CaptionTextBlockStyle}"
-                                Text="Aktywność" />
+                                Text="Aktywność"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.HeaderTemplate>
@@ -53,20 +52,20 @@
                     <DataTemplate>
                         <Grid Height="48" Margin="0,12,0,0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="34" />
-                                <ColumnDefinition Width="150" />
-                                <ColumnDefinition Width="120" />
-                                <ColumnDefinition Width="150" />
-                                <ColumnDefinition Width="150" />
-                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="34"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Column="0" Text="{Binding Id}" />
-                            <TextBlock Grid.Column="1" Text="{Binding Name}" />
-                            <TextBlock Grid.Column="2" Text="{Binding Location}" />
-                            <TextBlock Grid.Column="3" Text="{Binding Activity}" />
-                            <TextBlock Grid.Column="4" Text="{Binding NumberOfPeople}" />
-                            <TextBlock Grid.Column="5" Text="{Binding Availability}" />
+                            <TextBlock Grid.Column="0" Text="{Binding Id}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Name}"/>
+                            <TextBlock Grid.Column="2" Text="{Binding Location}"/>
+                            <TextBlock Grid.Column="3" Text="{Binding Activity}"/>
+                            <TextBlock Grid.Column="4" Text="{Binding NumberOfPeople}"/>
+                            <TextBlock Grid.Column="5" Text="{Binding Availability}"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>

@@ -16,101 +16,79 @@
                     MaxWidth="400"
                     Padding="0,12,22,12"
                     Spacing="12">
-                    <TimePicker
-                        x:Name="TimeFrom"
+                    <TimePicker x:Name="TimeFrom"
                         HorizontalAlignment="Stretch"
-                        Header="Rezerwuje od*" />
-                    <CalendarDatePicker x:Name="DateFrom" HorizontalAlignment="Stretch" />
+                        Header="Rezerwuje od*"/>
+                    <CalendarDatePicker x:Name="DateFrom" HorizontalAlignment="Stretch"/>
 
-                    <TimePicker
-                        x:Name="TimeTo"
+                    <TimePicker x:Name="TimeTo"
                         HorizontalAlignment="Stretch"
-                        Header="Rezerwuje do*" />
-                    <CalendarDatePicker x:Name="DateTo" HorizontalAlignment="Stretch" />
+                        Header="Rezerwuje do*"/>
+                    <CalendarDatePicker x:Name="DateTo" HorizontalAlignment="Stretch"/>
 
-                    <TextBox
-                        x:Name="RoomCap"
+                    <TextBox x:Name="RoomCap"
                         extensions:TextBoxRegex.ValidationType="Number"
                         Header="Pojemność sali"
-                        LostFocus="RoomCap_LostFocus" />
+                        LostFocus="GetRoomList"/>
 
-                    <TextBlock Margin="0,0,0,-7" Text="Potrzebuje z wyposażeniem:" />
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox
-                            x:Name="Flipchart"
-                            Click="Flipchart_Click"
-                            Content="Flipchart" />
-                        <CheckBox
-                            x:Name="SoundSystem"
-                            Click="SoundSystem_Click"
-                            Content="System nagłaśniający" />
-                    </StackPanel>
-
-                    <ComboBox
-                        x:Name="RoomList"
+                    <ComboBox x:Name="RoomList"
                         HorizontalAlignment="Stretch"
                         Header="Wybierz salę*"
                         PlaceholderText="Wybierz">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name}" />
+                                <TextBlock Text="{Binding Name}"/>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
 
-                    <TextBox x:Name="Title" Header="Tytuł spotkania*" />
+                    <TextBox x:Name="Title" Header="Tytuł spotkania*"/>
 
-                    <ComboBox
-                        x:Name="Status"
+                    <ComboBox x:Name="Status"
                         HorizontalAlignment="Stretch"
                         Header="Status*">
                         <x:String>Wolna</x:String>
                         <x:String>Zajęta</x:String>
                     </ComboBox>
 
-                    <CheckBox
-                        x:Name="IsCyclic"
+                    <CheckBox x:Name="IsCyclic"
                         Click="IsCyclic_Click"
-                        Content="Rezerwacja cykliczna" />
+                        Content="Rezerwacja cykliczna"/>
 
-                    <ComboBox
-                        x:Name="Intervals"
+                    <ComboBox x:Name="Intervals"
                         HorizontalAlignment="Stretch"
                         Header="Ustaw interwał rezerwacji cyklicznej"
                         Visibility="Collapsed">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name}" />
+                                <TextBlock Text="{Binding Name}"/>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
 
-                    <TextBlock Text="Wybierz uczestników*" />
+                    <TextBlock Text="Wybierz uczestników*"/>
 
-                    <ListView
-                        x:Name="UsersList"
+                    <ListView x:Name="UsersList"
                         MaxHeight="220"
                         Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}"
                         SelectionMode="Multiple">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" Spacing="5">
-                                    <TextBlock Text="{Binding Name}" />
-                                    <TextBlock Text="{Binding Surname}" />
+                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text="{Binding Surname}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
                     <Grid>
-                        <CheckBox
-                            x:Name="SelectAll"
+                        <CheckBox x:Name="SelectAll"
                             Click="SelectAll_Click"
-                            Content="Zaznacz wszystkich" />
-                        <Button
-                            x:Name="SubmitButton"
+                            Content="Zaznacz wszystkich"/>
+                        <Button x:Name="SubmitButton"
                             HorizontalAlignment="Right"
                             Click="ReservateRoom_Click"
-                            Content="Rezerwuję" />
+                            Content="Rezerwuję"/>
                     </Grid>
                 </StackPanel>
             </Grid>

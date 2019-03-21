@@ -37,6 +37,10 @@ namespace mobiBooking.UWP.Views
             usersList = JsonConvert.DeserializeAnonymousType(response.Content, usersList);
 
             UsersList.ItemsSource = usersList;
+
+
+
+            usersCount.Text = UsersList.Items.Count.ToString() + " użytkowników";
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
@@ -52,12 +56,54 @@ namespace mobiBooking.UWP.Views
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            EditOrAddUser();
+            Button button = sender as Button;
+            ListViewItem lvi = FindParent<ListViewItem>(button);
+            lvi.IsSelected = true;
+
+            GetUsersModel userObj = new GetUsersModel
+            {
+                UserName = usersList[UsersList.SelectedIndex].UserName,
+                Name = usersList[UsersList.SelectedIndex].Name,
+                Surname = usersList[UsersList.SelectedIndex].Surname,
+                Email = usersList[UsersList.SelectedIndex].Email,
+                Active = usersList[UsersList.SelectedIndex].Active,
+                Role = usersList[UsersList.SelectedIndex].Role,
+                Id = usersList[UsersList.SelectedIndex].Id
+            };
+
+            EditOrAddUser(JsonConvert.SerializeObject(userObj));
         }
 
         private void AddUser_Click(object sender, RoutedEventArgs e)
         {
-            EditOrAddUser();
+            EditOrAddUser(null);
+        }
+
+        private async void Activate_Click(object sender, RoutedEventArgs e) // woźniak #ruszdupe
+        {
+            LoginModel SavedResponseObj = await helper.ReadFileAsync<LoginModel>("response");
+
+            Button button = sender as Button;
+            ListViewItem lvi = FindParent<ListViewItem>(button);
+
+            lvi.IsSelected = true;
+            int idItem = usersList[UsersList.SelectedIndex].Id;
+
+            AddUserModel userObj = new AddUserModel
+            {
+                Active = true
+            };
+            string json = JsonConvert.SerializeObject(userObj);
+
+            RestClient client = new RestClient(IP.Adress);
+            RestRequest request = new RestRequest("Account/update/{id}", Method.PUT);
+            request.AddParameter("application/json", json, ParameterType.RequestBody);
+            request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
+            request.AddParameter("id", idItem, ParameterType.UrlSegment);
+
+            // execute the request
+            IRestResponse response = client.Execute(request);
+            string res = response.Content;
         }
 
         private async Task DeleteUser(object sender)
@@ -75,14 +121,13 @@ namespace mobiBooking.UWP.Views
             request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
             request.AddParameter("id", idItem, ParameterType.UrlSegment);
             IRestResponse response = client.Execute(request);
-            string asd = response.Content;
         }
 
-        private void EditOrAddUser() //TODO add parameter with user information
+        private void EditOrAddUser(object param) //TODO add parameter with user information
         {
             Frame rootFrame = Window.Current.Content as Frame;
             MainPage homePage = rootFrame.Content as MainPage;
-            homePage.NavigationFrame.Navigate(typeof(AddUsersPage), null, new DrillInNavigationTransitionInfo());
+            homePage.NavigationFrame.Navigate(typeof(AddUsersPage), param, new DrillInNavigationTransitionInfo());
         }
 
         private static T FindParent<T>(DependencyObject dependencyObject) where T : DependencyObject

@@ -129,10 +129,12 @@
     <Compile Include="Models\AddUserModel.cs" />
     <Compile Include="Models\BookModel.cs" />
     <Compile Include="Models\ConnectionModel.cs" />
+    <Compile Include="Models\EditUserModel.cs" />
     <Compile Include="Models\GetIntervalsModel.cs" />
     <Compile Include="Models\GetRoomsModel.cs" />
     <Compile Include="Models\GetUsersModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\PostRoomsForRoomsReservationModel.cs" />
     <Compile Include="Models\SignInModel.cs" />
     <Compile Include="Views\AddRoomPage.xaml.cs">
       <DependentUpon>AddRoomPage.xaml</DependentUpon>

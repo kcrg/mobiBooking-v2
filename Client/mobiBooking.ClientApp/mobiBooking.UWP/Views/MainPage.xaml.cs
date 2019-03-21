@@ -49,7 +49,6 @@ namespace mobiBooking.UWP
                 usersSeparator.Visibility = Visibility.Collapsed;
                 usersHeader.Visibility = Visibility.Collapsed;
                 users.Visibility = Visibility.Collapsed;
-                adduser.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -106,12 +105,6 @@ namespace mobiBooking.UWP
                         {
                             PageTitle.Text = "Użytkownicy";
                             ContentFrame.Navigate(typeof(UsersPage), null, new DrillInNavigationTransitionInfo());
-                        }
-                        break;
-                    case "addusers":
-                        {
-                            PageTitle.Text = "Dodaj użytkownika";
-                            ContentFrame.Navigate(typeof(AddUsersPage), null, new DrillInNavigationTransitionInfo());
                         }
                         break;
                 }

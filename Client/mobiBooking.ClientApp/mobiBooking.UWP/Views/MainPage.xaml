@@ -14,15 +14,13 @@
         <Grid>
             <Grid x:Name="DragArea" Style="{StaticResource DragAreaGrid}">
 
-                <Image
-                    x:Name="AppLogoImage"
+                <Image x:Name="AppLogoImage"
                     Source=""
-                    Style="{StaticResource AppLogoImage}" />
-                <TextBlock Style="{StaticResource AppTitleText}" />
+                    Style="{StaticResource AppLogoImage}"/>
+                <TextBlock Style="{StaticResource AppTitleText}"/>
             </Grid>
 
-            <muxc:NavigationView
-                x:Name="NavView"
+            <muxc:NavigationView x:Name="NavView"
                 SelectionChanged="NavView_SelectionChanged"
                 Style="{StaticResource NavView}">
 
@@ -30,65 +28,56 @@
                     <muxc:NavigationViewItem
                         Content="Dashboard"
                         Icon="Home"
-                        Tag="dashboard" />
+                        Tag="dashboard"/>
 
-                    <muxc:NavigationViewItemSeparator />
-                    <muxc:NavigationViewItemHeader Content="Rezerwacja sali" />
+                    <muxc:NavigationViewItemSeparator/>
+                    <muxc:NavigationViewItemHeader Content="Rezerwacja sali"/>
 
                     <muxc:NavigationViewItem
                         Content="Zarezerwuj salę"
                         Icon="Permissions"
-                        Tag="bookroom" />
+                        Tag="bookroom"/>
                     <muxc:NavigationViewItem
                         Content="Lista sal/rezerwacje"
                         Icon="List"
-                        Tag="list" />
-                    <muxc:NavigationViewItem
-                        x:Name="addroom"
+                        Tag="list"/>
+                    <muxc:NavigationViewItem x:Name="addroom"
                         Content="Dodaj sale"
                         Icon="Add"
-                        Tag="addroom" />
+                        Tag="addroom"/>
 
-                    <muxc:NavigationViewItemSeparator x:Name="usersSeparator" />
-                    <muxc:NavigationViewItemHeader x:Name="usersHeader" Content="Zarządzanie użytkownikami" />
+                    <muxc:NavigationViewItemSeparator x:Name="usersSeparator"/>
+                    <muxc:NavigationViewItemHeader x:Name="usersHeader" Content="Zarządzanie użytkownikami"/>
 
-                    <muxc:NavigationViewItem
-                        x:Name="users"
+                    <muxc:NavigationViewItem x:Name="users"
                         Content="Użytkownicy"
                         Icon="People"
-                        Tag="users" />
-                    <muxc:NavigationViewItem
-                        x:Name="adduser"
-                        Content="Dodaj użytkownika"
-                        Icon="AddFriend"
-                        Tag="addusers" />
+                        Tag="users"/>
                 </muxc:NavigationView.MenuItems>
 
                 <muxc:NavigationView.PaneFooter>
                     <StackPanel>
-                        <muxc:NavigationViewItem
-                            x:Name="UserText"
+                        <muxc:NavigationViewItem x:Name="UserText"
                             Content="placeholder"
                             Icon="Contact"
-                            IsEnabled="False" />
+                            IsEnabled="False"/>
                         <muxc:NavigationViewItem
                             Content="Wyloguj"
                             Icon="Cancel"
-                            Tapped="LogOut_Click" />
+                            Tapped="LogOut_Click"/>
                     </StackPanel>
                 </muxc:NavigationView.PaneFooter>
 
                 <muxc:NavigationView.Content>
                     <Grid>
-                        <TextBlock
-                            x:Name="PageTitle"
+                        <TextBlock x:Name="PageTitle"
                             Margin="24,12,12,12"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             FontSize="32"
-                            Text="Dashboard" />
+                            Text="Dashboard"/>
 
-                        <Frame x:Name="ContentFrame" Margin="12,60,0,0" />
+                        <Frame x:Name="ContentFrame" Margin="12,60,0,0"/>
                     </Grid>
                 </muxc:NavigationView.Content>
             </muxc:NavigationView>

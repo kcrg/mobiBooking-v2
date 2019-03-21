@@ -7,45 +7,45 @@
     <Application.Resources>
         <ResourceDictionary>
             <Style x:Key="DragAreaGrid" TargetType="Grid">
-                <Setter Property="Canvas.ZIndex" Value="5" />
-                <Setter Property="Height" Value="34" />
-                <Setter Property="VerticalAlignment" Value="Top" />
-                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="Canvas.ZIndex" Value="5"/>
+                <Setter Property="Height" Value="34"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
             </Style>
 
             <Style x:Key="AppLogoImage" TargetType="Image">
-                <Setter Property="Width" Value="20" />
-                <Setter Property="Height" Value="20" />
-                <Setter Property="Margin" Value="8,0" />
-                <Setter Property="HorizontalAlignment" Value="Left" />
-                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Height" Value="20"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="Margin" Value="8,0"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Width" Value="20"/>
             </Style>
 
             <Style
                 x:Key="AppTitleText"
                 BasedOn="{StaticResource CaptionTextBlockStyle}"
                 TargetType="TextBlock">
-                <Setter Property="Text" Value="mobiBooking" />
-                <Setter Property="FontSize" Value="12" />
-                <Setter Property="Margin" Value="34,8" />
-                <Setter Property="VerticalAlignment" Value="Top" />
-                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="Margin" Value="34,8"/>
+                <Setter Property="Text" Value="mobiBooking"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
             </Style>
 
             <Style x:Key="BasicStackPanel" TargetType="StackPanel">
-                <Setter Property="Spacing" Value="12" />
-                <Setter Property="Padding" Value="12" />
+                <Setter Property="Padding" Value="12"/>
+                <Setter Property="Spacing" Value="12"/>
             </Style>
 
             <Style x:Key="NavView" TargetType="muxc:NavigationView">
-                <Setter Property="IsBackButtonVisible" Value="Collapsed" />
-                <Setter Property="IsPaneToggleButtonVisible" Value="False" />
-                <Setter Property="PaneDisplayMode" Value="Left" />
-                <Setter Property="IsPaneOpen" Value="True" />
-                <Setter Property="OpenPaneLength" Value="230" />
-                <Setter Property="CompactModeThresholdWidth" Value="0" />
-                <Setter Property="ExpandedModeThresholdWidth" Value="1100" />
-                <Setter Property="Margin" Value="0,0,0,0" />
+                <Setter Property="CompactModeThresholdWidth" Value="0"/>
+                <Setter Property="ExpandedModeThresholdWidth" Value="1100"/>
+                <Setter Property="IsBackButtonVisible" Value="Collapsed"/>
+                <Setter Property="IsPaneOpen" Value="True"/>
+                <Setter Property="IsPaneToggleButtonVisible" Value="False"/>
+                <Setter Property="Margin" Value="0,0,0,0"/>
+                <Setter Property="OpenPaneLength" Value="230"/>
+                <Setter Property="PaneDisplayMode" Value="Left"/>
             </Style>
 
             <AcrylicBrush
@@ -53,10 +53,10 @@
                 BackgroundSource="HostBackdrop"
                 FallbackColor="#00b7ce"
                 TintColor="#00b7ce"
-                TintOpacity="0.8" />
+                TintOpacity="0.8"/>
 
             <ResourceDictionary.MergedDictionaries>
-                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls"/>
                 <ResourceDictionary>
                     <ResourceDictionary.ThemeDictionaries>
                         <ResourceDictionary x:Key="Default">
@@ -64,17 +64,17 @@
                                 x:Key="NavigationViewDefaultPaneBackground"
                                 AlwaysUseFallback="True"
                                 FallbackColor="{StaticResource SystemAltHighColor}"
-                                Opacity="0.2" />
+                                Opacity="0.2"/>
                             <AcrylicBrush
                                 x:Key="NavigationViewTopPaneBackground"
                                 AlwaysUseFallback="True"
                                 FallbackColor="{StaticResource SystemAltHighColor}"
-                                Opacity="0.2" />
+                                Opacity="0.2"/>
                             <AcrylicBrush
                                 x:Key="NavigationViewExpandedPaneBackground"
                                 AlwaysUseFallback="True"
                                 FallbackColor="{StaticResource SystemAltHighColor}"
-                                Opacity="0.2" />
+                                Opacity="0.2"/>
                         </ResourceDictionary>
                         <ResourceDictionary x:Key="HighContrast">
                             <!--

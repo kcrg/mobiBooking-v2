@@ -12,8 +12,7 @@
 
     <Page.Content>
         <Grid>
-            <mtuuc:Loading
-                x:Name="LoadingScreen"
+            <mtuuc:Loading x:Name="LoadingScreen"
                 Background="{ThemeResource SystemControlAcrylicElementBrush}"
                 Canvas.ZIndex="4"
                 IsLoading="False">
@@ -21,11 +20,11 @@
                     <ProgressRing
                         Width="70"
                         Height="70"
-                        IsActive="True" />
+                        IsActive="True"/>
                     <TextBlock TextAlignment="Center">
-                        <Run Text="Pracujemy nad tym." />
-                        <LineBreak />
-                        <Run Text="( ͡° ͜ʖ ͡° )つ──☆*:・ﾟ" />
+                        <Run Text="Pracujemy nad tym."/>
+                        <LineBreak/>
+                        <Run Text="( ͡° ͜ʖ ͡° )つ──☆*:・ﾟ"/>
                     </TextBlock>
                 </StackPanel>
             </mtuuc:Loading>
@@ -39,12 +38,12 @@
                     Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}">
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50*" />
-                        <ColumnDefinition Width="50*" />
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock
@@ -52,38 +51,38 @@
                         Grid.ColumnSpan="2"
                         FontSize="20"
                         FontWeight="Bold"
-                        Text="Moje spotkania" />
+                        Text="Moje spotkania"/>
 
                     <StackPanel Grid.Row="1" Grid.Column="0">
-                        <TextBlock Text="ten tydzień" />
+                        <TextBlock Text="ten tydzień"/>
                         <TextBlock
                             FontSize="20"
                             FontWeight="Bold"
                             Foreground="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"
-                            Text="0.00h" />
+                            Text="0.00h"/>
 
-                        <TextBlock Text="poprzedni tydzień" />
+                        <TextBlock Text="poprzedni tydzień"/>
                         <TextBlock
                             FontSize="20"
                             FontWeight="Bold"
                             Foreground="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"
-                            Text="0.00h" />
+                            Text="0.00h"/>
                     </StackPanel>
 
                     <StackPanel Grid.Row="1" Grid.Column="1">
-                        <TextBlock Text="ten miesiąc" />
+                        <TextBlock Text="ten miesiąc"/>
                         <TextBlock
                             FontSize="20"
                             FontWeight="Bold"
                             Foreground="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"
-                            Text="0.00h" />
+                            Text="0.00h"/>
 
-                        <TextBlock Text="poprzedni miesiąc" />
+                        <TextBlock Text="poprzedni miesiąc"/>
                         <TextBlock
                             FontSize="20"
                             FontWeight="Bold"
                             Foreground="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"
-                            Text="0.00h" />
+                            Text="0.00h"/>
                     </StackPanel>
                 </Grid>
 
@@ -93,25 +92,23 @@
                     Padding="12"
                     Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock
                         FontSize="20"
                         FontWeight="Bold"
-                        Text="Spotkania na dziś" />
-                    <Image
-                        x:Name="MeetingsTodayImage"
+                        Text="Spotkania na dziś"/>
+                    <Image x:Name="MeetingsTodayImage"
                         Height="38"
                         HorizontalAlignment="Right"
-                        VerticalAlignment="Top" />
+                        VerticalAlignment="Top"/>
 
-                    <TextBlock Grid.Row="1" Text="W dniu dzisiejszym nie masz spotkań" />
+                    <TextBlock Grid.Row="1" Text="W dniu dzisiejszym nie masz spotkań"/>
                 </Grid>
 
-                <Button
-                    x:Name="BookRoomButton"
+                <Button x:Name="BookRoomButton"
                     Width="300"
                     Height="170"
                     Background="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"
@@ -119,7 +116,7 @@
                     Content="Zarezerwuj salę"
                     FontSize="22"
                     FontWeight="Bold"
-                    Style="{StaticResource ButtonRevealStyle}" />
+                    Style="{StaticResource ButtonRevealStyle}"/>
 
                 <Grid
                     Width="300"
@@ -128,12 +125,12 @@
                     Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}">
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50*" />
-                        <ColumnDefinition Width="50*" />
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock
@@ -141,25 +138,25 @@
                         Grid.ColumnSpan="2"
                         FontSize="20"
                         FontWeight="Bold"
-                        Text="Sale" />
+                        Text="Sale"/>
 
                     <StackPanel Grid.Row="1" Grid.Column="0">
-                        <TextBlock Text="Aktualnie wolne" />
+                        <TextBlock Text="Aktualnie wolne"/>
                         <TextBlock
                             FontSize="20"
                             FontWeight="Bold"
                             Foreground="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"
-                            Text="3" />
+                            Text="3"/>
 
                     </StackPanel>
 
                     <StackPanel Grid.Row="1" Grid.Column="1">
-                        <TextBlock Text="Aktualnie zajęte" />
+                        <TextBlock Text="Aktualnie zajęte"/>
                         <TextBlock
                             FontSize="20"
                             FontWeight="Bold"
                             Foreground="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"
-                            Text="0" />
+                            Text="0"/>
                     </StackPanel>
                 </Grid>
 
@@ -169,15 +166,15 @@
                     Padding="12"
                     Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock
                         FontSize="20"
                         FontWeight="Bold"
-                        Text="Ostatnio rezerwowałeś/aś" />
-                    <TextBlock Grid.Row="1" Text="Jeszcze nie rezerwowałeś/aś" />
+                        Text="Ostatnio rezerwowałeś/aś"/>
+                    <TextBlock Grid.Row="1" Text="Jeszcze nie rezerwowałeś/aś"/>
                 </Grid>
 
                 <Grid
@@ -187,12 +184,12 @@
                     Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}">
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50*" />
-                        <ColumnDefinition Width="50*" />
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock
@@ -200,38 +197,38 @@
                         Grid.ColumnSpan="2"
                         FontSize="20"
                         FontWeight="Bold"
-                        Text="Statystyki rezerwacji" />
+                        Text="Statystyki rezerwacji"/>
 
                     <StackPanel Grid.Row="1" Grid.Column="0">
-                        <TextBlock Text="ten tydzień" />
+                        <TextBlock Text="ten tydzień"/>
                         <TextBlock
                             FontSize="20"
                             FontWeight="Bold"
                             Foreground="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"
-                            Text="0" />
+                            Text="0"/>
 
-                        <TextBlock Text="poprzedni tydzień" />
+                        <TextBlock Text="poprzedni tydzień"/>
                         <TextBlock
                             FontSize="20"
                             FontWeight="Bold"
                             Foreground="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"
-                            Text="0" />
+                            Text="0"/>
                     </StackPanel>
 
                     <StackPanel Grid.Row="1" Grid.Column="1">
-                        <TextBlock Text="ten miesiąc" />
+                        <TextBlock Text="ten miesiąc"/>
                         <TextBlock
                             FontSize="20"
                             FontWeight="Bold"
                             Foreground="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"
-                            Text="0" />
+                            Text="0"/>
 
-                        <TextBlock Text="poprzedni miesiąc" />
+                        <TextBlock Text="poprzedni miesiąc"/>
                         <TextBlock
                             FontSize="20"
                             FontWeight="Bold"
                             Foreground="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"
-                            Text="0" />
+                            Text="0"/>
                     </StackPanel>
                 </Grid>
             </GridView>

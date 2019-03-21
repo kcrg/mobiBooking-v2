@@ -50,11 +50,8 @@ namespace mobiBooking.UWP.Views
                 {
                     RoomName = roomname.Text.Trim(),
                     Location = localization.Text.Trim(),
-                    Activity = activity.IsChecked ?? false,
                     Availability = availability.SelectedIndex + 1,
-                    NumberOfPeople = Convert.ToInt32(numberofpeople.Text),
-                    Flipchart = Flipchart.IsChecked ?? false,
-                    SoundSystem = SoundSystem.IsChecked ?? false
+                    NumberOfPeople = Convert.ToInt32(numberofpeople.Text)
                 };
                 string json = JsonConvert.SerializeObject(roomObj);
 

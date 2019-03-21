@@ -44,21 +44,42 @@ namespace mobiBooking.UWP.Views
             UsersList.ItemsSource = JsonConvert.DeserializeAnonymousType(response.Content, usersList);
         }
 
-        private async Task GetRooms()
+        private async Task PostRooms()
         {
             LoginModel SavedResponseObj = await helper.ReadFileAsync<LoginModel>("response");
 
+            DateTime newDateFrom = DateFrom.Date.Value.Date + TimeFrom.Time;
+            string formatedDateFrom = newDateFrom.ToString("yyyy-MM-ddTHH:mm:ss");
+
+            DateTime newDateTo = DateTo.Date.Value.Date + TimeTo.Time;
+            string formatedDateTo = newDateTo.ToString("yyyy-MM-ddTHH:mm:ss");
+
+            int.TryParse(RoomCap.Text, out int sizeParsesd);
+
+            PostRoomsForRoomsReservationModel roomObj = new PostRoomsForRoomsReservationModel
+            {  
+                Size = sizeParsesd,
+                DateFrom = formatedDateFrom,
+                DateTo = formatedDateTo,
+            };
+            string json = JsonConvert.SerializeObject(roomObj);
+
             RestClient client = new RestClient(IP.Adress);
-            RestRequest request = new RestRequest("Room/get_all", Method.GET);
+            RestRequest request = new RestRequest("Room/for_reservation", Method.POST);
+            request.AddParameter("application/json", json, ParameterType.RequestBody);
             request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
 
             // execute the request
             IRestResponse response = client.Execute(request);
 
-            List<GetRoomsModel> roomsList = new List<GetRoomsModel>();
-
-            RoomList.ItemsSource = JsonConvert.DeserializeAnonymousType(response.Content, roomsList);
-            RoomList.SelectedIndex = 0;
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                List<GetRoomsModel> roomsList = new List<GetRoomsModel>();
+                RoomList.ItemsSource = JsonConvert.DeserializeAnonymousType(response.Content, roomsList);
+            }
+            else
+            {
+            }
         }
 
         private async Task GetIntervals()
@@ -149,19 +170,9 @@ namespace mobiBooking.UWP.Views
             }
         }
 
-        private async void Flipchart_Click(object sender, RoutedEventArgs e)
+        private async void GetRoomList(object sender, RoutedEventArgs e)
         {
-            await GetRooms();
-        }
-
-        private async void SoundSystem_Click(object sender, RoutedEventArgs e)
-        {
-            await GetRooms();
-        }
-
-        private async void RoomCap_LostFocus(object sender, RoutedEventArgs e)
-        {
-            await GetRooms();
+            await PostRooms();
         }
 
         private async void IsCyclic_Click(object sender, RoutedEventArgs e)

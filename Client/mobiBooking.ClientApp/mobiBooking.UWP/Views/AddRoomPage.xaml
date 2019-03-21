@@ -16,42 +16,29 @@
                     MaxWidth="400"
                     Padding="0,12,22,12"
                     Spacing="12">
-                    <TextBox x:Name="roomname" Header="Nazwa sali" />
+                    <TextBox x:Name="roomname" Header="Nazwa sali"/>
 
-                    <TextBox x:Name="localization" Header="Lokalizacja" />
+                    <TextBox x:Name="localization" Header="Lokalizacja"/>
 
-                    <ComboBox
-                        x:Name="availability"
+                    <ComboBox x:Name="availability"
                         HorizontalAlignment="Stretch"
                         Header="Dostępność">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name}" />
+                                <TextBlock Text="{Binding Name}"/>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
 
-                    <TextBlock Margin="0,0,0,-7" Text="Potrzebuje z wyposażeniem:" />
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox x:Name="Flipchart" Content="Flipchart" />
-                        <CheckBox x:Name="SoundSystem" Content="System nagłaśniający" />
-                    </StackPanel>
-
-                    <TextBox
-                        x:Name="numberofpeople"
+                    <TextBox x:Name="numberofpeople"
                         extensions:TextBoxRegex.ValidationType="Number"
-                        Header="Liczba osób" />
+                        Header="Liczba osób"/>
 
-                    <Grid>
-                        <CheckBox x:Name="activity" Content="Aktywny" />
-
-                        <Button
-                            x:Name="SubmitButton"
-                            HorizontalAlignment="Right"
-                            Click="Add_Click"
-                            Content="Dodaj salę"
-                            Style="{StaticResource ButtonRevealStyle}" />
-                    </Grid>
+                    <Button x:Name="SubmitButton"
+                        HorizontalAlignment="Right"
+                        Click="Add_Click"
+                        Content="Dodaj salę"
+                        Style="{StaticResource ButtonRevealStyle}"/>
                 </StackPanel>
             </Grid>
         </ScrollViewer>
