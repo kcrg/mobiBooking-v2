@@ -30,8 +30,6 @@ library.add(faArrowCircleRight, faArrowCircleLeft)
     roomsList: null,
     roomItems: null,
     roomsInfo:{
-      flipchart: false,
-      soundSystem: false,
       dateFrom: moment().format('YYYY-MM-DDTHH:mm'),
       dateTo: moment().format('YYYY-MM-DDTHH:mm'),
       size: 0
@@ -153,16 +151,7 @@ library.add(faArrowCircleRight, faArrowCircleLeft)
     }))
   }
 
-  handleCheck = (name, value) =>{
-    this.setState(prevState =>({
-      ...prevState,
-      roomsInfo:{
-        ...prevState.roomsInfo,
-        [name]: value
-      }
-    }), this.getRooms)
-  }
-
+ 
   handleRepeatCheck = (name, value) =>{
     if(value){
       this.setState({

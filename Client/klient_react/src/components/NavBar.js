@@ -56,6 +56,7 @@ export default class NavBar extends Component {
             <Link to="/555"><li>Lista sal/rezerwacje</li></Link>
             <Link to="/addRoom"  className={this.state.visible}><li>Dodaj sale</li></Link>
             <Link to="addUser"  className={this.state.visible}><li>Użytkownicy</li></Link>
+            <Link to="addUser"  className={this.state.visible}><li>Dodaj użytkownika</li></Link>
             <Link to="addUser"><li>Ustawienia</li></Link>
           </ul>
         </nav>

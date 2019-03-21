@@ -37,6 +37,7 @@
             align-items: center;
 
             label{
+                display: inline-block;
                 min-width: 220px;
                 font-size: 20px;
                 text-align: left;
@@ -57,6 +58,7 @@
                 min-width: 220px;
                 font-size: 20px;
                 text-align: left;
+                display: inline-block;
             }
             input{
                 border-radius: 5px;
@@ -74,6 +76,7 @@
                 min-width: 220px;
                 font-size: 20px;
                 text-align: left;
+                display: inline-block;
             }
             input{
                 border-radius: 5px;
@@ -91,6 +94,7 @@
                 min-width: 220px;
                 font-size: 20px;
                 text-align: left;
+                display: inline-block;
             }
             input{
                 border-radius: 5px;
@@ -108,6 +112,7 @@
                 min-width: 220px;
                 font-size: 20px;
                 text-align: left;
+                display: inline-block;
             }
             input{
                 border-radius: 5px;
@@ -125,6 +130,7 @@
                 min-width: 220px;
                 font-size: 20px;
                 text-align: left;
+                display: inline-block;
             }
             input{
                 border-radius: 5px;
@@ -142,6 +148,7 @@
                 min-width: 220px;
                 font-size: 20px;
                 text-align: left;
+                display: inline-block;
             }
             select{
                 border-radius: 5px;
@@ -193,5 +200,177 @@
 }
 
 @media only screen and (min-width: 700px){
-  
+  .user_form_div{
+      .user_form{
+        .user_name{
+            display: grid;
+            grid-template-columns: 0.84fr 1fr;
+            grid-gap: 20px;
+            
+            .user_name_label{
+
+                label{
+                    display: inline-block;
+                    width: 100%;
+                    align-self: center;
+                    text-align: right;
+                }
+
+            }
+
+            .user_name_input{
+                input{
+                    min-width: 260px;
+                }
+            }
+        }
+
+        .password{
+            display: grid;
+            grid-template-columns: 0.84fr 1fr;
+            grid-gap: 20px;
+
+               
+            .password_label{
+
+                label{
+                    display: inline-block;
+                    width: 100%;
+                    align-self: center;
+                    text-align: right;
+                }
+
+            }
+
+            .password_input{
+                input{
+                    min-width: 260px;
+                }
+            }
+        }
+
+        .r_password{
+            display: grid;
+            grid-template-columns: 0.84fr 1fr;
+            grid-gap: 20px;
+
+               
+            .r_password_label{
+
+                label{
+                    display: inline-block;
+                    width: 100%;
+                    align-self: center;
+                    text-align: right;
+                }
+
+            }
+
+            .r_password_input{
+                input{
+                    min-width: 260px;
+                }
+            }
+        }
+
+        .name{
+            display: grid;
+            grid-template-columns: 0.84fr 1fr;
+            grid-gap: 20px;
+
+               
+            .name_label{
+
+                label{
+                    display: inline-block;
+                    width: 100%;
+                    padding-right: 14px;
+                    align-self: center;
+                    text-align: right;
+                }
+
+            }
+
+            .name_input{
+                input{
+                    min-width: 260px;
+                }
+            }
+        }
+
+        .surname{
+            display: grid;
+            grid-template-columns: 0.84fr 1fr;
+            grid-gap: 20px;
+
+               
+            .surname_label{
+
+                label{
+                    display: inline-block;
+                    width: 100%;
+                    padding-right: 14px;
+                    align-self: center;
+                    text-align: right;
+                }
+
+            }
+
+            .surname_input{
+                input{
+                    min-width: 260px;
+                }
+            }
+        }
+
+        .email{
+            display: grid;
+            grid-template-columns: 0.84fr 1fr;
+            grid-gap: 20px;
+
+               
+            .email_label{
+
+                label{
+                    display: inline-block;
+                    width: 100%;
+                    align-self: center;
+                    text-align: right;
+                }
+
+            }
+
+            .email_input{
+                input{
+                    min-width: 260px;
+                }
+            }
+        }
+
+        .permissions{
+            display: grid;
+            grid-template-columns: 0.84fr 1fr;
+            grid-gap: 20px;
+
+               
+            .permissions_label{
+
+                label{
+                    display: inline-block;
+                    width: 100%;
+                    align-self: center;
+                    text-align: right;
+                    padding-right: 14px;
+                }
+
+            }
+
+            .permissions_select{
+                select{
+                    min-width: 260px;
+                }
+            }
+        }
+    }
+  }
 }

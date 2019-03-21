@@ -8,11 +8,8 @@ class AddRoom extends Component {
     roomData:{
       roomName: null,
       location: null,
-      activity: true,
       availability: 1,
-      numberOfPeople: null,
-      flipchart: false,
-      soundSystem: false,
+      numberOfPeople: null
     },
     error: 'default',
     succes: 'default',
@@ -29,28 +26,6 @@ class AddRoom extends Component {
       roomData: {
         ...prevState.roomData,
         [name]: value
-      } 
-    }))
-  }
-
-  handleCheck = (name, value) => {
-    this.setState(prevState =>({
-      ...prevState,
-      roomData: {
-        ...prevState.roomData,
-        [name]: value
-      }
-    }), () =>{
-      console.log(this.state.roomData)
-    })
-  }
-
-  handleAChange = (name, value) =>{
-    this.setState(prevState => ({
-      ...prevState,
-      roomData: {
-        ...prevState.roomData,
-        [name]: value === "Tak" ? (true) : (false)
       } 
     }))
   }
@@ -87,7 +62,6 @@ class AddRoom extends Component {
     };
   }
 
-         
   handleSubmit = (e) =>{
     e.preventDefault();
     this.sendData()
@@ -133,8 +107,6 @@ class AddRoom extends Component {
 
   }
   
-
-
   render() {
     return (
         <div className="add_room">

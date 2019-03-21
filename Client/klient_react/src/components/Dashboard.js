@@ -25,7 +25,7 @@ class Dashboard extends Component {
         return (
             <div className="dashboard-content">
                 <h2>Dashboard</h2>
-                <div class="boxes">
+                <div className="boxes">
                     <Meetings/>
                     <TodayMeetings/>
                     <ReservButton/>
