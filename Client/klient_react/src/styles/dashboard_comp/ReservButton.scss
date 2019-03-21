@@ -1,0 +1,17 @@
+@import '../../index.scss';
+
+.reserv_button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: $primary-color;
+    border-radius: 5px;
+    min-height: 250px;
+    padding: 10px 10px 20px 10px;
+    background: $mobi-blue;
+    color:$primary-color;
+    font-weight: bold;
+    font-size: 30px;
+}
+

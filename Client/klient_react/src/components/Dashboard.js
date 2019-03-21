@@ -6,6 +6,7 @@ import TodayMeetings from './dashboard_components/TodayMeetings';
 import Rooms from './dashboard_components/Rooms';
 import LastReserv from './dashboard_components/LastReserv';
 import ReservStats from './dashboard_components/ReservStats';
+import ReservButton from './dashboard_components/ReservButton';
 
 class Dashboard extends Component {
 
@@ -24,16 +25,14 @@ class Dashboard extends Component {
         return (
             <div className="dashboard-content">
                 <h2>Dashboard</h2>
-                <Meetings/>
-                <TodayMeetings/>
-
-                <div className="reserv_button">
-                    <span>Zarezerwuj salę</span>
+                <div className="boxes">
+                    <Meetings/>
+                    <TodayMeetings/>
+                    <ReservButton/>
+                    <Rooms/>
+                    <LastReserv/>
+                    <ReservStats/>
                 </div>
-
-                <Rooms/>
-                <LastReserv/>
-                <ReservStats/>
             </div>
         )
     }

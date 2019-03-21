@@ -37,7 +37,7 @@ export default class Users extends Component {
     const userItem = this.state.users.map(user =>{
     return(
         <div key={user.id}>
-            <UserTemp id={user.id} name={user.name} surname={user.surname} AddUser = {this.AddSelectedUser} DeleteUser = {this.DeleteSelectedUser}></UserTemp>
+            <UserTemp id={user.id} userName={user.userName} AddUser = {this.AddSelectedUser} DeleteUser = {this.DeleteSelectedUser}></UserTemp>
         </div>
     )
     })

@@ -26,10 +26,10 @@ export default class UserTemp extends Component {
   }
 
   render() {
-    const { id, name, surname} = this.props
+    const { id, userName} = this.props
     return (
       <div id={id} className={this.state.class} onClick={e =>{this.buttonClick(e)}}>
-        {name + " " + surname}
+        {userName}
       </div>
     )
   }

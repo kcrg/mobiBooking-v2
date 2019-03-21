@@ -21,18 +21,22 @@ export default class Meetings extends Component {
         </div>
         
         <div className="whole">
-          <div className="week">
+          <div className="this_week">
               <h5>ten tydzień</h5>
-              <span>0.00h</span>
-
-              <h5>poprz. tydzień</h5>
               <span>0.00h</span>
           </div>
 
-          <div className="month">
-          <h5>ten miesiąc</h5>
-              <span>0.00h</span>
+          <div className="previous_week">
+            <h5>poprz. tydzień</h5>
+            <span>0.00h</span>
+          </div>
 
+          <div className="this_month">
+            <h5>ten miesiąc</h5>
+            <span>0.00h</span>
+          </div>
+
+          <div className="previous_month">
               <h5>poprz. miesiąc</h5>
               <span>0.00h</span>
           </div>

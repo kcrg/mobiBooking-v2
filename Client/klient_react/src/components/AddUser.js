@@ -88,41 +88,69 @@ class AddUser extends Component {
           <form onSubmit={this.handleSubmit} className="user_form">
 
             <div className="user_name">
-              <label htmlFor="user_name">Nazwa użytkownika: <span className="star">*</span></label>
-              <input type="text" id="user_name" onChange={e => this.handleChange('userName', e.target.value)} required placeholder="Nazwa użytkownika..."></input> 
+              <div className="user_name_label">
+                <label htmlFor="user_name">Nazwa użytkownika:  <span className="star">*</span></label>
+              </div>
+              <div className="user_name_input">
+                <input type="text" id="user_name" onChange={e => this.handleChange('userName', e.target.value)} required placeholder="Nazwa użytkownika..."></input> 
+              </div>
             </div>
 
             <div className="password">
-              <label htmlFor="pass">Hasło: <span className="star">*</span></label>
-              <input type="password" id="pass" onChange={e => this.handleChange('password', e.target.value)} required placeholder="Hasło..."></input>  
+              <div className="password_label">
+                <label htmlFor="pass">Hasło: <span className="star">*</span></label>
+              </div>
+              <div className="password_input">
+                <input type="password" id="pass" onChange={e => this.handleChange('password', e.target.value)} required placeholder="Hasło..."></input>  
+              </div>
             </div>
 
             <div className="r_password">
-              <label htmlFor="r_pass">Powtórz hasło: <span className="star">*</span></label>
-              <input type="password" id="r_pass" onChange={e => this.handleRpasswordChange('r_pass', e.target.value)} required placeholder="Powtórz hasło..."></input>  
+              <div className="r_password_label">
+                <label htmlFor="r_pass">Powtórz hasło: <span className="star">*</span></label>
+              </div>
+              <div className="r_password_input">
+                <input type="password" id="r_pass" onChange={e => this.handleRpasswordChange('r_pass', e.target.value)} required placeholder="Powtórz hasło..."></input> 
+              </div> 
             </div>
 
             <div className="name">
-              <label htmlFor="f_name">Imię:</label>
-              <input type="text" id="f_name" onChange={e => this.handleChange('name', e.target.value)} required placeholder="Imię..."></input> 
+              <div className="name_label">
+                <label htmlFor="f_name">Imię:</label>
+              </div>
+              <div className="name_input">
+                <input type="text" id="f_name" onChange={e => this.handleChange('name', e.target.value)} required placeholder="Imię..."></input> 
+              </div>
             </div>
 
             <div className="surname">
-              <label htmlFor="l_name">Nazwisko:</label>
-              <input type="text" id="l_name" onChange={e => this.handleChange('surname', e.target.value)} required placeholder="Nazwisko"></input> 
+              <div className="surname_label">
+                <label htmlFor="l_name">Nazwisko:</label>
+              </div>
+              <div className="surname_input">
+                <input type="text" id="l_name" onChange={e => this.handleChange('surname', e.target.value)} required placeholder="Nazwisko"></input> 
+              </div>
             </div>
 
             <div className="email">
-              <label htmlFor="email">Email:  <span className="star">*</span></label>
-              <input type="email" id="email" onChange={e => this.handleChange('email', e.target.value)} required placeholder="E-mail"></input>
+              <div className="email_label">
+                <label htmlFor="email">Email:  <span className="star">*</span></label>
+              </div>
+              <div className="email_input">
+                <input type="email" id="email" onChange={e => this.handleChange('email', e.target.value)} required placeholder="E-mail"></input>
+              </div>
             </div>
 
             <div className="permissions">
-              <label htmlFor="permissions">Uprawnienia:</label>
-              <select id="permissions" onChange={e => this.handleChange('userType', e.target.value)}>
-                <option>Administrator</option>
-                <option>Zwykły użytkownik</option>
-              </select>
+              <div className="permissions_label">
+                <label htmlFor="permissions">Uprawnienia:</label>
+              </div>
+              <div className="permissions_select">
+                <select id="permissions" onChange={e => this.handleChange('userType', e.target.value)}>
+                  <option>Administrator</option>
+                  <option>Zwykły użytkownik</option>
+                </select>
+              </div>
             </div>
 
             <div className="add_user_submit">
