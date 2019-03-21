@@ -65,10 +65,10 @@ class AddUser extends Component {
   }
 
   checkData = () =>{
-    return (this.state.userData.userName === '' ||
-    this.state.userData.password === '' ||
-    this.state.r_pass === '' ||
-    this.state.userData.email === '')
+    return (this.state.userData.userName.match(/^ *$/) !== null ||
+    this.state.userData.password.match(/^ *$/) !== null ||
+    this.state.r_pass.match(/^ *$/) !== null ||
+    this.state.userData.email.match(/^ *$/) !== null)
   }
 
   toggleError = (error) =>{

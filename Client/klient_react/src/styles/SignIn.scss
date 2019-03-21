@@ -39,6 +39,7 @@
             font-size: 20px;
             font-weight: bold;
             border-left: solid 10px #b30000;
+            
         }
 
         .error{
@@ -53,7 +54,8 @@
             left: 0;
             font-size: 20px;
             font-weight: bold;
-            border-left: solid 10px #b30000;
+            border-left: solid 10px #c78d8d;
+            z-index: 900;
         }
 
        
@@ -71,6 +73,7 @@
             font-size: 20px;
             font-weight: bold;
             border-left: solid 10px #e6ac00;
+            
         }
 
         .warning{
@@ -87,6 +90,7 @@
             font-weight: bold;
             padding: 100px;
             border-left: solid 10px #e6ac00;
+            z-index: 900;
         }
 
         .crudentials{

@@ -140,6 +140,7 @@
             font-weight: bold;
             padding: 10px;
             border-left: solid 10px #e6ac00;
+            z-index: 900;
         }
 
         .errors{
@@ -156,6 +157,7 @@
             padding: 10px;
             font-weight: bold;
             border-left: solid 10px #b30000;
+            z-index: 900;
         }
 
         .done{
@@ -172,7 +174,9 @@
             padding: 10px;
             font-weight: bold;
             border-left: solid 10px #00b300;
+            z-index: 900;
         }
+        
     }
 }
 

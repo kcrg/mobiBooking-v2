@@ -31,6 +31,9 @@ import UserList from './UserList';
     isVisible: 'none',
     errors: 'default',
     succes: 'default',
+    warning: 'default',
+    disabled: true,
+    times: 'times'
   }
 
   componentWillMount(){
@@ -48,12 +51,32 @@ import UserList from './UserList';
   }
 
   getRooms = () =>{
+    this.setState({
+      disabled: true,
+      roomsList: []
+    }, this.mapItems)
     const { ip } = this.props
     axios.post( ip + '/api/Room/for_reservation', this.state.roomsInfo)
     .then(res => {
-      this.setState({
-        roomsList: res.data
-      }, this.mapItems)
+      if(res.data.length > 0){
+        this.setState(prevState =>({
+          ...prevState,
+          roomsList: res.data,
+          disabled: false,
+          times: 'default',
+          reservData: {
+          ...prevState.reservData,
+          roomId:   res.data[0].id
+         }
+        }), ()=>{
+          this.mapItems()
+          console.log(this.state.roomsList)
+        })
+      }else{
+        this.setState({
+          times: 'times'
+        })
+      }
     })
     .catch(err =>{
       console.log(err)
@@ -99,7 +122,7 @@ import UserList from './UserList';
       ...prevState,
       roomsInfo: {
         ...prevState.roomsInfo,
-        [name]: parseInt(value)
+        [name]: parseInt(value === '' ? ('0') : (value))
       } 
     }), this.getRooms)
   }
@@ -117,10 +140,21 @@ import UserList from './UserList';
 
   handleSubmit = (e) =>{
     e.preventDefault();
-    console.log(this.state.reservData)
+    if(this.state.reservData.invitedUsersIds.length === 0
+      || (this.state.reservData.title.match(/^ *$/) === null)){
+      this.setState({
+        warning: 'warning'
+      }, () =>{
+        setTimeout(() =>{
+          this.setState({warning: 'default'});
+         }, 3000);
+      })
+    }else
+    this.sendData();
   }
 
   selectChange = (collection) => {
+    console.log(collection);
     this.setState(prevState =>({
       ...prevState,
       reservData:{
@@ -150,6 +184,49 @@ import UserList from './UserList';
     }))
   }
 
+  UpdateInvitedUsers = (invitedUsersIds) =>{
+    this.setState(prevState =>({
+      ...prevState,
+      reservData:{
+        ...prevState.reservData,
+        invitedUsersIds: invitedUsersIds
+      }
+    }))
+  }
+
+  sendData = () =>{
+    console.log(this.state.reservData)
+    axios.post( this.state.ip + '/api/Reservation/create', this.state.reservData)
+    .then(res =>{
+      console.log(res);
+      this.toggleError(false)
+      this.getRooms();
+    })
+    .catch(err =>{
+      console.log(err)
+      this.toggleError(true)
+    })
+  }
+
+  toggleError = (error) =>{
+    if( error === true ){
+      this.setState({
+        errors: 'wrong'
+      })
+      setTimeout(() =>{
+        this.setState({errors: 'default'});
+       }, 3000);
+    }
+    else{
+      this.setState({
+        succes: 'done'
+      })
+        setTimeout(() =>{
+        this.setState({succes: 'default'});
+       }, 3000);
+    };
+  }
+
   render() {
     return (
         <div className="reserv_div">
@@ -158,7 +235,7 @@ import UserList from './UserList';
 
             <div className="calendar_label">
               <div className="label">
-                <label htmlFor="dateFrom">Rezerwuję od:</label>
+                <label htmlFor="dateFrom">Rezerwuję od: <span className="star">*</span></label>
               </div>
           
               <div className="calendar_input">
@@ -168,7 +245,7 @@ import UserList from './UserList';
 
             <div className="calendar_label">
               <div className="label_to">
-                <label htmlFor="dateTo">Do:</label>
+                <label htmlFor="dateTo">Rezerwuję do: <span className="star">*</span></label>
               </div>
 
               <div className="calendar_input_to">
@@ -191,7 +268,7 @@ import UserList from './UserList';
                 <label id="room">Wybierz salę:</label>
               </div>
               <div className="select_list">
-                <select id="roomTook" onChange={e => {this.selectChange(e.target.value)}}>
+                <select id="roomTook" onChange={e => {this.selectChange(e.target.value)}} disabled={this.state.disabled}>
                   {this.state.roomItems}
                 </select>
               </div>
@@ -199,7 +276,7 @@ import UserList from './UserList';
 
             <div className="meeting_title">
               <div className="meeting_label">
-                <label htmlFor="title">Tytuł spotkania:</label>
+                <label htmlFor="title">Tytuł spotkania: <span className="star">*</span></label>
               </div>
 
               <div className="meeting_input">
@@ -229,19 +306,27 @@ import UserList from './UserList';
               <ReservationIntervals ip={this.state.ip} onChange={this.handleChange}/>
             </div>
 
-            <UserList  ip={this.state.ip}/>
+            <UserList  ip={this.state.ip} updateInvitedUsers={this.UpdateInvitedUsers}/>
 
             <div className="reserv_submit">
-              <input type="submit" value="Rezerwuj"></input>
+              <input type="submit" value="Rezerwuj" disabled={this.state.disabled}></input>
             </div>
           </form>
 
-          <div className={this.state.error}>
-          <p>Istnieje użytkownik o podanej nazwie użytkownika lub adresie e-mail!</p>
+          <div className={this.state.errors}>
+          <p>Błąd przy dodawaniu rezerwacji</p>
         </div>
 
         <div className={this.state.succes}>
-          <p>Pomyślnie dodano użytkownika!</p>
+          <p>Pomyślnie dodano rezerwację!</p>
+        </div>
+
+        <div className={this.state.warning}>
+          <p>Uzupełnij wszystkie pola!</p>
+        </div>
+
+        <div className={this.state.times}>
+          <p>Brak dostępnych sal w danym przedziale czasowym!</p>
         </div>
 
         </div>

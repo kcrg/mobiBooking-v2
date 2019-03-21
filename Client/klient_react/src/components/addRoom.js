@@ -78,8 +78,8 @@ class AddRoom extends Component {
   }
 
   checkData = () =>{
-    return (this.state.roomData.roomName === '' ||
-    this.state.roomData.location === '' ||
+    return (this.state.roomData.roomName.match(/^ *$/) !== null ||
+    this.state.roomData.location.match(/^ *$/) !== null||
     this.state.roomData.numberOfPeople === '')
   }
 

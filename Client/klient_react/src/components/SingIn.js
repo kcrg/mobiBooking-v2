@@ -45,9 +45,7 @@ class SingIn extends Component {
         ...prevState.formData,
         [name]: value
       } 
-    }), () =>{
-      console.log(this.state.formData.Email)
-    })
+    }))
   }
 
   handleSubmit = (e) =>{
