@@ -63,7 +63,10 @@ namespace mobiBooking.Service.Services
 
         public async Task<IEnumerable<RoomDataModelForReservation>> GetForReservationAsync(RoomsForReservationModel roomForReservationModel)
         {
-            return await _roomRepository.GetRoomsForReservationAsync(roomForReservationModel);
+            if (roomForReservationModel.DateFrom > roomForReservationModel.DateTo)
+                return null;
+            else
+                return await _roomRepository.GetRoomsForReservationAsync(roomForReservationModel);
         }
 
         public Task<IEnumerable<RoomAvailability>> GetRoomAvailabilitiesAsync()
