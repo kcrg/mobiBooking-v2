@@ -63,7 +63,7 @@ namespace mobiBooking.Repository.Repositories
 
         public async Task<IEnumerable<RoomDataModelForReservation>> GetRoomsForReservationAsync(RoomsForReservationModel roomForReservationModel)
         {
-            
+
 
             return await (from rooms in DBContext.Rooms
                           where !rooms.Reservations.Where(reserv => Helpers.CheckDateOverlaps(reserv.DateFrom, reserv.DateTo, roomForReservationModel.DateFrom, roomForReservationModel.DateTo)).Any()
@@ -78,17 +78,29 @@ namespace mobiBooking.Repository.Repositories
                           }).ToListAsync();
         }
 
-        public async Task<IEnumerable<RoomDataModel>> FindAllAsync()
+        public async Task<IEnumerable<RoomDataModel>> FindAllAsync(bool orderByName)
         {
-            return await DBContext.Rooms.Select(rooms => new RoomDataModel
-            {
-                Availability = rooms.Availability.Name,
-                AvailabilityId = rooms.AvailabilityId,
-                Location = rooms.Location,
-                Name = rooms.Name,
-                NumberOfPeople = rooms.NumberOfPeople,
-                Id = rooms.Id
-            }).ToListAsync();
+
+            if (orderByName)
+                return await DBContext.Rooms.OrderBy(r => r.Name).Select(rooms => new RoomDataModel
+                {
+                    Availability = rooms.Availability.Name,
+                    AvailabilityId = rooms.AvailabilityId,
+                    Location = rooms.Location,
+                    Name = rooms.Name,
+                    NumberOfPeople = rooms.NumberOfPeople,
+                    Id = rooms.Id
+                }).ToListAsync();
+            else
+                return await DBContext.Rooms.OrderBy(r => r.NumberOfPeople).Select(rooms => new RoomDataModel
+                {
+                    Availability = rooms.Availability.Name,
+                    AvailabilityId = rooms.AvailabilityId,
+                    Location = rooms.Location,
+                    Name = rooms.Name,
+                    NumberOfPeople = rooms.NumberOfPeople,
+                    Id = rooms.Id
+                }).ToListAsync();
         }
 
         public async Task<RoomDataModel> FindRoomAsync(int id)

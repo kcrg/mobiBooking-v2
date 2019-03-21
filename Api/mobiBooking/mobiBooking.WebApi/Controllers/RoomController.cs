@@ -24,9 +24,9 @@ namespace mobiBooking.WebApi.Controllers
 
         [Authorize(Roles = "Administrator, User")]
         [HttpGet("get_all")]
-        public async Task<ActionResult<IEnumerable<RoomDataModel>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<RoomDataModel>>> GetAllAsync(bool orderByName)
         {
-            return Ok(await _roomService.GetAllAsync());
+            return Ok(await _roomService.GetAllAsync(orderByName));
         }
 
         [Authorize(Roles = "Administrator, User")]

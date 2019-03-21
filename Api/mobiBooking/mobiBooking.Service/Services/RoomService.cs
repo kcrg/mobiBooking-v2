@@ -56,9 +56,9 @@ namespace mobiBooking.Service.Services
             return await _roomRepository.FindRoomAsync(id);
         }
 
-        public async Task<IEnumerable<RoomDataModel>> GetAllAsync()
+        public async Task<IEnumerable<RoomDataModel>> GetAllAsync(bool orderByName)
         {
-            return await _roomRepository.FindAllAsync();
+            return await _roomRepository.FindAllAsync(orderByName);
         }
 
         public async Task<IEnumerable<RoomDataModelForReservation>> GetForReservationAsync(RoomsForReservationModel roomForReservationModel)

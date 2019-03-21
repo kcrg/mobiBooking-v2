@@ -12,7 +12,7 @@ namespace mobiBooking.Service.Interfaces
 {
     public interface IRoomService
     {
-        Task<IEnumerable<RoomDataModel>> GetAllAsync();
+        Task<IEnumerable<RoomDataModel>> GetAllAsync(bool orderByName);
         Task<RoomDataModel> GetAsync(int id);
         Task<bool> CreateAsync(RoomModel value);
         Task<bool> UpdateAsync(int id, RoomModel value);
