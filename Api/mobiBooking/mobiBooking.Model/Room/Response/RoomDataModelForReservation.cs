@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace mobiBooking.Data.Model
+namespace mobiBooking.Model.Room.Response
 {
-    public class RoomAvailability
+    public class RoomDataModelForReservation
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int HoursFrom { get; set; }
-        public int HoursTo { get; set; }
     }
 }

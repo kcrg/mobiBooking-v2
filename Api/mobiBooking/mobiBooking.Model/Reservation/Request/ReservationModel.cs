@@ -15,6 +15,7 @@ namespace mobiBooking.Model.RecivedModels
         public DateTime DateFrom { get; set; }
         [Required]
         public DateTime DateTo { get; set; }
+        [Required]
         [EnumDataType(typeof(ReservationStatus), ErrorMessage = "ReservationStatus type value doesn't exist within enum")]
         public ReservationStatus Status { get; set; }
         [Required]

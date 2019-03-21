@@ -59,17 +59,23 @@ namespace mobiBooking.Data
                 new RoomAvailability
                 {
                     Id = 1,
-                    Name = "7:00 - 20:00"
+                    Name = "7:00 - 20:00",
+                    HoursFrom = 7,
+                    HoursTo = 20
                 },
                 new RoomAvailability
                 {
                     Id = 2,
-                    Name = "7:00 - 18:00"
+                    Name = "7:00 - 18:00",
+                    HoursFrom = 7,
+                    HoursTo = 18
                 },
                 new RoomAvailability
                 {
                     Id = 3,
-                    Name = "8:00 - 16:00"
+                    Name = "8:00 - 16:00",
+                    HoursFrom = 8,
+                    HoursTo = 16
                 }
             );
 

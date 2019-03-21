@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using mobiBooking.Data.Model;
 using mobiBooking.Model.Models;
 using mobiBooking.Model.Room.Request;
+using mobiBooking.Model.Room.Response;
 using mobiBooking.Model.SendModels;
 using mobiBooking.Service.Interfaces;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace mobiBooking.WebApi.Controllers
 
         [Authorize(Roles = "Administrator, User")]
         [HttpGet("get_all")]
-        public async Task<ActionResult<IEnumerable<RoomDataModel>>> GetAsync()
+        public async Task<ActionResult<IEnumerable<RoomDataModel>>> GetAllAsync()
         {
             return Ok(await _roomService.GetAllAsync());
         }
@@ -37,16 +38,16 @@ namespace mobiBooking.WebApi.Controllers
 
         [Authorize(Roles = "Administrator, User")]
         [HttpPost("for_reservation")]
-        public async Task<ActionResult<IEnumerable<RoomDataModel>>> GetForReservationnAsync([FromBody] RoomsForReservationModel roomsForReservationModel)
+        public async Task<ActionResult<IEnumerable<RoomDataModelForReservation>>> GetForReservationnAsync([FromBody] RoomsForReservationModel roomsForReservationModel)
         {
             return Ok(await _roomService.GetForReservationAsync(roomsForReservationModel));
         }
 
         [Authorize(Roles = "Administrator")]
         [HttpGet("get/{id}")]
-        public async Task<ActionResult<RoomModel>> GetAsync(int id)
+        public async Task<ActionResult<RoomDataModel>> GetAsync(int id)
         {
-            RoomModel roomModel = await _roomService.GetAsync(id);
+            RoomDataModel roomModel = await _roomService.GetAsync(id);
 
             if (roomModel == null)
             {
@@ -80,7 +81,7 @@ namespace mobiBooking.WebApi.Controllers
             }
             else
             {
-                return BadRequest(new { message = "Bad data" });
+                return BadRequest(new { message = "Room with this name already exsist or incorrect availability" });
             }
         }
 
