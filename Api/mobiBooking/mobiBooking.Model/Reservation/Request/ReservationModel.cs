@@ -23,7 +23,7 @@ namespace mobiBooking.Model.RecivedModels
         [Required]
         public IEnumerable<int> InvitedUsersIds { get; set; }
         [Required]
-        public bool? CyclicReservation { get; set; }
+        public bool CyclicReservation { get; set; }
         public int? ReservationIntervalId { get; set; }
     }
 }

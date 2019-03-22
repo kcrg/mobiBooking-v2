@@ -33,7 +33,7 @@ namespace mobiBooking.Service.Services
                 || InvitedUsers.Count() != value.InvitedUsersIds.Count()
                 || room == null
                 || !await _reservationRepository.CheckIfCanReservAsync(value.DateFrom, value.DateTo, room)
-                )
+                || value.DateFrom > value.DateTo)
             {
                 return false;
             }

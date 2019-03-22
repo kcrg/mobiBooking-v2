@@ -7,7 +7,6 @@ using mobiBooking.Model.Room.Request;
 using mobiBooking.Model.Room.Response;
 using mobiBooking.Repository.Base;
 using mobiBooking.Repository.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -64,12 +63,14 @@ namespace mobiBooking.Repository.Repositories
         public async Task<IEnumerable<RoomDataModelForReservation>> GetRoomsForReservationAsync(RoomsForReservationModel roomForReservationModel)
         {
 
-
             return await (from rooms in DBContext.Rooms
                           where !rooms.Reservations.Where(reserv => Helpers.CheckDateOverlaps(reserv.DateFrom, reserv.DateTo, roomForReservationModel.DateFrom, roomForReservationModel.DateTo)).Any()
                           where rooms.NumberOfPeople >= roomForReservationModel.Size
-                          where rooms.Availability.HoursFrom <= roomForReservationModel.DateFrom.Hour
-                          where rooms.Availability.HoursTo >= roomForReservationModel.DateTo.Hour
+                          where Helpers.CheckDateInside(
+                              roomForReservationModel.DateFrom.Date.AddHours(rooms.Availability.HoursFrom),
+                              roomForReservationModel.DateTo.Date.AddHours(rooms.Availability.HoursTo),
+                              roomForReservationModel.DateFrom,
+                              roomForReservationModel.DateTo)
                           where roomForReservationModel.DateFrom.Date == roomForReservationModel.DateTo.Date
                           select new RoomDataModelForReservation
                           {
@@ -82,6 +83,7 @@ namespace mobiBooking.Repository.Repositories
         {
 
             if (orderByName)
+            {
                 return await DBContext.Rooms.OrderBy(r => r.Name).Select(rooms => new RoomDataModel
                 {
                     Availability = rooms.Availability.Name,
@@ -91,7 +93,9 @@ namespace mobiBooking.Repository.Repositories
                     NumberOfPeople = rooms.NumberOfPeople,
                     Id = rooms.Id
                 }).ToListAsync();
+            }
             else
+            {
                 return await DBContext.Rooms.OrderBy(r => r.NumberOfPeople).Select(rooms => new RoomDataModel
                 {
                     Availability = rooms.Availability.Name,
@@ -101,6 +105,7 @@ namespace mobiBooking.Repository.Repositories
                     NumberOfPeople = rooms.NumberOfPeople,
                     Id = rooms.Id
                 }).ToListAsync();
+            }
         }
 
         public async Task<RoomDataModel> FindRoomAsync(int id)

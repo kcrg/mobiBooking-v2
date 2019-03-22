@@ -23,6 +23,11 @@ namespace mobiBooking.Repository.Repositories
         {
             return (from rooms in DBContext.Rooms
                     where !rooms.Reservations.Where(reserv => Helpers.CheckDateOverlaps(reserv.DateFrom, reserv.DateTo, dateFrom, dateTo)).Any()
+                    where Helpers.CheckDateInside(
+                             dateFrom.Date.AddHours(rooms.Availability.HoursFrom),
+                             dateFrom.Date.AddHours(rooms.Availability.HoursTo),
+                             dateFrom,
+                             dateFrom)
                     select rooms).ContainsAsync(room);
         }
 
@@ -36,8 +41,8 @@ namespace mobiBooking.Repository.Repositories
                 Room = room,
                 Status = value.Status,
                 Title = value.Title,
-                CyclicReservation = (bool)value.CyclicReservation,
-                ReservationIntervalId = value.ReservationIntervalId
+                CyclicReservation = value.CyclicReservation,
+                ReservationIntervalId = value.CyclicReservation ? value.ReservationIntervalId : null
             };
 
             await DBContext.Reservations.AddAsync(reservation);
