@@ -19,8 +19,6 @@ namespace mobiBooking.UWP.Views
         private List<GetRoomsModel> roomsList = new List<GetRoomsModel>();
         private List<GetIntervalsModel> intervalsList = new List<GetIntervalsModel>();
         private List<GetUsersModel> usersList = new List<GetUsersModel>();
-        private List<BookModel> bookList = new List<BookModel>();
-        private List<int> usersListInt = new List<int>();
         public BookPage()
         {
             InitializeComponent();
@@ -123,14 +121,11 @@ namespace mobiBooking.UWP.Views
                 DateTime newDateTo = DateTo.Date.Value.Date + TimeTo.Time;
                 string formatedDateTo = newDateTo.ToString("yyyy-MM-ddTHH:mm:ss.925Z");
 
-                List<int> UsersIndexArray = new List<int>(); 
+                List<int> UsersIndexArray = new List<int>();
                 for (int i = 0; i < UsersList.SelectedItems.Count; i++)
                 {
-                    int selectedIndex = lol[i];
-                    UsersIndexArray.Add(selectedIndex);
+                    UsersIndexArray.Add(usersList[UsersList.SelectedIndex].Id);
                 }
-
-                bookList.ForEach(CoutInvitedUsers);
 
                 BookModel bookObj = new BookModel // TODO FIX/////////////////////////////////////////////////////////////////////////////////////////
                 {
@@ -169,14 +164,12 @@ namespace mobiBooking.UWP.Views
             }
         }
 
-        private void CoutInvitedUsers(BookModel obj)
-        {
-            obj.usersListInt.Add(usersList[UsersList.SelectedIndex].Id);
-        }
-
         private async void GetRoomList(object sender, RoutedEventArgs e)
         {
-            await PostRooms();
+            if (TimeFrom.Time != null && DateFrom.Date != null && TimeTo.Time != null && DateTo.Date != null)
+            {
+                await PostRooms();
+            }
         }
 
         private async void IsCyclic_Click(object sender, RoutedEventArgs e)

@@ -21,7 +21,7 @@ namespace mobiBooking.UWP.Models
         public string Title { get; set; }
 
         [JsonProperty("invitedUsersIds")]
-        public List<int> InvitedUsersIds { get; set; }
+        public IList<int> InvitedUsersIds { get; set; }
 
         [JsonProperty("cyclicReservation")]
         public bool CyclicReservation { get; set; }
