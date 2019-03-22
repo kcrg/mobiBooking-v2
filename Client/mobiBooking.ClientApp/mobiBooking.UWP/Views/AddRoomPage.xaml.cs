@@ -15,7 +15,7 @@ namespace mobiBooking.UWP.Views
     public sealed partial class AddRoomPage : Page
     {
         private readonly LocalObjectStorageHelper helper = new LocalObjectStorageHelper();
-        ConnectionModel IP = new ConnectionModel();
+        private readonly ConnectionModel IP = new ConnectionModel();
         public AddRoomPage()
         {
             InitializeComponent();
@@ -27,14 +27,11 @@ namespace mobiBooking.UWP.Views
 
             RestClient client = new RestClient(IP.Adress);
             RestRequest request = new RestRequest("Room/get_room_availabilities", Method.GET);
-            request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
-
-            // execute the request
+            _ = request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
             IRestResponse response = client.Execute(request);
 
             List<GetIntervalsModel> availabilityList = new List<GetIntervalsModel>();
             availability.ItemsSource = JsonConvert.DeserializeAnonymousType(response.Content, availabilityList);
-
             availability.SelectedIndex = 0;
         }
 
@@ -57,26 +54,24 @@ namespace mobiBooking.UWP.Views
 
                 RestClient client = new RestClient(IP.Adress);
                 RestRequest request = new RestRequest("Room/create", Method.POST);
-                request.AddParameter("application/json", json, ParameterType.RequestBody);
-                request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
-
-                // execute the request
+                _ = request.AddParameter("application/json", json, ParameterType.RequestBody);
+                _ = request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
                 IRestResponse response = client.Execute(request);
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    await new CustomDialog("Sala dodana poprawnie.", null, CustomDialog.Type.Information).ShowAsync();
+                    _ = await new CustomDialog("Sala dodana poprawnie.", null, CustomDialog.Type.Information).ShowAsync();
                     SubmitButton.IsEnabled = true;
                 }
                 else
                 {
-                    await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem.", response.StatusCode.ToString(), CustomDialog.Type.Error).ShowAsync();
+                    _ = await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem.", response.StatusCode.ToString(), CustomDialog.Type.Error).ShowAsync();
                     SubmitButton.IsEnabled = true;
                 }
             }
             else
             {
-                await new CustomDialog("Wprowadzono błędne dane.", null, CustomDialog.Type.Warning).ShowAsync();
+                _ = await new CustomDialog("Wprowadzono błędne dane.", null, CustomDialog.Type.Warning).ShowAsync();
                 SubmitButton.IsEnabled = true;
             }
         }

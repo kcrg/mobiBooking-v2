@@ -1,12 +1,25 @@
-﻿namespace mobiBooking.UWP.Models
+﻿using Newtonsoft.Json;
+
+namespace mobiBooking.UWP.Models
 {
     internal class GetRoomsModel
     {
+        [JsonProperty("id")]
         public int Id { get; set; }
+
+        [JsonProperty("name")]
         public string Name { get; set; }
+
+        [JsonProperty("location")]
         public string Location { get; set; }
-        public bool Activity { get; set; }
+
+        [JsonProperty("availability")]
         public string Availability { get; set; }
+
+        [JsonProperty("availabilityId")]
+        public int AvailabilityId { get; set; }
+
+        [JsonProperty("numberOfPeople")]
         public int NumberOfPeople { get; set; }
     }
 }

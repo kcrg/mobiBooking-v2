@@ -45,9 +45,7 @@ namespace mobiBooking.UWP
             if (SavedResponseObj.UserType == "User")
             {
                 addroom.Visibility = Visibility.Collapsed;
-
                 usersSeparator.Visibility = Visibility.Collapsed;
-                usersHeader.Visibility = Visibility.Collapsed;
                 users.Visibility = Visibility.Collapsed;
             }
         }
@@ -107,11 +105,13 @@ namespace mobiBooking.UWP
                             ContentFrame.Navigate(typeof(UsersPage), null, new DrillInNavigationTransitionInfo());
                         }
                         break;
-                }
-                if (args.IsSettingsSelected)
-                {
-                    PageTitle.Text = "Ustawienia - placeholder";
-                    ContentFrame.Navigate(typeof(SettingsPage), null, new DrillInNavigationTransitionInfo());
+
+                    case "settings":
+                        {
+                            PageTitle.Text = "Ustawienia";
+                            ContentFrame.Navigate(typeof(SettingsPage), null, new DrillInNavigationTransitionInfo());
+                        }
+                        break;
                 }
             }
         }

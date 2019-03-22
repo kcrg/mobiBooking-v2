@@ -26,7 +26,7 @@ namespace mobiBooking.UWP.Views
             usertype.SelectedIndex = 0;
         }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             CleanupInput();
             SubmitButton.Content = "Dodaj użytkownika";
@@ -40,22 +40,15 @@ namespace mobiBooking.UWP.Views
                 activity.Visibility = Visibility.Visible;
                 SubmitButton.Content = "Edytuj użytkownika";
 
-                //LoginModel SavedResponseObj = await helper.ReadFileAsync<LoginModel>("response");
-
-                //RestClient client = new RestClient(IP.Adress);
-                //RestRequest request = new RestRequest("Users/get/{id}", Method.GET);
-                //request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
-                //request.AddParameter("id", e.Parameter, ParameterType.UrlSegment);
-                //IRestResponse response = client.Execute(request);
-
-                
-
                 username.Text = m.UserName;
                 password.Password = string.Empty;
                 passwordconfirm.Password = string.Empty;
-                if (m.Surname != null)
+                if (m.Name != null)
                 {
                     name.Text = m.Name;
+                }
+                else if (m.Surname != null)
+                {
                     surname.Text = m.Surname;
                 }
                 email.Text = m.Email;
@@ -69,7 +62,6 @@ namespace mobiBooking.UWP.Views
                     usertype.SelectedIndex = 1;
                 }
             }
-
             base.OnNavigatedTo(e);
         }
 
@@ -107,14 +99,12 @@ namespace mobiBooking.UWP.Views
 
                 RestClient client = new RestClient(IP.Adress);
                 RestRequest request = new RestRequest(resource, method);
-                request.AddParameter("application/json", json, ParameterType.RequestBody);
-                request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
+                _ = request.AddParameter("application/json", json, ParameterType.RequestBody);
+                _ = request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
                 if (IsEditMode)
                 {
-                    request.AddParameter("id", UserID, ParameterType.UrlSegment);
+                    _ = request.AddParameter("id", UserID, ParameterType.UrlSegment);
                 }
-
-                // execute the request
                 IRestResponse response = client.Execute(request);
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -123,28 +113,28 @@ namespace mobiBooking.UWP.Views
 
                     if (IsEditMode)
                     {
-                        await new CustomDialog("Użytkownik edytowany poprawnie.", null, CustomDialog.Type.Information).ShowAsync();
+                        _ = await new CustomDialog("Użytkownik edytowany poprawnie.", null, CustomDialog.Type.Information).ShowAsync();
                         CleanupInput();
 
                         Frame rootFrame = Window.Current.Content as Frame;
                         MainPage homePage = rootFrame.Content as MainPage;
-                        homePage.NavigationFrame.Navigate(typeof(UsersPage), null, new DrillInNavigationTransitionInfo());
+                        _ = homePage.NavigationFrame.Navigate(typeof(UsersPage), null, new DrillInNavigationTransitionInfo());
                     }
                     else
                     {
-                        await new CustomDialog("Użytkownik stworzony poprawnie.", null, CustomDialog.Type.Information).ShowAsync();
+                        _ = await new CustomDialog("Użytkownik stworzony poprawnie.", null, CustomDialog.Type.Information).ShowAsync();
                         CleanupInput();
                     }
                 }
                 else
                 {
-                    await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem lub użytkownik o podanych danych już istnieje.", response.StatusCode.ToString(), CustomDialog.Type.Error).ShowAsync();
+                    _ = await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem.", response.StatusCode.ToString(), CustomDialog.Type.Error).ShowAsync();
                     SubmitButton.IsEnabled = true;
                 }
             }
             else
             {
-                await new CustomDialog("Wprowadzono błędne dane.", null, CustomDialog.Type.Warning).ShowAsync();
+                _ = await new CustomDialog("Wprowadzono błędne dane.", null, CustomDialog.Type.Warning).ShowAsync();
                 SubmitButton.IsEnabled = true;
             }
         }
@@ -167,7 +157,7 @@ namespace mobiBooking.UWP.Views
         {
             Frame rootFrame = Window.Current.Content as Frame;
             MainPage homePage = rootFrame.Content as MainPage;
-            homePage.NavigationFrame.Navigate(typeof(UsersPage), null, new DrillInNavigationTransitionInfo());
+            _ = homePage.NavigationFrame.Navigate(typeof(UsersPage), null, new DrillInNavigationTransitionInfo());
         }
     }
 }

@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -16,6 +15,12 @@ namespace mobiBooking.UWP.Views
     {
         private readonly LocalObjectStorageHelper helper = new LocalObjectStorageHelper();
         private readonly ConnectionModel IP = new ConnectionModel();
+
+        private List<GetRoomsModel> roomsList = new List<GetRoomsModel>();
+        private List<GetIntervalsModel> intervalsList = new List<GetIntervalsModel>();
+        private List<GetUsersModel> usersList = new List<GetUsersModel>();
+        private List<BookModel> bookList = new List<BookModel>();
+        private List<int> usersListInt = new List<int>();
         public BookPage()
         {
             InitializeComponent();
@@ -34,13 +39,10 @@ namespace mobiBooking.UWP.Views
 
             RestClient client = new RestClient(IP.Adress);
             RestRequest request = new RestRequest("Users/get_all", Method.GET);
-            request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
-
-            // execute the request
+            _ = request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
             IRestResponse response = client.Execute(request);
 
-            List<GetUsersModel> usersList = new List<GetUsersModel>();
-
+            usersList = JsonConvert.DeserializeAnonymousType(response.Content, usersList);
             UsersList.ItemsSource = JsonConvert.DeserializeAnonymousType(response.Content, usersList);
         }
 
@@ -50,14 +52,13 @@ namespace mobiBooking.UWP.Views
 
             DateTime newDateFrom = DateFrom.Date.Value.Date + TimeFrom.Time;
             string formatedDateFrom = newDateFrom.ToString("yyyy-MM-ddTHH:mm:ss");
-
             DateTime newDateTo = DateTo.Date.Value.Date + TimeTo.Time;
             string formatedDateTo = newDateTo.ToString("yyyy-MM-ddTHH:mm:ss");
 
             int.TryParse(RoomCap.Text, out int sizeParsesd);
 
             PostRoomsForRoomsReservationModel roomObj = new PostRoomsForRoomsReservationModel
-            {  
+            {
                 Size = sizeParsesd,
                 DateFrom = formatedDateFrom,
                 DateTo = formatedDateTo,
@@ -66,15 +67,17 @@ namespace mobiBooking.UWP.Views
 
             RestClient client = new RestClient(IP.Adress);
             RestRequest request = new RestRequest("Room/for_reservation", Method.POST);
-            request.AddParameter("application/json", json, ParameterType.RequestBody);
-            request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
-
-            // execute the request
+            _ = request.AddParameter("application/json", json, ParameterType.RequestBody);
+            _ = request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
             IRestResponse response = client.Execute(request);
 
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            if (string.IsNullOrEmpty(response.Content))
             {
-                List<GetRoomsModel> roomsList = new List<GetRoomsModel>();
+                _ = await new CustomDialog("Brak wolnych sal.", null, CustomDialog.Type.Information).ShowAsync();
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                roomsList = JsonConvert.DeserializeAnonymousType(response.Content, roomsList);
                 RoomList.ItemsSource = JsonConvert.DeserializeAnonymousType(response.Content, roomsList);
             }
             else
@@ -88,13 +91,10 @@ namespace mobiBooking.UWP.Views
 
             RestClient client = new RestClient(IP.Adress);
             RestRequest request = new RestRequest("Reservation/get_reservation_intervals", Method.GET);
-            request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
-
-            // execute the request
+            _ = request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
             IRestResponse response = client.Execute(request);
 
-            List<GetIntervalsModel> intervalsList = new List<GetIntervalsModel>();
-
+            intervalsList = JsonConvert.DeserializeAnonymousType(response.Content, intervalsList);
             Intervals.ItemsSource = JsonConvert.DeserializeAnonymousType(response.Content, intervalsList);
         }
 
@@ -110,7 +110,7 @@ namespace mobiBooking.UWP.Views
             }
         }
 
-        private async void ReservateRoom_Click(object sesnder, RoutedEventArgs e)
+        private async void ReservateRoom_Click(object sender, RoutedEventArgs e)
         {
             SubmitButton.IsEnabled = false;
 
@@ -118,56 +118,53 @@ namespace mobiBooking.UWP.Views
             {
                 LoginModel SavedResponseObj = await helper.ReadFileAsync<LoginModel>("response");
 
-                List<int> UsersIndexArray = new List<int>();
-                for (int i = 0; i < UsersList.SelectedItems.Count; i++)
-                {
-                    int selectedIndex = UsersList.Items.IndexOf(UsersList.SelectedItems[i]);
-                    UsersIndexArray.Add(selectedIndex);
-                }
-
                 DateTime newDateFrom = DateFrom.Date.Value.Date + TimeFrom.Time;
                 string formatedDateFrom = newDateFrom.ToString("yyyy-MM-ddTHH:mm:ss.924Z");
-
                 DateTime newDateTo = DateTo.Date.Value.Date + TimeTo.Time;
                 string formatedDateTo = newDateTo.ToString("yyyy-MM-ddTHH:mm:ss.925Z");
 
+                bookList.ForEach(CoutInvitedUsers);
+
                 BookModel bookObj = new BookModel // TODO FIX/////////////////////////////////////////////////////////////////////////////////////////
                 {
-                    RoomId = RoomList.SelectedIndex + 1,
+                    RoomId = roomsList[RoomList.SelectedIndex].Id,
                     DateFrom = formatedDateFrom,
                     DateTo = formatedDateTo,
-                    Status = Status.SelectedIndex + 1,
+                    //Status = Status.SelectedIndex + 1,
                     Title = Title.Text,
-                    InvitedUsersIds = UsersIndexArray.Select(s => s + 1).AsEnumerable().ToList(),
+                    InvitedUsersIds = usersListInt,
                     CyclicReservation = IsCyclic.IsChecked ?? false,
-                    ReservationIntervalId = Intervals.SelectedIndex + 1
+                    ReservationIntervalId = intervalsList[Intervals.SelectedIndex].Id
                 };
                 string json = JsonConvert.SerializeObject(bookObj);
 
                 RestClient client = new RestClient(IP.Adress);
                 RestRequest request = new RestRequest("Reservation/create", Method.POST);
-                request.AddParameter("application/json", json, ParameterType.RequestBody);
-                request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
-
-                // execute the request
+                _ = request.AddParameter("application/json", json, ParameterType.RequestBody);
+                _ = request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
                 IRestResponse response = client.Execute(request);
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    await new CustomDialog("Zarezerwowano salę poprawnie.", null, CustomDialog.Type.Information).ShowAsync();
+                    _ = await new CustomDialog("Zarezerwowano salę poprawnie.", null, CustomDialog.Type.Information).ShowAsync();
                     SubmitButton.IsEnabled = true;
                 }
                 else
                 {
-                    await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem.", response.StatusCode.ToString(), CustomDialog.Type.Error).ShowAsync();
+                    _ = await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem.", response.StatusCode.ToString(), CustomDialog.Type.Error).ShowAsync();
                     SubmitButton.IsEnabled = true;
                 }
             }
             else
             {
-                await new CustomDialog("Wprowadzono błędne dane.", null, CustomDialog.Type.Warning).ShowAsync();
+                _ = await new CustomDialog("Wprowadzono błędne dane.", null, CustomDialog.Type.Warning).ShowAsync();
                 SubmitButton.IsEnabled = true;
             }
+        }
+
+        private void CoutInvitedUsers(BookModel obj)
+        {
+            obj.usersListInt.Add(usersList[UsersList.SelectedIndex].Id);
         }
 
         private async void GetRoomList(object sender, RoutedEventArgs e)

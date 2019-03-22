@@ -43,7 +43,7 @@
                 <Setter Property="IsBackButtonVisible" Value="Collapsed"/>
                 <Setter Property="IsPaneOpen" Value="True"/>
                 <Setter Property="IsPaneToggleButtonVisible" Value="False"/>
-                <Setter Property="Margin" Value="0,0,0,0"/>
+                <Setter Property="IsSettingsVisible" Value="False"/>
                 <Setter Property="OpenPaneLength" Value="230"/>
                 <Setter Property="PaneDisplayMode" Value="Left"/>
             </Style>

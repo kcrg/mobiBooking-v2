@@ -47,7 +47,6 @@
                         Tag="addroom"/>
 
                     <muxc:NavigationViewItemSeparator x:Name="usersSeparator"/>
-                    <muxc:NavigationViewItemHeader x:Name="usersHeader" Content="Zarządzanie użytkownikami"/>
 
                     <muxc:NavigationViewItem x:Name="users"
                         Content="Użytkownicy"
@@ -65,6 +64,10 @@
                             Content="Wyloguj"
                             Icon="Cancel"
                             Tapped="LogOut_Click"/>
+                        <muxc:NavigationViewItem
+                            Content="Ustawienia"
+                            Icon="Setting"
+                            Tag="settings"/>
                     </StackPanel>
                 </muxc:NavigationView.PaneFooter>
 

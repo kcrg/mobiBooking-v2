@@ -32,7 +32,7 @@ namespace mobiBooking.UWP.Views
         {
             Frame rootFrame = Window.Current.Content as Frame;
             MainPage homePage = rootFrame.Content as MainPage;
-            homePage.NavigationFrame.Navigate(typeof(BookPage), null, new DrillInNavigationTransitionInfo());
+            _ = homePage.NavigationFrame.Navigate(typeof(BookPage), null, new DrillInNavigationTransitionInfo());
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

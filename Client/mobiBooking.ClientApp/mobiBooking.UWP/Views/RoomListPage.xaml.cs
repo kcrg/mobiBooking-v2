@@ -24,8 +24,7 @@ namespace mobiBooking.UWP.Views
             ConnectionModel IP = new ConnectionModel();
             RestClient client = new RestClient(IP.Adress);
             RestRequest request = new RestRequest("Room/get_all", Method.GET);
-            request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
-
+            _ = request.AddParameter("Authorization", "Bearer " + SavedResponseObj.Token, ParameterType.HttpHeader);
             // execute the request
             IRestResponse response = client.Execute(request);
 

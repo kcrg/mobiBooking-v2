@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using Windows.UI.Xaml.Controls;
 
 namespace mobiBooking.UWP.Models
 {
@@ -24,5 +26,8 @@ namespace mobiBooking.UWP.Models
 
         [JsonProperty("active")]
         public bool Active { get; set; }
+
+        public string ActiveString { get; set; }
+        public SymbolIcon IconActive { get; set; }
     }
 }
