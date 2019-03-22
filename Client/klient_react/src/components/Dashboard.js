@@ -10,8 +10,15 @@ import ReservButton from './dashboard_components/ReservButton';
 
 class Dashboard extends Component {
 
+    state = {
+        ip: null
+    }
+
     componentDidMount(){
-        const { cookies } = this.props;
+        const { cookies, ip } = this.props;
+        this.setState({
+            ip
+        })
         if(cookies.get('token') === undefined){
             this.props.history.push('/');
         }
@@ -26,7 +33,7 @@ class Dashboard extends Component {
             <div className="dashboard-content">
                 <h2>Dashboard</h2>
                 <div className="boxes">
-                    <Meetings/>
+                    <Meetings ip={this.state.ip}/>
                     <TodayMeetings/>
                     <ReservButton/>
                     <Rooms/>

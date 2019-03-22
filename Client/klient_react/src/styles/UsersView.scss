@@ -1,0 +1,61 @@
+@import '../index.scss';
+.box{
+    background: $mobi-purple;
+    width: 100%;
+    min-height: 900px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+
+    .users_grid{
+        display: grid;
+        margin-top: 80px;
+        width: 80%;
+        grid-template-columns: repeat(6, 1fr);
+        color: $primary-color;
+        overflow: auto;
+
+        .options{
+            .options_div{
+                border: none;
+            }
+        }
+
+        div{
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+            border: 1px solid #fff;
+            min-width: 150px;
+        }
+
+
+        h3{
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 2px solid $primary-color;
+            width: 100%;
+            margin: 0;
+            padding: 20px;
+        }
+
+        p{
+            display: inline-flex;
+            min-height: 60px;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            width: 100%;
+            margin: 0;
+            // border-bottom: 1px solid $primary-color;
+        }
+
+        .svg-inline--fa{
+            font-size: 20px;
+            cursor: pointer;
+            margin: 0 15px;
+        }
+    }
+}

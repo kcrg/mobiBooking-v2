@@ -18,7 +18,7 @@ import UserList from './UserList';
       invitedUsersIds: [],
       roomId: 1,
       cyclicReservation: false,
-      reservationIntervalId: 0
+      reservationIntervalId: null
     },
     roomsList: null,
     roomItems: null,
@@ -140,8 +140,9 @@ import UserList from './UserList';
 
   handleSubmit = (e) =>{
     e.preventDefault();
-    if(this.state.reservData.invitedUsersIds.length === 0
-      || (this.state.reservData.title.match(/^ *$/) === null)){
+    if(this.state.reservData.invitedUsersIds.length === 0 
+      || this.state.reservData.title === null
+      || (this.state.reservData.title.match(/^ *$/) !== null)){
       this.setState({
         warning: 'warning'
       }, () =>{
@@ -326,7 +327,7 @@ import UserList from './UserList';
         </div>
 
         <div className={this.state.times}>
-          <p>Brak dostępnych sal w danym przedziale czasowym!</p>
+          <p>Brak dostępnych sal w danym przedziale czasowym lub z określoną pojemnością!</p>
         </div>
 
         </div>

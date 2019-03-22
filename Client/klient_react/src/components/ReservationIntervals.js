@@ -7,7 +7,7 @@ import axios from 'axios';
  class ReservationIntervals extends Component {
 
     state = {
-        intervals: null,
+        intervals: 1,
         map: null,
         isVisible: 'none'
     }

@@ -28,6 +28,10 @@ class AddUser extends Component {
     } 
   } 
 
+  componentWillReceiveProps(nextProps){
+    console.log(nextProps);
+  }
+
   sendData = () =>{
     const { ip } = this.props;
     axios.post(ip + '/api/Account/create', this.state.userData)
