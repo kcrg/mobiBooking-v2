@@ -150,6 +150,7 @@
         }
     }
 
+
     .select_room{
         display: flex;
         flex-direction: column;
@@ -258,10 +259,21 @@
     }
 
     .users_div{
-        margin-top: 40px;
+        margin-top: 20px;
         display: flex;
         flex-flow: column;
         justify-content: center;
+
+        .users_mess{
+            display: flex;
+            align-items: center;
+            flex-flow: column;
+            margin-top: 10px;
+
+            span{
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
 
         .users{
             background: $primary-color;
@@ -292,6 +304,7 @@
                 font-weight: bold;
             }
         }
+    }
 
         .arrows{
             font-size: 40px;
@@ -301,7 +314,7 @@
             transform: rotate(90deg);
 
             .svg-inline--fa{
-               margin: 3px;
+               margin: 8px;
                cursor: pointer;
             }
 
@@ -461,10 +474,21 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+
+                .svg-inline--fa{
+                    margin: 60px 8px 8px 8px;
+                }
             }
 
             .users{
                 min-width: 250px;
+            }
+        }
+
+        .reserv_submit{
+            input[type="submit"]{
+                width: 250px;
+                margin-top: 20px;
             }
         }
     }

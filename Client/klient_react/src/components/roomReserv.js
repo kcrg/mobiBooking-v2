@@ -305,7 +305,7 @@ import UserList from './UserList';
             <div className={this.state.isVisible}>
               <ReservationIntervals ip={this.state.ip} onChange={this.handleChange}/>
             </div>
-
+            
             <UserList  ip={this.state.ip} updateInvitedUsers={this.UpdateInvitedUsers}/>
 
             <div className="reserv_submit">

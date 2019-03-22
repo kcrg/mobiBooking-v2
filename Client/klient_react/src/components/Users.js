@@ -7,7 +7,15 @@ export default class Users extends Component {
     state = {
         users: null,
         userItem: null,
-        selectedUsers: []
+        selectedUsers: [],
+        title: ''
+    }
+
+    componentDidMount(){
+        const { isLeft } = this.props
+            this.setState({
+                title: isLeft ? "Wybierz uczestników:" : "Uczestnicy:"
+            })
     }
 
     componentWillReceiveProps(nextProps){
@@ -58,9 +66,12 @@ export default class Users extends Component {
   }
     render() {
         return (
-         <div className="users">
-            {this.state.userItem}
-        </div>
+            <div className="users_mess">
+                <span>{this.state.title}</span>
+                <div className="users">
+                    {this.state.userItem}
+                </div>
+            </div>
         )
     }
 }
