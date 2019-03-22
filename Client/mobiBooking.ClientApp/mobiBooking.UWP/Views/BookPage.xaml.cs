@@ -123,6 +123,13 @@ namespace mobiBooking.UWP.Views
                 DateTime newDateTo = DateTo.Date.Value.Date + TimeTo.Time;
                 string formatedDateTo = newDateTo.ToString("yyyy-MM-ddTHH:mm:ss.925Z");
 
+                List<int> UsersIndexArray = new List<int>(); 
+                for (int i = 0; i < UsersList.SelectedItems.Count; i++)
+                {
+                    int selectedIndex = lol[i];
+                    UsersIndexArray.Add(selectedIndex);
+                }
+
                 bookList.ForEach(CoutInvitedUsers);
 
                 BookModel bookObj = new BookModel // TODO FIX/////////////////////////////////////////////////////////////////////////////////////////
@@ -132,7 +139,7 @@ namespace mobiBooking.UWP.Views
                     DateTo = formatedDateTo,
                     //Status = Status.SelectedIndex + 1,
                     Title = Title.Text,
-                    InvitedUsersIds = usersListInt,
+                    InvitedUsersIds = UsersIndexArray,
                     CyclicReservation = IsCyclic.IsChecked ?? false,
                     ReservationIntervalId = intervalsList[Intervals.SelectedIndex].Id
                 };
