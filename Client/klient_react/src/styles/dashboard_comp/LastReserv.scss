@@ -15,16 +15,29 @@
     }
 
     .reserv_time{
-        display: flex;
+        display: grid;
+        grid-gap: 10px;
         justify-content: center;
         align-items: center;
-        font-size: 22px;
+        font-size: 16px;
+        margin-top: 8px;
         flex-grow: 8;
+
+        .hour{
+            color: $mobi-blue;
+            font-weight: bold;
+        }
     }
 }
 
 @media only screen and (min-width: 768px){
     .last_reserv{
         margin-bottom: 30px;
+    }
+}
+
+@media only screen and (min-width: 700px){
+    .reserv_time{
+        grid-template-columns: repeat(2, 1fr)
     }
 }

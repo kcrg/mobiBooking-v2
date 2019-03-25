@@ -22,7 +22,7 @@ export default class UserList extends Component {
 
     getUsers = () =>{
         const { ip } = this.props
-        axios.get( ip + '/api/Users/get_all')
+        axios.get( ip + '/api/Users/get_active')
         .then(res =>{
             this.setState({
                usersLeft: res.data 

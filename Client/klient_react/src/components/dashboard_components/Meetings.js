@@ -10,20 +10,28 @@ library.add(faClock)
 export default class Meetings extends Component {
 
     state = {
-      this_week: null
+      this_week: null,
+      last_week: null,
+      this_month: null,
+      last_month: null
     }
 
       componentWillReceiveProps(nextProps){
         const { ip }  = nextProps
-        axios.get( ip + '/api/Meetings/this_week')
-        .then(res =>{
-            this.setState({
-                this_week: res.data
-            })
-        })
-        .catch(err =>{
-  
-        })
+        axios.all([
+          axios.get( ip + '/api/Meetings/this_week'),
+          axios.get( ip + '/api/Meetings/last_week'),
+          axios.get( ip + '/api/Meetings/this_month'),
+          axios.get( ip + '/api/Meetings/last_month')
+        ])
+        .then(axios.spread((thisResponse, lastResponse, monthResponse, lastMonthResponse ) =>{
+          this.setState({
+            this_week: thisResponse.data,
+            last_week: lastResponse.data,
+            this_month: monthResponse.data,
+            last_month: lastMonthResponse.data
+          })
+        }))
       }
      
   render() {
@@ -42,17 +50,17 @@ export default class Meetings extends Component {
 
           <div className="previous_week">
             <h5>poprz. tydzień</h5>
-            <span>0.00h</span>
+            <span>{this.state.last_week}h</span>
           </div>
 
           <div className="this_month">
             <h5>ten miesiąc</h5>
-            <span>0.00h</span>
+            <span>{this.state.this_month}h</span>
           </div>
 
           <div className="previous_month">
               <h5>poprz. miesiąc</h5>
-              <span>0.00h</span>
+              <span>{this.state.last_month}h</span>
           </div>
         </div>
       </div>

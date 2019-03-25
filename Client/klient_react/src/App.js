@@ -9,7 +9,8 @@ import AddUser from './components/AddUser';
 import AddRoom from './components/addRoom';
 import RoomReserv from './components/roomReserv';
 import Error from './components/Error';
-import UsersView from './components/UsersView';
+import UserView from './components/UserView';
+
 
 class App extends Component {
 
@@ -45,14 +46,13 @@ class App extends Component {
             <Route path="/roomReserv" render={() => <RoomReserv cookies={this.props.cookies} ip={ipServer}/>}/>
           </div>
 
-          <Route path="/404" component={Error} />
+          <Route path="/404" component={Error} />   
 
           <Route path="/userView" render={() => <Logout cookies={this.props.cookies} ip={ipServer}/>}/>
           <div className="full">
             <Route path="/userView" render={() => <NavBar cookies={this.props.cookies}/>}/>
-            <Route path="/userView" render={() => <UsersView cookies={this.props.cookies} ip={ipServer}/>} />
+            <Route path="/userView" render={() => <UserView cookies={this.props.cookies} ip={ipServer}/>}/>
           </div>
-          
         </div>
       </BrowserRouter>
     );

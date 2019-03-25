@@ -1,0 +1,52 @@
+@import '../index.scss';
+
+    .box{
+        width: 100%;
+        background: $mobi-purple;
+        min-height: 900px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        color: $primary-color;
+        overflow: auto;
+
+        .addUser{
+            margin-top: 80px;
+            background: $mobi-blue;
+            border-radius: 5px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .test{
+            text-align: center;
+            overflow: auto;
+
+            .headers{
+                display: grid;
+                grid-template-columns: repeat(6, auto);
+            }
+
+            .user_box{
+                display: grid;
+                grid-template-columns: repeat(6, 1fr);
+                justify-content: center;
+
+                .svg-inline--fa{
+                    margin: 5px;
+                    font-size: 18px;
+                    cursor: pointer;
+                }
+            }
+
+            p{
+                margin: 0;
+                width: 100%;
+                border: 1px solid #fff;
+                min-width: 100px;
+                min-height: 40px;
+                padding: 5px;
+            }
+        }
+    }

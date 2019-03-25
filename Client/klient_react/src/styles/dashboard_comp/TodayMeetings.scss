@@ -10,13 +10,44 @@
     .svg-inline--fa{
         font-size: 60px;
         opacity: 0.4;
+        margin-top: 40px;
     }
 
     .time{
         font-size: 18px;
-        font-style: italic;
+
+        div{
+            margin: 2px;
+        }
+
+        .hour{
+            color: $mobi-blue;
+            font-weight: bold;
+        }
     }
 }
+
+@media only screen and (min-width: 700px){
+    .mapped_today{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media only screen and (min-width: 768px){
+    .mapped_today{
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
+
+@media only screen and (min-width: 1200px){
+    .mapped_today{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 
 
 

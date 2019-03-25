@@ -34,11 +34,11 @@ class Dashboard extends Component {
                 <h2>Dashboard</h2>
                 <div className="boxes">
                     <Meetings ip={this.state.ip}/>
-                    <TodayMeetings/>
+                    <TodayMeetings ip={this.state.ip}/>
                     <ReservButton/>
-                    <Rooms/>
-                    <LastReserv/>
-                    <ReservStats/>
+                    <Rooms ip={this.state.ip}/>
+                    <LastReserv ip={this.state.ip}/>
+                    <ReservStats ip={this.state.ip}/>
                 </div>
             </div>
         )
