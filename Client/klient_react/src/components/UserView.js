@@ -17,7 +17,9 @@ import { withRouter } from 'react-router-dom';
         </div>
 
         <h3>Lista użytkowników:</h3>
-        <UserViewTemp ip={this.props.ip}/>
+        <div className="list_box">
+          <UserViewTemp ip={this.props.ip}/>
+        </div>
       </div>
     )
   }

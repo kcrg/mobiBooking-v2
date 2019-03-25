@@ -38,8 +38,8 @@ export default class userViewTemp extends Component {
                     <p>{user.role}</p>
                     <p>{user.active ? ("Aktywny") : ("Nie aktywny")}</p>
                     <p>
-                        <FontAwesomeIcon icon={faUserEdit} title="Edytuj użytkownika"></FontAwesomeIcon>
-                        <FontAwesomeIcon icon={faUserTimes} title="Zmień aktywność użytkownika"></FontAwesomeIcon>
+                        <FontAwesomeIcon icon={faUserEdit}></FontAwesomeIcon>
+                        <FontAwesomeIcon icon={faUserTimes}></FontAwesomeIcon>
                     </p>
                 </div>
             )
@@ -52,15 +52,7 @@ export default class userViewTemp extends Component {
   render() {
     return (
         <div className="test">
-            <div className="headers">
-                <p>Imię:</p>
-                <p>Nazwisko:</p>
-                <p>E-mail:</p>
-                <p>Rola:</p>
-                <p>Aktywnośc:</p>
-                <p>Opcje:</p>
-            </div>
-            {this.state.mappedUsers}
+           {this.state.mappedUsers}
         </div>
     )
   }
