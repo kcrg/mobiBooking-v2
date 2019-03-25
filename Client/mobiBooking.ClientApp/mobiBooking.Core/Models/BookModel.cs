@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace mobiBooking.UWP.Models
+namespace mobiBooking.Core.Models
 {
-    internal class BookModel
+    public class BookModel
     {
         [JsonProperty("roomId")]
         public int RoomId { get; set; }

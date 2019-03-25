@@ -1,15 +1,14 @@
 ﻿using Newtonsoft.Json;
-using Windows.UI.Xaml.Controls;
 
-namespace mobiBooking.UWP.Models
+namespace mobiBooking.Core.Models
 {
-    public class GetUsersModel
+    public class AddUserModel
     {
-        [JsonProperty("id")]
-        public int Id { get; set; }
-
         [JsonProperty("userName")]
         public string UserName { get; set; }
+
+        [JsonProperty("password")]
+        public string Password { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -20,13 +19,12 @@ namespace mobiBooking.UWP.Models
         [JsonProperty("email")]
         public string Email { get; set; }
 
-        [JsonProperty("role")]
-        public string Role { get; set; }
+        [JsonProperty("userType")]
+        public string UserType { get; set; }
 
         [JsonProperty("active")]
         public bool Active { get; set; }
 
-        public string ActiveString { get; set; }
-        public SymbolIcon ActiveIcon { get; set; }
+        public int UserID { get; set; }
     }
 }

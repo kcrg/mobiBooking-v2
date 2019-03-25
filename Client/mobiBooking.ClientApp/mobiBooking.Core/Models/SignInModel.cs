@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace mobiBooking.UWP.Models
+namespace mobiBooking.Core.Models
 {
-    internal class SignInModel
+    public class SignInModel
     {
         [JsonProperty("email")]
         public string Email { get; set; }

@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace mobiBooking.UWP.Models
+namespace mobiBooking.Core.Models
 {
-    internal class PostRoomsForRoomsReservationModel
+    public class PostRoomsForRoomsReservationModel
     {
         [JsonProperty("size")]
         public int Size { get; set; } = 0;

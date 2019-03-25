@@ -125,17 +125,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\AddRoomModel.cs" />
-    <Compile Include="Models\AddUserModel.cs" />
-    <Compile Include="Models\BookModel.cs" />
-    <Compile Include="Models\ConnectionModel.cs" />
-    <Compile Include="Models\EditUserModel.cs" />
-    <Compile Include="Models\GetIntervalsModel.cs" />
-    <Compile Include="Models\GetRoomsModel.cs" />
     <Compile Include="Models\GetUsersModel.cs" />
-    <Compile Include="Models\LoginModel.cs" />
-    <Compile Include="Models\PostRoomsForRoomsReservationModel.cs" />
-    <Compile Include="Models\SignInModel.cs" />
     <Compile Include="Views\AddRoomPage.xaml.cs">
       <DependentUpon>AddRoomPage.xaml</DependentUpon>
     </Compile>
@@ -284,9 +274,6 @@
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.0.181018004</Version>
     </PackageReference>
-    <PackageReference Include="MvvmCross">
-      <Version>6.2.3</Version>
-    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.1</Version>
     </PackageReference>
@@ -299,6 +286,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\mobiBooking.Core\mobiBooking.Core.csproj">
+      <Project>{72b48799-73c6-4023-b623-7a6f515d0837}</Project>
+      <Name>mobiBooking.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

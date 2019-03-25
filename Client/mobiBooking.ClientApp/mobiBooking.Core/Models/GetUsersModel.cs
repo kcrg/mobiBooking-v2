@@ -1,14 +1,14 @@
 ﻿using Newtonsoft.Json;
 
-namespace mobiBooking.UWP.Models
+namespace mobiBooking.Core.Models
 {
-    internal class AddUserModel
+    public class GetUsersModel
     {
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
         [JsonProperty("userName")]
         public string UserName { get; set; }
-
-        [JsonProperty("password")]
-        public string Password { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -19,12 +19,12 @@ namespace mobiBooking.UWP.Models
         [JsonProperty("email")]
         public string Email { get; set; }
 
-        [JsonProperty("userType")]
-        public string UserType { get; set; }
+        [JsonProperty("role")]
+        public string Role { get; set; }
 
         [JsonProperty("active")]
         public bool Active { get; set; }
 
-        public int UserID { get; set; }
+        public string ActiveString { get; set; }
     }
 }

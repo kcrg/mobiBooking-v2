@@ -1,6 +1,6 @@
-﻿namespace mobiBooking.UWP.Models
+﻿namespace mobiBooking.Core.Models
 {
-    internal class ConnectionModel
+    public class ConnectionModel
     {
         public string Adress = "https://mobibookingwebapi.azurewebsites.net/api";
     }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.Helpers;
-using mobiBooking.UWP.Models;
+using mobiBooking.Core.Models;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Collections.Generic;

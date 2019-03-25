@@ -1,5 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.Helpers;
-using mobiBooking.UWP.Models;
+using mobiBooking.Core.Models;
 using mobiBooking.UWP.Views.CustomDialogs;
 using Newtonsoft.Json;
 using RestSharp;
@@ -17,7 +17,7 @@ namespace mobiBooking.UWP.Views
     {
         private readonly LocalObjectStorageHelper helper = new LocalObjectStorageHelper();
         private readonly ConnectionModel IP = new ConnectionModel();
-        private List<GetUsersModel> usersList = new List<GetUsersModel>();
+        private List<Models.GetUsersModel> usersList = new List<Models.GetUsersModel>();
         public UsersPage()
         {
             InitializeComponent();
@@ -39,16 +39,16 @@ namespace mobiBooking.UWP.Views
             usersCount.Text = UsersList.Items.Count.ToString() + " użytkowników";
         }
 
-        private void CheckActive(GetUsersModel obj)
+        private void CheckActive(Models.GetUsersModel obj)
         {
             if (obj.Active)
             {
-                obj.IconActive = new SymbolIcon(Symbol.BlockContact);
+                obj.ActiveIcon = new SymbolIcon(Symbol.BlockContact);
                 obj.ActiveString = "Aktywny";
             }
             else
             {
-                obj.IconActive = new SymbolIcon(Symbol.AddFriend);
+                obj.ActiveIcon = new SymbolIcon(Symbol.AddFriend);
                 obj.ActiveString = "Nieaktywny";
             }
         }
@@ -73,7 +73,7 @@ namespace mobiBooking.UWP.Views
             ListViewItem lvi = FindParent<ListViewItem>(button);
             lvi.IsSelected = true;
 
-            GetUsersModel userObj = new GetUsersModel
+            Models.GetUsersModel userObj = new Models.GetUsersModel
             {
                 UserName = usersList[UsersList.SelectedIndex].UserName,
                 Name = usersList[UsersList.SelectedIndex].Name,

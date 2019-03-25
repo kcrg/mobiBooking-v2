@@ -1,5 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.Helpers;
-using mobiBooking.UWP.Models;
+using mobiBooking.Core.Models;
 using mobiBooking.UWP.Views;
 using System;
 using Windows.UI.Xaml;

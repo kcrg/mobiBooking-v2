@@ -1,6 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.Helpers;
 using Microsoft.Toolkit.Uwp.UI.Extensions;
-using mobiBooking.UWP.Models;
+using mobiBooking.Core.Models;
 using mobiBooking.UWP.Views.CustomDialogs;
 using Newtonsoft.Json;
 using RestSharp;
