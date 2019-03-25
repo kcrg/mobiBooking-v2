@@ -26,17 +26,16 @@ export default class TodayMeetings extends Component {
 
   mapTodayMeetings = () =>{
     if(this.state.today_meetings.length > 0){
-    let i = 1
-    const meeting = this.state.today_meetings.map(meeting =>{
+      var i = 0;
+      const meeting = this.state.today_meetings.map(meeting =>{
       return(
-        <div className="mapped_today" key={i}>
+        <div className="mapped_today" key={i++}>
           <div className="hour">{meeting.time}</div>
           <div>{meeting.title}</div>
           <div>{meeting.roomName}</div>
         </div>
       )
     })
-    i++;
     this.setState({
       mapped_today: meeting
     })}

@@ -20,10 +20,11 @@ export default class LastReserv extends Component {
   }
 
   mapReserv = () =>{
+    var i = 0
     if(this.state.reserv_time.length > 0){
     const mappedReserv = this.state.reserv_time.map(reserv =>{
       return(
-        <div className="last"> 
+        <div className="last" key={i++}> 
           <div className="hour">{reserv.date}</div>
           <div>{reserv.title}</div>
           <div>{reserv.roomName}</div>
