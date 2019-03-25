@@ -10,8 +10,8 @@
         <ListView x:Name="listView" x:FieldModifier="public">
             <ListView.ItemsSource>
                 <x:Array Type="{x:Type local:MasterPageItem}">
-                    <local:MasterPageItem Title="Contacts" TargetType="{x:Type views:DashboardPage}"/>
-                    <local:MasterPageItem Title="TodoList" TargetType="{x:Type views:DashboardPage}"/>
+                    <local:MasterPageItem Title="Dashboard" TargetType="{x:Type views:DashboardPage}"/>
+                    <local:MasterPageItem Title="Dodaj salę" TargetType="{x:Type views:AddRoomPage}"/>
                     <local:MasterPageItem Title="Reminders" TargetType="{x:Type views:DashboardPage}"/>
                 </x:Array>
             </ListView.ItemsSource>
@@ -19,12 +19,7 @@
                 <DataTemplate>
                     <ViewCell>
                         <Grid Padding="5,10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Image Source="{Binding IconSource}"/>
-                            <Label Grid.Column="1" Text="{Binding Title}"/>
+                            <Label Text="{Binding Title}"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

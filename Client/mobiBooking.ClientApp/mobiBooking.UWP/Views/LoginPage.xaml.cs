@@ -53,7 +53,7 @@ namespace mobiBooking.UWP.Views
                     {
                         UserName = ((JwtSecurityToken)jsonToken).Payload["userName"].ToString(),
                         Name = ((JwtSecurityToken)jsonToken).Payload["name"].ToString(),
-                        Surname = ((JwtSecurityToken)jsonToken).Payload["sureName"].ToString(),
+                        surName = ((JwtSecurityToken)jsonToken).Payload["sureName"].ToString(),
                         Email = ((JwtSecurityToken)jsonToken).Payload["email"].ToString(),
                         role = ((JwtSecurityToken)jsonToken).Payload["role"].ToString(),
                         Token = tokenObj.Token,

@@ -40,9 +40,9 @@ namespace mobiBooking.UWP
         {
             LoginModel SavedResponseObj = await helper.ReadFileAsync<LoginModel>("response");
 
-            UserText.Content = SavedResponseObj.Name + " - " + SavedResponseObj.UserType;
+            UserText.Content = SavedResponseObj.Name + " - " + SavedResponseObj.role;
 
-            if (SavedResponseObj.UserType == "User")
+            if (SavedResponseObj.role == "User")
             {
                 addroom.Visibility = Visibility.Collapsed;
                 usersSeparator.Visibility = Visibility.Collapsed;
@@ -56,9 +56,9 @@ namespace mobiBooking.UWP
             {
                 UserName = null,
                 Name = null,
-                Surname = null,
+                surName = null,
                 Email = null,
-                UserType = null,
+                role = null,
                 Token = null,
                 IsLoged = false
             };

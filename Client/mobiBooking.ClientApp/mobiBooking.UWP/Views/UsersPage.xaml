@@ -31,7 +31,6 @@
                         <DataTemplate>
                             <Grid Padding="12" Background="{ThemeResource SystemControlChromeLowAcrylicElementBrush}">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="34"/>
                                     <ColumnDefinition Width="100"/>
                                     <ColumnDefinition Width="120"/>
                                     <ColumnDefinition Width="200"/>
@@ -40,33 +39,32 @@
                                     <ColumnDefinition Width="100"/>
                                     <ColumnDefinition Width="100"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Text="ID"/>
                                 <TextBlock
-                                    Grid.Column="1"
+                                    Grid.Column="0"
                                     Style="{ThemeResource CaptionTextBlockStyle}"
                                     Text="Imię"/>
                                 <TextBlock
-                                    Grid.Column="2"
+                                    Grid.Column="1"
                                     Style="{ThemeResource CaptionTextBlockStyle}"
                                     Text="Nazwisko"/>
                                 <TextBlock
-                                    Grid.Column="3"
+                                    Grid.Column="2"
                                     Style="{ThemeResource CaptionTextBlockStyle}"
                                     Text="E-mail"/>
                                 <TextBlock
-                                    Grid.Column="4"
+                                    Grid.Column="3"
                                     Style="{ThemeResource CaptionTextBlockStyle}"
                                     Text="Nazwa użytkownika"/>
                                 <TextBlock
-                                    Grid.Column="5"
+                                    Grid.Column="4"
                                     Style="{ThemeResource CaptionTextBlockStyle}"
                                     Text="Typ konta"/>
                                 <TextBlock
-                                    Grid.Column="6"
+                                    Grid.Column="5"
                                     Style="{ThemeResource CaptionTextBlockStyle}"
                                     Text="Status"/>
                                 <TextBlock
-                                    Grid.Column="7"
+                                    Grid.Column="6"
                                     Style="{ThemeResource CaptionTextBlockStyle}"
                                     Text="Opcje"/>
                             </Grid>
@@ -76,7 +74,6 @@
                         <DataTemplate>
                             <Grid Height="40" Margin="1">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="34"/>
                                     <ColumnDefinition Width="100"/>
                                     <ColumnDefinition Width="120"/>
                                     <ColumnDefinition Width="200"/>
@@ -86,35 +83,31 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock x:Name="IDtext"
-                                    Grid.Column="0"
-                                    VerticalAlignment="Center"
-                                    Text="{Binding Id}"/>
                                 <TextBlock
-                                    Grid.Column="1"
+                                    Grid.Column="0"
                                     VerticalAlignment="Center"
                                     Text="{Binding Name}"/>
                                 <TextBlock
-                                    Grid.Column="2"
+                                    Grid.Column="1"
                                     VerticalAlignment="Center"
                                     Text="{Binding Surname}"/>
                                 <TextBlock
-                                    Grid.Column="3"
+                                    Grid.Column="2"
                                     VerticalAlignment="Center"
                                     Text="{Binding Email}"/>
                                 <TextBlock
-                                    Grid.Column="4"
+                                    Grid.Column="3"
                                     VerticalAlignment="Center"
                                     Text="{Binding UserName}"/>
                                 <TextBlock
-                                    Grid.Column="5"
+                                    Grid.Column="4"
                                     VerticalAlignment="Center"
                                     Text="{Binding Role}"/>
                                 <TextBlock
-                                    Grid.Column="6"
+                                    Grid.Column="5"
                                     VerticalAlignment="Center"
                                     Text="{Binding ActiveString}"/>
-                                <StackPanel Grid.Column="7" Orientation="Horizontal">
+                                <StackPanel Grid.Column="6" Orientation="Horizontal">
                                     <AppBarButton
                                         Click="Delete_Click"
                                         Icon="Delete"
@@ -123,7 +116,7 @@
                                         ToolTipService.ToolTip="Kliknij aby usunąć"/>
                                     <AppBarButton
                                         Click="Activate_Click"
-                                        Icon="{Binding IconActive}"
+                                        Icon="{Binding ActiveIcon}"
                                         IsCompact="True"
                                         Style="{StaticResource AppBarButtonRevealStyle}"
                                         ToolTipService.ToolTip="Kliknij aby zmienić status"/>
