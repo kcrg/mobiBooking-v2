@@ -1,8 +1,10 @@
-﻿using mobiBooking.Core.Models;
+﻿using Jose;
+using mobiBooking.Core.Models;
 using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Net.NetworkInformation;
+using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -37,33 +39,19 @@ namespace mobiBooking.Forms.Views
 
                 if (response.StatusCode != System.Net.HttpStatusCode.InternalServerError && response.StatusCode != System.Net.HttpStatusCode.NotFound && response.StatusCode != System.Net.HttpStatusCode.BadGateway && response.StatusCode != System.Net.HttpStatusCode.BadRequest && response.StatusCode != 0)
                 {
-                    _ = new LoginModel();
                     LoginModel tokenObj = JsonConvert.DeserializeObject<LoginModel>(response.Content);
+                    string token = tokenObj.Token;
+                    byte[] secretkey = Encoding.UTF8.GetBytes("Secret keyaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                    string jsonik = JWT.Decode(token, secretkey);
 
-                    string dd = Jose.JWT.Decode(tokenObj.Token, null);
-
-                    string dssd = Jose.JWT.Decode(tokenObj.Token, null);
-
-                    //JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-                    //SecurityToken jsonToken = handler.ReadToken(tokenObj.Token);
-
-                    //LoginModel tokenvalidateObj = new LoginModel
-                    //{
-                    //    UserName = ((JwtSecurityToken)jsonToken).Payload["userName"].ToString(),
-                    //    Name = ((JwtSecurityToken)jsonToken).Payload["name"].ToString(),
-                    //    Surname = ((JwtSecurityToken)jsonToken).Payload["sureName"].ToString(),
-                    //    Email = ((JwtSecurityToken)jsonToken).Payload["email"].ToString(),
-                    //    UserType = ((JwtSecurityToken)jsonToken).Payload["role"].ToString(),
-                    //    Token = tokenObj.Token,
-                    //    IsLoged = true
-                    //};
+                    LoginModel DecodedToken = JsonConvert.DeserializeObject<LoginModel>(jsonik);
 
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         //_ = await helper.SaveFileAsync("response", tokenvalidateObj);
                         SubmitButton.IsEnabled = true;
-
                         await Navigation.PushAsync(new MainPage());
+                        //_ = new NavigationPage((Page)Activator.CreateInstance(typeof(MainPage)));
                     }
                     else
                     {
