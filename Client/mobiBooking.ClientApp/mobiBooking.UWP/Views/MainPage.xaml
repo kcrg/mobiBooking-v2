@@ -1,0 +1,89 @@
+﻿<Page
+    x:Class="mobiBooking.UWP.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}"
+    GotFocus="Page_GotFocus"
+    Loaded="Page_Loaded"
+    mc:Ignorable="d">
+    <!--  TODO: Style  -->
+    <Page.Content>
+        <Grid>
+            <Grid x:Name="DragArea" Style="{StaticResource DragAreaGrid}">
+
+                <Image x:Name="AppLogoImage"
+                    Source=""
+                    Style="{StaticResource AppLogoImage}"/>
+                <TextBlock Style="{StaticResource AppTitleText}"/>
+            </Grid>
+
+            <muxc:NavigationView x:Name="NavView"
+                SelectionChanged="NavView_SelectionChanged"
+                Style="{StaticResource NavView}">
+
+                <muxc:NavigationView.MenuItems>
+                    <muxc:NavigationViewItem
+                        Content="Dashboard"
+                        Icon="Home"
+                        Tag="dashboard"/>
+
+                    <muxc:NavigationViewItemSeparator/>
+                    <muxc:NavigationViewItemHeader Content="Rezerwacja sali"/>
+
+                    <muxc:NavigationViewItem
+                        Content="Zarezerwuj salę"
+                        Icon="Permissions"
+                        Tag="bookroom"/>
+                    <muxc:NavigationViewItem
+                        Content="Lista sal/rezerwacje"
+                        Icon="List"
+                        Tag="list"/>
+                    <muxc:NavigationViewItem x:Name="addroom"
+                        Content="Dodaj sale"
+                        Icon="Add"
+                        Tag="addroom"/>
+
+                    <muxc:NavigationViewItemSeparator x:Name="usersSeparator"/>
+
+                    <muxc:NavigationViewItem x:Name="users"
+                        Content="Użytkownicy"
+                        Icon="People"
+                        Tag="users"/>
+                </muxc:NavigationView.MenuItems>
+
+                <muxc:NavigationView.PaneFooter>
+                    <StackPanel>
+                        <muxc:NavigationViewItem x:Name="UserText"
+                            Content="placeholder"
+                            Icon="Contact"
+                            IsEnabled="False"/>
+                        <muxc:NavigationViewItem
+                            Content="Wyloguj"
+                            Icon="Cancel"
+                            Tapped="LogOut_Click"/>
+                        <muxc:NavigationViewItem
+                            Content="Ustawienia"
+                            Icon="Setting"
+                            Tag="settings"/>
+                    </StackPanel>
+                </muxc:NavigationView.PaneFooter>
+
+                <muxc:NavigationView.Content>
+                    <Grid>
+                        <TextBlock x:Name="PageTitle"
+                            Margin="24,12,12,12"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            FontSize="32"
+                            Text="Dashboard"/>
+
+                        <Frame x:Name="ContentFrame" Margin="12,60,0,0"/>
+                    </Grid>
+                </muxc:NavigationView.Content>
+            </muxc:NavigationView>
+        </Grid>
+    </Page.Content>
+</Page>
