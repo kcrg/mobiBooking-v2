@@ -69,6 +69,21 @@ namespace mobiBooking.Service.Services
             return true;
         }
 
+        public async Task<bool> UpdateAstivityAsync(int id, bool activity)
+        {
+            User user = await _userRepository.FindAsync(id);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            await _userRepository.UpdateAstivityAsync(id, activity);
+            await _userRepository.Save();
+
+            return true;
+        }
+
         public async Task<bool> UpdateAsync(int id, EditUserModel value)
         {
             User user = await _userRepository.FindAsync(id);

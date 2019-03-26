@@ -11,9 +11,5 @@ namespace mobiBooking.Model.Room.Request
         public DateTime DateFrom { get; set; }
         [Required]
         public DateTime DateTo { get; set; }
-        [Required]
-        public bool FlipChart { get; set; }
-        [Required]
-        public bool SoundSystem { get; set; }
     }
 }

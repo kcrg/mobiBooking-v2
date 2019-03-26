@@ -24,6 +24,13 @@ namespace mobiBooking.WebApi.Controllers
             return Ok(await _usersService.GetAllAsync(User.IsInRole("Administrator")));
         }
 
+        [Authorize(Roles = "Administrator, User")]
+        [HttpGet("get_active")]
+        public async Task<ActionResult<IEnumerable<UserDataModel>>> GetActiveUsers()
+        {
+            return Ok(await _usersService.GetActiveAsync());
+        }
+
         [Authorize(Roles = "Administrator")]
         [HttpGet("get/{id}")]
         public async Task<ActionResult<IEnumerable<UserDataModel>>> GetAsync(int id)

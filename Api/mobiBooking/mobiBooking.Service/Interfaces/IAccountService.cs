@@ -14,5 +14,6 @@ namespace mobiBooking.Service.Interfaces
         Task<bool> CreateAsync(CreateUserModel value);
         Task<bool> UpdateAsync(int id, EditUserModel value);
         Task<bool> DeleteAsync(int id);
+        Task<bool> UpdateAstivityAsync(int id, bool activity);
     }
 }

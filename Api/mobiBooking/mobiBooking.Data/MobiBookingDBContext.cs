@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using mobiBooking.Component;
+using mobiBooking.Component.Enums;
 using mobiBooking.Data.Model;
 using System;
 
@@ -20,11 +21,13 @@ namespace mobiBooking.Data
         {
             modelBuilder.Entity<UserToReservation>()
        .HasKey(bc => new { bc.UserId, bc.ReservationId });
+
             modelBuilder.Entity<UserToReservation>()
                 .HasOne(bc => bc.User)
                 .WithMany(b => b.Meetings)
                 .HasForeignKey(bc => bc.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<UserToReservation>()
                 .HasOne(bc => bc.Reservation)
                 .WithMany(c => c.InvitedUsers)
@@ -34,6 +37,18 @@ namespace mobiBooking.Data
             modelBuilder.Entity<Room>()
             .HasMany(c => c.Reservations)
             .WithOne(e => e.Room);
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Meetings)
+                .WithOne(u => u.User)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.OwnReservations)
+                .WithOne(u => u.OwnerUser)
+                .OnDelete(DeleteBehavior.SetNull);
+
+
 
             CreateTemplateData(modelBuilder);
         }

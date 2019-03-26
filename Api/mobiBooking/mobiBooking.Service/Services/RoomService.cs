@@ -87,5 +87,15 @@ namespace mobiBooking.Service.Services
 
             return true;
         }
+
+        public async Task<int> GetReservatedNumberAsync()
+        {
+            return await _roomRepository.GetReservatedNumberAsync();
+        }
+
+        public async Task<int> GetNotReservatedNumberAsync()
+        {
+            return await _roomRepository.GetNotReservatedNumberAsync();
+        }
     }
 }

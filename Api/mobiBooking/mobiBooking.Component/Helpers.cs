@@ -1,5 +1,6 @@
 ﻿using Itenso.TimePeriod;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using mobiBooking.Component.Enums;
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -49,6 +50,82 @@ namespace mobiBooking.Component
         public static DateTime EndOfWeek(this DateTime date, DayOfWeek startOfWeek)
         {
             return date.StartOfWeek(startOfWeek).AddDays(6);
+        }
+
+        //return true if interval reservation overlaps with date
+        public static bool CheckIntervalReservation(DateTime reservDateFrom, DateTime reservDateTo, DateTime dateFrom, DateTime dateTo, Intervals? interval, bool cyclicReservation)
+        {
+
+            if (!cyclicReservation)
+            {
+                return false;
+            }
+
+            switch (interval.Value)
+            {
+                case Intervals.Day:
+                    return CheckDateOverlaps(DateTime.Now.Date.AddHours(reservDateFrom.Hour).AddMinutes(reservDateFrom.Minute),
+                         DateTime.Now.Date.AddHours(reservDateTo.Hour).AddMinutes(reservDateTo.Minute),
+                         DateTime.Now.Date.AddHours(dateFrom.Hour).AddMinutes(dateFrom.Minute),
+                         DateTime.Now.Date.AddHours(dateTo.Hour).AddMinutes(dateTo.Minute));
+
+                case Intervals.Week:
+
+                    if (reservDateFrom.DayOfWeek == dateFrom.DayOfWeek && reservDateTo.DayOfWeek == dateTo.DayOfWeek)
+                    {
+                        return CheckDateOverlaps(DateTime.Now.Date.AddHours(reservDateFrom.Hour).AddMinutes(reservDateFrom.Minute),
+                             DateTime.Now.Date.AddHours(reservDateTo.Hour).AddMinutes(reservDateTo.Minute),
+                             DateTime.Now.Date.AddHours(dateFrom.Hour).AddMinutes(dateFrom.Minute),
+                             DateTime.Now.Date.AddHours(dateTo.Hour).AddMinutes(dateTo.Minute));
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                case Intervals.TwoWeeks:
+
+                    if ((dateFrom - reservDateFrom).Days % 14 == 0 && (dateTo - reservDateTo).Days % 14 == 0)
+                    {
+                        return CheckDateOverlaps(DateTime.Now.Date.AddHours(reservDateFrom.Hour).AddMinutes(reservDateFrom.Minute),
+                             DateTime.Now.Date.AddHours(reservDateTo.Hour).AddMinutes(reservDateTo.Minute),
+                             DateTime.Now.Date.AddHours(dateFrom.Hour).AddMinutes(dateFrom.Minute),
+                             DateTime.Now.Date.AddHours(dateTo.Hour).AddMinutes(dateTo.Minute));
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                case Intervals.Month:
+
+                    if (reservDateFrom.Day == dateFrom.Day && reservDateTo.Day == dateTo.Day)
+                    {
+                        return CheckDateOverlaps(DateTime.Now.Date.AddHours(reservDateFrom.Hour).AddMinutes(reservDateFrom.Minute),
+                             DateTime.Now.Date.AddHours(reservDateTo.Hour).AddMinutes(reservDateTo.Minute),
+                             DateTime.Now.Date.AddHours(dateFrom.Hour).AddMinutes(dateFrom.Minute),
+                             DateTime.Now.Date.AddHours(dateTo.Hour).AddMinutes(dateTo.Minute));
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                case Intervals.Year:
+                    if (reservDateFrom.Day == dateFrom.Day && reservDateTo.Day == dateTo.Day && reservDateFrom.Month == dateFrom.Month && reservDateTo.Month == dateTo.Month)
+                    {
+                        return CheckDateOverlaps(DateTime.Now.Date.AddHours(reservDateFrom.Hour).AddMinutes(reservDateFrom.Minute),
+                             DateTime.Now.Date.AddHours(reservDateTo.Hour).AddMinutes(reservDateTo.Minute),
+                             DateTime.Now.Date.AddHours(dateFrom.Hour).AddMinutes(dateFrom.Minute),
+                             DateTime.Now.Date.AddHours(dateTo.Hour).AddMinutes(dateTo.Minute));
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                default: return false;
+            }
         }
     }
 }

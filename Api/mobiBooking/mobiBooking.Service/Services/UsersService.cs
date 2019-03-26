@@ -15,11 +15,18 @@ namespace mobiBooking.Service.Services
             _userRepository = userRepository;
         }
 
+        public async Task<IEnumerable<UserDataModel>> GetActiveAsync()
+        {
+            return await _userRepository.FindActiveUsersAsync();
+        }
+
         public async Task<IEnumerable<UserDataModel>> GetAllAsync(bool isAdministrator)
         {
             if (isAdministrator) return await _userRepository.FindAllAsync();
             else return await _userRepository.FindActiveUsersAsync();
         }
+
+
 
         public async Task<UserDataModel> GetAsync(int id)
         {

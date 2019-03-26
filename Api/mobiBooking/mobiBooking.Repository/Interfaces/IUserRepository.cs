@@ -16,12 +16,14 @@ namespace mobiBooking.Repository.Interfaces
         Task<User> FindActiveByEmailAsync(string email);
         Task<IEnumerable<User>> FindRangeAsync(IEnumerable<int> Ids);
         Task<IEnumerable<Reservation>> GetMeetingsBetweenDatesAsync(DateTime dateFrom, DateTime dateTo, int userId);
-        Task<List<UserDataModel>> FindActiveUsersAsync();
+        Task<IEnumerable<UserDataModel>> FindActiveUsersAsync();
         Task<IEnumerable<UserDataModel>> FindAllAsync();
         Task<UserDataModel> FindUserAsync(int id);
         Task CreateAsync(CreateUserModel value, string pass, byte[] salt);
         Task DeleteAsync(int id);
         Task<User> FindAsync(int id);
         Task UpdateAsync(int id, EditUserModel user);
+        Task UpdateAstivityAsync(int id, bool activity);
+        Task<int> GetMeetingsCountBetweenDatesAsync(DateTime dateFrom, DateTime dateTo, int userId);
     }
 }

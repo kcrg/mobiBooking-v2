@@ -19,5 +19,7 @@ namespace mobiBooking.Service.Interfaces
         Task<bool> DeleteAsync(int id);
         Task<IEnumerable<RoomDataModelForReservation>> GetForReservationAsync(RoomsForReservationModel createReservationModel);
         Task<IEnumerable<RoomAvailability>> GetRoomAvailabilitiesAsync();
+        Task<int> GetReservatedNumberAsync();
+        Task<int> GetNotReservatedNumberAsync();
     }
 }
