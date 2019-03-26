@@ -43,10 +43,6 @@ import UserList from './UserList';
     })
   }
   componentDidMount(){
-    const { cookies } = this.props;
-    if(cookies.get('token') === undefined){
-      this.props.history.push('/');
-    }
     this.getRooms();
   }
 

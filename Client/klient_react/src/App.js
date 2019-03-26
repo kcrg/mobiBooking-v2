@@ -10,6 +10,7 @@ import AddRoom from './components/addRoom';
 import RoomReserv from './components/roomReserv';
 import Error from './components/Error';
 import UserView from './components/UserView';
+import EditUser from './components/EditUser';
 
 
 class App extends Component {
@@ -52,6 +53,13 @@ class App extends Component {
           <div className="full">
             <Route path="/userView" render={() => <NavBar cookies={this.props.cookies}/>}/>
             <Route path="/userView" render={() => <UserView cookies={this.props.cookies} ip={ipServer}/>}/>
+          </div>
+
+          
+          <Route path="/editUser" render={() => <Logout cookies={this.props.cookies} ip={ipServer}/>}/>
+          <div className="full">
+            <Route path="/editUser" render={() => <NavBar cookies={this.props.cookies}/>}/>
+            <Route path="/editUser" render={() => <EditUser cookies={this.props.cookies} ip={ipServer}/>}/>
           </div>
         </div>
       </BrowserRouter>

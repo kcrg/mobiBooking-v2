@@ -2,18 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import '../styles/AddUser.scss';
+import { connect } from 'react-redux';
+import updateUser from '../actions/UpdateUser';
 
-class AddUser extends Component {
+class EditUser extends Component {
 
   state = {
-    userData:{
-      userName: '',
-      password: '',
-      name: null,
-      surname: null,
-      email: '',
-      userType: 'Administrator'
-    },
     r_pass: '',
     error: 'default',
     succes: 'default',
@@ -21,11 +15,16 @@ class AddUser extends Component {
     difPass: 'default'
   }
 
-  sendData = () =>{
-    const { ip } = this.props;
-    axios.post(ip + '/api/Account/create', this.state.userData)
+  
+  updateUser = () =>{
+    const { ip } = this.props
+    const { id } = this.props.user
+    axios.put(ip + '/api/Account/update/' + id, this.props.user)
     .then(res => {
-      this.toggleError(false)
+        this.toggleError(false)
+        if(res.status === 200){
+            this.props.history.push('/userView')
+        }
       return res;
     })
     .catch(err =>{
@@ -44,7 +43,7 @@ class AddUser extends Component {
          }, 3000);
       })
     }else{
-      if(this.state.userData.password !== this.state.r_pass){
+      if(this.props.user.password !== this.state.r_pass){
         this.setState({
           difPass: 'diff_pass'
         }, () =>{
@@ -53,15 +52,15 @@ class AddUser extends Component {
            }, 3000);
         })
       }else
-      this.sendData();
+      this.updateUser();
     }
   }
 
   checkData = () =>{
-    return (this.state.userData.userName.match(/^ *$/) !== null ||
-    this.state.userData.password.match(/^ *$/) !== null ||
+    return (this.props.user.userName.match(/^ *$/) !== null ||
+    this.props.user.password.match(/^ *$/) !== null ||
     this.state.r_pass.match(/^ *$/) !== null ||
-    this.state.userData.email.match(/^ *$/) !== null)
+    this.props.user.email.match(/^ *$/) !== null)
   }
 
   toggleError = (error) =>{
@@ -85,27 +84,20 @@ class AddUser extends Component {
 
    
   handleChange = (name, value) =>{
-    this.setState(prevState => ({
-      ...prevState,
-      userData: {
-        ...prevState.userData,
-        [name]: value === 'Zwykły użytkownik' ? ('User') : (value)
-      } 
-    }))
+     this.props.updateUser(name, value)
   }
 
-  handleRpasswordChange = (name, value) =>{
-    this.setState(prevState => ({
-      ...prevState,
-      [name]: value
-    }))
+  handleRepeatChange = (value) =>{
+      this.setState({
+          r_pass: value
+      })
   }
-
 
   render() {
+      console.log(this.props.user)
     return (
       <div className="user_form_div">
-        <h2>Dodaj użytkownika:</h2>
+        <h2>Edytuj użytkownika:</h2>
           <form onSubmit={this.handleSubmit} className="user_form">
 
             <div className="user_name">
@@ -113,7 +105,7 @@ class AddUser extends Component {
                 <label htmlFor="user_name">Nazwa użytkownika:  <span className="star">*</span></label>
               </div>
               <div className="user_name_input">
-                <input type="text" id="user_name" onChange={e => this.handleChange('userName', e.target.value)} placeholder="Nazwa użytkownika..."></input> 
+                <input type="text" id="user_name" value={this.props.user.userName} onChange = {e =>{this.handleChange('userName', e.target.value)}} placeholder="Nazwa użytkownika..."></input> 
               </div>
             </div>
 
@@ -122,7 +114,7 @@ class AddUser extends Component {
                 <label htmlFor="pass">Hasło: <span className="star">*</span></label>
               </div>
               <div className="password_input">
-                <input type="password" id="pass" onChange={e => this.handleChange('password', e.target.value)} placeholder="Hasło..."></input>  
+                <input type="password" id="pass"  onChange = {e =>{this.handleChange('password', e.target.value)}} placeholder="Hasło..."></input>  
               </div>
             </div>
 
@@ -131,7 +123,7 @@ class AddUser extends Component {
                 <label htmlFor="r_pass">Powtórz hasło: <span className="star">*</span></label>
               </div>
               <div className="r_password_input">
-                <input type="password" id="r_pass" onChange={e => this.handleRpasswordChange('r_pass', e.target.value)} placeholder="Powtórz hasło..."></input> 
+                <input type="password" id="r_pass" onChange = {e =>{this.handleRepeatChange(e.target.value)}} placeholder="Powtórz hasło..."></input> 
               </div> 
             </div>
 
@@ -140,7 +132,7 @@ class AddUser extends Component {
                 <label htmlFor="f_name">Imię:</label>
               </div>
               <div className="name_input">
-                <input type="text" id="f_name" onChange={e => this.handleChange('name', e.target.value)} placeholder="Imię..."></input> 
+                <input type="text" id="f_name" value={this.props.user.name} onChange = {e =>{this.handleChange('name', e.target.value)}} placeholder="Imię..."></input> 
               </div>
             </div>
 
@@ -149,7 +141,7 @@ class AddUser extends Component {
                 <label htmlFor="l_name">Nazwisko:</label>
               </div>
               <div className="surname_input">
-                <input type="text" id="l_name" onChange={e => this.handleChange('surname', e.target.value)} placeholder="Nazwisko"></input> 
+                <input type="text" id="l_name" value={this.props.user.surname} onChange = {e =>{this.handleChange('surname', e.target.value)}} placeholder="Nazwisko"></input> 
               </div>
             </div>
 
@@ -158,7 +150,7 @@ class AddUser extends Component {
                 <label htmlFor="email">Email:  <span className="star">*</span></label>
               </div>
               <div className="email_input">
-                <input type="email" id="email" onChange={e => this.handleChange('email', e.target.value)} placeholder="E-mail"></input>
+                <input type="email" id="email" value={this.props.user.email} onChange = {e =>{this.handleChange('email', e.target.value)}} placeholder="E-mail"></input>
               </div>
             </div>
 
@@ -167,7 +159,7 @@ class AddUser extends Component {
                 <label htmlFor="permissions">Uprawnienia:</label>
               </div>
               <div className="permissions_select">
-                <select id="permissions" onChange={e => this.handleChange('userType', e.target.value)}>
+                <select id="permissions" selected={this.props.user.role} onChange = {e =>{this.handleChange('userType', e.target.value)}}>
                   <option>Administrator</option>
                   <option>Zwykły użytkownik</option>
                 </select>
@@ -179,11 +171,11 @@ class AddUser extends Component {
             </div>
 
             <div className={this.state.error}>
-              <p>Istnieje użytkownik o podanej nazwie użytkownika lub adresie e-mail!</p>
+              <p>Wprowadzono niepoprawne dane!</p>
             </div>
 
             <div className={this.state.succes}>
-              <p>Pomyślnie dodano użytkownika!</p>
+              <p>Zaktualizowano dane użytkownika!</p>
             </div>
 
             <div className={this.state.warning}>
@@ -199,4 +191,16 @@ class AddUser extends Component {
   }
 }
 
-export default withRouter(AddUser);
+const mapStateToProps = (state) =>{
+  return{
+      user: state.user
+  }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        updateUser: (name, value) => {dispatch(updateUser(name,value))}
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(EditUser));

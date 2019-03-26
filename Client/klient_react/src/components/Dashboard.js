@@ -15,13 +15,10 @@ class Dashboard extends Component {
     }
 
     componentDidMount(){
-        const { cookies, ip } = this.props;
+        const { ip } = this.props;
         this.setState({
             ip
         })
-        if(cookies.get('token') === undefined){
-            this.props.history.push('/');
-        }
     } 
 
     buttonClick = () =>{

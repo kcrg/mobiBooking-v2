@@ -17,6 +17,10 @@ class Logout extends Component {
     },function(err){
         return Promise.reject(err);
       });
+
+      if(cookies.get('token') === undefined){
+        this.props.history.push('/');
+    }
   }
 
   handleClick = () =>{
