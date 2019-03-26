@@ -22,7 +22,7 @@ export default class UserList extends Component {
 
     getUsers = () =>{
         const { ip } = this.props
-        axios.get( ip + '/api/Users/get_all')
+        axios.get( ip + '/api/Users/get_active')
         .then(res =>{
             this.setState({
                usersLeft: res.data 
@@ -89,12 +89,12 @@ export default class UserList extends Component {
   render() {
     return (
       <div className="users_div">
-        <Users users={this.state.usersLeft} setSelectedUsers={this.setSelectedUsersLeft}/>
+        <Users users={this.state.usersLeft} setSelectedUsers={this.setSelectedUsersLeft} isLeft={true}/>
         <div className="arrows">
             <FontAwesomeIcon icon={faArrowCircleLeft} onClick = {this.arrowLeftClick}></FontAwesomeIcon>
             <FontAwesomeIcon icon={faArrowCircleRight} onClick = {this.arrowRightClick}></FontAwesomeIcon>
         </div>
-        <Users users={this.state.usersRight} setSelectedUsers={this.setSelectedUsersRight}/>
+        <Users users={this.state.usersRight} setSelectedUsers={this.setSelectedUsersRight} isLeft={false}/>
     </div>
     )
   }

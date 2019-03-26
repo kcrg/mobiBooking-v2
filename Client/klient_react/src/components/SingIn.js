@@ -104,7 +104,7 @@ class SingIn extends Component {
           </div>
 
           <div className={this.state.warning}>
-            Uzupełnij wwszystkie pola!
+            Uzupełnij wszystkie pola!
           </div>
 
         </form>

@@ -1,0 +1,64 @@
+﻿<Page
+    x:Class="mobiBooking.UWP.Views.AddUsersPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    NavigationCacheMode="Required"
+    mc:Ignorable="d">
+
+    <Page.Content>
+        <ScrollViewer>
+            <Grid>
+                <AppBarButton
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Click="Back_Click"
+                    Icon="Back"
+                    IsCompact="True"
+                    Style="{ThemeResource AppBarButtonRevealStyle}"/>
+
+                <StackPanel
+                    MaxWidth="400"
+                    Margin="0,46,0,0"
+                    Padding="0,12,22,12"
+                    Spacing="12">
+                    <TextBox x:Name="username" Header="Nazwa uzytkownika*"/>
+
+                    <TextBox x:Name="email"
+                        extensions:TextBoxRegex.ValidationType="Email"
+                        Header="E-mail*"/>
+
+                    <PasswordBox x:Name="password" Header="Hasło*"/>
+
+                    <PasswordBox x:Name="passwordconfirm" Header="Powtórz hasło*"/>
+
+                    <TextBox x:Name="name" Header="Imię"/>
+
+                    <TextBox x:Name="surname" Header="Nazwisko"/>
+
+                    <ComboBox x:Name="usertype"
+                        HorizontalAlignment="Stretch"
+                        Header="Uprawnienia">
+                        <x:String>User</x:String>
+                        <x:String>Administrator</x:String>
+                    </ComboBox>
+
+                    <Grid>
+                        <CheckBox x:Name="activity"
+                            Content="Aktywny"
+                            IsChecked="True"
+                            Visibility="Collapsed"/>
+
+                        <Button x:Name="SubmitButton"
+                            HorizontalAlignment="Right"
+                            Click="Add_Click"
+                            Content="Dodaj użytkownika"
+                            Style="{StaticResource ButtonRevealStyle}"/>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Page.Content>
+</Page>

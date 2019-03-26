@@ -10,8 +10,15 @@ import ReservButton from './dashboard_components/ReservButton';
 
 class Dashboard extends Component {
 
+    state = {
+        ip: null
+    }
+
     componentDidMount(){
-        const { cookies } = this.props;
+        const { cookies, ip } = this.props;
+        this.setState({
+            ip
+        })
         if(cookies.get('token') === undefined){
             this.props.history.push('/');
         }
@@ -26,12 +33,12 @@ class Dashboard extends Component {
             <div className="dashboard-content">
                 <h2>Dashboard</h2>
                 <div className="boxes">
-                    <Meetings/>
-                    <TodayMeetings/>
+                    <Meetings ip={this.state.ip}/>
+                    <TodayMeetings ip={this.state.ip}/>
                     <ReservButton/>
-                    <Rooms/>
-                    <LastReserv/>
-                    <ReservStats/>
+                    <Rooms ip={this.state.ip}/>
+                    <LastReserv ip={this.state.ip}/>
+                    <ReservStats ip={this.state.ip}/>
                 </div>
             </div>
         )
