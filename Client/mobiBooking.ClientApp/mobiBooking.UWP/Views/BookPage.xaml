@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mtuuc="using:Microsoft.Toolkit.Uwp.UI.Controls"
     Loaded="Page_Loaded"
     NavigationCacheMode="Required"
     mc:Ignorable="d">
@@ -68,22 +69,43 @@
 
                     <TextBlock Text="Wybierz uczestników*"/>
 
-                    <ListView x:Name="UsersList"
-                        MaxHeight="220"
-                        Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}"
-                        SelectionMode="Multiple">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ListViewItem>
-                                    <StackPanel Orientation="Horizontal" Spacing="5">
-                                        <TextBlock Text="{Binding UserName}"/>
-                                        <TextBlock Text="{Binding Name}"/>
-                                        <TextBlock Text="{Binding Surname}"/>
-                                    </StackPanel>
-                                </ListViewItem>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                    <Grid MaxHeight="220">
+                        <mtuuc:Loading x:Name="LoadingScreen"
+                            Background="{ThemeResource SystemControlAcrylicWindowBrush}"
+                            Canvas.ZIndex="4"
+                            IsLoading="True">
+                            <StackPanel Orientation="Horizontal" Style="{StaticResource BasicStackPanel}">
+                                <ProgressRing
+                                    Width="50"
+                                    Height="50"
+                                    Foreground="{StaticResource SystemBaseHighColor}"
+                                    IsActive="True"/>
+                                <TextBlock VerticalAlignment="Center">
+                                    <Run Text="Pracujemy nad tym."/>
+                                    <LineBreak/>
+                                    <Run Text="( ͡° ͜ʖ ͡° )つ──☆*:・ﾟ"/>
+                                </TextBlock>
+                            </StackPanel>
+                        </mtuuc:Loading>
+
+                        <ListView x:Name="UsersList"
+                            Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}"
+                            SelectionMode="Multiple"
+                            Visibility="Collapsed">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ListViewItem>
+                                        <StackPanel Orientation="Horizontal" Spacing="5">
+                                            <TextBlock Text="{Binding UserName}"/>
+                                            <TextBlock Text="{Binding Name}"/>
+                                            <TextBlock Text="{Binding Surname}"/>
+                                        </StackPanel>
+                                    </ListViewItem>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+
                     <Grid>
                         <CheckBox x:Name="SelectAll"
                             Click="SelectAll_Click"

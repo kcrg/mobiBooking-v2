@@ -66,16 +66,16 @@ namespace mobiBooking.UWP
 
                         if (!SavedResponseObj.IsLoged || SavedResponseObj == null)
                         {
-                            rootFrame.Navigate(typeof(LoginPage), e.Arguments);
+                            _ = rootFrame.Navigate(typeof(LoginPage), e.Arguments);
                         }
                         else
                         {
-                            rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                            _ = rootFrame.Navigate(typeof(MainPage), e.Arguments);
                         }
                     }
                     else
                     {
-                        rootFrame.Navigate(typeof(LoginPage), e.Arguments);
+                        _ = rootFrame.Navigate(typeof(LoginPage), e.Arguments);
                     }
                 }
                 // Ensure the current window is active

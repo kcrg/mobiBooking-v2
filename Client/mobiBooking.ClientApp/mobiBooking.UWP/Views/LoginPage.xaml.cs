@@ -43,7 +43,6 @@ namespace mobiBooking.UWP.Views
 
                 if (response.StatusCode != System.Net.HttpStatusCode.InternalServerError && response.StatusCode != System.Net.HttpStatusCode.NotFound && response.StatusCode != System.Net.HttpStatusCode.BadGateway && response.StatusCode != System.Net.HttpStatusCode.BadRequest && response.StatusCode != 0)
                 {
-                    _ = new LoginModel();
                     LoginModel tokenObj = JsonConvert.DeserializeObject<LoginModel>(response.Content);
 
                     JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();

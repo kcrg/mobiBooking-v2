@@ -29,6 +29,9 @@ namespace mobiBooking.UWP.Views
             await GetUsers();
             Status.SelectedIndex = 0;
             Intervals.SelectedIndex = 0;
+
+            UsersList.Visibility = Visibility.Visible;
+            LoadingScreen.IsLoading = false;
         }
 
         private async Task GetUsers()
