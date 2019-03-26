@@ -8,5 +8,6 @@ namespace mobiBooking.Service.Interfaces
     {
         Task<IEnumerable<UserDataModel>> GetAllAsync(bool isAdministrator);
         Task<UserDataModel> GetAsync(int id);
+        Task<IEnumerable<UserDataModel>> GetActiveAsync();
     }
 }

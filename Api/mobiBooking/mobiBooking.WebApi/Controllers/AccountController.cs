@@ -66,6 +66,20 @@ namespace mobiBooking.WebApi.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
+        [HttpPut("update_activity/{id}/{activity}")]
+        public async Task<ActionResult> UpdateAstivityAsync(int id, bool activity)
+        {
+            if (await _accountService.UpdateAstivityAsync(id, activity))
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(new { message = "User with this id is not exists." });
+            }
+        }
+
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("delete/{id}")]
         public async Task<ActionResult> DeleteAsync(int id)
         {

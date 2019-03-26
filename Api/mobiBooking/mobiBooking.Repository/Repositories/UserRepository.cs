@@ -46,10 +46,10 @@ namespace mobiBooking.Repository.Repositories
             return await DBContext.Users.Where(i => i.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<List<UserDataModel>> FindActiveUsersAsync()
+        public async Task<IEnumerable<UserDataModel>> FindActiveUsersAsync()
         {
             return await DBContext.Users
-                 .Where(w => !w.Active)
+                 .Where(w => w.Active)
                  .Select(s => new UserDataModel
                  {
                      Active = s.Active,
@@ -126,12 +126,26 @@ namespace mobiBooking.Repository.Repositories
             await Task.Run(() => DBContext.Users.Update(user));
         }
 
+        public async Task UpdateAstivityAsync(int id, bool activity)
+        {
+            byte[] salt = Helpers.GenerateSalt();
+            User user = await DBContext.Users.FindAsync(id);
+            user.Active = activity;
+            await Task.Run(() => DBContext.Users.Update(user));
+        }
+
         public async Task<IEnumerable<Reservation>> GetMeetingsBetweenDatesAsync(DateTime dateFrom, DateTime dateTo, int userId)
         {
-            return await (from UsersToReservations in DBContext.UsersToReservations
-                          where UsersToReservations.UserId == userId
-                          where Helpers.CheckDateOverlaps(UsersToReservations.Reservation.DateFrom, UsersToReservations.Reservation.DateTo, dateFrom, dateTo)
-                          select UsersToReservations.Reservation).ToListAsync();
+            IEnumerable<UserToReservation> userToReservationsList = (from UsersToReservations in DBContext.UsersToReservations.Include(u => u.Reservation)
+                                                where UsersToReservations.UserId == userId
+                                                select UsersToReservations).AsEnumerable();
+
+            if (!userToReservationsList.Any())
+            {
+                return new List<Reservation>();
+            }
+
+            return await Task.Run(() => userToReservationsList.Where(r => Helpers.CheckDateInside(dateFrom, dateTo, r.Reservation.DateFrom, r.Reservation.DateTo)).Select(r => r.Reservation).AsEnumerable());
         }
 
         public async Task<UserDataModel> FindUserAsync(int id)
@@ -146,6 +160,14 @@ namespace mobiBooking.Repository.Repositories
                 Surname = u.Surname,
                 UserName = u.UserName
             }).FirstOrDefaultAsync();
+        }
+
+        public async Task<int> GetMeetingsCountBetweenDatesAsync(DateTime dateFrom, DateTime dateTo, int userId)
+        {
+            return await (from reservation in DBContext.Reservations
+                          where reservation.OwnerUserId == userId
+                          where Helpers.CheckDateInside(dateFrom, dateTo, reservation.DateFrom, reservation.DateTo)
+                          select reservation).CountAsync();         
         }
     }
 }

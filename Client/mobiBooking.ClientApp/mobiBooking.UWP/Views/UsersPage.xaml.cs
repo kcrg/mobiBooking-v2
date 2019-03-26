@@ -21,6 +21,8 @@ namespace mobiBooking.UWP.Views
         public UsersPage()
         {
             InitializeComponent();
+
+            _ = GetUsers();
         }
 
         private async Task GetUsers()
@@ -51,11 +53,6 @@ namespace mobiBooking.UWP.Views
                 obj.ActiveIcon = new SymbolIcon(Symbol.AddFriend);
                 obj.ActiveString = "Nieaktywny";
             }
-        }
-
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            await GetUsers();
         }
 
         private async void Delete_Click(object sender, RoutedEventArgs e)
@@ -158,6 +155,11 @@ namespace mobiBooking.UWP.Views
 
             T parentT = parent as T;
             return parentT ?? FindParent<T>(parent);
+        }
+
+        private async void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            await GetUsers();
         }
     }
 }

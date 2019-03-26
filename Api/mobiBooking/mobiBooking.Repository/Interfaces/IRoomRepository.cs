@@ -21,5 +21,7 @@ namespace mobiBooking.Repository.Interfaces
         Task<IEnumerable<RoomDataModel>> FindAllAsync(bool orderByName);
         Task<RoomDataModel> FindRoomAsync(int id);
         Task<Room> FindAsync(int id);
+        Task<int> GetReservatedNumberAsync();
+        Task<int> GetNotReservatedNumberAsync();
     }
 }

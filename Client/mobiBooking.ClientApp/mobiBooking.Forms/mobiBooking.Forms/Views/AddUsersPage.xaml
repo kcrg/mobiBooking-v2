@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="mobiBooking.Forms.Views.AddUsersPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="12" Spacing="12">
+                <Editor x:Name="username" Placeholder="Nazwa uzytkownika*"/>
+
+                <Editor x:Name="email"
+                    Keyboard="Email"
+                    Placeholder="E-mail*"/>
+
+                <Editor x:Name="password" Placeholder="Hasło*"/>
+
+                <Editor x:Name="passwordconfirm" Placeholder="Powtórz hasło*"/>
+
+                <Editor x:Name="name" Placeholder="Imię"/>
+
+                <Editor x:Name="surname" Placeholder="Nazwisko"/>
+
+                <Picker x:Name="usertype" HorizontalOptions="FillAndExpand"/>
+
+                <Grid>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Aktywny"
+                               VerticalTextAlignment="Center"/>
+                        <Switch x:Name="activity"
+                        IsToggled="True"
+                        IsVisible="True"/>
+                    </StackLayout>
+                    <Button x:Name="SubmitButton"
+                    Clicked="Add_Click"
+                    HorizontalOptions="EndAndExpand"
+                    Style="{StaticResource ButtonRevealStyle}"
+                    Text="Dodaj użytkownika"/>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

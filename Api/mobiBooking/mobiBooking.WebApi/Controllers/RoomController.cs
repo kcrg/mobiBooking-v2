@@ -4,7 +4,6 @@ using mobiBooking.Data.Model;
 using mobiBooking.Model.Models;
 using mobiBooking.Model.Room.Request;
 using mobiBooking.Model.Room.Response;
-using mobiBooking.Model.SendModels;
 using mobiBooking.Service.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -27,6 +26,20 @@ namespace mobiBooking.WebApi.Controllers
         public async Task<ActionResult<IEnumerable<RoomDataModel>>> GetAllAsync(bool orderByName)
         {
             return Ok(await _roomService.GetAllAsync(orderByName));
+        }
+
+        [Authorize(Roles = "Administrator, User")]
+        [HttpGet("get_reservated")]
+        public async Task<ActionResult<int>> GetReservatedNumberAsync()
+        {
+            return Ok(await _roomService.GetReservatedNumberAsync());
+        }
+
+        [Authorize(Roles = "Administrator, User")]
+        [HttpGet("get_not_reservated")]
+        public async Task<ActionResult<int>> GetNotReservatedNumberAsync()
+        {
+            return Ok(await _roomService.GetNotReservatedNumberAsync());
         }
 
         [Authorize(Roles = "Administrator, User")]

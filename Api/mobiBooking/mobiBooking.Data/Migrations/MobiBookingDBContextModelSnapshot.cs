@@ -31,7 +31,7 @@ namespace mobiBooking.Data.Migrations
 
                     b.Property<DateTime>("DateTo");
 
-                    b.Property<int>("OwnerUserId");
+                    b.Property<int?>("OwnerUserId");
 
                     b.Property<int?>("ReservationIntervalId");
 
@@ -39,7 +39,8 @@ namespace mobiBooking.Data.Migrations
 
                     b.Property<int>("Status");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -146,7 +147,7 @@ namespace mobiBooking.Data.Migrations
                     b.ToTable("Users");
 
                     b.HasData(
-                        new { Id = 1, Active = true, Email = "m.w@g.pl", Name = "Michał", Password = "OuCeqrWViZ8HKXWmo+AbBRPas8UDrussC4A8KvzKHII=", Role = "Administrator", Salt = new byte[] { 11, 88, 148, 49, 4, 161, 188, 18, 45, 95, 80, 213, 143, 112, 36, 190 }, Surname = "Test", UserName = "Test" }
+                        new { Id = 1, Active = true, Email = "m.w@g.pl", Name = "Michał", Password = "y25AsgfWaOF9dvk3y7QfFQcMx55w6vTTH32Kiowb4vg=", Role = "Administrator", Salt = new byte[] { 92, 154, 159, 209, 44, 229, 176, 40, 8, 94, 18, 187, 132, 204, 105, 251 }, Surname = "Test", UserName = "Test" }
                     );
                 });
 
@@ -168,7 +169,7 @@ namespace mobiBooking.Data.Migrations
                     b.HasOne("mobiBooking.Data.Model.User", "OwnerUser")
                         .WithMany("OwnReservations")
                         .HasForeignKey("OwnerUserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("mobiBooking.Data.Model.ReservationInterval", "ReservationInterval")
                         .WithMany()
@@ -198,7 +199,7 @@ namespace mobiBooking.Data.Migrations
                     b.HasOne("mobiBooking.Data.Model.User", "User")
                         .WithMany("Meetings")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

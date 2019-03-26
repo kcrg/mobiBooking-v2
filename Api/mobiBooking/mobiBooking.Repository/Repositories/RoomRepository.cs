@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using mobiBooking.Component;
+using mobiBooking.Component.Enums;
 using mobiBooking.Data;
 using mobiBooking.Data.Model;
 using mobiBooking.Model.Models;
@@ -7,6 +8,7 @@ using mobiBooking.Model.Room.Request;
 using mobiBooking.Model.Room.Response;
 using mobiBooking.Repository.Base;
 using mobiBooking.Repository.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -63,20 +65,69 @@ namespace mobiBooking.Repository.Repositories
         public async Task<IEnumerable<RoomDataModelForReservation>> GetRoomsForReservationAsync(RoomsForReservationModel roomForReservationModel)
         {
 
-            return await (from rooms in DBContext.Rooms
-                          where !rooms.Reservations.Where(reserv => Helpers.CheckDateOverlaps(reserv.DateFrom, reserv.DateTo, roomForReservationModel.DateFrom, roomForReservationModel.DateTo)).Any()
-                          where rooms.NumberOfPeople >= roomForReservationModel.Size
-                          where Helpers.CheckDateInside(
-                              roomForReservationModel.DateFrom.Date.AddHours(rooms.Availability.HoursFrom),
-                              roomForReservationModel.DateTo.Date.AddHours(rooms.Availability.HoursTo),
-                              roomForReservationModel.DateFrom,
-                              roomForReservationModel.DateTo)
-                          where roomForReservationModel.DateFrom.Date == roomForReservationModel.DateTo.Date
-                          select new RoomDataModelForReservation
-                          {
-                              Name = rooms.Name,
-                              Id = rooms.Id
-                          }).ToListAsync();
+            List<Room> roomsList = await (from rooms in DBContext.Rooms.Include(r => r.Reservations).ThenInclude(r => r.ReservationInterval)
+                                          where !rooms.Reservations.Where(reserv => Helpers.CheckDateOverlaps(reserv.DateFrom, reserv.DateTo, roomForReservationModel.DateFrom, roomForReservationModel.DateTo)).Any()
+                                          where rooms.NumberOfPeople >= roomForReservationModel.Size
+                                          where Helpers.CheckDateInside(
+                                              roomForReservationModel.DateFrom.Date.AddHours(rooms.Availability.HoursFrom),
+                                              roomForReservationModel.DateTo.Date.AddHours(rooms.Availability.HoursTo),
+                                              roomForReservationModel.DateFrom,
+                                              roomForReservationModel.DateTo)
+                                          where roomForReservationModel.DateFrom.Date == roomForReservationModel.DateTo.Date
+                                          select rooms
+                          ).ToListAsync();
+
+            return roomsList.Where(rooms => !rooms.Reservations.Where(reserv => Helpers.CheckIntervalReservation(reserv.DateFrom,
+                reserv.DateTo,
+                roomForReservationModel.DateFrom,
+                roomForReservationModel.DateTo,
+                reserv.ReservationInterval?.Time,
+                reserv.CyclicReservation))
+                .Any())
+                .Select(r => new RoomDataModelForReservation
+                {
+                    Id = r.Id,
+                    Name = r.Name
+                });
+        }
+
+        public async Task<int> GetNotReservatedNumberAsync()
+        {
+            List<Room> roomsList = await (from rooms in DBContext.Rooms.Include(r => r.Reservations).ThenInclude(r => r.ReservationInterval)
+                                          where !rooms.Reservations.Where(reserv => Helpers.CheckDateOverlaps(reserv.DateFrom, reserv.DateTo, DateTime.Now, DateTime.Now.AddMinutes(1))).Any()
+                                          where Helpers.CheckDateInside(
+                                              DateTime.Now.Date.AddHours(rooms.Availability.HoursFrom),
+                                              DateTime.Now.Date.AddHours(rooms.Availability.HoursTo),
+                                              DateTime.Now,
+                                              DateTime.Now)
+                                          select rooms).ToListAsync();
+
+            return roomsList.Where(rooms => !rooms.Reservations.Where(reserv => Helpers.CheckIntervalReservation(reserv.DateFrom,
+                reserv.DateTo,
+                DateTime.Now,
+                DateTime.Now.AddMinutes(1),
+                reserv.ReservationInterval?.Time,
+                reserv.CyclicReservation))
+                .Any())
+                .Count();
+        }
+
+        public async Task<int> GetReservatedNumberAsync()
+        {
+            return await (from rooms in DBContext.Rooms.Include(r => r.Reservations).ThenInclude(r => r.ReservationInterval)
+                          where rooms.Reservations.Where(reserv => Helpers.CheckDateOverlaps(reserv.DateFrom, reserv.DateTo, DateTime.Now, DateTime.Now.AddMinutes(1))
+                                                                  || Helpers.CheckIntervalReservation(reserv.DateFrom,
+                                                                                reserv.DateTo,
+                                                                                DateTime.Now,
+                                                                                DateTime.Now.AddMinutes(1),
+                                                                                reserv.ReservationInterval == null ? Intervals.Day : reserv.ReservationInterval.Time,
+                                                                                reserv.CyclicReservation)).Any()
+                          || !Helpers.CheckDateInside(
+                              DateTime.Now.Date.AddHours(rooms.Availability.HoursFrom),
+                              DateTime.Now.Date.AddHours(rooms.Availability.HoursTo),
+                              DateTime.Now,
+                              DateTime.Now.AddMinutes(1))
+                          select rooms).CountAsync();
         }
 
         public async Task<IEnumerable<RoomDataModel>> FindAllAsync(bool orderByName)

@@ -18,7 +18,7 @@ namespace mobiBooking.UWP.Views
 
         private List<GetRoomsModel> roomsList = new List<GetRoomsModel>();
         private List<GetIntervalsModel> intervalsList = new List<GetIntervalsModel>();
-        private List<GetUsersModel> usersList = new List<GetUsersModel>();
+        private List<Models.GetUsersModel> usersList = new List<Models.GetUsersModel>();
         public BookPage()
         {
             InitializeComponent();
@@ -29,6 +29,9 @@ namespace mobiBooking.UWP.Views
             await GetUsers();
             Status.SelectedIndex = 0;
             Intervals.SelectedIndex = 0;
+
+            UsersList.Visibility = Visibility.Visible;
+            LoadingScreen.IsLoading = false;
         }
 
         private async Task GetUsers()
@@ -71,7 +74,7 @@ namespace mobiBooking.UWP.Views
 
             if (string.IsNullOrEmpty(response.Content))
             {
-                _ = await new CustomDialog("Brak wolnych sal.", null, CustomDialog.Type.Information).ShowAsync();
+                _ = await new CustomDialog("Brak wolnych sal o podanej liczbie miejsc i w danym czasie.", null, CustomDialog.Type.Information).ShowAsync();
             }
             else if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -80,6 +83,7 @@ namespace mobiBooking.UWP.Views
             }
             else
             {
+                _ = await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem.", response.StatusCode.ToString(), CustomDialog.Type.Error).ShowAsync();
             }
         }
 
@@ -121,10 +125,10 @@ namespace mobiBooking.UWP.Views
                 DateTime newDateTo = DateTo.Date.Value.Date + TimeTo.Time;
                 string formatedDateTo = newDateTo.ToString("yyyy-MM-ddTHH:mm:ss.925Z");
 
-                List<int> UsersIndexArray = new List<int>();
-                for (int i = 0; i < UsersList.SelectedItems.Count; i++)
+                List<int> selectedUsers = new List<int>();
+                foreach (Models.GetUsersModel item in UsersList.SelectedItems)
                 {
-                    UsersIndexArray.Add(usersList[UsersList.SelectedIndex].Id);
+                    selectedUsers.Add(item.Id);
                 }
 
                 BookModel bookObj = new BookModel // TODO FIX/////////////////////////////////////////////////////////////////////////////////////////
@@ -132,9 +136,9 @@ namespace mobiBooking.UWP.Views
                     RoomId = roomsList[RoomList.SelectedIndex].Id,
                     DateFrom = formatedDateFrom,
                     DateTo = formatedDateTo,
-                    //Status = Status.SelectedIndex + 1,
+                    Status = Status.SelectedIndex,
                     Title = Title.Text,
-                    InvitedUsersIds = UsersIndexArray,
+                    InvitedUsersIds = selectedUsers,
                     CyclicReservation = IsCyclic.IsChecked ?? false,
                     ReservationIntervalId = intervalsList[Intervals.SelectedIndex].Id
                 };

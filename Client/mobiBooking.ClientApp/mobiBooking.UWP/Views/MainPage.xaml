@@ -14,13 +14,17 @@
         <Grid>
             <Grid x:Name="DragArea" Style="{StaticResource DragAreaGrid}">
 
-                <Image x:Name="AppLogoImage"
-                    Source=""
-                    Style="{StaticResource AppLogoImage}"/>
+                <Image x:Name="AppLogoImage" Style="{StaticResource AppLogoImage}"/>
                 <TextBlock Style="{StaticResource AppTitleText}"/>
             </Grid>
+            <Grid
+                Width="230"
+                HorizontalAlignment="Left"
+                Background="{StaticResource NavigationViewDefaultPaneBackground}"
+                Canvas.ZIndex="0"/>
 
             <muxc:NavigationView x:Name="NavView"
+                Margin="0,34,0,0"
                 SelectionChanged="NavView_SelectionChanged"
                 Style="{StaticResource NavView}">
 

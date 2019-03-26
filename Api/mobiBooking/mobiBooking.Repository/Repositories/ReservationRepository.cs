@@ -2,6 +2,7 @@
 using mobiBooking.Component;
 using mobiBooking.Data;
 using mobiBooking.Data.Model;
+using mobiBooking.Model.Meetings.Response;
 using mobiBooking.Model.RecivedModels;
 using mobiBooking.Model.Reservation.Response;
 using mobiBooking.Repository.Base;
@@ -19,16 +20,26 @@ namespace mobiBooking.Repository.Repositories
         {
         }
 
-        public Task<bool> CheckIfCanReservAsync(DateTime dateFrom, DateTime dateTo, Room room)
+        public async Task<bool> CheckIfCanReservAsync(DateTime dateFrom, DateTime dateTo, Room room)
         {
-            return (from rooms in DBContext.Rooms
-                    where !rooms.Reservations.Where(reserv => Helpers.CheckDateOverlaps(reserv.DateFrom, reserv.DateTo, dateFrom, dateTo)).Any()
-                    where Helpers.CheckDateInside(
-                             dateFrom.Date.AddHours(rooms.Availability.HoursFrom),
-                             dateFrom.Date.AddHours(rooms.Availability.HoursTo),
-                             dateFrom,
-                             dateFrom)
-                    select rooms).ContainsAsync(room);
+            List<Room> roomsList = await (from rooms in DBContext.Rooms.Include(r => r.Availability).Include(r => r.Reservations).ThenInclude(r => r.ReservationInterval)
+                                          where !rooms.Reservations.Where(reserv => Helpers.CheckDateOverlaps(reserv.DateFrom, reserv.DateTo, dateFrom, dateTo)).Any()
+                                          where Helpers.CheckDateInside(
+                                                   dateFrom.Date.AddHours(rooms.Availability.HoursFrom),
+                                                   dateFrom.Date.AddHours(rooms.Availability.HoursTo),
+                                                   dateFrom,
+                                                   dateFrom)
+                                          select rooms).ToListAsync();
+
+            // if(roomsList.)
+
+            return roomsList.Where(rooms => !rooms.Reservations.Where(reserv => Helpers.CheckIntervalReservation(reserv.DateFrom,
+                reserv.DateTo,
+                dateFrom,
+                dateTo,
+                reserv.ReservationInterval?.Time,
+                reserv.CyclicReservation)).Any()).Contains(room);
+
         }
 
         public async Task CreateAsync(ReservationModel value, Room room, User ownerUser, IEnumerable<User> InvitedUsers)
@@ -57,6 +68,34 @@ namespace mobiBooking.Repository.Repositories
             });
 
             await DBContext.SaveChangesAsync();
+        }
+
+        public Task<IEnumerable<MeetingModel>> GetMeetingsToday(int userId)
+        {
+            return Task.Run(() => (from reservations in DBContext.Reservations
+                                   where reservations.InvitedUsers.Select(u => u.UserId).Contains(userId)
+                                   where Helpers.CheckDateInside(DateTime.Now.Date, DateTime.Now.Date.AddDays(1).AddSeconds(-1), reservations.DateFrom, reservations.DateTo)
+                                   orderby reservations.DateFrom
+                                   select new MeetingModel
+                                   {
+                                       RoomName = reservations.Room.Name,
+                                       Time = reservations.DateFrom.ToShortTimeString(),
+                                       Title = reservations.Title
+                                   }).AsEnumerable());
+        }
+
+        public Task<IEnumerable<LastReservationModel>> GetLastReservations(int userId)
+        {
+            return Task.Run(() => (from reservations in DBContext.Reservations
+                                   where reservations.OwnerUserId == userId
+                                   where reservations.DateFrom < DateTime.Now
+                                   orderby reservations.DateFrom descending
+                                   select new LastReservationModel
+                                   {
+                                       RoomName = reservations.Room.Name,
+                                       Date = reservations.DateFrom.ToShortDateString() + " " + reservations.DateFrom.ToLongTimeString(),
+                                       Title = reservations.Title
+                                   }).Take(15).AsEnumerable());
         }
 
         public async Task<IEnumerable<ReservationIntervalModel>> GetReservationIntervalsAsync()
