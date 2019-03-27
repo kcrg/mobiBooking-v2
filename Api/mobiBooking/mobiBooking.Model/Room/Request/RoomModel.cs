@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace mobiBooking.Model.Models
 {
@@ -12,7 +9,7 @@ namespace mobiBooking.Model.Models
         [Required]
         public string Location { get; set; }
         [Required]
-        public int Availability { get; set; }
+        public int AvailabilityId { get; set; }
         [Required]
         public int NumberOfPeople { get; set; }
     }

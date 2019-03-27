@@ -6,6 +6,7 @@ import './pages.dart';
 import './add_room.dart';
 import './add_user.dart';
 import './RoomReserv/room_reserv.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: appTitle,
-        home: MyHomePage(title: appTitle),
+        home: MyHomePage(),
         theme: ThemeData(
             brightness: Brightness.light,
             primaryColor: Color(0xff00b7ce),
@@ -29,9 +30,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  final String title;
-
-  MyHomePage({this.title});
+  MyHomePage();
 
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -40,29 +39,34 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget selectedPage;
   Widget appDrawer;
   bool isLoggedIn = false;
+  String title = "";
 
-  _nawigateToPage(Pages page) {
+  _navigateToPage(Pages page) {
     switch (page) {
       case Pages.dashboard:
         setState(() {
-          selectedPage = new Dashboard();
+          title = "Dashboard";
+          selectedPage = new Dashboard(() => _navigateToPage(Pages.bookRoom));
         });
         break;
 
       case Pages.addUser:
         setState(() {
+          title = "Dodaj użytkowanika";
           selectedPage = new AddUser();
         });
         break;
 
       case Pages.addRoom:
         setState(() {
+          title = "Dodaj salę";
           selectedPage = new AddRoom();
         });
         break;
 
-        case Pages.bookRoom:
+      case Pages.bookRoom:
         setState(() {
+          title = "Zarezerwuj salę";
           selectedPage = new RoomReserv();
         });
         break;
@@ -74,20 +78,39 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    selectedPage = new LoginPage(_login);
-    appDrawer = null;
+
+    SharedPreferences.getInstance().then((value) {
+      SharedPreferences prefs = value;
+
+      String token = prefs.getString('token');
+
+      if (token != null) {
+        _login(token);
+      } else {
+        setState(() {
+          selectedPage = new LoginPage(_login);
+          appDrawer = null;
+        });
+      }
+    });
   }
 
   _login(String token) {
     print(token);
     setState(() {
-      appDrawer = new AppDrawer(_nawigateToPage);
-      selectedPage = new Dashboard();
+      appDrawer = new AppDrawer(_navigateToPage);
+      title = "Dashboard";
+      selectedPage = new Dashboard(() => _navigateToPage(Pages.bookRoom));
       isLoggedIn = true;
     });
   }
 
   _logout() {
+    SharedPreferences.getInstance().then((value) {
+      SharedPreferences prefs = value;
+      prefs.remove("token");
+    });
+
     setState(() {
       appDrawer = null;
       selectedPage = new LoginPage(_login);
@@ -99,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Infinite ListView"),
+        title: Text(title),
         actions: isLoggedIn
             ? <Widget>[
                 IconButton(

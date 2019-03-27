@@ -15,7 +15,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String _urlBase = 'https://mobibookingwebapi.azurewebsites.net/api/';
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
