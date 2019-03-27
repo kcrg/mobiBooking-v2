@@ -9,7 +9,16 @@ const initState = {
         surname: '',
         email: '',
         userType: 'Administrator'
-    }
+    },
+    roomData: [],
+    roomId: null,
+    room: {
+        roomName: '',
+        location: '',
+        availabilityId: null,
+        numberOfPeople: ''
+    },
+    ava: []
 }
 
 const rootReducer = (state = initState, action) =>{
@@ -19,6 +28,12 @@ const rootReducer = (state = initState, action) =>{
          usersData: action.data
      }
     }
+    else if(action.type === 'GET_ROOMS'){
+        return{
+            ...state,
+            roomData: action.rooms
+        }
+       }
     else if(action.type === 'GET_USER_DATA'){
         return{
             ...state,
@@ -41,6 +56,34 @@ const rootReducer = (state = initState, action) =>{
                 ...state.user,
                 [action.name]: action.name === 'userType' ? (action.value === 'Zwykły użytkownik' ? ('User') : ('Administrator')): action.value 
             }
+        }
+    }
+    else if(action.type === 'UPDATE_ROOM'){
+        return{
+            ...state,
+            room:{
+                ...state.room,
+                [action.name]: action.name === 'numberOfPeople' ? (action.value) : action.value
+            }
+        }
+    }
+    else if(action.type === 'GET_ROOM_DATA'){
+        return{
+            ...state,
+            roomId: action.room.id,
+            room:{
+                ...state.room,
+                roomName: action.room.roomName,
+                location: action.room.location,
+                availabilityId: action.room.availabilityId,
+                numberOfPeople: action.room.numberOfPeople
+            } 
+        }
+    }
+    else if(action.type === 'GET_AVA_DATA'){
+        return{
+            ...state,
+            ava: action.ava
         }
     }
     return state

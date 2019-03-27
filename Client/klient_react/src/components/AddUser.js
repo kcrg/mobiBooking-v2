@@ -79,6 +79,7 @@ class AddUser extends Component {
       })
         setTimeout(() =>{
         this.setState({succes: 'default'});
+        this.props.history.push('/userView')
        }, 3000);
     };
   }
@@ -101,10 +102,17 @@ class AddUser extends Component {
     }))
   }
 
+  handleClick = () =>{
+    this.props.history.push('/userView')
+  }
+
 
   render() {
     return (
       <div className="user_form_div">
+        <div className="button">
+          <button onClick={this.handleClick}>Lista użytkowników</button>
+        </div>
         <h2>Dodaj użytkownika:</h2>
           <form onSubmit={this.handleSubmit} className="user_form">
 

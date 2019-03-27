@@ -10,8 +10,19 @@
     height: auto;
     background: $mobi-purple;
 
+    button{
+        margin-top: 100px;
+        border: none;
+        font-size: 20px;
+        padding: 20px;
+        border-radius: 5px;
+        background: $mobi-blue;
+        color: $primary-color;
+        cursor: pointer;
+    }
+
     h2{
-        margin-top: 80px;
+        margin-top: 25px;
     }
 
     .star{
@@ -430,4 +441,16 @@
         }
     }
   }
+}
+
+@media only screen and (min-width: 1000px){
+    .user_form_div{
+       .button{
+           display: flex;
+           width: 100%;
+           button{
+                margin-left: 30px;
+           }
+       }
+    }
 }
