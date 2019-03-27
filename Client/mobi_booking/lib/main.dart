@@ -5,6 +5,7 @@ import './Dashboard/dashboard.dart';
 import './pages.dart';
 import './add_room.dart';
 import './add_user.dart';
+import './RoomReserv/room_reserv.dart';
 
 void main() => runApp(MyApp());
 
@@ -38,6 +39,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Widget selectedPage;
   Widget appDrawer;
+  bool isLoggedIn = false;
 
   _nawigateToPage(Pages page) {
     switch (page) {
@@ -59,6 +61,12 @@ class _MyHomePageState extends State<MyHomePage> {
         });
         break;
 
+        case Pages.bookRoom:
+        setState(() {
+          selectedPage = new RoomReserv();
+        });
+        break;
+
       default:
     }
   }
@@ -75,6 +83,15 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       appDrawer = new AppDrawer(_nawigateToPage);
       selectedPage = new Dashboard();
+      isLoggedIn = true;
+    });
+  }
+
+  _logout() {
+    setState(() {
+      appDrawer = null;
+      selectedPage = new LoginPage(_login);
+      isLoggedIn = false;
     });
   }
 
@@ -83,6 +100,14 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Infinite ListView"),
+        actions: isLoggedIn
+            ? <Widget>[
+                IconButton(
+                  icon: Icon(Icons.exit_to_app),
+                  onPressed: _logout,
+                )
+              ]
+            : null,
       ),
       body: selectedPage,
       drawer: appDrawer,

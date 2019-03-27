@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import './CustomInputs/email_custom_input.dart';
+import 'CustomInputs/pass_custom_input.dart';
 import './CustomInputs/custom_input.dart';
 
 class AddUser extends StatefulWidget {
@@ -15,11 +17,7 @@ class _AddUserState extends State<AddUser> {
   final email = TextEditingController();
   final userType = TextEditingController();
 
-  
-
-  _addUser() {
-
-  }
+  _addUser() {}
 
   @override
   Widget build(BuildContext context) {
@@ -27,19 +25,19 @@ class _AddUserState extends State<AddUser> {
       children: <Widget>[
         Container(
             margin: EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 10),
-            child: CustomInput(
+            child: EmailCustomInput(
               controller: username,
               text: "Podaj email",
             )),
         Container(
             margin: EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 10),
-            child: CustomInput(
+            child: PassCustomInput(
               controller: pass,
               text: 'Hasło',
             )),
         Container(
             margin: EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 10),
-            child: CustomInput(
+            child: PassCustomInput(
               controller: repeadPass,
               text: 'Powtórz hasło',
             )),
@@ -68,19 +66,19 @@ class _AddUserState extends State<AddUser> {
               text: 'Uprawnienia',
             )),
         Container(
-          margin: EdgeInsets.only(top: 20),
+            margin: EdgeInsets.only(top: 20),
             child: Center(
-          child: new RaisedButton(
-            padding: const EdgeInsets.all(15.0),
-            textColor: Colors.white,
-            color: Theme.of(context).primaryColor,
-            onPressed: _addUser,
-            child: new Text(
-              "Dodaj użytkownika",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-            ),
-          ),
-        ))
+              child: new RaisedButton(
+                padding: const EdgeInsets.all(15.0),
+                textColor: Colors.white,
+                color: Theme.of(context).primaryColor,
+                onPressed: _addUser,
+                child: new Text(
+                  "Dodaj użytkownika",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+              ),
+            ))
       ],
     );
   }
