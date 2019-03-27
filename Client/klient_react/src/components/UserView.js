@@ -5,6 +5,9 @@ import { withRouter } from 'react-router-dom';
 import * as JWT from 'jwt-decode';
 
  class UserView extends Component {
+    state = {
+      visible: null
+    }
 
     handleClick = () =>{
         this.props.history.push('/addUser')
@@ -21,10 +24,6 @@ import * as JWT from 'jwt-decode';
                 })
             }
         }
-    }
-
-    state = {
-      visible: null
     }
 
   render() {

@@ -109,11 +109,6 @@ class AddRoom extends Component {
 
   componentDidMount(){
     const { ip } = this.props
-    const { cookies } = this.props;
-    if(cookies.get('token') === undefined){
-      this.props.history.push('/');
-    }
-
     axios.get( ip + '/api/Room/get_room_availabilities')
     .then( res=>{
       this.setState(prevState =>({

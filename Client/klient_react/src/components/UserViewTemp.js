@@ -4,30 +4,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserEdit, faUserTimes, faUserCheck} from '@fortawesome/free-solid-svg-icons';
 import * as JWT from 'jwt-decode';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import getUsers from '../actions/UserViewAction';
+import editUser from '../actions/EditUserAction';
+import { withRouter } from 'react-router-dom';
 
 library.add(faUserEdit, faUserTimes, faUserCheck)
 
-export default class userViewTemp extends Component {
+class userViewTemp extends Component {
 
     state = {
-        usersData: [],
-        mappedUsers: null,
-        visible: null,
+        visible: null
     }
 
     componentDidMount(){
-        const { ip } = this.props
-        axios.get( ip + '/api/Users/get_all')
-        .then(res =>{
-            console.log(res.data)
-            this.setState({
-                usersData: res.data
-            }, this.mapUserData)
-        })
-        .catch(err =>{
-            console.log(err)
-        })
-
+        this.props.getUsers(this.props.ip)
         const { cookies } = this.props;
         if(cookies.get('token') !== undefined){
             var token = cookies.get('token');
@@ -44,27 +35,23 @@ export default class userViewTemp extends Component {
         const { ip } = this.props
         axios.put( ip + '/api/Account/update_activity/' + id + '/' + !active)
         .then(res =>{
-            axios.get( ip + '/api/Users/get_all')
-            .then(res =>{
-                this.setState({
-                    usersData: res.data
-                }, this.mapUserData)
-            })
-            .catch(err =>{
-                console.log(err)
-            })
+            console.log(res)
+          this.props.getUsers(ip)
         })
         .catch(err =>{
             console.log(err)
         })
      }
 
-     handleEditClick = () =>{
-        
+     handleEditClick = (id) =>{
+        this.props.editUser(id, this.props.ip);
+        this.props.history.push('/editUser');
      }
 
-    mapUserData = () =>{
-        const user = this.state.usersData.map(user =>{
+  render() {
+
+    let mapUserData = (
+        this.props.usersData.map(user =>{
             let ikona = faUserTimes
             if(user.active === false){
                 ikona = faUserCheck
@@ -83,16 +70,25 @@ export default class userViewTemp extends Component {
                 </div>
             )
         })
-        this.setState({
-            mappedUsers: user
-        })
-    }
-
-  render() {
+    )
     return (
         <div className="test">
-           {this.state.mappedUsers}
+          {mapUserData}
         </div>
     )
   }
 }
+
+const mapStateToProps = (state) =>{
+    return{
+        usersData: state.usersData
+    }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        getUsers: (ip) => {dispatch(getUsers(ip))},
+        editUser: (id, ip) => {dispatch(editUser(id,ip))}
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(userViewTemp));

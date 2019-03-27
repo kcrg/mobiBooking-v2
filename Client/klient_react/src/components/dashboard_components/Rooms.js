@@ -16,8 +16,6 @@ export default class Rooms extends Component {
       axios.get( ip + '/api/Room/get_not_reservated'),
     ])
     .then(axios.spread((reservResponse, notReservResponse) =>{
-      console.log('Zarezerwowane:' + reservResponse.data)
-      console.log('Wolne:' + notReservResponse.data)
       this.setState({
         reservated: reservResponse.data,
         not_reservated: notReservResponse.data,

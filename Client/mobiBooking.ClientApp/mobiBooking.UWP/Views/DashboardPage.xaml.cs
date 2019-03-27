@@ -74,6 +74,9 @@ namespace mobiBooking.UWP.Views
             StatsLastWeek.Text = await GetRequest("Meetings/count_last_week", false);
             StatsThisMonth.Text = await GetRequest("Meetings/count_this_month", false);
             StatsLastMonth.Text = await GetRequest("Meetings/count_last_month", false);
+
+            DashboardGrid.Visibility = Visibility.Visible;
+            LoadingScreen.IsLoading = false;
         }
 
         private void Page_GotFocus(object sender, RoutedEventArgs e)

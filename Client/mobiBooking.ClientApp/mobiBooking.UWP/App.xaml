@@ -55,26 +55,20 @@
                 TintColor="#00b7ce"
                 TintOpacity="0.8"/>
 
+            <AcrylicBrush
+                x:Key="NavigationViewDefaultPaneBackground"
+                AlwaysUseFallback="True"
+                FallbackColor="{StaticResource SystemAltHighColor}"
+                Opacity="0.2"/>
+
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls"/>
                 <ResourceDictionary>
                     <ResourceDictionary.ThemeDictionaries>
                         <ResourceDictionary x:Key="Default">
-                            <AcrylicBrush
-                                x:Key="NavigationViewDefaultPaneBackground"
-                                AlwaysUseFallback="True"
-                                FallbackColor="{StaticResource SystemAltHighColor}"
-                                Opacity="0.2"/>
-                            <AcrylicBrush
-                                x:Key="NavigationViewTopPaneBackground"
-                                AlwaysUseFallback="True"
-                                FallbackColor="{StaticResource SystemAltHighColor}"
-                                Opacity="0.2"/>
-                            <AcrylicBrush
-                                x:Key="NavigationViewExpandedPaneBackground"
-                                AlwaysUseFallback="True"
-                                FallbackColor="{StaticResource SystemAltHighColor}"
-                                Opacity="0.2"/>
+                            <LinearGradientBrush x:Key="NavigationViewDefaultPaneBackground" Opacity="0"/>
+                            <AcrylicBrush x:Key="NavigationViewTopPaneBackground" Opacity="0"/>
+                            <AcrylicBrush x:Key="NavigationViewExpandedPaneBackground" Opacity="0"/>
                         </ResourceDictionary>
                         <ResourceDictionary x:Key="HighContrast">
                             <!--
