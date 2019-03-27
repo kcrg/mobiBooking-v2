@@ -53,7 +53,7 @@ export default class NavBar extends Component {
           <ul className="navigation-links">
             <Link to="/home"><li>Dashboard</li></Link>
             <Link to="/roomReserv"><li>Zarezerwuj sale</li></Link>
-            <Link to="/404"><li>Lista sal/rezerwacje</li></Link>
+            <Link to="/roomView"><li>Lista sal/rezerwacje</li></Link>
             <Link to="/addRoom"  className={this.state.visible}><li>Dodaj sale</li></Link>
             <Link to="/userView"><li>Użytkownicy</li></Link>
             <Link to="addUser" className={this.state.visible}><li>Dodaj użytkownika</li></Link>

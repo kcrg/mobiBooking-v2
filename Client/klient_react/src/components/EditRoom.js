@@ -2,45 +2,29 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import '../styles/AddRoom.scss';
+import { connect } from 'react-redux';
+import updateRoom from '../actions/UpdateRoom';
+import getAva from '../actions/GetAva'
 
-class AddRoom extends Component {
+class EditRoom extends Component {
   state = {
-    roomData:{
-      roomName: '',
-      location: '',
-      availabilityId: 1,
-      numberOfPeople: ''
-    },
     error: 'default',
     succes: 'default',
     warning: 'default',
     mapAva: null,
-    availability:{
-      id: null,
-      name: null
-    }
+    value: null
   }
 
-  handleChange = (name, value) =>{
-    this.setState(prevState => ({
-      ...prevState,
-      roomData: {
-        ...prevState.roomData,
-        [name]: value
-      } 
-    }))
+  componentDidMount(){
+      this.props.getAva(this.props.ip)
   }
 
-  handleNChange = (name, value) =>{
-    this.setState(prevState => ({
-      ...prevState,
-      roomData: {
-        ...prevState.roomData,
-        [name]: parseInt(value)
-      } 
-    }))
+  componentWillReceiveProps(nextProps){
+     this.setState({
+         value: nextProps.room.availability
+     })
   }
-    
+  
   toggleError = (error) =>{
     if( error === true ){
       this.setState({
@@ -75,19 +59,22 @@ class AddRoom extends Component {
          }, 3000);
       })
     }else
-      this.sendData()
+      this.updateData()
   }
 
   checkData = () =>{
-    return (this.state.roomData.roomName.match(/^ *$/) !== null ||
-    this.state.roomData.location.match(/^ *$/) !== null||
-    this.state.roomData.numberOfPeople === '')
+    return (this.props.room.roomName.match(/^ *$/) !== null ||
+    this.props.room.location.match(/^ *$/) !== null||
+    this.props.room.numberOfPeople === '')
   }
 
 
-  sendData = () =>{
+  updateData = () =>{
     const { ip } = this.props;
-    axios.post(ip + '/api/Room/create', this.state.roomData)
+    const { id } = this.props
+    parseInt(this.props.room.numberOfPeople);
+    console.log(this.props.room)
+    axios.put(ip + '/api/Room/update/' + id, this.props.room)
     .then(res => {
       this.toggleError(false)
       return res;
@@ -97,40 +84,28 @@ class AddRoom extends Component {
     });
   }
 
-  mapAva = () =>{
-    const Ava = this.state.availability.map(ava =>{
-      return(
-        <option key={ava.id} value={ava.id}>{ava.name}</option>
-      )
-    })
-    this.setState({
-      mapAva: Ava
-    })
+  handleChange = (name, value) =>{
+    this.props.updateRoom(name, value);
   }
 
-  componentDidMount(){
-    const { ip } = this.props
-    axios.get( ip + '/api/Room/get_room_availabilities')
-    .then( res=>{
-      this.setState(prevState =>({
-        ...prevState,
-        availability: res.data
-      }),  this.mapAva)
-    })
-
-  }
-  
   render() {
+    let mapAva = (
+        this.props.ava.map(ava =>{
+            return(
+                <option key={ava.id} value={ava.id}>{ava.name}</option>
+            )
+        })
+    )
     return (
         <div className="add_room">
-          <h2>Dodaj salę:</h2>
+          <h2>Edytuj salę:</h2>
           <form onSubmit={this.handleSubmit} className="add_room_form">
             <div className="room_label">
               <div className="room">
                 <label htmlFor="roomName">Nazwa sali:</label>
               </div>
               <div className="room_input">
-                <input type="text" id="roomName" onChange={e => this.handleChange('roomName', e.target.value)} placeholder="Nazwa sali"></input>
+                <input type="text" id="roomName" value={this.props.room.roomName} onChange={e => this.handleChange('roomName', e.target.value)} placeholder="Nazwa sali"></input>
               </div>
             </div>
 
@@ -139,7 +114,7 @@ class AddRoom extends Component {
                 <label htmlFor="location">Lokalizacja:</label>
               </div>
               <div className="location_input">
-                <input type="text" id="location" onChange={e => this.handleChange('location', e.target.value)} placeholder="Lokalizacja"></input> 
+                <input type="text" id="location" value={this.props.room.location} onChange={e => this.handleChange('location', e.target.value)} placeholder="Lokalizacja"></input> 
               </div>
             </div>
 
@@ -148,7 +123,7 @@ class AddRoom extends Component {
                 <label htmlFor="numberOfPeople">Liczba osób:</label>
               </div>
               <div className="number_input">
-                <input type="number" id="numberOfPeople" onChange={e => this.handleNChange('numberOfPeople', e.target.value)}></input>
+                <input type="number" id="numberOfPeople" value={this.props.room.numberOfPeople} onChange={e => this.handleChange('numberOfPeople', e.target.value)}></input>
               </div> 
             </div>
 
@@ -157,8 +132,8 @@ class AddRoom extends Component {
                 <label htmlFor="availability">Dostępność:</label>
               </div>
               <div className="ava_select">
-                <select id="availability" onChange={e => this.handleChange('availability', e.target.value)}>
-                  {this.state.mapAva}
+                <select id="availability" value = {this.props.room.availabilityId} onChange={e => this.handleChange('availabilityId', parseInt(e.target.value))}>
+                  {mapAva}
                 </select>
               </div>
             </div>
@@ -168,11 +143,11 @@ class AddRoom extends Component {
             </div>
 
             <div className={this.state.error}>
-              <p>Taka sala już istnieje</p>
+              <p>Błąd! Spróbuj ponownie</p>
             </div>
 
             <div className={this.state.succes}>
-              <p>Dodano salę!</p>
+              <p>Zaktualizowano dane!</p>
             </div>
 
             
@@ -186,4 +161,20 @@ class AddRoom extends Component {
   }
 }
 
-export default withRouter(AddRoom)
+const mapStateToProps = (state) =>{
+    return{
+        id: state.roomId,
+        room: state.room,
+        ava: state.ava
+    }
+  }
+  
+  const mapDispatchToProps = (dispatch) =>{
+      return {
+          getAva: (ip) => {dispatch(getAva(ip))},
+          updateRoom: (name, value) => {dispatch(updateRoom(name,value))}
+      }
+  }
+  
+
+export default connect(mapStateToProps, mapDispatchToProps )(withRouter(EditRoom));

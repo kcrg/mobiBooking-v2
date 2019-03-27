@@ -22,9 +22,6 @@ class EditUser extends Component {
     axios.put(ip + '/api/Account/update/' + id, this.props.user)
     .then(res => {
         this.toggleError(false)
-        if(res.status === 200){
-            this.props.history.push('/userView')
-        }
       return res;
     })
     .catch(err =>{
@@ -78,6 +75,7 @@ class EditUser extends Component {
       })
         setTimeout(() =>{
         this.setState({succes: 'default'});
+        this.props.history.push('/userView')
        }, 3000);
     };
   }
@@ -88,15 +86,20 @@ class EditUser extends Component {
   }
 
   handleRepeatChange = (value) =>{
-      this.setState({
-          r_pass: value
-      })
+    this.setState({
+        r_pass: value
+    })
   }
 
+  handleClick = () =>{
+    this.props.history.push('/userView')
+  }
   render() {
-      console.log(this.props.user)
     return (
       <div className="user_form_div">
+        <div className="button">
+          <button onClick={this.handleClick}>Powrót</button>
+        </div>
         <h2>Edytuj użytkownika:</h2>
           <form onSubmit={this.handleSubmit} className="user_form">
 
@@ -159,7 +162,7 @@ class EditUser extends Component {
                 <label htmlFor="permissions">Uprawnienia:</label>
               </div>
               <div className="permissions_select">
-                <select id="permissions" selected={this.props.user.role} onChange = {e =>{this.handleChange('userType', e.target.value)}}>
+                <select id="permissions"  onChange = {e =>{this.handleChange('userType', e.target.value)}}>
                   <option>Administrator</option>
                   <option>Zwykły użytkownik</option>
                 </select>
