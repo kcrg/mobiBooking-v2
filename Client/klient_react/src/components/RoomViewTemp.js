@@ -52,8 +52,8 @@ class RoomViewTemp extends Component {
             return(
                 <div className="room_box" key={room.id}>
                   <p>{room.id}</p>
-                  <p>{room.roomName.substring(0,10)}</p>
-                  <p>{room.location.substring(0,10)}</p>
+                  <p>{room.roomName}</p>
+                  <p>{room.location}</p>
                   <p>{room.availability}</p>
                   <p>{room.numberOfPeople}</p>
                   <p>
