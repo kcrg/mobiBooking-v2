@@ -11,21 +11,6 @@
         color: $primary-color;
         overflow: auto;
 
-        .user_count{
-            width: 200px;
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: 20px;
-            margin-top: 20px;
-            padding: 10px;
-            border: 3px solid $primary-color;
-
-            span{
-                font-weight: bold;
-                font-size: 18px;
-            }
-        }
-
         .addUser{
             margin-top: 80px;
             background: $mobi-blue;
@@ -34,15 +19,34 @@
             cursor: pointer;
             margin-left: 20px;
         }
+        
+        .sort{
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            margin-bottom: 20px;
+            padding: 5px;
+
+            .svg-inline--fa{
+                font-size: 28px;
+                cursor: pointer;
+            }
+
+            span{
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+        }
 
         h3{
             margin-left: 20px;
+            margin-top: 80px;
         }
 
-        .headers{
+        .room_headers{
             margin-left: 20px;
             display: grid;
-            grid-template-columns: 100px 100px 300px 130px 150px 100px;
+            grid-template-columns: 100px 200px 200px 130px 200px 300px;
 
             p{
                 margin: 0;
@@ -58,10 +62,20 @@
             }
         }
 
-        .user_box{
+        .room_box{
             display: grid;
-            grid-template-columns: 100px 100px 300px 130px 150px 100px;
+            grid-template-columns: 100px 200px 200px 130px 200px  300px;
             margin-left: 20px;
+
+            .btn{
+                background: $mobi-blue;
+                color: $primary-color;
+                padding: 8px;
+                border: none;
+                border-radius: 5px;
+                margin-right: 8px;
+                cursor: pointer;
+            }
 
             .hidden{
                 display: none;
@@ -76,7 +90,6 @@
                 align-items: center;
                 justify-content: center;
                 padding: 10px;
-                overflow: hidden;
             }
 
             .svg-inline--fa{
@@ -91,5 +104,9 @@
     @media only screen and (min-width: 1600px){
         .box{
             align-items: center;
+
+            h3{
+                margin-top: 40px;
+            }
         }
     }

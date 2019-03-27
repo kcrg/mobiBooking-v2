@@ -288,6 +288,8 @@
             .origin{
                 border-bottom: 0.2px solid #222;
                 min-height: 30px;
+                max-width: 250px;
+                overflow: hidden;
                 display: flex;
                 justify-content: center;
                 align-items: center;

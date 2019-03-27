@@ -35,7 +35,6 @@ class userViewTemp extends Component {
         const { ip } = this.props
         axios.put( ip + '/api/Account/update_activity/' + id + '/' + !active)
         .then(res =>{
-            console.log(res)
           this.props.getUsers(ip)
         })
         .catch(err =>{
@@ -48,8 +47,13 @@ class userViewTemp extends Component {
         this.props.history.push('/editUser');
      }
 
-  render() {
+     countUsers = () =>{
+        const liczba =  this.props.usersData.length;
+        console.log(liczba)
+     }
 
+  render() {
+    let count = this.props.usersData.length
     let mapUserData = (
         this.props.usersData.map(user =>{
             let ikona = faUserTimes
@@ -58,9 +62,9 @@ class userViewTemp extends Component {
             }
             return(
                 <div className="user_box" key={user.id}>
-                    <p>{user.name}</p>
-                    <p>{user.surname}</p>
-                    <p>{user.email}</p>
+                    <p>{user.name.substring(0,10)}</p>
+                    <p>{user.surname.substring(0,10)}</p>
+                    <p className="email">{user.email}</p>
                     <p>{user.role}</p>
                     <p>{user.active ? ("Aktywny") : ("Nie aktywny")}</p>
                     <p className={this.state.visible}>
@@ -74,6 +78,9 @@ class userViewTemp extends Component {
     return (
         <div className="test">
           {mapUserData}
+          <div className="user_count">
+            <p>Liczba użytkowników: <span>{count}</span></p>
+          </div>
         </div>
     )
   }
