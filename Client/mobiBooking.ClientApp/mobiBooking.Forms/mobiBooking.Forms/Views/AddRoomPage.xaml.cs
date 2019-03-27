@@ -36,7 +36,7 @@ namespace mobiBooking.Forms.Views
             availability.SelectedIndex = 0;
         }
 
-        private async void Add_Click(object senjder, EventArgs e)
+        private void Add_Click(object senjder, EventArgs e)
         {
             SubmitButton.IsEnabled = false;
 

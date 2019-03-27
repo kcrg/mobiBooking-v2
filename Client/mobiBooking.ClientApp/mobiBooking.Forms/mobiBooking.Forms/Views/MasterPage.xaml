@@ -11,8 +11,10 @@
             <ListView.ItemsSource>
                 <x:Array Type="{x:Type local:MasterPageItem}">
                     <local:MasterPageItem Title="Dashboard" TargetType="{x:Type views:DashboardPage}"/>
+                    <local:MasterPageItem Title="Zarezerwuj salę" TargetType="{x:Type views:BookPage}"/>
+                    <local:MasterPageItem Title="Lista sal/rezerwacji" TargetType="{x:Type views:DashboardPage}"/>
                     <local:MasterPageItem Title="Dodaj salę" TargetType="{x:Type views:AddRoomPage}"/>
-                    <local:MasterPageItem Title="Reminders" TargetType="{x:Type views:DashboardPage}"/>
+                    <local:MasterPageItem Title="Dodaj użytkownika" TargetType="{x:Type views:AddUsersPage}"/>
                 </x:Array>
             </ListView.ItemsSource>
             <ListView.ItemTemplate>
