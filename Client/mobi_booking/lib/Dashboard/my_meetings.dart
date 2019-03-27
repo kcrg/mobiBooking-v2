@@ -13,7 +13,7 @@ class MyMeetings extends StatelessWidget {
                 margin: EdgeInsets.only(left: 15, top: 30),
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  left ? "Ten tydzień" : "ten miesiąc",
+                  left ? "Ten tydzień" : "poprz. tydzień",
                   style: TextStyle(fontSize: 20, color: Colors.grey),
                   textAlign: TextAlign.left,
                 )),
@@ -31,7 +31,7 @@ class MyMeetings extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 margin: EdgeInsets.only(left: 15, top: 15),
                 child: Text(
-                  left ? "poprz. tydzień" : "poprz. miesiąc",
+                  left ? "ten miesiąc" : "poprz. miesiąc",
                   style: TextStyle(fontSize: 20, color: Colors.grey),
                 )),
             Container(

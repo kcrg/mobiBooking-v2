@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import './my_meetings.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import './last_reservations.dart';
+import './rooms.dart';
+import './today_meetings.dart';
+import 'reservation_stats.dart';
+
 
 class Dashboard extends StatefulWidget {
   _DashboardState createState() => _DashboardState();
@@ -8,15 +13,41 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   Future<void> fakeRequest() async {
-    return Future.delayed(Duration(seconds: 1), () {
-
-    });
+    return Future.delayed(Duration(seconds: 1), () {});
   }
+
+  _nawigateRoomReserv(){
+
+  }
+
   Widget _getChild(index) {
     switch (index) {
       case 0:
         return MyMeetings();
         break;
+
+      case 1:
+        return TodayMeetings();
+        break;
+
+      case 2:
+        return RaisedButton(onPressed: _nawigateRoomReserv,
+        color: Theme.of(context).primaryColor,
+        child: Text("Zarezerwuj salę", style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white),),);
+        break;
+
+      case 3:
+        return Rooms();
+        break;
+
+      case 4:
+        return LastReservations();
+        break;
+
+        case 5:
+        return ReservationStats();
+        break;
+
       default:
         return null;
     }
