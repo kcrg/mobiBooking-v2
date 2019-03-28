@@ -109,8 +109,8 @@ namespace mobiBooking.Service.Services
                     new Claim(ClaimTypes.Name, user.Id.ToString()),
                     new Claim("role", user.Role),
                     new Claim("userName", user.UserName),
-                    new Claim("name", user.Name),
-                    new Claim("sureName", user.Surname),
+                    new Claim("name", string.IsNullOrEmpty(user.Name) ? "" : user.Name),
+                    new Claim("sureName", string.IsNullOrEmpty(user.Surname) ? "" : user.Surname),
                     new Claim("email", user.Email)
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
