@@ -10,7 +10,7 @@ using mobiBooking.Data;
 namespace mobiBooking.Data.Migrations
 {
     [DbContext(typeof(MobiBookingDBContext))]
-    [Migration("20190322105532_A")]
+    [Migration("20190328084615_A")]
     partial class A
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -149,7 +149,7 @@ namespace mobiBooking.Data.Migrations
                     b.ToTable("Users");
 
                     b.HasData(
-                        new { Id = 1, Active = true, Email = "m.w@g.pl", Name = "Michał", Password = "y25AsgfWaOF9dvk3y7QfFQcMx55w6vTTH32Kiowb4vg=", Role = "Administrator", Salt = new byte[] { 92, 154, 159, 209, 44, 229, 176, 40, 8, 94, 18, 187, 132, 204, 105, 251 }, Surname = "Test", UserName = "Test" }
+                        new { Id = 1, Active = true, Email = "m.w@g.pl", Name = "Michał", Password = "48e02qy/5QG/ihx8q1pTlqTvo6fLM3dYA965qkOegQ8=", Role = "Administrator", Salt = new byte[] { 30, 99, 120, 53, 34, 208, 212, 46, 124, 134, 38, 73, 233, 44, 189, 53 }, Surname = "Test", UserName = "Test" }
                     );
                 });
 
@@ -186,9 +186,9 @@ namespace mobiBooking.Data.Migrations
             modelBuilder.Entity("mobiBooking.Data.Model.Room", b =>
                 {
                     b.HasOne("mobiBooking.Data.Model.RoomAvailability", "Availability")
-                        .WithMany()
+                        .WithMany("Rooms")
                         .HasForeignKey("AvailabilityId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("mobiBooking.Data.Model.UserToReservation", b =>

@@ -88,6 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
         _login(token);
       } else {
         setState(() {
+          title = "Zaloguj się";
           selectedPage = new LoginPage(_login);
           appDrawer = null;
         });
@@ -113,6 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     setState(() {
       appDrawer = null;
+      title = "Zaloguj się";
       selectedPage = new LoginPage(_login);
       isLoggedIn = false;
     });

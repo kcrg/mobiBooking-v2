@@ -76,7 +76,7 @@ namespace mobiBooking.Data.Migrations
                         column: x => x.AvailabilityId,
                         principalTable: "RoomAvailabilities",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -166,7 +166,7 @@ namespace mobiBooking.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Active", "Email", "Name", "Password", "Role", "Salt", "Surname", "UserName" },
-                values: new object[] { 1, true, "m.w@g.pl", "Michał", "y25AsgfWaOF9dvk3y7QfFQcMx55w6vTTH32Kiowb4vg=", "Administrator", new byte[] { 92, 154, 159, 209, 44, 229, 176, 40, 8, 94, 18, 187, 132, 204, 105, 251 }, "Test", "Test" });
+                values: new object[] { 1, true, "m.w@g.pl", "Michał", "48e02qy/5QG/ihx8q1pTlqTvo6fLM3dYA965qkOegQ8=", "Administrator", new byte[] { 30, 99, 120, 53, 34, 208, 212, 46, 124, 134, 38, 73, 233, 44, 189, 53 }, "Test", "Test" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_OwnerUserId",

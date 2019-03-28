@@ -10,5 +10,6 @@ namespace mobiBooking.Data.Model
         public string Name { get; set; }
         public int HoursFrom { get; set; }
         public int HoursTo { get; set; }
+        public virtual IEnumerable<Room> Rooms { get; set; }
     }
 }
