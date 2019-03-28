@@ -11,6 +11,110 @@
         color: $primary-color;
         overflow: auto;
 
+        .test{
+
+            .hidden{
+                display: none;
+            }
+
+            .taken{
+                text-align: center;
+                width: 100%;
+                color: #ff4000;
+                background: #ff8c66;
+                transition: opacity 0.1s;
+                opacity: 1;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                font-size: 20px;
+                padding: 5px;
+                font-weight: bold;
+                border-left: solid 10px #ff4000;
+                z-index: 900;
+            }
+
+            .default{
+                transition: opacity 0.1s;
+                opacity: 0;
+            }
+
+            .showMe{
+                position: fixed;
+                background-color: rgba($color: #222, $alpha: 0.7);
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                padding: 50px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 999999999;
+
+                .info{
+                    background: #aaa;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    padding: 150px;
+                    border-radius: 5px;
+                    box-shadow: 10px 10px 64px -2px rgba(0,0,0,0.75);
+
+                    p{
+                        font-size: 36px;
+                    }
+
+                    .decide{
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-wrap: wrap;
+
+                        span:first-child{
+                            background: green;
+                            padding: 15px;
+                            border-radius: 10px;
+                            width: 50px;
+                        }
+
+                        span:first-child:hover{
+                            background: darkgreen;
+                            padding: 15px;
+                            border-radius: 10px;
+                            width: 50px;
+                        }
+
+                        span:last-child{
+                            background: red;
+                            padding: 15px;
+                            border-radius: 10px;
+                            width: 50px;
+                        }
+
+                        
+                        span:last-child:hover{
+                            background: darkred;
+                            padding: 15px;
+                            border-radius: 10px;
+                            width: 50px;
+                        }
+                        span{
+                            display: inline-flex;
+                            justify-content: center;
+                            align-items: center;
+                            margin: 18px;
+                            cursor: pointer;
+                            font-size: 20px;
+                            min-width: 100px;
+                        }
+                    }
+                }
+                
+            }
+
+        }
+
         .addUser{
             margin-top: 80px;
             background: $mobi-blue;

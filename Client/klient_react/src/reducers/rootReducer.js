@@ -18,7 +18,9 @@ const initState = {
         availabilityId: null,
         numberOfPeople: ''
     },
-    ava: []
+    ava: [],
+    id: null,
+    data: null
 }
 
 const rootReducer = (state = initState, action) =>{
@@ -84,6 +86,14 @@ const rootReducer = (state = initState, action) =>{
         return{
             ...state,
             ava: action.ava
+        }
+    }
+
+    else if(action.type === 'SAVE_ID'){
+        return{
+            ...state,
+            id: action.object.id,
+            data: action.object.data
         }
     }
     return state

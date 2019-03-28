@@ -73,7 +73,6 @@ class EditRoom extends Component {
     const { ip } = this.props;
     const { id } = this.props
     parseInt(this.props.room.numberOfPeople);
-    console.log(this.props.room)
     axios.put(ip + '/api/Room/update/' + id, this.props.room)
     .then(res => {
       this.toggleError(false)

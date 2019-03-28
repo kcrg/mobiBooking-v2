@@ -62,8 +62,8 @@ class userViewTemp extends Component {
             }
             return(
                 <div className="user_box" key={user.id}>
-                    <p>{user.name.substring(0,10)}</p>
-                    <p>{user.surname.substring(0,10)}</p>
+                    <p>{user.name}</p>
+                    <p>{user.surname}</p>
                     <p className="email">{user.email}</p>
                     <p>{user.role}</p>
                     <p>{user.active ? ("Aktywny") : ("Nie aktywny")}</p>

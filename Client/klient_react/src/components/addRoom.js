@@ -28,7 +28,9 @@ class AddRoom extends Component {
         ...prevState.roomData,
         [name]: value
       } 
-    }))
+    }), () =>{
+      console.log(this.state.roomData)
+    })
   }
 
   handleNChange = (name, value) =>{
@@ -157,7 +159,7 @@ class AddRoom extends Component {
                 <label htmlFor="availability">Dostępność:</label>
               </div>
               <div className="ava_select">
-                <select id="availability" onChange={e => this.handleChange('availability', e.target.value)}>
+                <select id="availability" onChange={e => this.handleChange('availabilityId', e.target.value)}>
                   {this.state.mapAva}
                 </select>
               </div>
