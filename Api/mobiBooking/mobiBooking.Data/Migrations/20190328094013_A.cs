@@ -108,7 +108,7 @@ namespace mobiBooking.Data.Migrations
                         column: x => x.ReservationIntervalId,
                         principalTable: "ReservationIntervals",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Reservations_Rooms_RoomId",
                         column: x => x.RoomId,
@@ -166,7 +166,7 @@ namespace mobiBooking.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Active", "Email", "Name", "Password", "Role", "Salt", "Surname", "UserName" },
-                values: new object[] { 1, true, "m.w@g.pl", "Michał", "48e02qy/5QG/ihx8q1pTlqTvo6fLM3dYA965qkOegQ8=", "Administrator", new byte[] { 30, 99, 120, 53, 34, 208, 212, 46, 124, 134, 38, 73, 233, 44, 189, 53 }, "Test", "Test" });
+                values: new object[] { 1, true, "m.w@g.pl", "Michał", "cLWNWoTwYkKa2BtPok4p0vrMh9TZtbBgAXd5huJnkO4=", "Administrator", new byte[] { 171, 222, 30, 85, 3, 130, 157, 194, 137, 7, 23, 122, 199, 158, 150, 55 }, "Test", "Test" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_OwnerUserId",

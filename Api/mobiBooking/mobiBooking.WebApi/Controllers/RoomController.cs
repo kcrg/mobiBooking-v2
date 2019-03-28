@@ -109,7 +109,7 @@ namespace mobiBooking.WebApi.Controllers
             }
             else
             {
-                return BadRequest(new { message = "Room with this id is not exsist." });
+                return BadRequest(new { message = "Room with this id is not exsist or has reservation." });
             }
         }
     }

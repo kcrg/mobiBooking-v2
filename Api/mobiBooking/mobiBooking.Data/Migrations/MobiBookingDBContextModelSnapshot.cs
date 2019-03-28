@@ -147,7 +147,7 @@ namespace mobiBooking.Data.Migrations
                     b.ToTable("Users");
 
                     b.HasData(
-                        new { Id = 1, Active = true, Email = "m.w@g.pl", Name = "Michał", Password = "48e02qy/5QG/ihx8q1pTlqTvo6fLM3dYA965qkOegQ8=", Role = "Administrator", Salt = new byte[] { 30, 99, 120, 53, 34, 208, 212, 46, 124, 134, 38, 73, 233, 44, 189, 53 }, Surname = "Test", UserName = "Test" }
+                        new { Id = 1, Active = true, Email = "m.w@g.pl", Name = "Michał", Password = "cLWNWoTwYkKa2BtPok4p0vrMh9TZtbBgAXd5huJnkO4=", Role = "Administrator", Salt = new byte[] { 171, 222, 30, 85, 3, 130, 157, 194, 137, 7, 23, 122, 199, 158, 150, 55 }, Surname = "Test", UserName = "Test" }
                     );
                 });
 
