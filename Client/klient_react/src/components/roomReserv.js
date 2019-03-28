@@ -6,6 +6,7 @@ import Calendar from './Calendar';
 import moment from 'moment';
 import ReservationIntervals from './ReservationIntervals';
 import UserList from './UserList';
+import { connect } from 'react-redux';
 
  class RoomReserv extends Component {
 
@@ -43,7 +44,18 @@ import UserList from './UserList';
     })
   }
   componentDidMount(){
-    this.getRooms();
+    if(this.props.data === true){
+      axios.get(this.props.ip + '/api/Room/get/' + this.props.id)
+      .then(res =>{
+        console.log(res.data)
+      })
+      .catch(err =>{
+
+      })
+    }else{
+      this.getRooms();
+    }
+    
   }
 
   getRooms = () =>{
@@ -151,7 +163,6 @@ import UserList from './UserList';
   }
 
   selectChange = (collection) => {
-    console.log(collection);
     this.setState(prevState =>({
       ...prevState,
       reservData:{
@@ -192,15 +203,12 @@ import UserList from './UserList';
   }
 
   sendData = () =>{
-    console.log(this.state.reservData)
     axios.post( this.state.ip + '/api/Reservation/create', this.state.reservData)
     .then(res =>{
-      console.log(res);
       this.toggleError(false)
       this.getRooms();
     })
     .catch(err =>{
-      console.log(err)
       this.toggleError(true)
     })
   }
@@ -220,11 +228,13 @@ import UserList from './UserList';
       })
         setTimeout(() =>{
         this.setState({succes: 'default'});
+        this.props.history.push('/home')
        }, 3000);
     };
   }
 
   render() {
+    console.log(this.props.data)
     return (
         <div className="reserv_div">
           <h2>Zarezerwuj salę:</h2>
@@ -331,5 +341,10 @@ import UserList from './UserList';
   }
 }
 
-export default withRouter(RoomReserv);
+const MapStateToProps = (state) =>({
+  id: state.id,
+  data: state.data
+})
+
+export default connect(MapStateToProps)(withRouter(RoomReserv));
 

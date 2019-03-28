@@ -10,18 +10,18 @@
     padding: 10px 10px 20px 10px;
     border-radius: 5px;
     h3{
-        flex-grow: 1;
         margin: 0;
     }
 
     .reserv_time{
         display: grid;
         grid-gap: 10px;
-        justify-content: center;
-        align-items: center;
         font-size: 16px;
         margin-top: 8px;
-        flex-grow: 8;
+        grid-template-columns: auto;
+        min-height: 90%;
+        align-items: center;
+        justify-content: center;
 
         .hour{
             color: $mobi-blue;
