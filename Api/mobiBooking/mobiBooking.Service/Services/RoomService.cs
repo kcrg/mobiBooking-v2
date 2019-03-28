@@ -24,7 +24,7 @@ namespace mobiBooking.Service.Services
 
             bool test1 = await _roomRepository.CheckIfRoomExistsAsync(value.RoomName);
 
-            bool test2 = await _roomRepository.CheckIfAvailabilityExistsAsync(value.Availability);
+            bool test2 = await _roomRepository.CheckIfAvailabilityExistsAsync(value.AvailabilityId);
 
             if (test1 || !(test2))
             {
@@ -77,7 +77,11 @@ namespace mobiBooking.Service.Services
         public async Task<bool> UpdateAsync(int id, RoomModel value)
         {
 
-            if (await _roomRepository.FindAsync(id) == null || await _roomRepository.CheckIfRoomExistsAsync(value.RoomName, id) || await _roomRepository.CheckIfAvailabilityExistsAsync(value.Availability))
+            bool a = await _roomRepository.FindAsync(id) == null;
+            bool b = await _roomRepository.CheckIfRoomExistsAsync(value.RoomName, id);
+            bool c = await _roomRepository.CheckIfAvailabilityExistsAsync(value.AvailabilityId);
+
+            if ( a || b  || !c )
             {
                 return false;
             }

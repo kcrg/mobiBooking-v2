@@ -55,7 +55,7 @@ namespace mobiBooking.Repository.Repositories
         {
             return Task.Run(() => DBContext.Rooms.AddAsync(new Room
             {
-                AvailabilityId = value.Availability,
+                AvailabilityId = value.AvailabilityId,
                 Location = value.Location,
                 Name = value.RoomName,
                 NumberOfPeople = value.NumberOfPeople
@@ -140,7 +140,7 @@ namespace mobiBooking.Repository.Repositories
                     Availability = rooms.Availability.Name,
                     AvailabilityId = rooms.AvailabilityId,
                     Location = rooms.Location,
-                    Name = rooms.Name,
+                    RoomName = rooms.Name,
                     NumberOfPeople = rooms.NumberOfPeople,
                     Id = rooms.Id
                 }).ToListAsync();
@@ -152,7 +152,7 @@ namespace mobiBooking.Repository.Repositories
                     Availability = rooms.Availability.Name,
                     AvailabilityId = rooms.AvailabilityId,
                     Location = rooms.Location,
-                    Name = rooms.Name,
+                    RoomName = rooms.Name,
                     NumberOfPeople = rooms.NumberOfPeople,
                     Id = rooms.Id
                 }).ToListAsync();
@@ -167,7 +167,7 @@ namespace mobiBooking.Repository.Repositories
                 AvailabilityId = rooms.AvailabilityId,
                 Availability = rooms.Availability.Name,
                 Location = rooms.Location,
-                Name = rooms.Name,
+                RoomName = rooms.Name,
                 NumberOfPeople = rooms.NumberOfPeople
             }).FirstOrDefaultAsync();
         }
@@ -175,7 +175,7 @@ namespace mobiBooking.Repository.Repositories
         public async Task UpdateAsync(int id, RoomModel roomModel)
         {
             Room room = await DBContext.Rooms.FindAsync(id);
-            room.AvailabilityId = roomModel.Availability;
+            room.AvailabilityId = roomModel.AvailabilityId;
             room.Location = roomModel.Location;
             room.Name = roomModel.RoomName;
             room.NumberOfPeople = roomModel.NumberOfPeople;

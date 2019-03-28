@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="mobiBooking.Forms.Views.BookPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid>
+                <StackLayout Padding="12" Spacing="12">
+                    <!--<TimePicker x:Name="TimeFrom"
+                        HorizontalOptions="FillAndExpand"
+                        Header="Rezerwuje od*"/>
+                    <CalendarDatePicker x:Name="DateFrom" HorizontalAlignment="Stretch"/>
+
+                    <TimePicker x:Name="TimeTo"
+                        HorizontalAlignment="Stretch"
+                        Header="Rezerwuje do*"/>
+                    <CalendarDatePicker x:Name="DateTo" HorizontalAlignment="Stretch"/>-->
+
+                    <Editor x:Name="RoomCap"
+                        Placeholder="Pojemność sali"
+                        Unfocused="GetRoomList"/>
+
+                    <Picker x:Name="RoomList" HorizontalOptions="FillAndExpand">
+                        <!--<ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>-->
+                    </Picker>
+
+                    <Editor x:Name="Title" Placeholder="Tytuł spotkania*"/>
+
+                    <Picker x:Name="Status" HorizontalOptions="FillAndExpand">
+                        <!--<x:String>Wolna</x:String>
+                        <x:String>Zajęta</x:String>-->
+                    </Picker>
+
+                    <!--  Content="Rezerwacja cykliczna"  -->
+                    <Switch x:Name="IsCyclic" Toggled="IsCyclic_Click"/>
+
+                    <!--  Header="Ustaw interwał rezerwacji cyklicznej"  -->
+                    <Picker x:Name="Intervals"
+                        HorizontalOptions="FillAndExpand"
+                        IsVisible="False">
+                        <!--<ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>-->
+                    </Picker>
+
+                    <Label Text="Wybierz uczestników*"/>
+
+                    <Grid HeightRequest="220">
+                        <ListView x:Name="UsersList" IsVisible="False">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Grid>
+                                            <StackLayout Orientation="Horizontal" Spacing="5">
+                                                <Label Text="{Binding Name}"/>
+                                                <Label Text="{Binding Surname}"/>
+                                            </StackLayout>
+                                            <Switch HorizontalOptions="EndAndExpand" IsToggled="{Binding Selected}"/>
+                                        </Grid>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+
+                    <Button x:Name="SubmitButton"
+                        Clicked="ReservateRoom_Click"
+                        HorizontalOptions="StartAndExpand"
+                        Text="Rezerwuję"/>
+                </StackLayout>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

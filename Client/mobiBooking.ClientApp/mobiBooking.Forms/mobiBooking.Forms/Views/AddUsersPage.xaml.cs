@@ -14,24 +14,26 @@ namespace mobiBooking.Forms.Views
         private readonly ConnectionModel IP = new ConnectionModel();
         private bool IsEditMode;
         private int UserID;
+
+        string tokenik = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJyb2xlIjoiQWRtaW5pc3RyYXRvciIsInVzZXJOYW1lIjoiVGVzdCIsIm5hbWUiOiJNaWNoYcWCIiwic3VyZU5hbWUiOiJUZXN0IiwiZW1haWwiOiJtLndAZy5wbCIsIm5iZiI6MTU1MzUyNjMyMiwiZXhwIjoxNTU0MTMxMTIyLCJpYXQiOjE1NTM1MjYzMjJ9.AzVLluTv6JqW8VhvZuSkOMA0mXB1teeHp7nTE48HkLM";
         public AddUsersPage()
         {
             InitializeComponent();
         }
 
-        private async void Add_Click(object senjder, EventArgs e)
+        private void Add_Click(object senjder, EventArgs e)
         {
             if (IsEditMode)
             {
-                await AddUser("Account/update/{id}", Method.PUT);
+                AddUser("Account/update/{id}", Method.PUT);
             }
             else
             {
-                await AddUser("Account/create", Method.POST);
+                AddUser("Account/create", Method.POST);
             }
         }
 
-        private async Task AddUser(string resource, Method method)
+        private void AddUser(string resource, Method method)
         {
             SubmitButton.IsEnabled = false;
 
@@ -54,7 +56,7 @@ namespace mobiBooking.Forms.Views
                 RestClient client = new RestClient(IP.Adress);
                 RestRequest request = new RestRequest(resource, method);
                 _ = request.AddParameter("application/json", json, ParameterType.RequestBody);
-                _ = request.AddParameter("Authorization", "Bearer " + null, ParameterType.HttpHeader); /////////////
+                _ = request.AddParameter("Authorization", "Bearer " + tokenik, ParameterType.HttpHeader);
                 if (IsEditMode)
                 {
                     _ = request.AddParameter("id", UserID, ParameterType.UrlSegment);

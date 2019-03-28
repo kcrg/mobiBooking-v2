@@ -48,6 +48,11 @@ namespace mobiBooking.Data
                 .WithOne(u => u.OwnerUser)
                 .OnDelete(DeleteBehavior.SetNull);
 
+            modelBuilder.Entity<Room>()
+               .HasOne(u => u.Availability)
+               .WithMany(u => u.Rooms)
+               .OnDelete(DeleteBehavior.Restrict);
+
 
 
             CreateTemplateData(modelBuilder);

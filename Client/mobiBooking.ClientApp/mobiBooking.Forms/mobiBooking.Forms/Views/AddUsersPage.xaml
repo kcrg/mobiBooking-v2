@@ -24,17 +24,15 @@
 
                 <Grid>
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="Aktywny"
-                               VerticalTextAlignment="Center"/>
+                        <Label Text="Aktywny" VerticalTextAlignment="Center"/>
                         <Switch x:Name="activity"
-                        IsToggled="True"
-                        IsVisible="True"/>
+                            IsToggled="True"
+                            IsVisible="True"/>
                     </StackLayout>
                     <Button x:Name="SubmitButton"
-                    Clicked="Add_Click"
-                    HorizontalOptions="EndAndExpand"
-                    Style="{StaticResource ButtonRevealStyle}"
-                    Text="Dodaj użytkownika"/>
+                        Clicked="Add_Click"
+                        HorizontalOptions="EndAndExpand"
+                        Text="Dodaj użytkownika"/>
                 </Grid>
             </StackLayout>
         </ScrollView>
