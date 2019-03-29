@@ -1,4 +1,5 @@
 ﻿using mobiBooking.Forms.Views;
+using System;
 using Xamarin.Forms;
 
 namespace mobiBooking.Forms
@@ -9,7 +10,7 @@ namespace mobiBooking.Forms
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new LoginPage());
+            MainPage = new NavigationPage((Page)Activator.CreateInstance(typeof (LoginPage)));
         }
 
         protected override void OnStart()

@@ -33,7 +33,7 @@ namespace mobiBooking.Forms.Views
             }
         }
 
-        private void AddUser(string resource, Method method)
+        private async void AddUser(string resource, Method method)
         {
             SubmitButton.IsEnabled = false;
 
@@ -69,7 +69,7 @@ namespace mobiBooking.Forms.Views
 
                     if (IsEditMode)
                     {
-                        //_ = await new CustomDialog("Użytkownik edytowany poprawnie.", null, CustomDialog.Type.Information).ShowAsync();
+                        _ = await DisplayAlert("Informacja", "Użytkownik edytowany poprawnie.", null, "Ok");
                         CleanupInput();
 
                         //Frame rootFrame = Window.Current.Content as Frame;
@@ -78,19 +78,19 @@ namespace mobiBooking.Forms.Views
                     }
                     else
                     {
-                        //_ = await new CustomDialog("Użytkownik stworzony poprawnie.", null, CustomDialog.Type.Information).ShowAsync();
+                        _ = await DisplayAlert("Informacja", "Użytkownik stworzony poprawnie.", null, "Ok");
                         CleanupInput();
                     }
                 }
                 else
                 {
-                    //_ = await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem.", response.StatusCode.ToString(), CustomDialog.Type.Error).ShowAsync();
+                    _ = await DisplayAlert("Błąd", "Wystąpił błąd podczas komunikacji z serwerem.", null, "Ok");
                     SubmitButton.IsEnabled = true;
                 }
             }
             else
             {
-                //_ = await new CustomDialog("Wprowadzono błędne dane.", null, CustomDialog.Type.Warning).ShowAsync();
+                _ = await DisplayAlert("Ostrzeżenie", "Wprowadzono błędne dane.", null, "Ok");
                 SubmitButton.IsEnabled = true;
             }
         }
