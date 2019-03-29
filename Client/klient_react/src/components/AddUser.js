@@ -110,10 +110,8 @@ class AddUser extends Component {
   render() {
     return (
       <div className="user_form_div">
-        <div className="button">
-          <button onClick={this.handleClick}>Lista użytkowników</button>
-        </div>
         <h2>Dodaj użytkownika:</h2>
+        <button onClick={this.handleClick} className="button">Lista użytkowników</button>
           <form onSubmit={this.handleSubmit} className="user_form">
 
             <div className="user_name">

@@ -67,7 +67,7 @@ export default class Users extends Component {
     render() {
         return (
             <div className="users_mess">
-                <span>{this.state.title}</span>
+                <span>{this.state.title} <span className="star">*</span></span>
                 <div className="users">
                     {this.state.userItem}
                 </div>

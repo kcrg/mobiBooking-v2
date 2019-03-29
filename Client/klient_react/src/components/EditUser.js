@@ -97,10 +97,8 @@ class EditUser extends Component {
   render() {
     return (
       <div className="user_form_div">
-        <div className="button">
-          <button onClick={this.handleClick}>Powrót</button>
-        </div>
-        <h2>Edytuj użytkownika:</h2>
+        <button onClick={this.handleClick} className="editButton">Powrót</button>
+        <h2 className="editUser">Edytuj użytkownika:</h2>
           <form onSubmit={this.handleSubmit} className="user_form">
 
             <div className="user_name">

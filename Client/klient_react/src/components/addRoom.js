@@ -28,9 +28,7 @@ class AddRoom extends Component {
         ...prevState.roomData,
         [name]: value
       } 
-    }), () =>{
-      console.log(this.state.roomData)
-    })
+    }))
   }
 
   handleNChange = (name, value) =>{
@@ -119,13 +117,17 @@ class AddRoom extends Component {
         availability: res.data
       }),  this.mapAva)
     })
+  }
 
+  handleButtonClick = () =>{
+    this.props.history.push('/roomView')
   }
   
   render() {
     return (
         <div className="add_room">
           <h2>Dodaj salę:</h2>
+          <button className="roomList" onClick={this.handleButtonClick}>Lista sal</button>
           <form onSubmit={this.handleSubmit} className="add_room_form">
             <div className="room_label">
               <div className="room">

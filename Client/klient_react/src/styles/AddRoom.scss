@@ -10,8 +10,26 @@
     align-items: center;
     color: $primary-color;
 
+    .roomList{
+        background: $mobi-blue;
+        border: none;
+        border-radius: 5px;
+        width: 200px;
+        padding: 15px;
+        color: $primary-color;
+        margin-bottom: 30px;
+        font-weight: bold;
+        font-size: 18px;
+        align-self: flex-start;
+        margin-left: 25px;
+        cursor: pointer;
+    }
+
     h2{
         margin-top: 80px;
+        display: inline-flex;
+        width: 100%;
+        margin-left: 50px;
     }
 
     .add_room_form{
@@ -113,6 +131,7 @@
                 background: $mobi-blue;
                 color: $primary-color;
                 padding: 4px;
+                margin-top: 20px;
                 border-radius: 5px;
             }
         }
@@ -270,6 +289,15 @@
                     }
                 }
             }
+        }
+    }
+}
+
+@media only screen and (min-width: 1000px){
+
+    .add_room{
+        h2{
+            margin-top: 10px;
         }
     }
 }

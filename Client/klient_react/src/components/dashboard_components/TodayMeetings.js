@@ -31,8 +31,8 @@ export default class TodayMeetings extends Component {
       return(
         <div className="mapped_today" key={i++}>
           <div className="hour">{meeting.time}</div>
-          <div>{meeting.title}</div>
-          <div>{meeting.roomName}</div>
+          <div className="meeting">{meeting.title}</div>
+          <div className="room">{meeting.roomName}</div>
         </div>
       )
     })

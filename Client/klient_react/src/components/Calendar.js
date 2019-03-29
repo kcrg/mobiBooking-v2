@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 import '../styles/Calendar.scss';
-import {DatetimePickerTrigger} from 'rc-datetime-picker';
+import { DatetimePickerTrigger } from 'rc-datetime-picker';
 import 'rc-datetime-picker/dist/picker.min.css';
 
 class Calendar extends Component {

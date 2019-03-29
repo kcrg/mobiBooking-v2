@@ -19,7 +19,7 @@ const initState = {
         numberOfPeople: ''
     },
     ava: [],
-    id: null,
+    id: 0,
     data: null
 }
 

@@ -14,7 +14,7 @@ library.add(faSortAmountDown, faSortAmountUp);
 
  class RoomView extends Component {
     state = {
-      visible: null
+      addButton: 'addButton'
     }
 
     handleClick = () =>{
@@ -28,10 +28,15 @@ library.add(faSortAmountDown, faSortAmountUp);
             let t = JWT(token);
             if(t.role === "User"){
                 this.setState({
-                    visible: 'hidden'
+                    visible: 'hidden',
+                    addButton: 'hide'
                 })
             }
         }
+    }
+
+    handleAddClick = () =>{
+      this.props.history.push('/addRoom')
     }
 
     handleSortCount = () =>{
@@ -45,14 +50,15 @@ library.add(faSortAmountDown, faSortAmountUp);
   render() {
     return (
       <div className="box">
-        <h3>Lista sal:</h3>
+        <h2>Lista sal:</h2>
+        <button className={this.state.addButton} onClick={this.handleAddClick}>Dodaj salę</button>
         <div className="sort">
           <span>Posortuj po nazwie:</span>
           <FontAwesomeIcon onClick={this.handleSortCount} icon={faSortAmountDown}></FontAwesomeIcon>
           <span>Posortuj po liczbie:</span>
           <FontAwesomeIcon onClick={this.handleSortName} icon={faSortAmountUp}></FontAwesomeIcon>
         </div>
-        <div>
+        <div className="table">
           <div className="room_headers">
             <p>ID:</p>
             <p>Nazwa sali:</p>

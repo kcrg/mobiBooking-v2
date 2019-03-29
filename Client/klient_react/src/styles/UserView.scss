@@ -11,6 +11,22 @@
         color: $primary-color;
         overflow: auto;
 
+        h2{
+            margin-left: 20px;
+            margin-top: 80px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .table{
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+
+        .hideMe{
+            display: none;
+        }
+
         .user_count{
             width: 200px;
             display: flex;
@@ -18,7 +34,8 @@
             margin-left: 20px;
             margin-top: 20px;
             padding: 10px;
-            border: 3px solid $primary-color;
+            border: 3px solid #222;
+            margin-bottom: 10px;
 
             span{
                 font-weight: bold;
@@ -27,12 +44,13 @@
         }
 
         .addUser{
-            margin-top: 80px;
+            display: block;
             background: $mobi-blue;
             border-radius: 5px;
             padding: 5px;
             cursor: pointer;
             margin-left: 20px;
+            font-weight: bold;
         }
 
         h3{
@@ -41,6 +59,7 @@
 
         .headers{
             margin-left: 20px;
+            margin-right: 20px;
             display: grid;
             grid-template-columns: 100px 100px 300px 130px 150px 100px;
 
@@ -48,7 +67,7 @@
                 margin: 0;
                 display: inline-flex;
                 align-items: center;
-                justify-content: center;
+                justify-content: flex-start;
                 border: 1px solid #fff;
                 padding: 10px;
                 font-weight: bold;
@@ -72,9 +91,10 @@
                 display: inline-flex;
                 margin: 0;
                 min-height: 60px;
-                border: 1px solid #fff;
+                border-top: 2px solid #222;
+                padding-left: 8px;
                 align-items: center;
-                justify-content: center;
+                justify-content: flex-start;
                 padding: 10px;
                 overflow: hidden;
             }
@@ -88,8 +108,21 @@
 
     }
 
+    @media only screen and (min-width: 1000px){
+        .box{
+            h2{
+                margin-top: 20px;
+            }
+        }
+    }
+
     @media only screen and (min-width: 1600px){
         .box{
             align-items: center;
+
+            h2{
+                margin-top: 20px;
+                margin-left: 60px;
+            }
         }
     }

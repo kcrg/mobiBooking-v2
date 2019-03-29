@@ -10,11 +10,31 @@
     height: auto;
     background: $mobi-purple;
 
-    button{
-        margin-top: 100px;
+    .editButton{
+        margin-top: 80px;
+        display: inline-flex;
+        align-self: flex-start;
         border: none;
         font-size: 20px;
         padding: 20px;
+        margin-left: 20px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        background: $mobi-blue;
+        color: $primary-color;
+        cursor: pointer;
+    }
+
+    .button{
+        margin-top: 10px;
+        display: inline-flex;
+        align-self: flex-start;
+        border: none;
+        max-width: 200px;
+        font-size: 20px;
+        padding: 10px;
+        margin-left: 20px;
+        margin-bottom: 20px;
         border-radius: 5px;
         background: $mobi-blue;
         color: $primary-color;
@@ -22,7 +42,14 @@
     }
 
     h2{
-        margin-top: 25px;
+        margin-top: 80px;
+        display: inline-block;
+        width: 100%;
+        margin-left: 40px;
+    }
+
+    .editUser{
+        margin-top: 5px;
     }
 
     .star{
@@ -55,7 +82,7 @@
             }
             input{
                 border-radius: 5px;
-                max-width: 220px;
+                min-width: 220px;
                 font-size: 18px;
             }
         }
@@ -73,7 +100,7 @@
             }
             input{
                 border-radius: 5px;
-                max-width: 220px;
+                min-width: 220px;
                 font-size: 18px;
             }
         }
@@ -91,7 +118,7 @@
             }
             input{
                 border-radius: 5px;
-                max-width: 220px;
+                min-width: 220px;
                 font-size: 18px;
             }
         }
@@ -109,7 +136,7 @@
             }
             input{
                 border-radius: 5px;
-                max-width: 220px;
+                min-width: 220px;
                 font-size: 18px;
             }
         }
@@ -127,7 +154,7 @@
             }
             input{
                 border-radius: 5px;
-                max-width: 220px;
+                min-width: 220px;
                 font-size: 18px;
             }
         }
@@ -145,7 +172,7 @@
             }
             input{
                 border-radius: 5px;
-                max-width: 220px;
+                min-width: 220px;
                 font-size: 18px;
             }
         }
@@ -445,6 +472,13 @@
 
 @media only screen and (min-width: 1000px){
     .user_form_div{
+
+        h2{
+            margin-top: 10px;
+        }
+        .editButton{
+            margin-top: 10px;
+        }
        .button{
            display: flex;
            width: 100%;

@@ -8,13 +8,15 @@ import ReservationIntervals from './ReservationIntervals';
 import UserList from './UserList';
 import { connect } from 'react-redux';
 
+  var typingTimer = 0;
+  var doneTypingInterval =  1200;
+
  class RoomReserv extends Component {
 
   state = {
     reservData: {
       dateFrom: moment().format('YYYY-MM-DDTHH:mm'),
       dateTo: moment().format('YYYY-MM-DDTHH:mm'),
-      status: 0,
       title: null,
       invitedUsersIds: [],
       roomId: 1,
@@ -34,7 +36,16 @@ import { connect } from 'react-redux';
     succes: 'default',
     warning: 'default',
     disabled: true,
-    times: 'times'
+    times: 'default',
+  }
+
+  keyUp = () =>{
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(this.getRooms, doneTypingInterval);
+  }
+
+  keyDown = () =>{
+    clearTimeout(typingTimer);
   }
 
   componentWillMount(){
@@ -44,18 +55,7 @@ import { connect } from 'react-redux';
     })
   }
   componentDidMount(){
-    if(this.props.data === true){
-      axios.get(this.props.ip + '/api/Room/get/' + this.props.id)
-      .then(res =>{
-        console.log(res.data)
-      })
-      .catch(err =>{
-
-      })
-    }else{
       this.getRooms();
-    }
-    
   }
 
   getRooms = () =>{
@@ -66,7 +66,12 @@ import { connect } from 'react-redux';
     const { ip } = this.props
     axios.post( ip + '/api/Room/for_reservation', this.state.roomsInfo)
     .then(res => {
-      if(res.data.length > 0){
+      if(res.data.length === 0){
+        this.setState({
+          times: 'times'
+        })
+      }
+      else if(res.data.length > 0){
         this.setState(prevState =>({
           ...prevState,
           roomsList: res.data,
@@ -74,12 +79,9 @@ import { connect } from 'react-redux';
           times: 'default',
           reservData: {
           ...prevState.reservData,
-          roomId:   res.data[0].id
+          roomId:  this.props.data ? (this.props.id) : (res.data[0].id)
          }
-        }), ()=>{
-          this.mapItems()
-          console.log(this.state.roomsList)
-        })
+        }), this.mapItems)
       }else{
         this.setState({
           times: 'times'
@@ -87,7 +89,6 @@ import { connect } from 'react-redux';
       }
     })
     .catch(err =>{
-      console.log(err)
     })
   }
   
@@ -104,14 +105,14 @@ import { connect } from 'react-redux';
   }
 
   handleChange = (name, value) =>{
-    
+      console.log(name + value)
       this.setState(prevState =>({
         ...prevState,
         roomsInfo:{
           ...prevState.roomsInfo,
           [name]: value
         }
-      }), name !== 'title' ? this.getRooms : null)
+      }), name !== 'title' && name!== 'reservationIntervalId' ? this.getRooms : null)
     
       this.setState(prevState => ({
             ...prevState,
@@ -121,7 +122,9 @@ import { connect } from 'react-redux';
             } 
           }
         )
-      )
+      , () =>{
+        console.log(this.state.reservData)
+      })
     
   }
 
@@ -131,16 +134,6 @@ import { connect } from 'react-redux';
       roomsInfo: {
         ...prevState.roomsInfo,
         [name]: parseInt(value === '' ? ('0') : (value))
-      } 
-    }), this.getRooms)
-  }
-
-  handleStatusChange = (name, value) =>{
-    this.setState(prevState => ({
-      ...prevState,
-      reservData: {
-        ...prevState.reservData,
-        [name]: value === 'Wolna' ? (0) : (1)
       } 
     }))
   }
@@ -199,7 +192,7 @@ import { connect } from 'react-redux';
         ...prevState.reservData,
         invitedUsersIds: invitedUsersIds
       }
-    }))
+    }), (console.log(this.state.reservData)))
   }
 
   sendData = () =>{
@@ -234,7 +227,6 @@ import { connect } from 'react-redux';
   }
 
   render() {
-    console.log(this.props.data)
     return (
         <div className="reserv_div">
           <h2>Zarezerwuj salę:</h2>
@@ -266,7 +258,7 @@ import { connect } from 'react-redux';
               </div>
 
               <div className="room_number">
-                <input type="number" id="roomCapacity" onBlur={e => this.handleCapacityChange('size', e.target.value)} placeholder="Pojemność sali"></input>
+                <input type="number" id="roomCapacity" onKeyDown={this.keyDown} onKeyUp = {this.keyUp} onChange={e => this.handleCapacityChange('size', e.target.value)} placeholder="Pojemność sali"></input>
               </div>
             </div>
 
@@ -275,7 +267,7 @@ import { connect } from 'react-redux';
                 <label id="room">Wybierz salę:</label>
               </div>
               <div className="select_list">
-                <select id="roomTook" onChange={e => {this.selectChange(e.target.value)}} disabled={this.state.disabled}>
+                <select id="roomTook" value={this.state.reservData.roomId} onChange={e => {this.selectChange(e.target.value)}} disabled={this.state.disabled}>
                   {this.state.roomItems}
                 </select>
               </div>
@@ -288,19 +280,6 @@ import { connect } from 'react-redux';
 
               <div className="meeting_input">
                 <input type="text" id="title" onChange={e => this.handleChange('title', e.target.value)} placeholder="Tytuł spotkania..."></input>
-              </div>
-            </div>
-
-            <div className="status">
-              <div className="status_label">
-                <label htmlFor="status">Status:</label>
-              </div>
-
-              <div className="status_select">
-                <select id="status" onChange={e => this.handleStatusChange('status', e.target.value)}>
-                  <option>Wolna</option>
-                  <option>Zajęta</option>
-                </select>
               </div>
             </div>
 

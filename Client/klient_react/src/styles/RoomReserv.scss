@@ -14,6 +14,8 @@
 
     h2{
         margin-top: 80px;
+        display: inline-flex;
+        margin-left: 25px;
     }
 
     .default{
@@ -269,6 +271,7 @@
             align-items: center;
             flex-flow: column;
             margin-top: 10px;
+            z-index: 99;
 
             span{
                 font-size: 20px;
@@ -492,6 +495,14 @@
                 width: 250px;
                 margin-top: 20px;
             }
+        }
+    }
+}
+
+@media only screen and (min-width: 1000px){
+    .reserv_div{
+        h2{
+            margin-top: 10px;
         }
     }
 }

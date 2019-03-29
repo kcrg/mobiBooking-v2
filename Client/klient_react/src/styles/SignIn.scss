@@ -85,10 +85,10 @@
             opacity: 1;
             position: fixed;
             bottom: 0;
-            left: 290px;
+            left: 0;
             font-size: 20px;
             font-weight: bold;
-            padding: 100px;
+            padding: 30px;
             border-left: solid 10px #e6ac00;
             z-index: 900;
         }
@@ -140,10 +140,11 @@
             input[type="submit"]{
                 display: block;
                 border-radius: 5px;
+                font-size: 20px;
                 background: $mobi-blue;
                 min-width: 120px;
                 color: $primary-color;
-                padding: 8px;
+                padding: 8px 12px 8px 12px;
             }
         }
     }

@@ -11,6 +11,29 @@
         color: $primary-color;
         overflow: auto;
 
+        .addButton{
+            background: $mobi-blue;
+            border: none;
+            padding: 20px;
+            border-radius: 5px;
+            color: $primary-color;
+            margin-bottom: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+            align-self: center;
+        }
+
+        .hide{
+            display: none;
+        }
+
+        .table{
+            background-color: $primary-color;
+            border-radius: 5px;
+            color: #222;
+        }
+
         .test{
 
             .hidden{
@@ -115,15 +138,6 @@
 
         }
 
-        .addUser{
-            margin-top: 80px;
-            background: $mobi-blue;
-            border-radius: 5px;
-            padding: 5px;
-            cursor: pointer;
-            margin-left: 20px;
-        }
-        
         .sort{
             display: flex;
             width: 100%;
@@ -149,6 +163,7 @@
 
         .room_headers{
             margin-left: 20px;
+            margin-right: 20px;
             display: grid;
             grid-template-columns: 100px 200px 200px 130px 200px 300px;
 
@@ -156,9 +171,9 @@
                 margin: 0;
                 display: inline-flex;
                 align-items: center;
-                justify-content: center;
+                justify-content: flex-start;
                 border: 1px solid #fff;
-                padding: 10px;
+                padding: 5px;
                 font-weight: bold;
             }
             .hidden{
@@ -174,6 +189,7 @@
             .btn{
                 background: $mobi-blue;
                 color: $primary-color;
+                font-size: 15px;
                 padding: 8px;
                 border: none;
                 border-radius: 5px;
@@ -190,10 +206,10 @@
                 display: inline-flex;
                 margin: 0;
                 min-height: 60px;
-                border: 1px solid #fff;
+                border-top: 2px solid #222;
                 align-items: center;
-                justify-content: center;
-                padding: 10px;
+                justify-content: flex-start;
+                padding: 5px;
             }
 
             .svg-inline--fa{

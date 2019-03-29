@@ -6,7 +6,8 @@ import * as JWT from 'jwt-decode';
 
  class UserView extends Component {
     state = {
-      visible: null
+      visible: null,
+      visibleButton: 'addUser'
     }
 
     handleClick = () =>{
@@ -20,7 +21,8 @@ import * as JWT from 'jwt-decode';
             let t = JWT(token);
             if(t.role === "User"){
                 this.setState({
-                    visible: 'hidden'
+                    visible: 'hidden',
+                    visibleButton: 'hideMe'
                 })
             }
         }
@@ -29,11 +31,11 @@ import * as JWT from 'jwt-decode';
   render() {
     return (
       <div className="box">
-        <div className="addUser" onClick={this.handleClick}>
+        <h2>Użytkownicy:</h2>
+        <div className={this.state.visibleButton} onClick={this.handleClick}>
             <p>Dodaj użytkownika</p>
         </div>
-        <h3>Lista użytkowników:</h3>
-        <div>
+        <div className="table">
           <div className="headers">
             <p>Imię:</p>
             <p>Nazwisko:</p>

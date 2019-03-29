@@ -65,7 +65,7 @@ class userViewTemp extends Component {
                     <p>{user.name}</p>
                     <p>{user.surname}</p>
                     <p className="email">{user.email}</p>
-                    <p>{user.role}</p>
+                    <p>{user.role === 'User' ? ('Użytkownik') : ('Administrator')}</p>
                     <p>{user.active ? ("Aktywny") : ("Nie aktywny")}</p>
                     <p className={this.state.visible}>
                         <FontAwesomeIcon icon={faUserEdit} title="Edytuj użytkownika" value={user.id} onClick={e =>{this.handleEditClick(user.id)}}></FontAwesomeIcon>
