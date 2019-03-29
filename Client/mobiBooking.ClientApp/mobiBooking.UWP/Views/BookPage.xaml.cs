@@ -19,6 +19,8 @@ namespace mobiBooking.UWP.Views
         private List<GetRoomsModel> roomsList = new List<GetRoomsModel>();
         private List<GetIntervalsModel> intervalsList = new List<GetIntervalsModel>();
         private List<Models.GetUsersModel> usersList = new List<Models.GetUsersModel>();
+
+        private bool IsEditMode;
         public BookPage()
         {
             InitializeComponent();
@@ -32,6 +34,31 @@ namespace mobiBooking.UWP.Views
 
             UsersList.Visibility = Visibility.Visible;
             LoadingScreen.IsLoading = false;
+        }
+
+        protected override async void OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+        {
+            CleanupInput();
+
+            if (e.Parameter != null)
+            {
+                TimeFrom.Time = TimeSpan.FromHours(12);
+                TimeTo.Time = TimeSpan.FromHours(12);
+
+                DateFrom.Date = DateTime.Now;
+                DateTo.Date = DateTime.Now;
+
+                RoomCap.Text = "1";
+
+                await PostRooms();
+
+                BookModel m = JsonConvert.DeserializeObject<BookModel>((string)e.Parameter);
+
+                IsEditMode = true;
+
+                RoomList.SelectedIndex = m.RoomId;
+            }
+            base.OnNavigatedTo(e);
         }
 
         private async Task GetUsers()
@@ -187,6 +214,21 @@ namespace mobiBooking.UWP.Views
             {
                 Intervals.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void CleanupInput()
+        {
+            //username.Text = string.Empty;
+            //password.Password = string.Empty;
+            //passwordconfirm.Password = string.Empty;
+            //name.Text = string.Empty;
+            //surname.Text = string.Empty;
+            //email.Text = string.Empty;
+
+            //IsEditMode = false;
+            //UserID = 0;
+            //activity.Visibility = Visibility.Collapsed;
+            //activity.IsChecked = true;
         }
     }
 }

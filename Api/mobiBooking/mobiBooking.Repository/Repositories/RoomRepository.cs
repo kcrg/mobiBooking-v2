@@ -43,7 +43,7 @@ namespace mobiBooking.Repository.Repositories
 
         public async Task<Room> FindAsync(int roomId)
         {
-            return await DBContext.Rooms.Where(r => r.Id == roomId).FirstOrDefaultAsync();
+            return await DBContext.Rooms.Where(r => r.Id == roomId).Include(r => r.Reservations).FirstOrDefaultAsync();
         }
 
         public Task DeleteAsync(Room room)

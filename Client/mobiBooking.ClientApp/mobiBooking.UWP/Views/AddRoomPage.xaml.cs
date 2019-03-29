@@ -16,9 +16,34 @@ namespace mobiBooking.UWP.Views
     {
         private readonly LocalObjectStorageHelper helper = new LocalObjectStorageHelper();
         private readonly ConnectionModel IP = new ConnectionModel();
+        private bool IsEditMode;
         public AddRoomPage()
         {
             InitializeComponent();
+        }
+
+        protected async override void OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+        {
+            CleanupInput();
+            SubmitButton.Content = "Dodaj użytkownika";
+
+            if (e.Parameter != null)
+            {
+                await GetIntervals();
+
+                GetRoomsModel m = JsonConvert.DeserializeObject<GetRoomsModel>((string)e.Parameter);
+
+                IsEditMode = true;
+
+                SubmitButton.Content = "Edytuj salę";
+
+                roomname.Text = m.RoomName;
+                localization.Text = m.Location;
+                availability.SelectedIndex = m.AvailabilityId;
+                numberofpeople.Text = m.NumberOfPeople.ToString();
+
+            }
+            base.OnNavigatedTo(e);
         }
 
         private async Task GetIntervals()
@@ -32,10 +57,25 @@ namespace mobiBooking.UWP.Views
 
             List<GetIntervalsModel> availabilityList = new List<GetIntervalsModel>();
             availability.ItemsSource = JsonConvert.DeserializeAnonymousType(response.Content, availabilityList);
-            availability.SelectedIndex = 0;
+            if (!IsEditMode)
+            {
+                availability.SelectedIndex = 0;
+            }
         }
 
         private async void Add_Click(object senjder, RoutedEventArgs e)
+        {
+            if (IsEditMode)
+            {
+                await AddUser("Room/update/{id}", Method.PUT);
+            }
+            else
+            {
+                await AddUser("Room/create", Method.POST);
+            }
+        }
+
+        private async Task AddUser(string resource, Method method)
         {
             SubmitButton.IsEnabled = false;
 
@@ -78,7 +118,25 @@ namespace mobiBooking.UWP.Views
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            await GetIntervals();
+            if (!IsEditMode)
+            {
+                await GetIntervals();
+            }       
+        }
+
+        private void CleanupInput()
+        {
+            //username.Text = string.Empty;
+            //password.Password = string.Empty;
+            //passwordconfirm.Password = string.Empty;
+            //name.Text = string.Empty;
+            //surname.Text = string.Empty;
+            //email.Text = string.Empty;
+
+            //IsEditMode = false;
+            //UserID = 0;
+            //activity.Visibility = Visibility.Collapsed;
+            //activity.IsChecked = true;
         }
     }
 }

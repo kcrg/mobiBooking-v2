@@ -18,7 +18,5 @@ namespace mobiBooking.Model.User.Request
         public string Email { get; set; }
         [Required]
         public string UserType { get; set; }
-        [Required]
-        public bool Active { get; set; }
     }
 }

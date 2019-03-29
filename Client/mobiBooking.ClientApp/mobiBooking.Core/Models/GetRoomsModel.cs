@@ -7,8 +7,8 @@ namespace mobiBooking.Core.Models
         [JsonProperty("id")]
         public int Id { get; set; }
 
-        [JsonProperty("name")]
-        public string Name { get; set; }
+        [JsonProperty("roomName")]
+        public string RoomName { get; set; }
 
         [JsonProperty("location")]
         public string Location { get; set; }

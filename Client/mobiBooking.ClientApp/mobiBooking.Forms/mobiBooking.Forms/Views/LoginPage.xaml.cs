@@ -45,29 +45,38 @@ namespace mobiBooking.Forms.Views
                     string jsonik = JWT.Decode(token, secretkey);
 
                     LoginModel DecodedToken = JsonConvert.DeserializeObject<LoginModel>(jsonik);
+                    {
+                        DecodedToken.Token = tokenObj.Token;
+                        DecodedToken.IsLoged = true;
+                    };
+
+                    string jsonToSave = JsonConvert.SerializeObject(DecodedToken);
 
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
-                        //_ = await helper.SaveFileAsync("response", tokenvalidateObj);
+                        Application.Current.Properties["SavedResponse"] = jsonToSave;
+                        await Application.Current.SavePropertiesAsync();
+
                         SubmitButton.IsEnabled = true;
-                        await Navigation.PushAsync(new MainPage());
-                        //_ = new NavigationPage((Page)Activator.CreateInstance(typeof(MainPage)));
+
+                        MainPage mainPage = new MainPage();
+                        await Navigation.PushModalAsync(mainPage);
                     }
                     else
                     {
-                        //_ = await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem.", response.StatusCode.ToString(), CustomDialog.Type.Error).ShowAsync();
+                        _ = await DisplayAlert("Błąd", "Wystąpił błąd podczas komunikacji z serwerem.", null, "Ok");
                         SubmitButton.IsEnabled = true;
                     }
                 }
                 else
                 {
-                    //_ = await new CustomDialog("Konto o podanym loginie/haśle nie istnieje lub brak połączenia z serwerem.", response.StatusCode.ToString(), CustomDialog.Type.Error).ShowAsync();
+                    _ = await DisplayAlert("Błąd", "Konto o podanym loginie/haśle nie istnieje lub brak połączenia z serwerem.", null, "Ok");
                     SubmitButton.IsEnabled = true;
                 }
             }
             else
             {
-                //_ = await new CustomDialog("Wprowadzono błędne dane lub brak połączenia z internetem.", null, CustomDialog.Type.Warning).ShowAsync();
+                _ = await DisplayAlert("Ostrzeżenie", "Wprowadzono błędne dane lub brak połączenia z internetem.", null, "Ok");
                 SubmitButton.IsEnabled = true;
             }
         }

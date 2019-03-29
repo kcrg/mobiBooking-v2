@@ -10,62 +10,91 @@
 
     <Page.Content>
         <Grid Margin="24">
-            <ListView x:Name="UsersList"
+            <ListView x:Name="RoomList"
                 Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}"
                 SelectionMode="None">
                 <ListView.HeaderTemplate>
                     <DataTemplate>
                         <Grid Padding="12" Background="{ThemeResource SystemControlChromeLowAcrylicElementBrush}">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="34"/>
-                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="200"/>
                                 <ColumnDefinition Width="120"/>
                                 <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="220"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Text="ID"/>
+
                             <TextBlock
-                                Grid.Column="1"
+                                Grid.Column="0"
                                 Style="{ThemeResource CaptionTextBlockStyle}"
                                 Text="Nazwa sali"/>
                             <TextBlock
-                                Grid.Column="2"
+                                Grid.Column="1"
                                 Style="{ThemeResource CaptionTextBlockStyle}"
                                 Text="Lokalizacja"/>
                             <TextBlock
-                                Grid.Column="3"
+                                Grid.Column="2"
                                 Style="{ThemeResource CaptionTextBlockStyle}"
                                 Text="Dostępność"/>
                             <TextBlock
-                                Grid.Column="4"
+                                Grid.Column="3"
                                 Style="{ThemeResource CaptionTextBlockStyle}"
                                 Text="Liczba osób"/>
                             <TextBlock
-                                Grid.Column="5"
+                                Grid.Column="4"
                                 Style="{ThemeResource CaptionTextBlockStyle}"
-                                Text="Aktywność"/>
+                                Text="Opcje"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.HeaderTemplate>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Height="48" Margin="0,12,0,0">
+                        <Grid Height="40" Margin="1">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="34"/>
-                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="200"/>
                                 <ColumnDefinition Width="120"/>
                                 <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="220"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Column="0" Text="{Binding Id}"/>
-                            <TextBlock Grid.Column="1" Text="{Binding Name}"/>
-                            <TextBlock Grid.Column="2" Text="{Binding Location}"/>
-                            <TextBlock Grid.Column="3" Text="{Binding Activity}"/>
-                            <TextBlock Grid.Column="4" Text="{Binding NumberOfPeople}"/>
-                            <TextBlock Grid.Column="5" Text="{Binding Availability}"/>
+                            <TextBlock
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Text="{Binding RoomName}"/>
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Text="{Binding Location}"/>
+                            <TextBlock
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                Text="{Binding Availability}"/>
+                            <TextBlock
+                                Grid.Column="3"
+                                VerticalAlignment="Center"
+                                Text="{Binding NumberOfPeople}"/>
+
+                            <StackPanel Grid.Column="4" Orientation="Horizontal">
+                                <AppBarButton
+                                    Click="Delete_Click"
+                                    Icon="Delete"
+                                    IsCompact="True"
+                                    Style="{StaticResource AppBarButtonRevealStyle}"
+                                    ToolTipService.ToolTip="Kliknij aby usunąć"/>
+                                <AppBarButton
+                                    Click="Book_Click"
+                                    Icon="Permissions"
+                                    IsCompact="True"
+                                    Style="{StaticResource AppBarButtonRevealStyle}"
+                                    ToolTipService.ToolTip="Kliknij aby zarezerwować tą salę"/>
+                                <AppBarButton
+                                    Click="Edit_Click"
+                                    Icon="Edit"
+                                    IsCompact="True"
+                                    Style="{StaticResource AppBarButtonRevealStyle}"
+                                    ToolTipService.ToolTip="Kliknij aby edytować"/>
+                            </StackPanel>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>

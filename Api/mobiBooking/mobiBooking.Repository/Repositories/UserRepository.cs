@@ -115,7 +115,6 @@ namespace mobiBooking.Repository.Repositories
         {
             byte[] salt = Helpers.GenerateSalt();
             User user = await DBContext.Users.FindAsync(id);
-            user.Active = userModel.Active;
             user.Email = userModel.Email;
             user.Name = userModel.Name;
             user.Password = Helpers.HashPassword(userModel.Password, salt);

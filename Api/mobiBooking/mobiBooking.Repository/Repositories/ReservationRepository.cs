@@ -79,21 +79,21 @@ namespace mobiBooking.Repository.Repositories
                                    select new MeetingModel
                                    {
                                        RoomName = reservations.Room.Name,
-                                       Time = reservations.DateFrom.ToShortTimeString(),
+                                       Time = reservations.DateFrom.ToString("HH:mm"),
                                        Title = reservations.Title
                                    }).AsEnumerable());
         }
 
         public Task<IEnumerable<LastReservationModel>> GetLastReservations(int userId)
         {
+
             return Task.Run(() => (from reservations in DBContext.Reservations
                                    where reservations.OwnerUserId == userId
-                                   where reservations.DateFrom < DateTime.Now
                                    orderby reservations.DateFrom descending
                                    select new LastReservationModel
                                    {
                                        RoomName = reservations.Room.Name,
-                                       Date = reservations.DateFrom.ToShortDateString() + " " + reservations.DateFrom.ToLongTimeString(),
+                                       Date = reservations.DateFrom.ToString(@"dd.MM.yyyy HH:mm"),//y-M-d h:m:s.fffffff
                                        Title = reservations.Title
                                    }).Take(15).AsEnumerable());
         }

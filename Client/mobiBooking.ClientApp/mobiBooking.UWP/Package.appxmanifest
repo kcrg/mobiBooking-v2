@@ -10,7 +10,7 @@
   <Identity
     Name="89a929eb-d223-4da2-8c47-db40c6e278b5"
     Publisher="CN=Kacpe"
-    Version="1.0.3.0" />
+    Version="1.0.6.0" />
 
   <mp:PhoneIdentity PhoneProductId="89a929eb-d223-4da2-8c47-db40c6e278b5" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

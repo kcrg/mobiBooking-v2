@@ -12,13 +12,18 @@ namespace mobiBooking.Forms.Views
     public partial class AddUsersPage : ContentPage
     {
         private readonly ConnectionModel IP = new ConnectionModel();
+        private LoginModel SavedLoginObj = new LoginModel();
         private bool IsEditMode;
         private int UserID;
 
-        string tokenik = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJyb2xlIjoiQWRtaW5pc3RyYXRvciIsInVzZXJOYW1lIjoiVGVzdCIsIm5hbWUiOiJNaWNoYcWCIiwic3VyZU5hbWUiOiJUZXN0IiwiZW1haWwiOiJtLndAZy5wbCIsIm5iZiI6MTU1MzUyNjMyMiwiZXhwIjoxNTU0MTMxMTIyLCJpYXQiOjE1NTM1MjYzMjJ9.AzVLluTv6JqW8VhvZuSkOMA0mXB1teeHp7nTE48HkLM";
         public AddUsersPage()
         {
             InitializeComponent();
+
+            string SavedLoginJson = Application.Current.Properties["SavedResponse"].ToString();
+            SavedLoginObj = JsonConvert.DeserializeObject<LoginModel>(SavedLoginJson);
+
+            usertype.SelectedIndex = 0;
         }
 
         private void Add_Click(object senjder, EventArgs e)
@@ -33,14 +38,12 @@ namespace mobiBooking.Forms.Views
             }
         }
 
-        private void AddUser(string resource, Method method)
+        private async void AddUser(string resource, Method method)
         {
             SubmitButton.IsEnabled = false;
 
             if (!string.IsNullOrEmpty(username.Text) && !string.IsNullOrEmpty(password.Text) && !string.IsNullOrEmpty(passwordconfirm.Text) && password.Text == passwordconfirm.Text && !string.IsNullOrEmpty(email.Text))
             {
-                //LoginModel SavedResponseObj = await helper.ReadFileAsync<LoginModel>("response");
-
                 AddUserModel userObj = new AddUserModel
                 {
                     UserName = username.Text.Trim(),
@@ -56,7 +59,7 @@ namespace mobiBooking.Forms.Views
                 RestClient client = new RestClient(IP.Adress);
                 RestRequest request = new RestRequest(resource, method);
                 _ = request.AddParameter("application/json", json, ParameterType.RequestBody);
-                _ = request.AddParameter("Authorization", "Bearer " + tokenik, ParameterType.HttpHeader);
+                _ = request.AddParameter("Authorization", "Bearer " + SavedLoginObj.Token, ParameterType.HttpHeader);
                 if (IsEditMode)
                 {
                     _ = request.AddParameter("id", UserID, ParameterType.UrlSegment);
@@ -69,7 +72,7 @@ namespace mobiBooking.Forms.Views
 
                     if (IsEditMode)
                     {
-                        //_ = await new CustomDialog("Użytkownik edytowany poprawnie.", null, CustomDialog.Type.Information).ShowAsync();
+                        _ = await DisplayAlert("Informacja", "Użytkownik edytowany poprawnie.", null, "Ok");
                         CleanupInput();
 
                         //Frame rootFrame = Window.Current.Content as Frame;
@@ -78,19 +81,19 @@ namespace mobiBooking.Forms.Views
                     }
                     else
                     {
-                        //_ = await new CustomDialog("Użytkownik stworzony poprawnie.", null, CustomDialog.Type.Information).ShowAsync();
+                        _ = await DisplayAlert("Informacja", "Użytkownik stworzony poprawnie.", null, "Ok");
                         CleanupInput();
                     }
                 }
                 else
                 {
-                    //_ = await new CustomDialog("Wystąpił błąd podczas komunikacji z serwerem.", response.StatusCode.ToString(), CustomDialog.Type.Error).ShowAsync();
+                    _ = await DisplayAlert("Błąd", "Wystąpił błąd podczas komunikacji z serwerem.", null, "Ok");
                     SubmitButton.IsEnabled = true;
                 }
             }
             else
             {
-                //_ = await new CustomDialog("Wprowadzono błędne dane.", null, CustomDialog.Type.Warning).ShowAsync();
+                _ = await DisplayAlert("Ostrzeżenie", "Wprowadzono błędne dane.", null, "Ok");
                 SubmitButton.IsEnabled = true;
             }
         }

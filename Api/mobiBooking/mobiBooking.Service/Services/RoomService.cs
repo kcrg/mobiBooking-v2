@@ -41,10 +41,11 @@ namespace mobiBooking.Service.Services
         {
             Room room = await _roomRepository.FindAsync(id);
 
-            if (room == null)
+            if (room == null || room.Reservations.Count > 0)
             {
                 return false;
             }
+
 
             await _roomRepository.DeleteAsync(room);
             await _roomRepository.Save();
@@ -81,7 +82,7 @@ namespace mobiBooking.Service.Services
             bool b = await _roomRepository.CheckIfRoomExistsAsync(value.RoomName, id);
             bool c = await _roomRepository.CheckIfAvailabilityExistsAsync(value.AvailabilityId);
 
-            if ( a || b  || !c )
+            if (a || b || !c)
             {
                 return false;
             }

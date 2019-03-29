@@ -53,8 +53,6 @@ namespace mobiBooking.Data
                .WithMany(u => u.Rooms)
                .OnDelete(DeleteBehavior.Restrict);
 
-
-
             CreateTemplateData(modelBuilder);
         }
 
@@ -96,6 +94,13 @@ namespace mobiBooking.Data
                     Name = "8:00 - 16:00",
                     HoursFrom = 8,
                     HoursTo = 16
+                },
+                new RoomAvailability
+                {
+                    Id = 4,
+                    Name = "Niedostępna",
+                    HoursFrom = 0,
+                    HoursTo = 0
                 }
             );
 
