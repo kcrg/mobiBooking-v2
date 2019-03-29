@@ -47,6 +47,7 @@ namespace mobiBooking.Forms.Views
                     LoginModel DecodedToken = JsonConvert.DeserializeObject<LoginModel>(jsonik);
                     {
                         DecodedToken.Token = tokenObj.Token;
+                        DecodedToken.IsLoged = true;
                     };
 
                     string jsonToSave = JsonConvert.SerializeObject(DecodedToken);
@@ -57,8 +58,9 @@ namespace mobiBooking.Forms.Views
                         await Application.Current.SavePropertiesAsync();
 
                         SubmitButton.IsEnabled = true;
-                        new NavigationPage((Page)Activator.CreateInstance(typeof(MainPage)));
-                        await Navigation.PushAsync(new MainPage());
+
+                        MainPage mainPage = new MainPage();
+                        await Navigation.PushModalAsync(mainPage);
                     }
                     else
                     {

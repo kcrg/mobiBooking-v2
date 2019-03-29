@@ -105,13 +105,6 @@ namespace mobiBooking.UWP
                             ContentFrame.Navigate(typeof(UsersPage), null, new DrillInNavigationTransitionInfo());
                         }
                         break;
-
-                    case "settings":
-                        {
-                            PageTitle.Text = "Ustawienia";
-                            ContentFrame.Navigate(typeof(SettingsPage), null, new DrillInNavigationTransitionInfo());
-                        }
-                        break;
                 }
             }
         }

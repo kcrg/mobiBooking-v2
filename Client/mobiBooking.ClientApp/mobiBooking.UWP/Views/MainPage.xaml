@@ -68,10 +68,6 @@
                             Content="Wyloguj"
                             Icon="Cancel"
                             Tapped="LogOut_Click"/>
-                        <muxc:NavigationViewItem
-                            Content="Ustawienia"
-                            Icon="Setting"
-                            Tag="settings"/>
                     </StackPanel>
                 </muxc:NavigationView.PaneFooter>
 

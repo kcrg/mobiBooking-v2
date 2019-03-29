@@ -6,14 +6,12 @@
     xmlns:local="clr-namespace:mobiBooking.Forms.Models"
     xmlns:views="clr-namespace:mobiBooking.Forms.Views"
     Title="menu">
-    <StackLayout>
-        <Frame BackgroundColor="#8d1be5" CornerRadius="0">
-            <Image Source="mobitouch.png"/>
-        </Frame>
+    <Grid>
         <ListView x:Name="listView"
             x:FieldModifier="public"
             HasUnevenRows="True"
-            SeparatorVisibility="None">
+            SeparatorVisibility="None"
+            VerticalOptions="FillAndExpand">
             <ListView.ItemsSource>
                 <x:Array Type="{x:Type local:MasterPageItem}">
                     <local:MasterPageItem Title="Dashboard" TargetType="{x:Type views:DashboardPage}"/>
@@ -36,6 +34,33 @@
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <ListView.Header>
+                <Frame BackgroundColor="White" CornerRadius="0">
+                    <Image Source="mobitouch.png"/>
+                </Frame>
+            </ListView.Header>
+            <ListView.Footer>
+                <StackLayout Margin="16,8,16,8" Spacing="16">
+                    <Frame
+                        Padding="12"
+                        BackgroundColor="#00b7ce"
+                        CornerRadius="0">
+
+                        <StackLayout Orientation="Horizontal" Spacing="5">
+                            <Image HeightRequest="25" Source="personIcon.png"/>
+                            <Label x:Name="UserNameText"
+                                TextColor="White"
+                                VerticalTextAlignment="Center"/>
+                        </StackLayout>
+                    </Frame>
+                    <Button
+                        BackgroundColor="#00b7ce"
+                        Clicked="LogOut_Clicked"
+                        CornerRadius="0"
+                        Text="Wyloguj"
+                        TextColor="White"/>
+                </StackLayout>
+            </ListView.Footer>
         </ListView>
-    </StackLayout>
+    </Grid>
 </ContentPage>

@@ -2,17 +2,20 @@
 <ContentPage
     x:Class="mobiBooking.Forms.Views.AddRoomPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Dodaj salę">
     <ContentPage.Content>
         <StackLayout Padding="12" Spacing="12">
             <Editor x:Name="roomname" Placeholder="Nazwa sali"/>
 
             <Editor x:Name="localization" Placeholder="Lokalizacja"/>
 
-            <Picker x:Name="availability" HorizontalOptions="FillAndExpand"/>
+            <Picker x:Name="availability"
+                Title="Dostępność"
+                HorizontalOptions="FillAndExpand"
+                ItemDisplayBinding="{Binding Name}"/>
 
-            <Editor x:Name="numberofpeople"
-                Placeholder="Liczba osób"/>
+            <Editor x:Name="numberofpeople" Placeholder="Liczba osób"/>
 
             <Button x:Name="SubmitButton"
                 Clicked="Add_Click"

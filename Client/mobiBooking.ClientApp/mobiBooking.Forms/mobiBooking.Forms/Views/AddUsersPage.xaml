@@ -2,7 +2,8 @@
 <ContentPage
     x:Class="mobiBooking.Forms.Views.AddUsersPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Dodaj użytkownika">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Padding="12" Spacing="12">
@@ -20,7 +21,16 @@
 
                 <Editor x:Name="surname" Placeholder="Nazwisko"/>
 
-                <Picker x:Name="usertype" HorizontalOptions="FillAndExpand"/>
+                <Picker x:Name="usertype"
+                    Title="Uprawnienia"
+                    HorizontalOptions="FillAndExpand">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>User</x:String>
+                            <x:String>Administrator</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
 
                 <Grid>
                     <StackLayout Orientation="Horizontal">
