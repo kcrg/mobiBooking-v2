@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 const editRoom = (id, ip) =>{
     return(dispatch) =>{
         axios.get( ip + '/api/Room/get/' + id)
