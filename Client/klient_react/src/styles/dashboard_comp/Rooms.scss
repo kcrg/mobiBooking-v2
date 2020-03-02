@@ -1,0 +1,41 @@
+@import '../../index.scss';
+
+.rooms{
+    display: flex;
+    flex-direction: column;
+    background: $primary-color;
+    border-radius: 5px;
+    color: #222;
+    padding: 10px 10px 20px 10px;
+
+    h5{
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    h3{
+        margin: 0;
+    }
+
+    span{
+        font-size: 22px;
+        color: $mobi-blue;
+        font-weight: bold;
+    }
+
+}
+
+@media only screen and (min-width: 768px){
+    .grid_rooms{
+        display: grid;
+        align-content: center;
+        grid-template-columns: 1fr 1fr;
+        height: 100%;
+    }
+}
+
+@media only screen and (min-width: 1400px){
+    .rooms{
+        margin-bottom: 30px;
+    }
+}

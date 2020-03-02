@@ -4,4 +4,14 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\mobiBooking.Data\mobiBooking.Data.csproj" />
+    <ProjectReference Include="..\mobiBooking.Model\mobiBooking.Model.csproj" />
+  </ItemGroup>
+
 </Project>

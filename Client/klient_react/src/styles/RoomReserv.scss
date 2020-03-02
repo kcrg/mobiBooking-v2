@@ -1,0 +1,508 @@
+@import '../index.scss';
+
+.reserv_div{
+    display: flex;
+    flex-direction: column;
+    background: $mobi-purple;
+    width: 100%;
+    min-height: 900px;
+    height: auto;
+    overflow: auto;
+    text-align: center;
+    color: $primary-color;
+    overflow: auto;
+
+    h2{
+        margin-top: 80px;
+        display: inline-flex;
+        margin-left: 25px;
+    }
+
+    .default{
+        display: none;
+        margin-top: 20px;
+        padding: 20px;
+        font-weight: bold;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .star{
+        color: red;
+    }
+
+    .warning{
+        text-align: center;
+        width: 100%;
+        color: #e6ac00;
+        background: #ffff99;
+        transition: opacity 0.1s;
+        opacity: 1;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 10px;
+        border-left: solid 10px #e6ac00;
+        z-index: 900;
+    }
+
+    .wrong{
+        text-align: center;
+        width: 100%;
+        color: #b30000;
+        background: #ff9999;
+        transition: opacity 0.1s;
+        opacity: 1;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        font-size: 20px;
+        padding: 10px;
+        font-weight: bold;
+        border-left: solid 10px #b30000;
+        z-index: 900;
+    }
+
+    .done{
+        text-align: center;
+        width: 100%;
+        color: #00b300;
+        background: #66ff66;
+        transition: opacity 0.1s;
+        opacity: 1;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        font-size: 20px;
+        padding: 10px;
+        font-weight: bold;
+        border-left: solid 10px #00b300;
+        z-index: 900;
+    }
+
+    .time{
+        background: $mobi-blue;
+    }
+
+    .times{
+        text-align: center;
+        width: 100%;
+        color: #ff0066;
+        background: #ff66a3;
+        transition: opacity 0.1s;
+        opacity: 1;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        font-size: 20px;
+        padding: 10px;
+        font-weight: bold;
+        border-left: solid 10px #ff0066;
+        z-index: 900;
+    }
+
+    ::placeholder{
+        font-size: 14px;
+        padding-left: 8px;
+    }
+
+    .calendar_label{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin-bottom: 10px;
+
+        label{
+            display: inline-block;
+            width: 220px;
+            text-align: left;
+            font-size: 20px;
+            align-self: center;
+        }
+
+        input{
+            width: 220px;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+    }
+
+    .room_size_label{
+        display: flex;
+        flex-direction: column;
+
+        .room_size{
+            label{
+                display: inline-block;
+                width: 220px;
+                text-align: left;
+                font-size: 20px;
+                align-self: center;
+            }
+        }
+
+        .room_number{
+            input{
+                border-radius: 5px;
+                font-size: 18px;
+                width: 220px;
+            }
+        }
+    }
+
+
+    .select_room{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+        margin-top: 10px;
+
+        .select_label{
+            label{
+                display: inline-block;
+                font-size: 20px;
+                min-width: 220px;
+                text-align: left;
+                align-self: center;
+                font-size: 20px;
+            }
+        }
+
+        .select_list{
+            select{
+                border-radius: 5px;
+                font-size: 18px;
+                width: 220px;
+            }
+        }
+
+    }
+
+    .meeting_title{
+        display: flex;
+        flex-direction: column;
+
+        label{
+            display: inline-block;
+            font-size: 20px;
+            min-width: 220px;
+            text-align: left;
+            align-self: center;
+        }
+
+        input{
+            width: 220px;
+            font-size: 18px;
+            border-radius: 5px;
+            align-self: center;
+        }
+    }
+
+    .status{
+        display: flex;
+        flex-direction: column;
+        margin-top: 15px;
+
+        label{
+            display: inline-block;
+            min-width: 220px;
+            text-align: left;
+            align-self: center;
+            font-size: 20px;
+        }
+
+        select{
+            min-width: 220px;
+            align-self: center;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+    }
+
+    .cyclic{
+        display: flex;
+        margin-top: 20px;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+
+        label{
+            font-size: 20px;
+        }
+
+        input[type="checkbox"]{
+            margin: 0 0 0 10px;
+            align-self: center;
+            position: relative;
+            top: 3px;
+        }
+    }
+
+    .none{
+        opacity: 0;
+        select{
+            min-width: 220px;
+            margin-top: 15px;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+    }
+
+    .isVisible{
+        opacity: 1;
+        select{
+            min-width: 220px;
+            margin-top: 15px;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+    }
+
+    .users_div{
+        margin-top: 20px;
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+
+        .users_mess{
+            display: flex;
+            align-items: center;
+            flex-flow: column;
+            margin-top: 10px;
+            z-index: 99;
+
+            span{
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+
+        .users{
+            background: $primary-color;
+            color: #222;
+            min-width: 250px;
+            align-self: center;
+            height: 200px;
+            overflow: auto;
+            border-radius: 5px;
+            cursor: pointer;
+
+            .origin{
+                border-bottom: 0.2px solid #222;
+                min-height: 30px;
+                max-width: 250px;
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .focused{
+                border-bottom: 0.2px solid #222;
+                min-height: 30px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: $mobi-blue;
+                color: #fff;
+                font-weight: bold;
+            }
+        }
+    }
+
+        .arrows{
+            font-size: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform: rotate(90deg);
+
+            .svg-inline--fa{
+               margin: 8px;
+               cursor: pointer;
+            }
+
+            .svg-inline--fa:hover{
+                color: $mobi-blue;
+            }
+        }
+    }
+
+    .reserv_submit{
+        display: flex;
+        margin-top: 40px;
+        justify-content: center;
+
+        input[type="submit"]{
+            min-width: 180px;
+            font-size: 19px;
+            border-radius: 5px;
+            background: $mobi-blue;
+            color: $primary-color;
+            padding: 4px;
+            z-index: 900;
+            margin-bottom: 20px;
+        }
+    }
+}
+
+@media only screen and (min-width: 720px){
+    .reserv_div{
+        .calendar_label{
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            grid-gap: 20px;
+
+            .label{
+                label{
+                    width: 100%;
+                    text-align: right;
+                }
+            }
+
+            .calendar_input{
+                text-align: left;
+                input{
+                    display: inline-block;
+                }
+            }
+
+            .label_to{
+                label{
+                    width: 100%;
+                    text-align: right;
+                }
+            }
+
+            .calendar_input_to{
+                text-align: left;
+
+                input{
+                    display: inline-block;
+                }
+            }
+        }
+
+        .room_size_label{
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            grid-gap: 20px;
+
+            .room_size{
+                text-align: right;
+                label{
+                    display: inline-block;
+                    text-align: right;
+                    padding-right: 14px;
+                }
+            }
+
+            .room_number{
+                text-align: left;
+                .input{
+                    display: inline-block;
+                }
+            }
+        }
+
+        .select_room{
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            grid-gap: 20px;
+            margin-top: 10px;
+            margin-bottom: 8px;
+
+            .select_label{
+                display: inline-block;
+                label{
+                    width: 100%;
+                    text-align: right;
+                    padding-right: 14px;
+               }
+            }
+
+            .select_list{
+                text-align: left;
+            }
+        }
+
+        .meeting_title{
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            grid-gap: 20px;
+
+            .meeting_label{
+                display: inline-block;
+                
+                label{
+                    text-align: right;
+                    width: 100%;
+                }
+            }
+
+            .meeting_input{
+                text-align: left;
+            }
+        }
+
+        .status{
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            grid-gap: 20px;
+
+            .status_label{
+                display: inline-block;
+                
+                label{
+                    text-align: right;
+                    width: 100%;
+                    padding-right: 14px;
+                }
+            }
+
+            .status_select{
+               text-align: left;
+            }
+        }
+
+        .users_div{
+            display: inline-grid;
+            grid-template-columns: 2fr 1fr 2fr;
+            grid-gap: 20px;
+            text-align: right;
+
+            .arrows{
+                all: initial;
+                color: #fff;
+                font-size: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .svg-inline--fa{
+                    margin: 60px 8px 8px 8px;
+                }
+            }
+
+            .users{
+                min-width: 250px;
+            }
+        }
+
+        .reserv_submit{
+            input[type="submit"]{
+                width: 250px;
+                margin-top: 20px;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1000px){
+    .reserv_div{
+        h2{
+            margin-top: 10px;
+        }
+    }
+}

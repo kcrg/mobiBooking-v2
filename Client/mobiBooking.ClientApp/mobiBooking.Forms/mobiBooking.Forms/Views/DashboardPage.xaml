@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="mobiBooking.Forms.Views.DashboardPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Dashboard">
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="12,0,12,0" Spacing="12">
+                <Frame
+                    Margin="0,12,0,0"
+                    Padding="12"
+                    CornerRadius="0"
+                    HeightRequest="170"
+                    HorizontalOptions="FillAndExpand">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label
+                            Grid.Row="0"
+                            Grid.ColumnSpan="2"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="Moje spotkania"/>
+
+                        <StackLayout Grid.Row="1" Grid.Column="0">
+                            <Label Text="ten tydzień"/>
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                Text="0.00h"
+                                TextColor="#8d1be5"/>
+
+                            <Label Text="poprzedni tydzień"/>
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                Text="0.00h"
+                                TextColor="#8d1be5"/>
+                        </StackLayout>
+
+                        <StackLayout Grid.Row="1" Grid.Column="1">
+                            <Label Text="ten miesiąc"/>
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                Text="0.00h"
+                                TextColor="#8d1be5"/>
+
+                            <Label Text="poprzedni miesiąc"/>
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                Text="0.00h"
+                                TextColor="#8d1be5"/>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+
+                <Frame
+                    Padding="12"
+                    CornerRadius="0"
+                    HeightRequest="170"
+                    HorizontalOptions="FillAndExpand">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="Spotkania na dziś"/>
+
+                        <Label Grid.Row="1" Text="W dniu dzisiejszym nie masz spotkań"/>
+                    </Grid>
+                </Frame>
+
+                <Button
+                    BackgroundColor="#8d1be5"
+                    Clicked="OpenBookingRoomPage_Click"
+                    FontSize="22"
+                    HeightRequest="170"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Zarezerwuj salę"
+                    TextColor="White"/>
+
+                <Frame
+                    Padding="12"
+                    CornerRadius="0"
+                    HeightRequest="170"
+                    HorizontalOptions="FillAndExpand">
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label
+                            Grid.Row="0"
+                            Grid.ColumnSpan="2"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="Sale"/>
+
+                        <StackLayout Grid.Row="1" Grid.Column="0">
+                            <Label Text="Aktualnie wolne"/>
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                Text="3"
+                                TextColor="#8d1be5"/>
+
+                        </StackLayout>
+
+                        <StackLayout Grid.Row="1" Grid.Column="1">
+                            <Label Text="Aktualnie zajęte"/>
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                Text="0"
+                                TextColor="#8d1be5"/>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+
+                <Frame
+                    Padding="12"
+                    CornerRadius="0"
+                    HeightRequest="170"
+                    HorizontalOptions="FillAndExpand">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="Ostatnio rezerwowałeś/aś"/>
+                        <Label Grid.Row="1" Text="Jeszcze nie rezerwowałeś/aś"/>
+                    </Grid>
+                </Frame>
+
+                <Frame
+                    Margin="0,0,0,12"
+                    Padding="12"
+                    CornerRadius="0"
+                    HeightRequest="170"
+                    HorizontalOptions="FillAndExpand">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label
+                            Grid.Row="0"
+                            Grid.ColumnSpan="2"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="Statystyki rezerwacji"/>
+
+                        <StackLayout Grid.Row="1" Grid.Column="0">
+                            <Label Text="ten tydzień"/>
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                Text="0"
+                                TextColor="#8d1be5"/>
+
+                            <Label Text="poprzedni tydzień"/>
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                Text="0"
+                                TextColor="#8d1be5"/>
+                        </StackLayout>
+
+                        <StackLayout Grid.Row="1" Grid.Column="1">
+                            <Label Text="ten miesiąc"/>
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                Text="0"
+                                TextColor="#8d1be5"/>
+
+                            <Label Text="poprzedni miesiąc"/>
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                Text="0"
+                                TextColor="#8d1be5"/>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

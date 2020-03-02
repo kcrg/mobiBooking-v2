@@ -1,0 +1,303 @@
+@import '../index.scss';
+
+.add_room{
+    display: flex;
+    width: 100%;
+    height: auto;
+    min-height: 1000px;
+    background: $mobi-purple;
+    flex-direction: column;
+    align-items: center;
+    color: $primary-color;
+
+    .roomList{
+        background: $mobi-blue;
+        border: none;
+        border-radius: 5px;
+        width: 200px;
+        padding: 15px;
+        color: $primary-color;
+        margin-bottom: 30px;
+        font-weight: bold;
+        font-size: 18px;
+        align-self: flex-start;
+        margin-left: 25px;
+        cursor: pointer;
+    }
+
+    h2{
+        margin-top: 80px;
+        display: inline-flex;
+        width: 100%;
+        margin-left: 50px;
+    }
+
+    .add_room_form{
+        overflow: auto;
+
+        select{
+            min-width: 230px;
+            border-radius: 5px;
+            align-self: center;
+            font-size: 18px;
+        }
+
+        ::-webkit-input-placeholder{
+            font-size: 15px;
+            padding-left: 4px;
+        }
+
+        .room_label{
+            display: flex;
+            flex-direction: column;
+
+            label{
+                font-size: 20px;
+                align-self: center;
+                min-width: 230px;
+                margin-top: 8px;
+            }
+
+            
+            input{
+                font-size: 18px;
+                width: 230px;
+                align-self: center;
+                border-radius: 5px;
+            }
+
+        }
+
+        .location{
+            display: flex;
+            flex-direction: column;
+
+            label{
+                font-size: 20px;
+                align-self: center;
+                min-width: 230px;
+                margin-top: 8px;
+            }
+
+            
+            input{
+                font-size: 18px;
+                width: 230px;
+                align-self: center;
+                border-radius: 5px;
+            }
+        }
+
+        .number_of_people{
+            display: flex;
+            flex-direction: column;
+
+            label{
+                font-size: 20px;
+                align-self: center;
+                min-width: 230px;
+                margin-top: 8px;
+            }
+
+            
+            input{
+                font-size: 18px;
+                width: 230px;
+                align-self: center;
+                border-radius: 5px;
+            }
+        }
+
+        .availability{
+            display: flex;
+            flex-direction: column;
+
+            label{
+                font-size: 20px;
+                align-self: center;
+                min-width: 230px;
+                margin-top: 8px;
+            }
+        }
+
+        .add_room_submit{
+            display: flex;
+            margin-top: 10px;
+            justify-content: center;
+
+            input[type="submit"]{
+                min-width: 200px;
+                font-size: 20px;
+                background: $mobi-blue;
+                color: $primary-color;
+                padding: 4px;
+                margin-top: 20px;
+                border-radius: 5px;
+            }
+        }
+
+        .default{
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            font-weight: bold;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .warning{
+            text-align: center;
+            width: 100%;
+            color: #e6ac00;
+            background: #ffff99;
+            transition: opacity 0.1s;
+            opacity: 1;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 10px;
+            border-left: solid 10px #e6ac00;
+            z-index: 900;
+        }
+
+        .errors{
+            text-align: center;
+            width: 100%;
+            color: #b30000;
+            background: #ff9999;
+            transition: opacity 0.1s;
+            opacity: 1;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            font-size: 20px;
+            padding: 10px;
+            font-weight: bold;
+            border-left: solid 10px #b30000;
+            z-index: 900;
+        }
+
+        .done{
+            text-align: center;
+            width: 100%;
+            color: #00b300;
+            background: #66ff66;
+            transition: opacity 0.1s;
+            opacity: 1;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            font-size: 20px;
+            padding: 10px;
+            font-weight: bold;
+            border-left: solid 10px #00b300;
+            z-index: 900;
+        }
+        
+    }
+}
+
+@media only screen and (min-width: 700px){
+    .add_room{
+        .add_room_form{
+            .room_label{
+                display: grid;
+                grid-template-columns: 0.5fr 1fr;
+                grid-gap: 20px;
+
+                .room{
+                    text-align: right;
+                    padding-bottom: 20px;
+                    label{
+                        align-self: center;
+                    }
+                }
+
+                .room_input{
+                    text-align: left;
+                    input{
+                        display: inline-block;
+                        width: 320px;
+                    }
+                }
+            }
+
+            .location{
+                display: grid;
+                grid-template-columns: 0.5fr 1fr;
+                grid-gap: 20px;
+
+                .location_label{
+                    text-align: right;
+                    padding-bottom: 20px;
+                    label{
+                        align-self: center;
+                    }
+                }
+
+                .location_input{
+                    text-align: left;
+                    input{
+                        display: inline-block;
+                        width: 320px;
+                    }
+                }
+            }
+
+            .number_of_people{
+                display: grid;
+                grid-template-columns: 0.5fr 1fr;
+                grid-gap: 20px;
+
+                .number_label{
+                    text-align: right;
+                    padding-bottom: 20px;
+                    label{
+                        align-self: center;
+                    }
+                }
+
+                .number_input{
+                    text-align: left;
+                    input{
+                        display: inline-block;
+                        width: 320px;
+                    }
+                }
+            }
+
+            .availability{
+                display: grid;
+                grid-template-columns: 0.5fr 1fr;
+                grid-gap: 20px;
+
+                .ava_label{
+                    text-align: right;
+                    padding-bottom: 20px;
+                    label{
+                        align-self: center;
+                    }
+                }
+
+                .ava_select{
+                    text-align: left;
+                    select{
+                        display: inline-block;
+                        width: 320px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1000px){
+
+    .add_room{
+        h2{
+            margin-top: 10px;
+        }
+    }
+}

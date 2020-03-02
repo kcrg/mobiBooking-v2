@@ -1,0 +1,68 @@
+@import '../../index.scss';
+
+.today_meetings{
+    background: $primary-color;
+    overflow: auto;
+    color: #222;
+    padding: 10px 10px 20px 10px;
+    border-radius: 5px;
+
+    .svg-inline--fa{
+        font-size: 60px;
+        opacity: 0.4;
+        margin-top: 40px;
+    }
+
+    .time{
+        font-size: 18px;
+
+        div{
+            min-height: 60px;
+        }
+
+        .meeting{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .room{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hour{
+            color: $mobi-blue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+    }
+}
+
+@media only screen and (min-width: 700px){
+    .mapped_today{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media only screen and (min-width: 768px){
+    .mapped_today{
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
+
+@media only screen and (min-width: 1200px){
+    .mapped_today{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+
+
+

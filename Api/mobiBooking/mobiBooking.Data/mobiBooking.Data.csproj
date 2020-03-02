@@ -1,12 +1,56 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190314115348_A.cs" />
+    <Compile Remove="Migrations\20190314115348_A.Designer.cs" />
+    <Compile Remove="Migrations\20190315081605_A.cs" />
+    <Compile Remove="Migrations\20190315081605_A.Designer.cs" />
+    <Compile Remove="Migrations\20190315091432_A.cs" />
+    <Compile Remove="Migrations\20190315091432_A.Designer.cs" />
+    <Compile Remove="Migrations\20190315093632_A.cs" />
+    <Compile Remove="Migrations\20190315093632_A.Designer.cs" />
+    <Compile Remove="Migrations\20190315100545_A.cs" />
+    <Compile Remove="Migrations\20190315100545_A.Designer.cs" />
+    <Compile Remove="Migrations\20190315105556_A.cs" />
+    <Compile Remove="Migrations\20190315105556_A.Designer.cs" />
+    <Compile Remove="Migrations\20190318081353_A.cs" />
+    <Compile Remove="Migrations\20190318081353_A.Designer.cs" />
+    <Compile Remove="Migrations\20190318093653_A.cs" />
+    <Compile Remove="Migrations\20190318093653_A.Designer.cs" />
+    <Compile Remove="Migrations\20190318094013_A.cs" />
+    <Compile Remove="Migrations\20190318094013_A.Designer.cs" />
+    <Compile Remove="Migrations\20190318110955_A.cs" />
+    <Compile Remove="Migrations\20190318110955_A.Designer.cs" />
+    <Compile Remove="Migrations\20190318111711_A.cs" />
+    <Compile Remove="Migrations\20190318111711_A.Designer.cs" />
+    <Compile Remove="Migrations\20190321091320_A.cs" />
+    <Compile Remove="Migrations\20190321091320_A.Designer.cs" />
+    <Compile Remove="Migrations\20190322104912_A.cs" />
+    <Compile Remove="Migrations\20190322104912_A.Designer.cs" />
+    <Compile Remove="Migrations\20190322105532_A.cs" />
+    <Compile Remove="Migrations\20190322105532_A.Designer.cs" />
+    <Compile Remove="Migrations\20190328084324_A.cs" />
+    <Compile Remove="Migrations\20190328084324_A.Designer.cs" />
+    <Compile Remove="Migrations\20190328084615_A.cs" />
+    <Compile Remove="Migrations\20190328084615_A.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.1.1" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
+    <PackageReference Include="TimePeriodCore" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\mobiBooking.Component\mobiBooking.Component.csproj" />
   </ItemGroup>
 
 </Project>

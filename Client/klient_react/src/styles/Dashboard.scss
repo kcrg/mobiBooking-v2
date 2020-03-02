@@ -1,0 +1,41 @@
+@import '../index.scss';
+
+.dashboard-content{
+    background: $mobi-purple;
+    width: 100%;
+    min-height: 800px;
+    height: auto;
+    color: $primary-color;
+    text-align: center;
+
+    h2{
+        margin-top: 80px;
+        display: inline-flex;
+        width: 100%;
+        margin-left: 40px;
+    }
+
+    .boxes {
+        margin: 0 auto;
+        display: grid;
+        padding: 0 40px;
+        grid-template-columns: auto;
+        grid-gap: 30px;
+    }
+}
+
+@media only screen and (min-width: 768px){
+    .dashboard-content{
+        .boxes{
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+}
+
+@media only screen and (min-width: 1400px){
+    .dashboard-content{
+        .boxes{
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+}

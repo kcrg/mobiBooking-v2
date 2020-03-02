@@ -1,0 +1,43 @@
+@import '../../index.scss';
+
+.last_reserv{
+    display: flex;
+    flex-direction: column;
+    background: $primary-color;
+    min-height: 200px;
+    overflow: auto;
+    color: #222;
+    padding: 10px 10px 20px 10px;
+    border-radius: 5px;
+    h3{
+        margin: 0;
+    }
+
+    .reserv_time{
+        display: grid;
+        grid-gap: 10px;
+        font-size: 16px;
+        margin-top: 8px;
+        grid-template-columns: auto;
+        min-height: 90%;
+        align-items: center;
+        justify-content: center;
+
+        .hour{
+            color: $mobi-blue;
+            font-weight: bold;
+        }
+    }
+}
+
+@media only screen and (min-width: 768px){
+    .last_reserv{
+        margin-bottom: 30px;
+    }
+}
+
+@media only screen and (min-width: 700px){
+    .reserv_time{
+        grid-template-columns: repeat(2, 1fr)
+    }
+}

@@ -1,23 +1,26 @@
-﻿using System;
+﻿using mobiBooking.Component.Enums;
+using System;
 using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace mobiBooking.Data.Model
 {
     public class Reservation
     {
         public int Id { get; set; }
-        public Room Room { get; set; }
-        public User User { get; set; }
+        public int RoomId { get; set; }
+        public int? OwnerUserId { get; set; }
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
-        public string  Title { get; set; }
-        public UserStatus Status { get; set; }
-    }
+        public ReservationStatus Status { get; set; }
+        [Required]
+        public string Title { get; set; }
+        public bool CyclicReservation { get; set; }
+        public int? ReservationIntervalId { get; set; }
 
-    public enum UserStatus
-    {
-        Active, 
-        Inactive
+        public virtual Room Room { get; set; }
+        public virtual ReservationInterval ReservationInterval { get; set; }
+        public virtual User OwnerUser { get; set; }
+        public virtual ICollection<UserToReservation> InvitedUsers { get; set; }
     }
 }
